@@ -1,0 +1,65 @@
+{
+  "slug": "calcolatore-stipendio-netto",
+  "cluster": "calcolatori",
+  "tema": "lavoro",
+
+  "seo": {
+    "title": "Calcolatore Stipendio Netto 2026 – da Lordo a Netto",
+    "metaDescription": "Calcola il tuo stipendio netto mensile e annuo partendo dalla RAL. Aliquote IRPEF aggiornate. Gratuito, immediato, nessuna registrazione.",
+    "primaryKeyword": "calcolatore stipendio netto",
+    "canonical": "/calcolatori/calcolatore-stipendio-netto/"
+  },
+
+  "intro": "Inserisci la tua RAL (Retribuzione Annua Lorda) per scoprire in tempo reale quanto stipendio netto ricevi ogni mese. Il calcolo tiene conto di scaglioni IRPEF, contributi INPS a carico del dipendente, numero di mensilità e detrazioni per figli a carico. Il risultato è una stima indicativa: il valore esatto in busta paga può variare in base a CCNL, addizionali regionali/comunali specifiche e altre voci individuali.",
+
+  "tool": {
+    "logicId": "stipendio-netto-v1",
+    "inputs": [
+      { "id": "ral", "label": "RAL annua (€)", "type": "number", "min": 0, "step": 500, "default": 30000 },
+      { "id": "mensilita", "label": "Numero di mensilità", "type": "select", "options": [12, 13, 14], "default": 13 },
+      { "id": "figliACarico", "label": "Figli a carico", "type": "number", "min": 0, "max": 10, "default": 0 }
+    ],
+    "outputPrimary": { "id": "nettoMensile", "label": "Netto mensile stimato", "format": "currency" },
+    "outputSecondary": [
+      { "id": "nettoAnnuo", "label": "Netto annuo", "format": "currency" },
+      { "id": "contributiInps", "label": "Contributi INPS (9,19%)", "format": "currency" },
+      { "id": "irpefTotale", "label": "IRPEF netta versata", "format": "currency" },
+      { "id": "aliquotaEffettiva", "label": "Aliquota effettiva", "format": "percent" }
+    ]
+  },
+
+  "spiegazione": {
+    "titolo": "Come si calcola lo stipendio netto dalla RAL",
+    "corpo": "Il percorso dal lordo al netto segue quattro passaggi. Primo: dalla RAL si sottraggono i contributi INPS a carico del lavoratore, pari al 9,19% per la maggior parte dei dipendenti privati, ottenendo il reddito imponibile IRPEF. Secondo: su questo imponibile si applicano le tre aliquote IRPEF a scaglioni (23% fino a 28.000€, 35% da 28.000€ a 50.000€, 43% oltre 50.000€), calcolando l'imposta scaglione per scaglione, non sul totale. Terzo: dall'IRPEF lorda si sottraggono le detrazioni per lavoro dipendente (decrescenti al crescere del reddito) e le eventuali detrazioni per figli a carico. Quarto: il netto annuo che ne risulta viene diviso per il numero di mensilità (12, 13 o 14) per ottenere il netto mensile. Il calcolatore applica una formula semplificata delle detrazioni: per una stima puntuale legata al proprio CCNL è sempre utile confrontare il risultato con la busta paga reale."
+  },
+
+  "esempi": [
+    { "titolo": "RAL 30.000€, 13 mensilità, nessun figlio a carico", "risultatoAtteso": "≈ 1.750€/mese netti" },
+    { "titolo": "RAL 45.000€, 14 mensilità, 1 figlio a carico", "risultatoAtteso": "≈ 2.380€/mese netti" },
+    { "titolo": "RAL 22.000€, 12 mensilità, nessun figlio", "risultatoAtteso": "≈ 1.480€/mese netti" }
+  ],
+
+  "faq": [
+    { "domanda": "Come si calcola lo stipendio netto partendo da 30.000 euro lordi?", "risposta": "Si sottraggono prima i contributi INPS (9,19%), poi si applica l'IRPEF a scaglioni sull'imponibile residuo, infine si sottraggono le detrazioni da lavoro dipendente. Il risultato annuo si divide per le mensilità contrattuali." },
+    { "domanda": "Qual è la differenza tra 13 e 14 mensilità sul netto mensile?", "risposta": "A parità di RAL, con 14 mensilità il netto mensile è più basso perché lo stesso importo annuo viene distribuito su più rate; le due mensilità extra (tredicesima e quattordicesima) arrivano comunque durante l'anno." },
+    { "domanda": "I figli a carico aumentano lo stipendio netto?", "risposta": "Sì, le detrazioni per figli a carico riducono l'IRPEF dovuta e quindi aumentano il netto, in misura decrescente al crescere del reddito familiare." },
+    { "domanda": "Il calcolo tiene conto delle addizionali regionali e comunali?", "risposta": "Il calcolatore fornisce una stima nazionale semplificata; addizionali regionali e comunali variano da comune a comune e possono modificare il risultato di alcune decine di euro l'anno." }
+  ],
+
+  "relatedTools": [
+    "calcolatore-irpef",
+    "calcolatore-tfr",
+    "calcolatore-tredicesima",
+    "calcolatore-partita-iva-forfettario"
+  ],
+
+  "guida": {
+    "titolo": "Guida completa alla busta paga italiana",
+    "corpo": "Sezione guida opzionale, collegata da /guide/busta-paga-italiana/, con approfondimento su voci di busta paga, CCNL e contribuzione."
+  },
+
+  "jsonLd": {
+    "type": "SoftwareApplication",
+    "applicationCategory": "FinanceApplication"
+  }
+}

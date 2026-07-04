@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- BLOCCO 1 — SEO: title/meta vengono compilati a build time dal config -->
+<title data-bind-head="title"><!-- config.seo.title --></title>
+<meta name="description" data-bind-head="description" content="">
+<link rel="canonical" data-bind-head="canonical" href="">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/tokens.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href="/">utility<span>.it</span></a>
+    <div class="breadcrumb" data-bind="breadcrumb"></div>
+  </div>
+</header>
+
+<main>
+  <!-- BLOCCO 2 + 3 + 4 — Intro breve, tool interattivo, risultato immediato (above the fold) -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow" data-bind="eyebrow"></p>
+        <h1 data-bind="title"></h1>
+        <p data-bind="intro"></p>
+      </div>
+
+      <div class="tool-card">
+        <div class="tool-card-label"><span>Scheda calcolo</span><span>Aggiornato 2026</span></div>
+        <form data-bind="tool-inputs"><!-- input generati dal motore --></form>
+        <div class="result-primary">
+          <div class="value">—</div>
+          <div class="label"></div>
+        </div>
+        <div class="result-secondary"><!-- output secondari generati dal motore --></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOCCO 5 — Spiegazione del calcolo / logica -->
+  <section class="section">
+    <div class="container">
+      <h2 data-bind="spiegazione-titolo"></h2>
+      <p data-bind="spiegazione-corpo"></p>
+    </div>
+  </section>
+
+  <hr class="hairline">
+
+  <!-- BLOCCO 6 — Esempi pratici -->
+  <section class="section">
+    <div class="container">
+      <h2>Esempi pratici</h2>
+      <div class="example-grid" data-bind="esempi"></div>
+    </div>
+  </section>
+
+  <!-- BLOCCO 7 — FAQ long-tail -->
+  <section class="section">
+    <div class="container">
+      <h2>Domande frequenti</h2>
+      <div data-bind="faq"></div>
+    </div>
+  </section>
+
+  <!-- BLOCCO 8 — Tool correlati (internal linking) -->
+  <section class="section">
+    <div class="container">
+      <h2>Tool correlati</h2>
+      <div class="related-grid" data-bind="related"></div>
+    </div>
+  </section>
+
+  <!-- BLOCCO 9 — Guida approfondita (opzionale) -->
+  <!-- se config.guida presente, il motore inserisce qui un link a /guide/{slug}/ -->
+</main>
+
+<footer class="site-footer">
+  <div class="container">Portale Italiano delle Utility — strumenti gratuiti, aggiornati, senza registrazione.</div>
+</footer>
+
+<script src="../assets/js/tool-engine.js"></script>
+<script src="../assets/js/calculators/stipendio-netto.js"></script>
+<script>
+  // In produzione: fetch(`/config/tools/${slug}.json`).then(r => r.json()).then(cfg => renderToolPage(cfg, document))
+  fetch('../config/tools/calcolatore-stipendio-netto.json')
+    .then(r => r.json())
+    .then(config => renderToolPage(config, document));
+</script>
+</body>
+</html>
