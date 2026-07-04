@@ -1,0 +1,13 @@
+name = "portale-utility-italiano"
+compatibility_date = "2024-09-23"
+
+# Questa riga è la correzione dell'errore di build:
+# senza [assets], "wrangler deploy" non ha modo di sapere quale cartella
+# contenga i file statici da servire, e falisce con
+# "Could not detect a directory containing static files".
+[assets]
+directory = "./public"
+
+# not_found_handling = "single-page-application" va evitato qui:
+# questo NON è una SPA, è un sito multi-pagina SEO-first — ogni tool
+# deve restare una URL indicizzabile a sé stante, non una route client-side.

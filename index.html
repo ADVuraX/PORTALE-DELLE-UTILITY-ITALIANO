@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portale delle Utility Italiano — Calcolatori, Generatori, Convertitori Gratuiti</title>
+<meta name="description" content="Strumenti gratuiti per calcoli fiscali, lavoro, casa e famiglia. Calcolatore stipendio netto, IMU, mutuo e molto altro. Immediati, senza registrazione.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<style>
+  .cluster-grid { display:grid; gap:16px; grid-template-columns:1fr; margin-top:32px; }
+  @media (min-width:700px){ .cluster-grid{ grid-template-columns:repeat(3,1fr); } }
+  .cluster-card { border:1px solid var(--line); border-radius:4px; padding:24px; background:var(--paper-raised); text-decoration:none; display:block; }
+  .cluster-card h3 { margin:0 0 8px; }
+  .cluster-card .count { font-family:var(--font-mono); font-size:12px; color:var(--ink-soft); }
+  .status-badge { display:inline-block; font-family:var(--font-mono); font-size:11px; padding:2px 8px; border-radius:2px; background:var(--accent); color:#fff; margin-left:8px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href="/">utility<span>.it</span></a>
+    <div class="breadcrumb">home</div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">MVP — FASE 1</p>
+      <h1>Strumenti gratuiti per il quotidiano italiano</h1>
+      <p>Calcolatori fiscali, generatori, convertitori e validatori. Immediati, gratuiti, senza registrazione. Ogni tool unisce calcolo interattivo e contenuto di riferimento.</p>
+
+      <div class="cluster-grid">
+        <a class="cluster-card" href="/demo/calcolatore-stipendio-netto.html">
+          <span class="status-badge">live</span>
+          <h3>Calcolatori</h3>
+          <p class="count">Stipendio netto, IRPEF, mutuo, IMU</p>
+        </a>
+        <a class="cluster-card" href="#" aria-disabled="true" style="opacity:.5">
+          <h3>Generatori</h3>
+          <p class="count">Password, QR code, UUID — in arrivo</p>
+        </a>
+        <a class="cluster-card" href="#" aria-disabled="true" style="opacity:.5">
+          <h3>Convertitori</h3>
+          <p class="count">Valuta, unità di misura — in arrivo</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">Portale Italiano delle Utility — strumenti gratuiti, aggiornati, senza registrazione.</div>
+</footer>
+
+</body>
+</html>

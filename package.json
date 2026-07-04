@@ -1,0 +1,13 @@
+{
+  "name": "portale-utility-italiano",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Portale Italiano delle Utility — ecosistema di tool SEO-driven (calcolatori, generatori, convertitori, validatori).",
+  "scripts": {
+    "dev": "npx wrangler dev",
+    "deploy": "npx wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.107.0"
+  }
+}
