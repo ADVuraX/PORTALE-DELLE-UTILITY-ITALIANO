@@ -34,7 +34,7 @@
       <div>
         <p class="eyebrow">LAVORO</p>
         <h1>Calcolatore Stipendio Netto</h1>
-        <p>Inserisci la tua RAL (Retribuzione Annua Lorda) per scoprire in tempo reale quanto stipendio netto ricevi ogni mese. Il calcolo tiene conto di scaglioni IRPEF, contributi INPS a carico del dipendente, numero di mensilità e detrazioni per figli a carico. Il risultato è una stima indicativa.</p>
+        <p>Inserisci la tua RAL (Retribuzione Annua Lorda) per scoprire in tempo reale quanto stipendio netto ricevi ogni mese. Il calcolo tiene conto di scaglioni IRPEF, contributi INPS a carico del dipendente, numero di mensilità e una stima semplificata delle detrazioni. Il risultato è indicativo e può variare in base a CCNL, regione, comune e voci specifiche della busta paga.</p>
       </div>
 
       <div class="tool-card">
@@ -53,7 +53,7 @@
             </select>
           </div>
           <div class="field">
-            <label for="figli">Figli a carico</label>
+            <label for="figli">Figli a carico (stima semplificata)</label>
             <input type="number" id="figli" min="0" max="10" value="0">
           </div>
         </form>
@@ -69,7 +69,7 @@
   <section class="section">
     <div class="container">
       <h2>Come si calcola lo stipendio netto dalla RAL</h2>
-      <p>Il percorso dal lordo al netto segue quattro passaggi. Primo: dalla RAL si sottraggono i contributi INPS a carico del lavoratore, pari al 9,19% per la maggior parte dei dipendenti privati, ottenendo il reddito imponibile IRPEF. Secondo: su questo imponibile si applicano le tre aliquote IRPEF a scaglioni (23% fino a 28.000€, 35% da 28.000€ a 50.000€, 43% oltre 50.000€), calcolando l'imposta scaglione per scaglione. Terzo: dall'IRPEF lorda si sottraggono le detrazioni per lavoro dipendente e le eventuali detrazioni per figli a carico. Quarto: il netto annuo viene diviso per il numero di mensilità per ottenere il netto mensile.</p>
+      <p>Il percorso dal lordo al netto segue quattro passaggi. Primo: dalla RAL si sottraggono i contributi INPS a carico del lavoratore, pari al 9,19% per la maggior parte dei dipendenti privati, ottenendo il reddito imponibile IRPEF. Secondo: su questo imponibile si applicano le tre aliquote IRPEF a scaglioni (23% fino a 28.000€, 35% da 28.000€ a 50.000€, 43% oltre 50.000€), calcolando l'imposta scaglione per scaglione e non sull'intero reddito con una sola aliquota. Terzo: dall'IRPEF lorda si sottraggono le detrazioni per lavoro dipendente e una stima semplificata delle eventuali detrazioni familiari. Quarto: il netto annuo viene diviso per il numero di mensilità per ottenere il netto mensile. Il calcolatore non include addizionali regionali e comunali, premi, welfare, trattenute sindacali, conguagli o particolarità del singolo contratto: per questo il risultato va letto come orientamento rapido, non come sostituto della busta paga. Prima di usare il dato per decisioni economiche importanti, conviene confrontarlo con un cedolino reale o con un consulente del lavoro.</p>
     </div>
   </section>
 
@@ -79,9 +79,9 @@
     <div class="container">
       <h2>Esempi pratici</h2>
       <div class="example-grid">
-        <div class="example-card"><div>RAL 30.000€, 13 mensilità, nessun figlio</div><div class="result">≈ 1.750€/mese netti</div></div>
-        <div class="example-card"><div>RAL 45.000€, 14 mensilità, 1 figlio</div><div class="result">≈ 2.380€/mese netti</div></div>
-        <div class="example-card"><div>RAL 22.000€, 12 mensilità, nessun figlio</div><div class="result">≈ 1.480€/mese netti</div></div>
+        <div class="example-card"><div>RAL 30.000€, 13 mensilità, nessun figlio</div><div class="result">≈ 1.770€/mese netti</div></div>
+        <div class="example-card"><div>RAL 45.000€, 14 mensilità, 1 figlio</div><div class="result">≈ 2.260€/mese netti</div></div>
+        <div class="example-card"><div>RAL 22.000€, 12 mensilità, nessun figlio</div><div class="result">≈ 1.500€/mese netti</div></div>
       </div>
     </div>
   </section>
@@ -99,11 +99,11 @@
       </details>
       <details class="faq-item">
         <summary>I figli a carico aumentano lo stipendio netto?</summary>
-        <p>Sì, le detrazioni per figli a carico riducono l'IRPEF dovuta e quindi aumentano il netto, in misura decrescente al crescere del reddito familiare.</p>
+        <p>Possono aumentarlo, ma dipende dalle regole applicabili al nucleo familiare e dall'età dei figli. In questa versione il campo è una stima semplificata: il risultato corretto in busta paga può essere diverso.</p>
       </details>
       <details class="faq-item">
         <summary>Il calcolo tiene conto delle addizionali regionali e comunali?</summary>
-        <p>Il calcolatore fornisce una stima nazionale semplificata; addizionali regionali e comunali variano da comune a comune e possono modificare il risultato di alcune decine di euro l'anno.</p>
+        <p>No. Il calcolatore fornisce una stima nazionale semplificata; addizionali regionali e comunali variano in base alla residenza fiscale e possono modificare il risultato finale.</p>
       </details>
     </div>
   </section>
@@ -112,10 +112,10 @@
     <div class="container">
       <h2>Tool correlati</h2>
       <div class="related-grid">
-        <a class="related-card" href="/calcolatori/calcolatore-irpef/"><span class="eyebrow">Tool correlato</span><span class="name">calcolatore irpef</span></a>
-        <a class="related-card" href="/calcolatori/calcolatore-tfr/"><span class="eyebrow">Tool correlato</span><span class="name">calcolatore tfr</span></a>
-        <a class="related-card" href="/calcolatori/calcolatore-tredicesima/"><span class="eyebrow">Tool correlato</span><span class="name">calcolatore tredicesima</span></a>
-        <a class="related-card" href="/calcolatori/calcolatore-partita-iva-forfettario/"><span class="eyebrow">Tool correlato</span><span class="name">partita iva forfettario</span></a>
+        <div class="related-card related-card-disabled"><span class="eyebrow">In programma</span><span class="name">calcolatore irpef</span></div>
+        <div class="related-card related-card-disabled"><span class="eyebrow">In programma</span><span class="name">calcolatore tfr</span></div>
+        <div class="related-card related-card-disabled"><span class="eyebrow">In programma</span><span class="name">calcolatore tredicesima</span></div>
+        <div class="related-card related-card-disabled"><span class="eyebrow">In programma</span><span class="name">partita iva forfettario</span></div>
       </div>
     </div>
   </section>
