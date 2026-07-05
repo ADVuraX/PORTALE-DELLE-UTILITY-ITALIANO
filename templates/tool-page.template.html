@@ -1,0 +1,56 @@
+<!--
+  TEMPLATE MASTER — riferimento per generare nuovi tool.
+  Non è servito da Cloudflare (vive fuori da public/): è il pattern
+  da copiare in public/{cluster}/{slug}/index.html per il prossimo tool.
+  I 9 blocchi obbligatori sono marcati sotto.
+-->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- BLOCCO 1 — SEO -->
+<title><!-- config.seo.title --></title>
+<meta name="description" content="<!-- config.seo.metaDescription -->">
+<link rel="canonical" href="<!-- config.seo.canonical -->">
+<link rel="stylesheet" href="/assets/css/tokens.css">
+<script type="application/ld+json"><!-- JSON-LD da config.jsonLd --></script>
+</head>
+<body>
+<header class="site-header">
+  <div class="container">
+    <a class="site-logo" href="/">utility<span>.it</span></a>
+    <div class="breadcrumb"><!-- cluster / slug --></div>
+  </div>
+</header>
+<main>
+  <!-- BLOCCO 2+3+4 — intro, tool interattivo, risultato immediato -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <p class="eyebrow"><!-- tema --></p>
+        <h1><!-- titolo --></h1>
+        <p><!-- intro --></p>
+      </div>
+      <div class="tool-card">
+        <form id="tool-form"><!-- input dal config --></form>
+        <div class="result-primary"><div class="value" id="out-primary">—</div><div class="label"></div></div>
+        <div class="result-secondary" id="out-secondary"></div>
+      </div>
+    </div>
+  </section>
+  <!-- BLOCCO 5 — spiegazione -->
+  <section class="section"><div class="container"><h2></h2><p></p></div></section>
+  <!-- BLOCCO 6 — esempi -->
+  <section class="section"><div class="container"><h2>Esempi pratici</h2><div class="example-grid"></div></div></section>
+  <!-- BLOCCO 7 — FAQ -->
+  <section class="section"><div class="container"><h2>Domande frequenti</h2></div></section>
+  <!-- BLOCCO 8 — related -->
+  <section class="section"><div class="container"><h2>Tool correlati</h2><div class="related-grid"></div></div></section>
+  <!-- BLOCCO 9 — guida (opzionale) -->
+</main>
+<footer class="site-footer"><div class="container">Portale Italiano delle Utility</div></footer>
+<script src="/assets/js/tool-engine.js"></script>
+<script src="/assets/js/calculators/{logicId}.js"></script>
+</body>
+</html>

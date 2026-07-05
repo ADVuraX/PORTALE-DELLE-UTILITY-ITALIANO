@@ -1,0 +1,15 @@
+name = "portale-utility-italiano"
+compatibility_date = "2024-09-23"
+
+# La directory "./public" DEVE esistere nel repo committato su Git.
+# Se questo errore si ripete ("does not exist"), la causa è sempre una
+# di queste due:
+#   1. la cartella public/ non è stata aggiunta con "git add" (verificare
+#      con "git status" prima del commit)
+#   2. il "Root directory" impostato nel dashboard Cloudflare Pages/Workers
+#      non corrisponde alla root del repo dove sta questo file
+[assets]
+directory = "./public"
+
+# Sito multi-pagina SEO-first: ogni tool è una URL indicizzabile a sé,
+# non una route client-side. Niente SPA fallback.
