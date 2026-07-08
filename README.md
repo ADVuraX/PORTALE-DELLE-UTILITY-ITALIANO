@@ -1,63 +1,66 @@
 # Portale Italiano delle Utility
 
-## ⚠️ Checklist anti-errore deploy (leggere prima di ogni push)
+Fabbrica di micro-tool SEO-first (calcolatori, generatori, convertitori, validatori) in italiano.
+Sito **statico generato a build-time** da config JSON, servito da Cloudflare Workers static assets.
 
-L'errore `The directory specified by the "assets.directory" field ... does not exist` capita
-quando `public/` non arriva su Cloudflare. Prima di ogni push:
-
-```bash
-git status                 # public/ deve apparire tra i file tracciati
-git add -A
-git commit -m "..."
-git push
-```
-
-Se `public/` non compare in `git status` dopo `git add -A`, la cartella non esiste localmente
-dove ti aspetti — verifica di essere nella root del repo (dove sta `wrangler.toml`).
-
-## Struttura del repo (unica fonte di verità)
+## Come funziona
 
 ```
-portale-utility-italiano/
-├── wrangler.toml              ← [assets] directory = "./public"
-├── package.json
-├── docs/tool-config-schema.md ← contratto per ogni nuovo tool
-├── templates/tool-page.template.html   ← pattern da copiare (non deployato)
-└── public/                    ← TUTTO qui dentro è servito da Cloudflare
-    ├── index.html
-    ├── robots.txt
-    ├── _headers
-    ├── assets/
-    │   ├── css/tokens.css
-    │   └── js/
-    │       ├── tool-engine.js
-    │       └── calculators/stipendio-netto.js
-    ├── config/tools/calcolatore-stipendio-netto.json
-    └── calcolatori/
-        └── calcolatore-stipendio-netto/
-            └── index.html      ← URL reale: /calcolatori/calcolatore-stipendio-netto/
+content/site.json           configurazione globale (brand, dominio, cluster)
+content/tools/{slug}.json    UN file per tool = fonte di verità (contratto: docs/tool-config-schema.md)
+        │
+        ▼   npm run build  →  node scripts/build.mjs  (valida + genera)
+public/{cluster}/{slug}/index.html   pagine statiche
+public/index.html                    homepage
+public/sitemap.xml                   sitemap
 ```
 
-**Regola**: ogni nuovo tool = una cartella `public/{cluster}/{slug}/index.html`. Non usare mai
-`/demo/` o cartelle fuori dal pattern URL reale — la struttura del repo È la struttura del sito.
+**Non modificare a mano i file dentro `public/{cluster}/`**: sono generati e vengono sovrascritti a
+ogni build. Si modifica il config in `content/tools/` e si rilancia `npm run build`.
 
-## Stack di riferimento (target, non ancora implementato)
-
-```
-Frontend:   Next.js 14+ (App Router) — quando si supera ~50 tool, per generazione automatica
-Attuale:    HTML statico + motore JS config-driven (assets/js/tool-engine.js)
-Hosting:    Cloudflare Workers (assets statici) via wrangler.toml
-```
-
-## Deploy
+## Comandi
 
 ```bash
 npm install
-npm run deploy    # = npx wrangler deploy
+npm run build     # genera public/ dai config (valida il contratto; fallisce se sotto-standard)
+npm run dev       # build + npx wrangler dev → anteprima locale su http://localhost:8787
+npm run deploy    # build + npx wrangler deploy
+npm run fonts     # (una tantum) scarica e self-hosta i font in public/assets/fonts/
+```
+
+## Aggiungere un tool
+
+1. Crea `content/tools/{slug}.json` conforme a `docs/tool-config-schema.md`.
+2. Crea il calcolatore `public/assets/js/calculators/{script}.js`: funzione pura +
+   `registerCalculator("{logicId}", fn)`.
+3. `npm run build` — se il contratto è rispettato, la pagina e la sitemap si aggiornano da sole.
+4. I `relatedTools` non ancora esistenti diventano card disabilitate (nessun 404); si attivano da
+   soli quando crei quei tool.
+
+## ⚠️ Checklist anti-errore deploy
+
+L'errore `The directory specified by the "assets.directory" field ... does not exist` capita quando
+`public/` non arriva su Cloudflare, o quando lanci i comandi dalla cartella sbagliata. La root
+corretta è quella che contiene `wrangler.toml` e `public/`. Prima di ogni push:
+
+```bash
+npm run build
+git status        # public/ deve apparire tra i file tracciati
+git add -A && git commit -m "..." && git push
+```
+
+## Stack
+
+```
+Attuale:   HTML statico generato (scripts/build.mjs) + runtime JS minimo per l'interattività
+Hosting:   Cloudflare Workers static assets (wrangler.toml → ./public)
+Font:      self-hosted (public/assets/fonts/), nessuna dipendenza da Google in produzione
+Futuro:    migrazione a Next.js oltre ~50 tool (i config JSON restano identici)
 ```
 
 ## Roadmap
 
-1. **MVP (attuale)**: 1 tool live (stipendio netto), pattern validato end-to-end
-2. **V1**: 20-40 tool nei cluster calcolatori/generatori/convertitori/validatori, internal linking da `relatedTools[]`, sitemap.xml generata dai config
-3. **V2+**: migrazione a Next.js + `@cloudflare/next-on-pages` per generazione automatica da config JSON, ISR per varianti long-tail
+1. **MVP (fatto)**: generatore end-to-end validato, 1 tool live (stipendio netto).
+2. **V1**: completare cluster fiscali (irpef, tfr, tredicesima, forfettario) + generatori
+   (password, qr, uuid); internal linking automatico dai `relatedTools`.
+3. **V2+**: dominio reale, AdSense, `/llms.txt`, Search Console; poi Next.js per la generazione su scala.

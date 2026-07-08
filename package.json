@@ -2,10 +2,14 @@
   "name": "portale-utility-italiano",
   "version": "0.1.0",
   "private": true,
-  "description": "Portale Italiano delle Utility — ecosistema di tool SEO-driven (calcolatori, generatori, convertitori, validatori).",
+  "type": "module",
+  "description": "Portale Italiano delle Utility — ecosistema di tool SEO-driven (calcolatori, generatori, convertitori, validatori). Sito statico generato a build-time da config JSON.",
   "scripts": {
-    "dev": "npx wrangler dev",
-    "deploy": "npx wrangler deploy"
+    "build": "node scripts/build.mjs",
+    "fonts": "node scripts/fetch-fonts.mjs",
+    "dev": "npm run build && npx wrangler dev",
+    "deploy": "npm run build && npx wrangler deploy",
+    "preview": "npm run build && npx wrangler dev"
   },
   "devDependencies": {
     "wrangler": "^4.107.0"

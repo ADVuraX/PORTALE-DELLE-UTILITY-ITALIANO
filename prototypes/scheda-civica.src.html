@@ -1,0 +1,293 @@
+<title>Scheda civica raffinata — prototipo tool</title>
+<style>
+@font-face{font-family:"Fraunces";font-style:normal;font-weight:500;font-display:swap;src:url(__FR500__) format("woff2");}
+@font-face{font-family:"Fraunces";font-style:normal;font-weight:600;font-display:swap;src:url(__FR600__) format("woff2");}
+@font-face{font-family:"Plex Sans";font-style:normal;font-weight:400;font-display:swap;src:url(__PS400__) format("woff2");}
+@font-face{font-family:"Plex Sans";font-style:normal;font-weight:600;font-display:swap;src:url(__PS600__) format("woff2");}
+@font-face{font-family:"Plex Mono";font-style:normal;font-weight:400;font-display:swap;src:url(__PM400__) format("woff2");}
+@font-face{font-family:"Plex Mono";font-style:normal;font-weight:600;font-display:swap;src:url(__PM600__) format("woff2");}
+
+:root{
+  --paper:#EAEDE4; --raised:#F6F8F2; --sunken:#E1E5D8;
+  --ink:#18251E; --ink-soft:#495a50; --ink-faint:#6b7a70;
+  --accent:#2F6B4F; --accent-dark:#204d38; --accent-tint:#dbe7df;
+  --ocra:#B5791F; --ocra-tint:#f0e4cd;
+  --mattone:#a8382c;
+  --line:#d3cdbd; --line-strong:#b6bdad;
+  --display:"Fraunces",Georgia,serif;
+  --body:"Plex Sans",-apple-system,Segoe UI,sans-serif;
+  --mono:"Plex Mono","SFMono-Regular",Consolas,monospace;
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:72px;
+  --r:5px;
+  --shadow:0 1px 0 var(--line-strong),0 18px 40px -28px rgba(24,37,30,.5);
+  --shadow-hover:0 2px 0 var(--line-strong),0 16px 30px -20px rgba(24,37,30,.42);
+  --ease:.18s ease;
+}
+
+*{box-sizing:border-box;}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+.wrap{max-width:1060px;margin:0 auto;padding:0 var(--s5);}
+h1,h2,h3{font-family:var(--display);color:var(--ink);margin:0;text-wrap:balance;}
+h1{font-weight:500;font-size:clamp(30px,5vw,46px);letter-spacing:-.015em;line-height:1.08;}
+h2{font-weight:600;font-size:clamp(21px,3.2vw,27px);letter-spacing:-.01em;}
+h3{font-weight:600;font-size:16px;}
+p{margin:0;color:var(--ink-soft);}
+a{color:var(--accent-dark);text-underline-offset:2px;text-decoration-color:var(--line-strong);}
+a:hover{text-decoration-color:currentColor;}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-dark);font-weight:600;}
+
+/* input number: campo libero, niente frecce */
+input[type=number]{-moz-appearance:textfield;}
+input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+
+.skip{position:absolute;left:-999px;top:0;background:var(--accent);color:#fff;padding:8px 14px;border-radius:var(--r);z-index:10;}
+.skip:focus{left:var(--s4);top:var(--s4);}
+
+.head{border-bottom:1px solid var(--line);background:color-mix(in srgb,var(--raised) 90%,transparent);position:sticky;top:0;backdrop-filter:blur(6px);z-index:5;}
+.head .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:var(--s4);}
+.logo{font-family:var(--mono);font-weight:600;font-size:15px;color:var(--ink);text-decoration:none;letter-spacing:-.01em;}
+.logo b{color:var(--accent);font-weight:600;}
+.crumbs{font-family:var(--mono);font-size:12px;color:var(--ink-faint);}
+.crumbs span{color:var(--ink-soft);}
+
+.hero{padding:var(--s7) 0 var(--s6);}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:var(--s6);}
+@media(min-width:900px){.hero-grid{grid-template-columns:1.02fr .98fr;align-items:start;}}
+.hero h1{margin-bottom:var(--s4);}
+.lede{font-size:17px;line-height:1.65;max-width:60ch;}
+.meta-row{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s5);}
+.pill{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11.5px;line-height:1;padding:6px 11px;border-radius:99px;border:1px solid var(--line-strong);color:var(--ink-soft);background:var(--raised);transition:border-color var(--ease),color var(--ease);}
+.pill svg{width:13px;height:13px;flex:0 0 auto;}
+.pill:not(.pill-ok):hover{border-color:var(--accent);color:var(--ink);}
+.pill-ok{color:var(--accent-dark);border-color:color-mix(in srgb,var(--accent) 45%,var(--line-strong));background:var(--accent-tint);}
+
+.card{background:var(--raised);border:1px solid var(--line-strong);border-radius:var(--r);box-shadow:var(--shadow);padding:var(--s5) var(--s5) var(--s5) calc(var(--s5) + 6px);position:relative;overflow:hidden;}
+.card::before{content:"";position:absolute;top:0;bottom:0;left:0;width:5px;background:repeating-linear-gradient(to bottom,var(--accent) 0 7px,transparent 7px 14px);}
+.card-top{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:var(--s4);}
+.card-top .chip{background:var(--ocra-tint);color:var(--ocra);padding:3px 9px;border-radius:99px;letter-spacing:.06em;font-weight:600;}
+
+.field{margin-bottom:var(--s4);}
+.field label{display:block;font-size:13px;color:var(--ink-soft);margin-bottom:6px;font-weight:600;}
+.field .hint{font-weight:400;color:var(--ink-faint);}
+.control{position:relative;}
+.control input,.control select{width:100%;padding:12px 13px;font-family:var(--mono);font-size:15px;border:1px solid var(--line-strong);border-radius:4px;background:var(--paper);color:var(--ink);appearance:none;transition:border-color var(--ease),box-shadow var(--ease),background var(--ease);}
+.control input:hover,.control select:hover{border-color:var(--ink-faint);background:#fff;}
+.control input{padding-right:64px;}
+.control .suffix{position:absolute;right:13px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:13px;color:var(--ink-faint);pointer-events:none;}
+.control.sel::after{content:"";position:absolute;right:15px;top:50%;width:8px;height:8px;border-right:2px solid var(--ink-faint);border-bottom:2px solid var(--ink-faint);transform:translateY(-70%) rotate(45deg);pointer-events:none;}
+input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+input:focus,select:focus{border-color:var(--accent);}
+
+.result{margin-top:var(--s5);padding-top:var(--s5);border-top:1px dashed var(--line-strong);}
+.result .rlabel{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);}
+.result .value{font-family:var(--mono);font-weight:600;font-size:clamp(34px,6vw,50px);letter-spacing:-.02em;color:var(--accent-dark);font-variant-numeric:tabular-nums;line-height:1.05;margin-top:2px;display:inline-flex;align-items:baseline;}
+.result .value .u{color:var(--ink-faint);font-size:.42em;font-weight:400;margin-left:6px;}
+.value-underline{height:3px;width:64px;background:var(--ocra);margin-top:8px;border-radius:2px;}
+.secondary{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:var(--s5);background:var(--line);border:1px solid var(--line);border-radius:5px;overflow:hidden;}
+.secondary .cell{background:var(--raised);padding:11px 13px;}
+.secondary .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-bottom:3px;}
+.secondary .v{font-family:var(--mono);font-size:15px;color:var(--ink);font-variant-numeric:tabular-nums;}
+
+.note{display:flex;gap:var(--s3);align-items:flex-start;margin-top:var(--s4);padding:var(--s4);border:1px solid var(--line-strong);border-left:3px solid var(--ocra);border-radius:4px;background:var(--ocra-tint);}
+.note svg{flex:0 0 auto;width:17px;height:17px;color:var(--ocra);margin-top:1px;}
+.note p{font-size:13px;color:var(--ink-soft);line-height:1.55;}
+
+/* sezioni sotto: testo centrato */
+.section{padding:var(--s7) 0;border-top:1px solid var(--line);}
+.section h2{text-align:center;margin-bottom:var(--s5);}
+.prose{max-width:60ch;margin:0 auto;text-align:center;}
+.prose p+p{margin-top:var(--s4);}
+
+.examples{display:grid;gap:var(--s3);grid-template-columns:1fr;}
+@media(min-width:680px){.examples{grid-template-columns:repeat(3,1fr);}}
+.ex{border:1px solid var(--line);border-radius:5px;padding:var(--s4);background:var(--raised);text-align:center;transition:border-color var(--ease),box-shadow var(--ease),transform var(--ease);}
+.ex:hover{border-color:color-mix(in srgb,var(--accent) 50%,var(--line-strong));box-shadow:var(--shadow-hover);transform:translateY(-2px);}
+.ex .exq{font-size:13.5px;color:var(--ink-soft);margin-bottom:var(--s2);}
+.ex .exr{font-family:var(--mono);font-weight:600;font-size:17px;color:var(--accent-dark);font-variant-numeric:tabular-nums;}
+
+.faq{max-width:760px;margin:0 auto;}
+.faq details{border-bottom:1px solid var(--line);}
+.faq summary{cursor:pointer;padding:var(--s4) var(--s2) var(--s4) 0;font-weight:600;color:var(--ink);list-style:none;position:relative;display:flex;justify-content:space-between;gap:var(--s3);align-items:center;transition:color var(--ease);}
+.faq summary:hover{color:var(--accent-dark);}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary .plus{flex:0 0 auto;width:18px;height:18px;position:relative;transition:transform .2s;}
+.faq summary .plus::before,.faq summary .plus::after{content:"";position:absolute;background:var(--accent);border-radius:2px;}
+.faq summary .plus::before{top:8px;left:2px;right:2px;height:2px;}
+.faq summary .plus::after{left:8px;top:2px;bottom:2px;width:2px;}
+.faq details[open] summary .plus{transform:rotate(45deg);}
+.faq details[open] summary{color:var(--accent-dark);}
+.faq .ans{padding:0 var(--s2) var(--s4) 0;}
+.faq .ans p{font-size:14.5px;line-height:1.6;}
+
+.fonti{max-width:760px;margin:0 auto;background:var(--sunken);border:1px solid var(--line);border-radius:var(--r);padding:var(--s5);}
+.fonti-head{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3);flex-wrap:wrap;margin-bottom:var(--s3);}
+.fonti h3{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);}
+.fonti .upd{font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);}
+.src{display:flex;gap:var(--s3);padding:var(--s3);margin:0 calc(-1 * var(--s3));border-radius:4px;border-top:1px solid var(--line);transition:background var(--ease);}
+.src:first-of-type{border-top:none;}
+.src:hover{background:var(--raised);}
+.src .n{font-family:var(--mono);font-size:11px;color:var(--accent);flex:0 0 auto;width:24px;padding-top:2px;}
+.src .b .t{font-size:14px;color:var(--ink);font-weight:600;}
+.src .b .d{font-size:12.5px;color:var(--ink-faint);margin-top:2px;}
+
+.related{display:grid;gap:var(--s2);grid-template-columns:1fr;}
+@media(min-width:680px){.related{grid-template-columns:repeat(4,1fr);}}
+.rel{display:block;border:1px solid var(--line);border-radius:5px;padding:var(--s4);background:var(--raised);text-decoration:none;text-align:center;transition:border-color var(--ease),box-shadow var(--ease),transform var(--ease);}
+.rel:not(.rel-off):hover{border-color:color-mix(in srgb,var(--accent) 50%,var(--line-strong));box-shadow:var(--shadow-hover);transform:translateY(-2px);}
+.rel .re{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);display:block;margin-bottom:5px;}
+.rel .rn{color:var(--ink);font-weight:600;text-transform:capitalize;}
+.rel-off{opacity:.62;}
+
+.foot{border-top:1px solid var(--line);padding:var(--s6) 0;font-family:var(--mono);font-size:12.5px;color:var(--ink-faint);text-align:center;}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}}
+</style>
+
+<a class="skip" href="#tool">Salta al calcolatore</a>
+
+<header class="head">
+  <div class="wrap">
+    <a class="logo" href="#">utility<b>.it</b></a>
+    <div class="crumbs">calcolatori / <span>stipendio netto</span></div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Lavoro · Fisco</p>
+        <h1>Calcolatore Stipendio Netto</h1>
+        <p class="lede">Inserisci la tua RAL per stimare in tempo reale quanto ricevi ogni mese. Il calcolo considera contributi INPS, scaglioni IRPEF, mensilità e detrazioni da lavoro dipendente. Risultato indicativo: la busta paga reale varia per CCNL, regione e comune.</p>
+        <div class="meta-row">
+          <span class="pill pill-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Fonti verificate</span>
+          <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Aggiornato 01/2026</span>
+          <span class="pill">Gratuito · nessuna registrazione</span>
+        </div>
+      </div>
+
+      <div class="card" id="tool">
+        <div class="card-top"><span>Scheda calcolo</span><span class="chip">IRPEF 2026</span></div>
+        <form id="form" aria-describedby="disc">
+          <div class="field">
+            <label for="ral">RAL — Retribuzione Annua Lorda</label>
+            <div class="control"><input type="number" id="ral" inputmode="numeric" min="0" step="1" value="30000" aria-describedby="ral-h"><span class="suffix">€/anno</span></div>
+          </div>
+          <div class="field">
+            <label for="mens">Mensilità</label>
+            <div class="control sel"><select id="mens"><option value="12">12 mensilità</option><option value="13" selected>13 mensilità</option><option value="14">14 mensilità</option></select></div>
+          </div>
+          <div class="field">
+            <label for="area">Area di residenza <span class="hint">(addizionali)</span></label>
+            <div class="control sel"><select id="area"><option value="0">Stima nazionale</option><option value="1">Nord</option><option value="2">Centro</option><option value="3">Sud e Isole</option></select></div>
+          </div>
+        </form>
+
+        <div class="result" aria-live="polite">
+          <div class="rlabel">Netto mensile stimato</div>
+          <div class="value" id="out"><span id="outNum">—</span><span class="u">/mese</span></div>
+          <div class="value-underline"></div>
+          <div class="secondary">
+            <div class="cell"><span class="k">Netto annuo</span><span class="v" id="oAnno">—</span></div>
+            <div class="cell"><span class="k">Contributi INPS</span><span class="v" id="oInps">—</span></div>
+            <div class="cell"><span class="k">IRPEF netta</span><span class="v" id="oIrpef">—</span></div>
+            <div class="cell"><span class="k">Aliquota effettiva</span><span class="v" id="oAliq">—</span></div>
+          </div>
+        </div>
+
+        <div class="note" id="disc">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+          <p><strong>Stima indicativa.</strong> Non sostituisce la busta paga né una consulenza. Non include addizionali comunali specifiche, premi, welfare o conguagli.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Come si calcola lo stipendio netto dalla RAL</h2>
+      <div class="prose">
+        <p>Il percorso dal lordo al netto segue quattro passaggi. Primo: dalla RAL si sottraggono i contributi INPS a carico del lavoratore, pari al 9,19% per la maggior parte dei dipendenti privati, ottenendo il reddito imponibile IRPEF.</p>
+        <p>Secondo: su questo imponibile si applicano le tre aliquote IRPEF a scaglioni (23% fino a 28.000 €, 35% da 28.000 a 50.000 €, 43% oltre 50.000 €), calcolando l'imposta scaglione per scaglione. Terzo: si sottraggono le detrazioni per lavoro dipendente. Quarto: il netto annuo si divide per le mensilità.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Esempi pratici</h2>
+      <div class="examples">
+        <div class="ex"><div class="exq">RAL 30.000 €, 13 mensilità</div><div class="exr">≈ 1.770 €/mese</div></div>
+        <div class="ex"><div class="exq">RAL 45.000 €, 14 mensilità</div><div class="exr">≈ 2.260 €/mese</div></div>
+        <div class="ex"><div class="exq">RAL 22.000 €, 12 mensilità</div><div class="exr">≈ 1.500 €/mese</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap faq">
+      <h2>Domande frequenti</h2>
+      <details open><summary>Come si calcola lo stipendio netto da 30.000 € lordi?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>Si sottraggono prima i contributi INPS (9,19%), poi si applica l'IRPEF a scaglioni sull'imponibile residuo, infine si sottraggono le detrazioni da lavoro dipendente. Il risultato annuo si divide per le mensilità contrattuali.</p></div></details>
+      <details><summary>Che differenza fa scegliere 13 o 14 mensilità?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>A parità di RAL, con 14 mensilità il netto mensile è più basso perché lo stesso importo annuo è distribuito su più rate; tredicesima e quattordicesima arrivano comunque durante l'anno.</p></div></details>
+      <details><summary>Il calcolo include le addizionali regionali e comunali?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>La stima nazionale non le include. Selezionando un'area applichiamo un'aliquota media indicativa; il valore esatto dipende dal tuo comune di residenza.</p></div></details>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="fonti">
+        <div class="fonti-head">
+          <h3>Fonti e metodo</h3>
+          <span class="upd">Ultimo aggiornamento: gennaio 2026</span>
+        </div>
+        <div class="src"><span class="n">01</span><div class="b"><div class="t">Aliquote IRPEF e scaglioni 2026</div><div class="d">Agenzia delle Entrate — TUIR art. 11 · da verificare per l'anno d'imposta vigente</div></div></div>
+        <div class="src"><span class="n">02</span><div class="b"><div class="t">Aliquota contributiva IVS 9,19%</div><div class="d">INPS — Circolare aliquote lavoratori dipendenti · variabile per categoria</div></div></div>
+        <div class="src"><span class="n">03</span><div class="b"><div class="t">Detrazioni per lavoro dipendente</div><div class="d">TUIR art. 13 · trattamento integrativo da includere</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Tool correlati</h2>
+      <div class="related">
+        <div class="rel rel-off"><span class="re">In programma</span><span class="rn">calcolatore irpef</span></div>
+        <div class="rel rel-off"><span class="re">In programma</span><span class="rn">calcolatore tfr</span></div>
+        <div class="rel rel-off"><span class="re">In programma</span><span class="rn">calcolatore tredicesima</span></div>
+        <div class="rel rel-off"><span class="re">In programma</span><span class="rn">partita iva forfettario</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot"><div class="wrap">Portale Italiano delle Utility — strumenti gratuiti, aggiornati, con fonti citate.</div></footer>
+
+<script>
+(function(){
+  var eur=function(v){return new Intl.NumberFormat("it-IT",{style:"currency",currency:"EUR",maximumFractionDigits:0}).format(v);};
+  var pct=function(v){return new Intl.NumberFormat("it-IT",{style:"percent",maximumFractionDigits:1}).format(v);};
+  var areaRate=[0,0.0173,0.0203,0.0233];
+  function calc(ral,mens,area){
+    var inps=ral*0.0919, imp=ral-inps;
+    var sc=[[28000,.23],[50000,.35],[Infinity,.43]],irpef=0,prev=0;
+    for(var i=0;i<sc.length;i++){if(imp>prev){irpef+=(Math.min(imp,sc[i][0])-prev)*sc[i][1];prev=sc[i][0];}}
+    var detr=0;
+    if(imp<=15000)detr=Math.max(1955,imp*0.069);
+    else if(imp<=28000)detr=1910+1190*((28000-imp)/13000);
+    else if(imp<=50000)detr=1910*((50000-imp)/22000);
+    var irpefNet=Math.max(0,irpef-detr);
+    var add=imp*areaRate[area];
+    var annuo=ral-inps-irpefNet-add;
+    return{mese:annuo/mens,annuo:annuo,inps:inps,irpef:irpefNet,aliq:ral>0?(irpefNet+add)/ral:0};
+  }
+  function run(){
+    var r=calc(+document.getElementById("ral").value||0,+document.getElementById("mens").value,+document.getElementById("area").value);
+    document.getElementById("outNum").textContent=eur(r.mese);
+    document.getElementById("oAnno").textContent=eur(r.annuo);
+    document.getElementById("oInps").textContent=eur(r.inps);
+    document.getElementById("oIrpef").textContent=eur(r.irpef);
+    document.getElementById("oAliq").textContent=pct(r.aliq);
+  }
+  document.getElementById("form").addEventListener("input",run);run();
+})();
+</script>

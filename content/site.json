@@ -1,0 +1,20 @@
+{
+  "brand": "utility.it",
+  "brandAccent": ".it",
+  "domain": "https://TUO-DOMINIO.it",
+  "lang": "it",
+  "home": {
+    "title": "Portale delle Utility Italiano — Calcolatori, Generatori, Convertitori Gratuiti",
+    "metaDescription": "Strumenti gratuiti per calcoli fiscali, lavoro, casa e famiglia. Calcolatore stipendio netto, IRPEF, mutuo e molto altro. Immediati, senza registrazione.",
+    "eyebrow": "MVP — FASE 1",
+    "h1": "Strumenti gratuiti per il quotidiano italiano",
+    "intro": "Calcolatori fiscali, generatori, convertitori e validatori. Immediati, gratuiti, senza registrazione. Ogni tool unisce calcolo interattivo e contenuto di riferimento."
+  },
+  "footer": "Portale Italiano delle Utility — strumenti gratuiti, aggiornati, senza registrazione.",
+  "clusters": {
+    "calcolatori": { "label": "Calcolatori", "hint": "Stipendio netto, IRPEF, mutuo, IMU" },
+    "generatori": { "label": "Generatori", "hint": "Password, QR code, UUID" },
+    "convertitori": { "label": "Convertitori", "hint": "Valuta, unità di misura" },
+    "validatori": { "label": "Validatori", "hint": "Codice fiscale, IBAN" }
+  }
+}

@@ -3,6 +3,3 @@
 
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
-
-/config/*
-  Cache-Control: public, max-age=3600

@@ -1,0 +1,101 @@
+{
+  "slug": "calcolatore-stipendio-netto",
+  "cluster": "calcolatori",
+  "tema": "lavoro",
+  "updated": "2026-07",
+
+  "seo": {
+    "title": "Calcolatore Stipendio Netto 2026 – da Lordo a Netto",
+    "metaDescription": "Calcola il tuo stipendio netto mensile e annuo dalla RAL con i valori 2026: IRPEF, contributi INPS, taglio del cuneo fiscale e trattamento integrativo. Gratis e immediato.",
+    "primaryKeyword": "calcolatore stipendio netto",
+    "canonical": "/calcolatori/calcolatore-stipendio-netto/"
+  },
+
+  "h1": "Calcolatore Stipendio Netto",
+
+  "intro": "Scopri quanto ti resta davvero in tasca ogni mese. Indica la RAL, il tipo di contratto e di rapporto, la regione e chi hai a carico: vedrai il percorso completo dal lordo al netto con i valori 2026 — contributi INPS, IRPEF a scaglioni, detrazione da lavoro dipendente, taglio del cuneo, trattamento integrativo e addizionale regionale. È una stima seria, pensata per orientarti prima di scelte importanti, ma non sostituisce la busta paga.",
+
+  "tool": {
+    "logicId": "stipendio-netto-v1",
+    "script": "stipendio-netto.js",
+    "data": ["fisco-2026.js"],
+    "cardNote": "IRPEF 2026",
+    "inputs": [
+      { "type": "group", "legend": "Contratto e retribuzione", "inputs": [
+        { "id": "ral", "label": "RAL — retribuzione annua lorda", "type": "number", "min": 0, "step": 1, "suffix": "€/anno", "default": 30000 },
+        { "id": "mensilita", "label": "Mensilità", "type": "select", "options": [12, 13, 14], "optionLabels": { "12": "12 mensilità", "13": "13 mensilità", "14": "14 mensilità" }, "default": 13 },
+        { "id": "tipoContratto", "label": "Tipo di contratto", "type": "radio", "options": ["indeterminato", "determinato"], "optionLabels": { "indeterminato": "Tempo indeterminato", "determinato": "Tempo determinato" }, "default": "indeterminato" },
+        { "id": "giorniLavorati", "label": "Giorni lavorati nell'anno", "type": "number", "min": 1, "max": 365, "step": 1, "default": 365, "suffix": "giorni", "hint": "su 365 — riproporziona la RAL annua al periodo effettivo del contratto a termine", "showIf": { "input": "tipoContratto", "equals": "determinato" } },
+        { "id": "tipoLavoratore", "label": "Tipo di rapporto", "type": "radio", "options": ["privato", "pubblico", "apprendista"], "optionLabels": { "privato": "Dipendente privato", "pubblico": "Dipendente pubblico", "apprendista": "Apprendista" }, "default": "privato" }
+      ] },
+      { "type": "group", "legend": "Famiglia a carico", "inputs": [
+        { "id": "figliACarico2129", "label": "Figli a carico", "type": "number", "min": 0, "step": 1, "default": 0, "hint": "solo di età 21–29 anni; gli under 21 rientrano nell'Assegno Unico (nessuna detrazione IRPEF)" },
+        { "id": "altriFamiliari", "label": "Altri familiari a carico", "type": "number", "min": 0, "step": 1, "default": 0, "hint": "ascendenti (genitori/nonni) conviventi a carico" }
+      ] },
+      { "type": "group", "legend": "Residenza", "inputs": [
+        { "id": "regione", "label": "Regione di residenza", "type": "select", "default": "lombardia",
+          "options": ["abruzzo","basilicata","calabria","campania","emilia-romagna","friuli-venezia-giulia","lazio","liguria","lombardia","marche","molise","piemonte","provincia-bolzano","provincia-trento","puglia","sardegna","sicilia","toscana","umbria","valle-d-aosta","veneto"],
+          "optionLabels": { "abruzzo": "Abruzzo", "basilicata": "Basilicata", "calabria": "Calabria", "campania": "Campania", "emilia-romagna": "Emilia-Romagna", "friuli-venezia-giulia": "Friuli-Venezia Giulia", "lazio": "Lazio", "liguria": "Liguria", "lombardia": "Lombardia", "marche": "Marche", "molise": "Molise", "piemonte": "Piemonte", "provincia-bolzano": "Prov. aut. Bolzano", "provincia-trento": "Prov. aut. Trento", "puglia": "Puglia", "sardegna": "Sardegna", "sicilia": "Sicilia", "toscana": "Toscana", "umbria": "Umbria", "valle-d-aosta": "Valle d'Aosta", "veneto": "Veneto" } }
+      ] }
+    ],
+    "outputPrimary": { "id": "nettoMensile", "label": "Netto mensile stimato", "format": "currency" },
+    "breakdownTitle": "Dal lordo al netto",
+    "breakdown": [
+      { "id": "lordo", "label": "Retribuzione lorda (RAL)", "kind": "gross", "format": "currency" },
+      { "id": "contributiInps", "label": "Contributi INPS", "kind": "out", "format": "currency" },
+      { "id": "irpefTotale", "label": "IRPEF netta (dopo detrazioni)", "kind": "out", "format": "currency" },
+      { "id": "addizionali", "label": "Addizionale regionale IRPEF", "kind": "out", "format": "currency" },
+      { "id": "cuneo", "label": "Taglio del cuneo fiscale", "kind": "in", "format": "currency" },
+      { "id": "trattamentoIntegrativo", "label": "Trattamento integrativo", "kind": "in", "format": "currency" },
+      { "id": "nettoAnnuo", "label": "Netto totale", "kind": "total", "format": "currency" }
+    ],
+    "extras": [
+      { "id": "detrazioniFamiliari", "label": "Detrazioni familiari applicate", "format": "currency" },
+      { "id": "aliquotaEffettiva", "label": "Prelievo effettivo sul lordo", "format": "percent" }
+    ]
+  },
+
+  "spiegazione": {
+    "titolo": "Come si calcola lo stipendio netto dalla RAL nel 2026",
+    "corpo": "Il percorso dal lordo al netto per un dipendente parte dalla RAL (Retribuzione Annua Lorda). Primo passo: si sottraggono i contributi INPS a carico del lavoratore, pari al 9,19% per la generalità dei dipendenti privati, con un ulteriore 1% sulla quota di reddito che supera 56.224 € nel 2026, ottenendo il reddito imponibile. Secondo passo: sull'imponibile si applica l'IRPEF a scaglioni 2026, come rimodulata dalla Legge di Bilancio 2026: 23% fino a 28.000 €, 33% da 28.000 a 50.000 € (il secondo scaglione è sceso dal 35% al 33%) e 43% oltre 50.000 €, calcolata scaglione per scaglione e non con un'unica aliquota. Terzo passo: dall'IRPEF lorda si sottrae la detrazione per lavoro dipendente prevista dall'articolo 13 del TUIR, fino a 1.955 € e decrescente all'aumentare del reddito. Quarto passo: si aggiungono le misure del taglio del cuneo fiscale 2026, ormai strutturale, cioè per i redditi fino a 20.000 € un bonus esente pari a una percentuale del reddito (7,1%, 5,3% o 4,8% a seconda della fascia) e per i redditi tra 20.000 e 40.000 € un'ulteriore detrazione fino a 1.000 €. Dove spetta si somma il trattamento integrativo, l'ex Bonus Renzi, fino a 1.200 € per i redditi più bassi. Il netto annuo così ottenuto si divide per il numero di mensilità (12, 13 o 14). Il risultato è una stima nazionale: non include addizionali regionali e comunali, premi, welfare, conguagli o particolarità del singolo CCNL, quindi conviene confrontarlo con un cedolino reale prima di decisioni economiche importanti."
+  },
+
+  "esempi": [
+    { "titolo": "RAL 30.000 €, 13 mensilità, privato, Lombardia", "risultatoAtteso": "≈ 1.820 €/mese netti" },
+    { "titolo": "RAL 45.000 €, 14 mensilità, privato, Lazio", "risultatoAtteso": "≈ 2.140 €/mese netti" },
+    { "titolo": "RAL 25.000 €, 13 mensilità, apprendista, Toscana", "risultatoAtteso": "≈ 1.620 €/mese netti" }
+  ],
+
+  "faq": [
+    { "domanda": "Come si calcola lo stipendio netto partendo da 30.000 euro lordi?", "risposta": "Si sottraggono i contributi INPS (9,19%), si applica l'IRPEF a scaglioni 2026 (23%, 33%, 43%) sull'imponibile, si sottrae la detrazione per lavoro dipendente e si aggiungono, dove spettano, il taglio del cuneo fiscale e il trattamento integrativo. Il netto annuo si divide per le mensilità. Per 30.000 € di RAL su 13 mensilità la stima è circa 1.850 € netti al mese." },
+    { "domanda": "Qual è la differenza tra 13 e 14 mensilità sul netto mensile?", "risposta": "A parità di RAL, con 14 mensilità il netto mensile è più basso perché lo stesso importo annuo viene distribuito su più rate; le due mensilità extra (tredicesima e quattordicesima) arrivano comunque durante l'anno." },
+    { "domanda": "Cos'è il taglio del cuneo fiscale che vedo nel calcolo?", "risposta": "È la misura, strutturale dal 2026, che alleggerisce il prelievo sui redditi da lavoro. Per i redditi fino a 20.000 € è un bonus esente pari a una percentuale del reddito (7,1%, 5,3% o 4,8%); tra 20.000 e 40.000 € è un'ulteriore detrazione fino a 1.000 €. Nel bilancio del calcolatore compare come voce che aumenta il netto." },
+    { "domanda": "Il calcolo tiene conto delle addizionali regionali e comunali?", "risposta": "L'addizionale regionale sì: scegliendo la regione di residenza viene applicata l'aliquota reale 2026 (fissa o a scaglioni). L'addizionale comunale invece non è inclusa, perché varia per ogni comune; incide in genere tra lo 0% e lo 0,9% e riduce leggermente il netto. Per alcune regioni le delibere 2026 non sono ancora pubblicate dal MEF: in quei casi usiamo una stima da fonti secondarie, in aggiornamento." },
+    { "domanda": "Perché i figli a carico contano solo dai 21 ai 29 anni?", "risposta": "Dal 2022 i figli fino a 21 anni sono coperti dall'Assegno Unico Universale erogato dall'INPS, che ha sostituito le detrazioni IRPEF per quella fascia. Restano nelle detrazioni IRPEF solo i figli di età compresa tra 21 e 29 anni; per i figli dai 30 anni in su la detrazione è stata abolita (salvo disabilità). Per questo il campo chiede espressamente i figli 21–29 anni." },
+    { "domanda": "Cambia il netto se sono apprendista o dipendente pubblico?", "risposta": "Sì. L'aliquota dei contributi INPS a carico del lavoratore cambia: 9,19% per il dipendente privato, circa 8,80% per il dipendente pubblico e 5,84% per l'apprendista. A parità di RAL l'apprendista ha quindi un netto più alto, perché versa meno contributi." }
+  ],
+
+  "relatedTools": [
+    "calcolatore-irpef",
+    "calcolatore-tfr",
+    "calcolatore-tredicesima",
+    "calcolatore-partita-iva-forfettario"
+  ],
+
+  "disclaimer": "<strong>Stima indicativa 2026.</strong> Non sostituisce la busta paga né una consulenza. Include contributi INPS (privato/pubblico/apprendista), IRPEF, detrazioni lavoro/figli 21–29/altri familiari, cuneo, trattamento integrativo e addizionale regionale. <strong>Non</strong> include l'addizionale comunale, il coniuge a carico, premi/welfare/conguagli o particolarità del CCNL. Per alcune regioni le aliquote 2026 non sono ancora pubblicate dal MEF e sono stimate da fonti secondarie.",
+
+  "fonti": [
+    { "titolo": "Aliquote e scaglioni IRPEF 2026", "dettaglio": "Legge di Bilancio 2026 (L. 199/2025): secondo scaglione ridotto al 33%", "url": "https://www.agenziaentrate.gov.it/portale/imposta-sul-reddito-delle-persone-fisiche-irpef-/aliquote-e-calcolo-dell-irpef" },
+    { "titolo": "Detrazioni per lavoro dipendente (art. 13 TUIR)", "dettaglio": "D.Lgs. 216/2023, confermato dalla L. 207/2024 · importo massimo 1.955 €", "url": "https://fiscomania.com/detrazioni-per-redditi-da-lavoro-dipendente/" },
+    { "titolo": "Taglio del cuneo fiscale 2026 (strutturale)", "dettaglio": "L. 199/2025 · bonus esente fino a 20.000 € + ulteriore detrazione 20.000–40.000 €", "url": "https://www.ticonsiglio.com/taglio-cuneo-fiscale-2026/" },
+    { "titolo": "Trattamento integrativo (ex Bonus Renzi)", "dettaglio": "fino a 1.200 € per redditi ≤ 15.000 € in presenza di capienza", "url": "https://fiscomania.com/trattamento-integrativo-come-funziona/" },
+    { "titolo": "Contributi INPS lavoratori dipendenti", "dettaglio": "IVS a carico lavoratore: privato 9,19% · pubblico 8,80% · apprendista 5,84% (+1% oltre 56.224 €)", "url": "https://www.inps.it/" },
+    { "titolo": "Detrazioni per figli e familiari a carico (art. 12 TUIR)", "dettaglio": "riforma L. 207/2024: figli 21–29 anni (950 €), ascendenti conviventi (750 €)", "url": "https://fiscomania.com/familiari-a-carico-limiti-detrazione/" },
+    { "titolo": "Addizionale regionale IRPEF 2026", "dettaglio": "aliquote ufficiali per regione (portale del Dipartimento delle Finanze — MEF)", "url": "https://www1.finanze.gov.it/finanze2/dipartimentopolitichefiscali/fiscalitalocale/addregirpef/sceltaregione.htm" }
+  ],
+
+  "jsonLd": {
+    "type": "SoftwareApplication",
+    "applicationCategory": "FinanceApplication"
+  }
+}

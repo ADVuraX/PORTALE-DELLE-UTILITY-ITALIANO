@@ -11,7 +11,7 @@ Questa e la root reale del repository Git. La cartella esterna `PORTALE DELLE UT
 ## Stato attuale
 
 - Repository Git attivo: `portale-utility-italiano`
-- Branch: `master`
+- Branch: `main`
 - Remote: `https://github.com/ADVuraX/PORTALE-DELLE-UTILITY-ITALIANO`
 - Deploy target dichiarato: Cloudflare Workers con static assets
 - Config Cloudflare: `wrangler.toml`
