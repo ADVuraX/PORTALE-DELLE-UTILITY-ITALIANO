@@ -57,7 +57,10 @@ Se Wrangler/Git vengono lanciati dalla cartella esterna `PORTALE DELLE UTILITY I
 
 ## Stato / priorità
 
-- Live: 1 tool (`calcolatore-stipendio-netto`).
-- Dominio: non ancora registrato — sitemap/robots usano placeholder `TUO-DOMINIO.it`, canonical relativi.
-- Priorità contenuti: cluster **calcolatori fiscali/lavoro** (irpef, tfr, tredicesima, forfettario) e **generatori** (password, qr, uuid).
+- Live: 19 tool. **Calcolatori**: stipendio-netto, tfr, partita-iva-forfettario. **Generatori**: password, qr-code, uuid. **Convertitori**: valuta (tassi BCE live via Frankfurter + fallback statico), lunghezza, peso, temperatura, area, volume, velocita, tempo, dati, pressione, energia. **Validatori**: codice-fiscale (checksum + decode data/sesso/Belfiore, gestione omocodia), iban (mod-97 + decode CIN/ABI/CAB/conto).
+  - Dati versionati: `tfr-2026.js`, `forfettario-2026.js`, `valute-2026-07.js` (+ `valute-live.js` per il fetch client-side). Brief fonti in `docs/research/`.
+  - I 10 convertitori unità condividono un solo calcolatore `convertitore-unita.js` (logicId `unita-v1`, tabella master di fattori); le pagine differiscono solo per le `options` del config.
+  - Validatori e convertitori usano la **modalità calcolatore** (non serve una modalità dedicata): `outputPrimary` format `text` + `outputSecondary` per i campi decodificati.
+- Dominio: non ancora registrato — sitemap/robots usano placeholder `TUO-DOMINIO.it`, canonical relativi. Non ancora deployato.
+- Priorità contenuti: completare cluster **calcolatori fiscali/lavoro** (irpef, tredicesima, imu, mutuo).
 - Monetizzazione prevista: AdSense (richiede dominio live + approvazione — non testabile in locale).

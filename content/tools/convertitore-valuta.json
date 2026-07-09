@@ -1,0 +1,146 @@
+{
+  "slug": "convertitore-valuta",
+  "cluster": "convertitori",
+  "tema": "denaro",
+  "updated": "2026-07",
+
+  "seo": {
+    "title": "Convertitore Valuta – Cambio Aggiornato BCE",
+    "metaDescription": "Converti oltre 30 valute con i tassi di riferimento BCE aggiornati ogni giorno: euro, dollaro, sterlina, franco svizzero, yen e molte altre. Gratis, immediato, con fallback offline.",
+    "primaryKeyword": "convertitore valuta",
+    "canonical": "/convertitore-valuta/"
+  },
+
+  "h1": "Convertitore di Valuta",
+
+  "intro": "Converti un importo da una valuta all'altra usando i tassi di riferimento della Banca Centrale Europea, aggiornati ogni giorno lavorativo. Scegli l'importo, la valuta di partenza e quella di arrivo tra oltre 30 valute — euro, dollaro statunitense, sterlina, franco svizzero, yen, yuan e molte altre — e vedi subito il risultato, il tasso applicato, il cambio inverso e la data dell'ultimo aggiornamento. Se la connessione non è disponibile lo strumento usa comunque un tasso di riferimento salvato in locale, così ottieni sempre una stima. Ricorda che si tratta di tassi indicativi: la tua banca applicherà un cambio leggermente diverso.",
+
+  "tool": {
+    "logicId": "valuta-v1",
+    "script": "convertitore-valuta.js",
+    "data": ["valute-2026-07.js", "valute-live.js"],
+    "cardNote": "Tassi BCE live",
+    "inputs": [
+      { "id": "importo", "label": "Importo da convertire", "type": "number", "min": 0, "step": 1, "default": 100 },
+      { "id": "da", "label": "Da", "type": "select", "default": "EUR",
+        "options": ["EUR","USD","GBP","CHF","JPY","CNY","CAD","AUD","NZD","SEK","NOK","DKK","PLN","CZK","HUF","RON","TRY","INR","BRL","MXN","ZAR","KRW","SGD","HKD","THB","IDR","MYR","PHP","ILS","ISK","RUB","AED","SAR"],
+        "optionLabels": {
+          "EUR": "EUR — Euro",
+          "USD": "USD — Dollaro statunitense",
+          "GBP": "GBP — Sterlina britannica",
+          "CHF": "CHF — Franco svizzero",
+          "JPY": "JPY — Yen giapponese",
+          "CNY": "CNY — Yuan cinese",
+          "CAD": "CAD — Dollaro canadese",
+          "AUD": "AUD — Dollaro australiano",
+          "NZD": "NZD — Dollaro neozelandese",
+          "SEK": "SEK — Corona svedese",
+          "NOK": "NOK — Corona norvegese",
+          "DKK": "DKK — Corona danese",
+          "PLN": "PLN — Złoty polacco",
+          "CZK": "CZK — Corona ceca",
+          "HUF": "HUF — Fiorino ungherese",
+          "RON": "RON — Leu rumeno",
+          "TRY": "TRY — Lira turca",
+          "INR": "INR — Rupia indiana",
+          "BRL": "BRL — Real brasiliano",
+          "MXN": "MXN — Peso messicano",
+          "ZAR": "ZAR — Rand sudafricano",
+          "KRW": "KRW — Won sudcoreano",
+          "SGD": "SGD — Dollaro di Singapore",
+          "HKD": "HKD — Dollaro di Hong Kong",
+          "THB": "THB — Baht thailandese",
+          "IDR": "IDR — Rupia indonesiana",
+          "MYR": "MYR — Ringgit malese",
+          "PHP": "PHP — Peso filippino",
+          "ILS": "ILS — Nuovo shekel israeliano",
+          "ISK": "ISK — Corona islandese",
+          "RUB": "RUB — Rublo russo",
+          "AED": "AED — Dirham degli EAU",
+          "SAR": "SAR — Riyal saudita"
+        }
+      },
+      { "id": "a", "label": "A", "type": "select", "default": "USD",
+        "options": ["EUR","USD","GBP","CHF","JPY","CNY","CAD","AUD","NZD","SEK","NOK","DKK","PLN","CZK","HUF","RON","TRY","INR","BRL","MXN","ZAR","KRW","SGD","HKD","THB","IDR","MYR","PHP","ILS","ISK","RUB","AED","SAR"],
+        "optionLabels": {
+          "EUR": "EUR — Euro",
+          "USD": "USD — Dollaro statunitense",
+          "GBP": "GBP — Sterlina britannica",
+          "CHF": "CHF — Franco svizzero",
+          "JPY": "JPY — Yen giapponese",
+          "CNY": "CNY — Yuan cinese",
+          "CAD": "CAD — Dollaro canadese",
+          "AUD": "AUD — Dollaro australiano",
+          "NZD": "NZD — Dollaro neozelandese",
+          "SEK": "SEK — Corona svedese",
+          "NOK": "NOK — Corona norvegese",
+          "DKK": "DKK — Corona danese",
+          "PLN": "PLN — Złoty polacco",
+          "CZK": "CZK — Corona ceca",
+          "HUF": "HUF — Fiorino ungherese",
+          "RON": "RON — Leu rumeno",
+          "TRY": "TRY — Lira turca",
+          "INR": "INR — Rupia indiana",
+          "BRL": "BRL — Real brasiliano",
+          "MXN": "MXN — Peso messicano",
+          "ZAR": "ZAR — Rand sudafricano",
+          "KRW": "KRW — Won sudcoreano",
+          "SGD": "SGD — Dollaro di Singapore",
+          "HKD": "HKD — Dollaro di Hong Kong",
+          "THB": "THB — Baht thailandese",
+          "IDR": "IDR — Rupia indonesiana",
+          "MYR": "MYR — Ringgit malese",
+          "PHP": "PHP — Peso filippino",
+          "ILS": "ILS — Nuovo shekel israeliano",
+          "ISK": "ISK — Corona islandese",
+          "RUB": "RUB — Rublo russo",
+          "AED": "AED — Dirham degli EAU",
+          "SAR": "SAR — Riyal saudita"
+        }
+      }
+    ],
+    "outputPrimary": { "id": "risultato", "label": "Importo convertito", "format": "text" },
+    "outputSecondary": [
+      { "id": "tasso", "label": "Tasso applicato", "format": "text" },
+      { "id": "inverso", "label": "Cambio inverso", "format": "text" },
+      { "id": "dataTasso", "label": "Aggiornamento tassi", "format": "text" }
+    ]
+  },
+
+  "spiegazione": {
+    "titolo": "Come funziona il convertitore e da dove arrivano i tassi di cambio",
+    "corpo": "Questo convertitore utilizza i tassi di riferimento pubblicati ogni giorno lavorativo dalla Banca Centrale Europea (BCE), recuperati in tempo quasi reale tramite l'API pubblica Frankfurter. La BCE fissa questi tassi intorno alle 16:00 CET sulla base delle quotazioni concordate tra le banche centrali dell'Eurosistema: sono la fonte più autorevole e trasparente per l'euro, ma restano tassi di riferimento, non prezzi di negoziazione. Tutte le conversioni passano dall'euro come valuta base: per convertire, ad esempio, da dollari a sterline, l'importo viene prima riportato in euro e poi nella valuta di destinazione, così ogni coppia è coerente con la stessa griglia di tassi. Alcune valute non fanno parte del paniere BCE (come rublo russo, dirham degli Emirati e riyal saudita): per queste usiamo una stima indicativa da fonti secondarie, chiaramente segnalata. È importante distinguere il tasso di riferimento dal tasso che applica concretamente la tua banca o il tuo circuito di pagamento: su un cambio reale si aggiungono uno spread (il margine tra prezzo di acquisto e di vendita) ed eventuali commissioni fisse o percentuali, che rendono il cambio effettivo meno favorevole di quello teorico. Per questo il risultato qui mostrato va inteso come punto di partenza per un confronto, non come il prezzo esatto di un'operazione di cambio. Nei giorni festivi la BCE non pubblica nuovi tassi, quindi resta valido l'ultimo dato disponibile. Se il tuo dispositivo è offline o l'API non risponde, lo strumento ripiega su uno snapshot dei tassi salvato in locale, così ottieni comunque una conversione approssimativa senza dipendere dalla rete."
+  },
+
+  "esempi": [
+    { "titolo": "100 EUR → USD", "risultatoAtteso": "≈ 114,35 $ al tasso di riferimento BCE" },
+    { "titolo": "250 USD → EUR", "risultatoAtteso": "≈ 218,63 € (conversione via euro)" },
+    { "titolo": "500 GBP → CHF", "risultatoAtteso": "≈ 540 Fr. usando la griglia di tassi BCE" }
+  ],
+
+  "faq": [
+    { "domanda": "Da dove arrivano i tassi di cambio?", "risposta": "Dai tassi di riferimento della Banca Centrale Europea, pubblicati ogni giorno lavorativo intorno alle 16:00 CET. Li recuperiamo tramite l'API pubblica Frankfurter, che espone i dati ufficiali BCE. Per alcune valute che non fanno parte del paniere BCE (come rublo, dirham e riyal) usiamo una stima indicativa da fonti secondarie, segnalata come tale." },
+    { "domanda": "I tassi sono in tempo reale?", "risposta": "Non al secondo. La BCE fissa i tassi di riferimento una volta al giorno, intorno alle 16:00 CET dei giorni lavorativi: non seguono le oscillazioni intraday del mercato dei cambi. Nei fine settimana e nei festivi resta valido l'ultimo tasso pubblicato. La data e l'ora dell'ultimo aggiornamento sono sempre indicate nel risultato." },
+    { "domanda": "Perché la mia banca applica un cambio diverso?", "risposta": "Perché il tasso di riferimento BCE è un valore teorico, mentre la banca o il circuito di pagamento aggiungono uno spread (il margine tra prezzo di acquisto e di vendita della valuta) ed eventuali commissioni. Per questo il cambio che paghi realmente su un bonifico, un prelievo o un acquisto in valuta è quasi sempre meno favorevole di quello mostrato qui." },
+    { "domanda": "Posso convertire valute non europee?", "risposta": "Sì. Oltre alle valute europee puoi convertire dollaro statunitense, canadese, australiano e neozelandese, yen giapponese, yuan cinese, won sudcoreano, rupia indiana, real brasiliano, peso messicano, rand sudafricano e molte altre — oltre 30 in tutto. Alcune, non incluse nel paniere BCE, riportano una stima indicativa." },
+    { "domanda": "Il convertitore funziona offline?", "risposta": "Sì, in modo limitato. Se il dispositivo è offline o l'API BCE non risponde, lo strumento usa uno snapshot dei tassi salvato in locale nella pagina e ti fornisce comunque una conversione approssimativa. In quel caso la data mostrata sarà quella dello snapshot, non quella dell'ultimo aggiornamento live." }
+  ],
+
+  "relatedTools": [
+    "convertitore-lunghezza",
+    "convertitore-peso",
+    "calcolatore-stipendio-netto"
+  ],
+
+  "disclaimer": "<strong>Tassi di riferimento indicativi.</strong> I valori mostrati derivano dai tassi di riferimento BCE e non sono adatti a operazioni reali: la tua banca o il tuo circuito di pagamento applicano uno spread e commissioni, quindi il cambio effettivo sarà diverso. Alcune valute non-BCE sono stimate da fonti secondarie. Nessun importo viene inviato o salvato.",
+
+  "fonti": [
+    { "titolo": "Tassi di riferimento dell'euro (BCE)", "dettaglio": "Banca Centrale Europea · pubblicazione giornaliera intorno alle 16:00 CET", "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html" },
+    { "titolo": "Frankfurter — API open source dei tassi BCE", "dettaglio": "espone i tassi di riferimento BCE tramite API pubblica gratuita", "url": "https://frankfurter.dev/" }
+  ],
+
+  "jsonLd": {
+    "type": "SoftwareApplication",
+    "applicationCategory": "FinanceApplication"
+  }
+}

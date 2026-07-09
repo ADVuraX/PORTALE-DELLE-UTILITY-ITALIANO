@@ -1,0 +1,95 @@
+{
+  "slug": "convertitore-dati",
+  "cluster": "convertitori",
+  "tema": "misure",
+  "updated": "2026-07",
+
+  "seo": {
+    "title": "Convertitore Dati – Byte, MB, GB e Gibibyte",
+    "metaDescription": "Converti unità di dati digitali: bit, byte, KB, MB, GB, TB decimali e KiB, MiB, GiB, TiB binari. Capisci la differenza tra 1000 e 1024. Calcolo immediato e gratuito.",
+    "primaryKeyword": "convertitore dati",
+    "canonical": "/convertitore-dati/"
+  },
+
+  "h1": "Convertitore di Dati Digitali",
+
+  "intro": "Converti quantità di dati digitali tra bit, byte e i loro multipli, sia decimali (KB, MB, GB, TB) sia binari (KiB, MiB, GiB, TiB). Inserisci il valore, scegli l'unità di partenza e quella di arrivo e ottieni subito il risultato con il fattore applicato. Perfetto per capire la reale capacità di un disco, la dimensione di un file o quanto occupa un download, tenendo conto della differenza tra multipli da 1000 e da 1024. Tutto avviene nel tuo browser.",
+
+  "tool": {
+    "logicId": "unita-v1",
+    "script": "convertitore-unita.js",
+    "cardNote": "decimale e binario",
+    "inputs": [
+      { "id": "valore", "label": "Valore da convertire", "type": "number", "step": "any", "default": 1 },
+      { "id": "da", "label": "Da", "type": "select", "default": "GB",
+        "options": ["bit","B","KB","KiB","MB","MiB","GB","GiB","TB","TiB"],
+        "optionLabels": {
+          "bit": "Bit (bit)",
+          "B": "Byte (B)",
+          "KB": "Kilobyte decimale (KB)",
+          "KiB": "Kibibyte binario (KiB)",
+          "MB": "Megabyte decimale (MB)",
+          "MiB": "Mebibyte binario (MiB)",
+          "GB": "Gigabyte decimale (GB)",
+          "GiB": "Gibibyte binario (GiB)",
+          "TB": "Terabyte decimale (TB)",
+          "TiB": "Tebibyte binario (TiB)"
+        }
+      },
+      { "id": "a", "label": "A", "type": "select", "default": "MB",
+        "options": ["bit","B","KB","KiB","MB","MiB","GB","GiB","TB","TiB"],
+        "optionLabels": {
+          "bit": "Bit (bit)",
+          "B": "Byte (B)",
+          "KB": "Kilobyte decimale (KB)",
+          "KiB": "Kibibyte binario (KiB)",
+          "MB": "Megabyte decimale (MB)",
+          "MiB": "Mebibyte binario (MiB)",
+          "GB": "Gigabyte decimale (GB)",
+          "GiB": "Gibibyte binario (GiB)",
+          "TB": "Terabyte decimale (TB)",
+          "TiB": "Tebibyte binario (TiB)"
+        }
+      }
+    ],
+    "outputPrimary": { "id": "risultato", "label": "Risultato", "format": "text" },
+    "outputSecondary": [
+      { "id": "formula", "label": "Fattore di conversione", "format": "text" }
+    ]
+  },
+
+  "spiegazione": {
+    "titolo": "Decimale contro binario: perché 1 GB non è sempre 1024 MB",
+    "corpo": "La confusione più comune sui dati digitali nasce da due modi diversi di contare i multipli. Il primo è decimale, basato sulle potenze di 1000: un kilobyte (KB) vale 1.000 byte, un megabyte (MB) 1.000 KB, un gigabyte (GB) 1.000 MB e un terabyte (TB) 1.000 GB. È il sistema usato dai produttori di hard disk e SSD e dagli operatori di rete. Il secondo è binario, basato sulle potenze di 1024, il numero naturale per un computer perché è 2 elevato alla decima: qui le unità corrette hanno il prefisso -bi, cioè kibibyte (KiB = 1.024 byte), mebibyte (MiB = 1.024 KiB), gibibyte (GiB) e tebibyte (TiB). Da questa differenza deriva il classico malinteso: compri un disco da 1 TB e il sistema operativo ne mostra circa 931, perché conta in GiB pur scrivendo GB. La regola pratica: 1 GB = 1.000 MB, mentre 1 GiB = 1.024 MiB, e 1 GiB equivale a circa 1,074 GB. Alla base di tutto ci sono il bit, la più piccola unità (0 o 1), e il byte, pari a 8 bit. Attenzione a non confondere bit e byte: le velocità di connessione si esprimono in bit al secondo (Mbps), mentre le dimensioni dei file in byte, quindi una linea da 100 Mbps scarica al massimo circa 12,5 MB al secondo. Questo convertitore distingue sempre esplicitamente le unità decimali da quelle binarie per evitare ambiguità."
+  },
+
+  "esempi": [
+    { "titolo": "1 GB in MB", "risultatoAtteso": "= 1.000 MB (multipli decimali)" },
+    { "titolo": "1 GiB in MiB", "risultatoAtteso": "= 1.024 MiB (multipli binari)" },
+    { "titolo": "1 byte in bit", "risultatoAtteso": "= 8 bit" }
+  ],
+
+  "faq": [
+    { "domanda": "Qual è la differenza tra GB e GiB?", "risposta": "Il gigabyte (GB) è un'unità decimale e vale 1.000 megabyte, cioè un miliardo di byte. Il gibibyte (GiB) è un'unità binaria e vale 1.024 mebibyte, cioè 1.073.741.824 byte. Un GiB corrisponde quindi a circa 1,074 GB. I produttori di dischi usano i GB decimali, mentre molti sistemi operativi contano in GiB ma li etichettano come GB, generando confusione." },
+    { "domanda": "Perché il mio disco da 1 TB mostra meno spazio?", "risposta": "Perché il produttore conta 1 TB come 1.000.000.000.000 byte (decimale), mentre il sistema operativo lo divide per 1.024 a ogni livello, ottenendo circa 0,909 TiB, che spesso viene scritto come 931 GB. Non manca spazio: è solo un modo diverso di contare. La capacità reale in byte è quella dichiarata." },
+    { "domanda": "Che differenza c'è tra bit e byte?", "risposta": "Il bit è l'unità minima di informazione e può valere solo 0 o 1. Il byte è un gruppo di 8 bit ed è l'unità con cui si misurano file e memoria. Le velocità di rete si esprimono in bit al secondo (Mbps, Gbps), mentre le dimensioni dei file in byte (MB, GB): per questo una connessione da 100 Mbps trasferisce al massimo circa 12,5 MB al secondo." },
+    { "domanda": "Quali unità dovrei usare?", "risposta": "Dipende dal contesto. Per capacità di dischi, chiavette e piani dati commerciali si usano le unità decimali (GB, TB). Per la memoria RAM e per quanto mostrato da molti sistemi operativi si usano di fatto le unità binarie (GiB, MiB), anche quando le etichette dicono GB o MB. Quando la precisione conta, indica sempre se intendi il conteggio decimale o binario." }
+  ],
+
+  "relatedTools": [
+    "convertitore-tempo",
+    "convertitore-energia",
+    "convertitore-lunghezza"
+  ],
+
+  "disclaimer": "<strong>Distingui decimale e binario.</strong> Le unità KB/MB/GB/TB usano multipli di 1000; KiB/MiB/GiB/TiB usano multipli di 1024. Confonderle porta a errori di capacità fino a circa il 10%. Le conversioni qui sono esatte per l'unità scelta. Nessun dato viene inviato o salvato.",
+
+  "fonti": [
+    { "titolo": "IEC 80000-13 — prefissi binari (kibi, mebi, gibi)", "dettaglio": "standard internazionale che definisce le unità binarie dei dati", "url": "https://www.iso.org/standard/31898.html" }
+  ],
+
+  "jsonLd": {
+    "type": "SoftwareApplication",
+    "applicationCategory": "UtilitiesApplication"
+  }
+}

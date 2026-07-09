@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Validatore Codice Fiscale – Verifica e Calcolo Carattere di Controllo</title>
+<meta name="description" content="Verifica se un codice fiscale è formalmente corretto: controlla struttura e carattere di controllo, decodifica sesso, data e luogo di nascita. Tutto nel browser, nessun dato inviato.">
+<link rel="canonical" href="https://TUO-DOMINIO.it/validatore-codice-fiscale/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Validatore Codice Fiscale – Verifica e Calcolo Carattere di Controllo">
+<meta property="og:description" content="Verifica se un codice fiscale è formalmente corretto: controlla struttura e carattere di controllo, decodifica sesso, data e luogo di nascita. Tutto nel browser, nessun dato inviato.">
+<meta property="og:url" content="https://TUO-DOMINIO.it/validatore-codice-fiscale/">
+<script>(function(){try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
+window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribute("data-theme"),sysDark=matchMedia("(prefers-color-scheme:dark)").matches,next=cur?(cur==="dark"?"light":"dark"):(sysDark?"light":"dark");d.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}var b=document.querySelector(".theme-toggle");if(b)b.setAttribute("aria-pressed",String(next==="dark"));};</script>
+<link rel="stylesheet" href="/assets/css/fonts.css?v=abc23a4b">
+<link rel="stylesheet" href="/assets/css/tokens.css?v=daf77d65">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Validatore Codice Fiscale – Verifica e Calcolo Carattere di Controllo","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","url":"https://TUO-DOMINIO.it/validatore-codice-fiscale/","description":"Verifica se un codice fiscale è formalmente corretto: controlla struttura e carattere di controllo, decodifica sesso, data e luogo di nascita. Tutto nel browser, nessun dato inviato.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"dateModified":"2026-07-01"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Come si calcola il carattere di controllo?","acceptedAnswer":{"@type":"Answer","text":"Si prendono i primi 15 caratteri del codice e a ciascuno si assegna un valore numerico, diverso a seconda che occupi una posizione di ordine dispari o pari (secondo due tabelle fissate dal D.M. del 1976). Si sommano tutti i valori e si calcola il resto della divisione per 26: quel resto individua una lettera da A a Z, che è il sedicesimo carattere. Se coincide, il codice è coerente."}},{"@type":"Question","name":"Cos'è l'omocodia?","acceptedAnswer":{"@type":"Answer","text":"È il caso in cui due persone diverse otterrebbero lo stesso codice fiscale perché hanno cognome, nome, data, sesso e comune di nascita che generano la stessa sequenza. Per rendere il codice univoco, l'Agenzia delle Entrate sostituisce una o più cifre con lettere secondo una mappa predefinita. Il validatore riconosce queste sostituzioni e le riporta a cifra prima di decodificare i dati."}},{"@type":"Question","name":"Perché le donne hanno il giorno +40?","acceptedAnswer":{"@type":"Answer","text":"È un espediente della codifica: per distinguere il sesso senza aggiungere caratteri, al giorno di nascita delle donne si sommano 40. Così un giorno tra 41 e 71 indica una donna (a cui si sottraggono 40 per ottenere il giorno reale), mentre un giorno tra 1 e 31 indica un uomo. Il validatore applica questa regola per dedurre sesso e data."}},{"@type":"Question","name":"Il validatore conferma che il codice esiste davvero?","acceptedAnswer":{"@type":"Answer","text":"No. Lo strumento verifica solo la correttezza formale: struttura, carattere di controllo e coerenza dei dati decodificati. Non consulta gli archivi dell'Anagrafe Tributaria, quindi non può confermare che il codice sia stato effettivamente assegnato a una persona reale né che sia intestato a un determinato individuo. L'unica verifica ufficiale di esistenza è quella dell'Agenzia delle Entrate."}},{"@type":"Question","name":"Posso capire dove è nata una persona dal codice fiscale?","acceptedAnswer":{"@type":"Answer","text":"In parte. I caratteri dall'undicesimo al quattordicesimo sono il codice catastale (Belfiore) del comune o dello Stato estero di nascita. Il validatore mostra questo codice, ma non lo traduce automaticamente nel nome del comune per non appesantire la pagina con un archivio esteso. Il codice Belfiore è comunque una chiave con cui risalire alla località tramite le tabelle ufficiali."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://TUO-DOMINIO.it/"},{"@type":"ListItem","position":2,"name":"Validatore di Codice Fiscale","item":"https://TUO-DOMINIO.it/validatore-codice-fiscale/"}]}</script>
+</head>
+<body>
+
+<a class="skip" href="#tool">Salta al calcolatore</a>
+
+<header class="head">
+  <div class="wrap">
+    <a class="logo" href="/">utility<b>.it</b></a>
+    <div class="head-right">
+      <div class="crumbs"><a href="/">Home</a> / <span>validatore codice fiscale</span></div>
+      <button class="theme-toggle" type="button" onclick="__toggleTheme()" aria-label="Cambia tema chiaro o scuro" aria-pressed="false" title="Tema chiaro / scuro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" fill="currentColor" stroke="none"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="ad-rail ad-rail-l" aria-hidden="true"><div class="ad-slot ad-sky"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">160×600</span></div></div><div class="ad-rail ad-rail-r" aria-hidden="true"><div class="ad-slot ad-sky"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">160×600</span></div></div>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-lead">
+      <p class="eyebrow">documenti</p>
+      <h1>Validatore di Codice Fiscale</h1>
+      <p class="lede">Controlla in un istante se un codice fiscale è formalmente valido. Lo strumento verifica la struttura dei 16 caratteri e ricalcola il carattere di controllo con l'algoritmo ufficiale del Ministero delle Finanze, poi decodifica i dati anagrafici deducibili dal codice: sesso, data di nascita e codice catastale (Belfiore) del luogo di nascita. Gestisce anche l'omocodia, cioè i casi in cui alcune cifre sono state sostituite da lettere per distinguere persone con dati simili. Tutto avviene nel tuo browser: nessun codice viene inviato o salvato. Attenzione, però: questa è una verifica formale della struttura, non conferma che il codice appartenga davvero a una persona esistente.</p>
+      <div class="meta-row">
+        <span class="pill pill-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Fonti citate</span>
+        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Aggiornato luglio 2026</span>
+        <span class="pill">Gratuito · nessuna registrazione</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="tool" id="tool" data-tool>
+    <div class="wrap tool-grid">
+      <div class="card card-in">
+        <div class="card-top"><span>I tuoi dati</span></div>
+        <form data-tool-form aria-describedby="disc">
+          <div class="field field-text">
+            <label for="in-codice">Codice fiscale</label>
+            <div class="control"><input type="text" id="in-codice" value="" placeholder="es. RSSMRA85M01H501U"></div>
+          </div>
+        </form>
+      </div>
+      <div class="card card-out" data-result-card>
+        <div class="card-top"><span>Risultato</span></div>
+        <div class="result" aria-live="polite">
+          <div class="rlabel">Esito verifica</div>
+          <div class="value" data-out-primary>—</div>
+          <div class="value-underline"></div>
+          <div class="secondary" data-out-secondary><div class="cell"><span class="k">Sesso</span><span class="v" data-out="sesso">—</span></div><div class="cell"><span class="k">Data di nascita</span><span class="v" data-out="dataNascita">—</span></div><div class="cell"><span class="k">Luogo di nascita (codice Belfiore)</span><span class="v" data-out="codiceCatastale">—</span></div></div>
+          
+        </div>
+        <div class="note" id="disc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg><p><strong>Verifica formale, non ufficiale.</strong> Lo strumento controlla struttura e carattere di controllo e decodifica i dati deducibili dal codice, ma <strong>non</strong> attesta l'esistenza reale né la titolarità del codice fiscale. Il secolo di nascita è presunto in base all'età più plausibile. <strong>Nessun dato viene inviato:</strong> tutto il calcolo avviene in locale nel tuo browser.</p></div>
+      </div>
+      <script type="application/json" data-tool-config>{"logicId":"codice-fiscale-v1","inputs":[{"id":"codice","type":"text"}],"outputPrimary":{"id":"esito","format":"text"},"outputSecondary":[{"id":"sesso","label":"Sesso","format":"text"},{"id":"dataNascita","label":"Data di nascita","format":"text"},{"id":"codiceCatastale","label":"Luogo di nascita (codice Belfiore)","format":"text"}],"breakdown":[],"extras":[]}</script>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Tool correlati</h2>
+      <div class="related">
+        <a class="rel" href="/validatore-iban/"><span class="re">Tool correlato</span><span class="rn">validatore iban</span></a>
+        <a class="rel" href="/calcolatore-stipendio-netto/"><span class="re">Tool correlato</span><span class="rn">calcolatore stipendio netto</span></a>
+        <a class="rel" href="/calcolatore-partita-iva-forfettario/"><span class="re">Tool correlato</span><span class="rn">calcolatore partita iva forfettario</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Come è fatto il codice fiscale e come si verifica il carattere di controllo</h2>
+      <div class="prose"><p>Il codice fiscale delle persone fisiche è composto da 16 caratteri alfanumerici, generati secondo le regole del Decreto Ministeriale del 23 dicembre 1976. I primi 6 caratteri derivano dal cognome (3 lettere) e dal nome (3 lettere), estratte con criteri precisi da consonanti e vocali. Seguono 2 cifre per l'anno di nascita, 1 lettera per il mese (A per gennaio fino a T per dicembre) e 2 cifre per il giorno: per le donne al giorno si sommano 40, così lo stesso schema distingue il sesso senza aggiungere caratteri. I 4 caratteri successivi sono il codice catastale, detto codice Belfiore, del comune (o dello Stato estero) di nascita. L'ultimo carattere è il carattere di controllo, calcolato sui 15 precedenti: ogni carattere ha un valore diverso a seconda che occupi una posizione di ordine dispari o pari (secondo due tabelle di conversione fissate dal decreto), i valori si sommano e il resto della divisione per 26 individua una lettera da A a Z. Se la lettera calcolata coincide con il sedicesimo carattere, il codice è formalmente coerente. Un ulteriore meccanismo è l'omocodia: quando due persone otterrebbero lo stesso codice, l'Agenzia delle Entrate sostituisce una o più cifre con lettere secondo una mappa predefinita, per rendere il codice univoco; il validatore riconosce queste sostituzioni prima di decodificare la data. Due limiti sono importanti. Primo: la verifica è puramente formale, cioè conferma che il codice rispetta le regole di costruzione, ma non attesta che corrisponda a una persona realmente esistente o registrata. Secondo: dalle sole 2 cifre dell'anno il secolo è ambiguo (per esempio 25 può essere 1925 o 2025), perciò si assume l'ipotesi più plausibile in base all'età.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Esempi pratici</h2>
+      <div class="examples">
+        <div class="ex"><div class="exq">RSSMRA85M01H501U</div><div class="exr">Formalmente valido · Maschio · 01/08/1985 · Belfiore H501 (Roma)</div></div>
+        <div class="ex"><div class="exq">RSSMRA85M41H501A</div><div class="exr">Femmina · giorno 41 = 1 (giorno +40) · nata a agosto 1985</div></div>
+        <div class="ex"><div class="exq">RSSMRA85M01H501B</div><div class="exr">Non valido: carattere di controllo errato rispetto ai primi 15 caratteri</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap faq">
+      <h2>Domande frequenti</h2>
+      <details open><summary>Come si calcola il carattere di controllo?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>Si prendono i primi 15 caratteri del codice e a ciascuno si assegna un valore numerico, diverso a seconda che occupi una posizione di ordine dispari o pari (secondo due tabelle fissate dal D.M. del 1976). Si sommano tutti i valori e si calcola il resto della divisione per 26: quel resto individua una lettera da A a Z, che è il sedicesimo carattere. Se coincide, il codice è coerente.</p></div></details>
+      <details><summary>Cos'è l'omocodia?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>È il caso in cui due persone diverse otterrebbero lo stesso codice fiscale perché hanno cognome, nome, data, sesso e comune di nascita che generano la stessa sequenza. Per rendere il codice univoco, l'Agenzia delle Entrate sostituisce una o più cifre con lettere secondo una mappa predefinita. Il validatore riconosce queste sostituzioni e le riporta a cifra prima di decodificare i dati.</p></div></details>
+      <details><summary>Perché le donne hanno il giorno +40?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>È un espediente della codifica: per distinguere il sesso senza aggiungere caratteri, al giorno di nascita delle donne si sommano 40. Così un giorno tra 41 e 71 indica una donna (a cui si sottraggono 40 per ottenere il giorno reale), mentre un giorno tra 1 e 31 indica un uomo. Il validatore applica questa regola per dedurre sesso e data.</p></div></details>
+      <details><summary>Il validatore conferma che il codice esiste davvero?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>No. Lo strumento verifica solo la correttezza formale: struttura, carattere di controllo e coerenza dei dati decodificati. Non consulta gli archivi dell'Anagrafe Tributaria, quindi non può confermare che il codice sia stato effettivamente assegnato a una persona reale né che sia intestato a un determinato individuo. L'unica verifica ufficiale di esistenza è quella dell'Agenzia delle Entrate.</p></div></details>
+      <details><summary>Posso capire dove è nata una persona dal codice fiscale?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>In parte. I caratteri dall'undicesimo al quattordicesimo sono il codice catastale (Belfiore) del comune o dello Stato estero di nascita. Il validatore mostra questo codice, ma non lo traduce automaticamente nel nome del comune per non appesantire la pagina con un archivio esteso. Il codice Belfiore è comunque una chiave con cui risalire alla località tramite le tabelle ufficiali.</p></div></details>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="fonti">
+        <div class="fonti-head">
+          <h3>Fonti e metodo</h3>
+          <span class="upd">Ultimo aggiornamento: luglio 2026</span>
+        </div>
+        <div class="src"><span class="n">01</span><div class="b"><div class="t"><a class="t" href="https://www.gazzettaufficiale.it/eli/id/1977/01/20/077U0006/sg" target="_blank" rel="noopener">Struttura del codice fiscale (D.M. 23/12/1976)</a></div><div class="d">Ministero delle Finanze · regole di formazione e carattere di controllo</div></div></div>
+        <div class="src"><span class="n">02</span><div class="b"><div class="t"><a class="t" href="https://www.agenziaentrate.gov.it/portale/schede/istanze/codice-fiscale-tessera-sanitaria/richiesta-codice-fiscale" target="_blank" rel="noopener">Codice fiscale — Agenzia delle Entrate</a></div><div class="d">informazioni ufficiali su composizione, rilascio e verifica del codice fiscale</div></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section class="ad-mini-sec"><div class="wrap"><div class="ad-mini-grid"><div class="ad-slot ad-mini"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">300×250</span></div><div class="ad-slot ad-mini"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">300×250</span></div></div></div></section>
+<div class="ad-anchor-spacer" aria-hidden="true"></div>
+<footer class="foot"><div class="wrap">
+    <p class="foot-base">Portale Italiano delle Utility — strumenti gratuiti, aggiornati, senza registrazione.</p>
+  </div></footer>
+<div class="ad-anchor" id="adAnchor" data-expanded="false">
+  <div class="ad-anchor-tools">
+    <button type="button" class="ad-anchor-btn" data-ad-toggle aria-expanded="false">Espandi</button>
+    <button type="button" class="ad-anchor-btn ad-anchor-close" data-ad-close aria-label="Chiudi annuncio">×</button>
+  </div>
+  <div class="ad-slot ad-anchor-slot"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">responsive · espandibile</span></div>
+</div>
+<script>(function(){var a=document.getElementById("adAnchor");if(!a)return;var t=a.querySelector("[data-ad-toggle]"),c=a.querySelector("[data-ad-close]");if(t)t.addEventListener("click",function(){var e=a.getAttribute("data-expanded")==="true";a.setAttribute("data-expanded",String(!e));t.setAttribute("aria-expanded",String(!e));t.textContent=e?"Espandi":"Riduci";});if(c)c.addEventListener("click",function(){a.setAttribute("data-hidden","true");});})();</script>
+
+<script src="/assets/js/runtime.js?v=814e70d4"></script>
+
+<script src="/assets/js/calculators/validatore-codice-fiscale.js?v=160cea51"></script>
+</body>
+</html>

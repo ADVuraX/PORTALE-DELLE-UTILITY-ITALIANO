@@ -1,0 +1,91 @@
+{
+  "slug": "convertitore-tempo",
+  "cluster": "convertitori",
+  "tema": "misure",
+  "updated": "2026-07",
+
+  "seo": {
+    "title": "Convertitore Tempo – Secondi, Minuti, Ore e Giorni",
+    "metaDescription": "Converti durate tra millisecondi, secondi, minuti, ore, giorni, settimane, mesi e anni. Calcolo immediato e gratuito nel browser, con fattore di conversione mostrato.",
+    "primaryKeyword": "convertitore tempo",
+    "canonical": "/convertitore-tempo/"
+  },
+
+  "h1": "Convertitore di Tempo",
+
+  "intro": "Converti una durata da un'unità di tempo all'altra: millisecondi, secondi, minuti, ore, giorni, settimane, mesi e anni. Inserisci il valore, scegli l'unità di partenza e quella di arrivo e leggi subito il risultato con il fattore di conversione applicato. Comodo per trasformare ore in minuti, giorni in ore o settimane in giorni quando pianifichi tempi di lavoro, scadenze o durate tecniche. Il calcolo avviene interamente nel tuo browser, senza inviare alcun dato.",
+
+  "tool": {
+    "logicId": "unita-v1",
+    "script": "convertitore-unita.js",
+    "cardNote": "8 unità",
+    "inputs": [
+      { "id": "valore", "label": "Valore da convertire", "type": "number", "step": "any", "default": 1 },
+      { "id": "da", "label": "Da", "type": "select", "default": "h",
+        "options": ["ms","s","min","h","d","wk","mo","yr"],
+        "optionLabels": {
+          "ms": "Millisecondo (ms)",
+          "s": "Secondo (s)",
+          "min": "Minuto (min)",
+          "h": "Ora (h)",
+          "d": "Giorno (d)",
+          "wk": "Settimana (wk)",
+          "mo": "Mese (mo)",
+          "yr": "Anno (yr)"
+        }
+      },
+      { "id": "a", "label": "A", "type": "select", "default": "min",
+        "options": ["ms","s","min","h","d","wk","mo","yr"],
+        "optionLabels": {
+          "ms": "Millisecondo (ms)",
+          "s": "Secondo (s)",
+          "min": "Minuto (min)",
+          "h": "Ora (h)",
+          "d": "Giorno (d)",
+          "wk": "Settimana (wk)",
+          "mo": "Mese (mo)",
+          "yr": "Anno (yr)"
+        }
+      }
+    ],
+    "outputPrimary": { "id": "risultato", "label": "Risultato", "format": "text" },
+    "outputSecondary": [
+      { "id": "formula", "label": "Fattore di conversione", "format": "text" }
+    ]
+  },
+
+  "spiegazione": {
+    "titolo": "Come si convertono le unità di tempo",
+    "corpo": "Il tempo si misura a partire dal secondo, l'unità di base del Sistema Internazionale. Tutte le altre durate di questo convertitore vengono riportate ai secondi e poi trasformate nell'unità di arrivo, così ogni combinazione resta coerente. Le equivalenze fisse sono note: un minuto vale 60 secondi, un'ora 60 minuti (cioè 3.600 secondi), un giorno 24 ore (86.400 secondi) e una settimana 7 giorni (604.800 secondi). Fin qui i rapporti sono esatti e non ambigui. Il mese e l'anno, invece, non hanno una durata unica: i mesi vanno da 28 a 31 giorni e gli anni bisestili hanno un giorno in più. Per fornire una conversione sensata usiamo quindi delle medie: il mese è calcolato come circa 30,44 giorni (un dodicesimo dell'anno medio) e l'anno come circa 365,25 giorni, valore che tiene conto dell'anno bisestile ogni quattro anni. Ciò significa che convertire, ad esempio, 3 mesi in giorni restituisce un risultato medio (circa 91,3 giorni) e non il numero esatto di giorni di tre mesi specifici del calendario, che dipende da quali mesi sono. Per durate brevi — da millisecondi a settimane — i risultati sono invece precisi. Tieni presente questa distinzione quando lavori con scadenze contrattuali o termini di legge, dove di solito conta il calendario reale e non la media statistica."
+  },
+
+  "esempi": [
+    { "titolo": "2 ore in minuti", "risultatoAtteso": "= 120 min (esatto)" },
+    { "titolo": "1 giorno in secondi", "risultatoAtteso": "= 86.400 s (esatto)" },
+    { "titolo": "3 mesi in giorni", "risultatoAtteso": "≈ 91,3 giorni (media di 30,44 giorni/mese)" }
+  ],
+
+  "faq": [
+    { "domanda": "Quanti secondi ci sono in un giorno?", "risposta": "Un giorno standard vale 86.400 secondi, cioè 24 ore da 3.600 secondi ciascuna. È un valore esatto per il giorno civile; nel calcolo scientifico esistono rari secondi intercalari che possono aggiungere un secondo a fine anno, ma per gli usi comuni si ignorano." },
+    { "domanda": "Perché il mese non ha una durata precisa?", "risposta": "Perché i mesi del calendario hanno un numero di giorni diverso: 28, 29, 30 o 31. Per poter convertire mesi in altre unità usiamo una media di circa 30,44 giorni, ottenuta dividendo l'anno medio per dodici. Il risultato è quindi una stima: se ti serve la durata esatta di mesi specifici, conta i giorni sul calendario." },
+    { "domanda": "Quanto dura un anno in questo convertitore?", "risposta": "Circa 365,25 giorni. Questo valore, chiamato anno giuliano, tiene conto dell'anno bisestile che si presenta all'incirca ogni quattro anni aggiungendo un giorno a febbraio. Un anno civile reale dura 365 giorni (366 se bisestile), quindi il risultato è una media utile per le conversioni ma non un conteggio calendario." },
+    { "domanda": "I risultati per ore, minuti e secondi sono esatti?", "risposta": "Sì. Tutte le conversioni tra millisecondi, secondi, minuti, ore, giorni e settimane usano rapporti fissi e non ambigui, quindi il risultato è matematicamente esatto. L'approssimazione riguarda solo mesi e anni, che si basano su durate medie." }
+  ],
+
+  "relatedTools": [
+    "convertitore-velocita",
+    "convertitore-dati",
+    "convertitore-lunghezza"
+  ],
+
+  "disclaimer": "<strong>Mesi e anni sono medie.</strong> Le conversioni fino alla settimana sono esatte; mese (≈ 30,44 giorni) e anno (≈ 365,25 giorni) usano durate medie e non il calendario reale. Per scadenze legali conta i giorni effettivi. Nessun dato viene inviato o salvato.",
+
+  "fonti": [
+    { "titolo": "BIPM — Sistema Internazionale di unità (SI)", "dettaglio": "definizione del secondo, unità di base del tempo", "url": "https://www.bipm.org/en/measurement-units/second" }
+  ],
+
+  "jsonLd": {
+    "type": "SoftwareApplication",
+    "applicationCategory": "UtilitiesApplication"
+  }
+}

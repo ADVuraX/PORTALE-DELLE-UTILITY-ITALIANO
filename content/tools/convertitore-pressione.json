@@ -1,0 +1,93 @@
+{
+  "slug": "convertitore-pressione",
+  "cluster": "convertitori",
+  "tema": "misure",
+  "updated": "2026-07",
+
+  "seo": {
+    "title": "Convertitore Pressione – Bar, Pascal, Atmosfere e psi",
+    "metaDescription": "Converti la pressione tra pascal, hPa, kPa, MPa, millibar, bar, atmosfere, mmHg e psi. Utile per gomme, meteo e pressione dei fluidi. Calcolo immediato e gratuito.",
+    "primaryKeyword": "convertitore pressione",
+    "canonical": "/convertitore-pressione/"
+  },
+
+  "h1": "Convertitore di Pressione",
+
+  "intro": "Converti un valore di pressione tra le unità più usate: pascal, ettopascal, kilopascal, megapascal, millibar, bar, atmosfere, millimetri di mercurio e psi. Inserisci il valore, scegli l'unità di partenza e quella di arrivo e leggi subito il risultato con il fattore applicato. Comodo per la pressione delle gomme, i bollettini meteo, gli impianti idraulici o le misure di laboratorio. Il calcolo avviene interamente nel tuo browser, senza inviare alcun dato.",
+
+  "tool": {
+    "logicId": "unita-v1",
+    "script": "convertitore-unita.js",
+    "cardNote": "9 unità",
+    "inputs": [
+      { "id": "valore", "label": "Valore da convertire", "type": "number", "step": "any", "default": 1 },
+      { "id": "da", "label": "Da", "type": "select", "default": "bar",
+        "options": ["Pa","hPa","kPa","MPa","mbar","bar","atm","mmHg","psi"],
+        "optionLabels": {
+          "Pa": "Pascal (Pa)",
+          "hPa": "Ettopascal (hPa)",
+          "kPa": "Kilopascal (kPa)",
+          "MPa": "Megapascal (MPa)",
+          "mbar": "Millibar (mbar)",
+          "bar": "Bar (bar)",
+          "atm": "Atmosfera (atm)",
+          "mmHg": "Millimetri di mercurio (mmHg)",
+          "psi": "Libbra per pollice quadrato (psi)"
+        }
+      },
+      { "id": "a", "label": "A", "type": "select", "default": "psi",
+        "options": ["Pa","hPa","kPa","MPa","mbar","bar","atm","mmHg","psi"],
+        "optionLabels": {
+          "Pa": "Pascal (Pa)",
+          "hPa": "Ettopascal (hPa)",
+          "kPa": "Kilopascal (kPa)",
+          "MPa": "Megapascal (MPa)",
+          "mbar": "Millibar (mbar)",
+          "bar": "Bar (bar)",
+          "atm": "Atmosfera (atm)",
+          "mmHg": "Millimetri di mercurio (mmHg)",
+          "psi": "Libbra per pollice quadrato (psi)"
+        }
+      }
+    ],
+    "outputPrimary": { "id": "risultato", "label": "Risultato", "format": "text" },
+    "outputSecondary": [
+      { "id": "formula", "label": "Fattore di conversione", "format": "text" }
+    ]
+  },
+
+  "spiegazione": {
+    "titolo": "Le unità di pressione e a cosa servono",
+    "corpo": "La pressione è una forza distribuita su una superficie e la sua unità nel Sistema Internazionale è il pascal (Pa), pari a un newton per metro quadro. Il pascal è però una quantità piccola, quindi nella pratica si usano i suoi multipli e diverse unità storiche, ognuna legata a un ambito specifico. In questo convertitore tutte le pressioni vengono riportate al pascal e poi trasformate nell'unità di arrivo. Le equivalenze principali: 1 bar vale esattamente 100.000 Pa, cioè 1.000 hPa o 100 kPa; il bar è vicino alla pressione atmosferica media al livello del mare, motivo per cui è comodo nell'uso quotidiano. In meteorologia si usa l'ettopascal (hPa), numericamente identico al millibar (mbar): una tipica alta pressione segna circa 1.020 hPa. L'atmosfera standard (atm) rappresenta la pressione media al livello del mare e vale 101.325 Pa, cioè circa 1,013 bar. Il millimetro di mercurio (mmHg), o torr, deriva dai barometri a colonna di mercurio e resta lo standard per la pressione sanguigna: 760 mmHg equivalgono a 1 atm. Nei Paesi anglosassoni e per le gomme di auto e bici è diffuso il psi (libbre per pollice quadrato): 1 bar corrisponde a circa 14,5 psi, quindi una gomma gonfiata a 2,2 bar sta a circa 32 psi. Il megapascal (MPa), infine, si usa per pressioni elevate come quelle idrauliche o di resistenza dei materiali: 1 MPa vale 10 bar."
+  },
+
+  "esempi": [
+    { "titolo": "1 bar in psi", "risultatoAtteso": "≈ 14,5 psi (gonfiaggio gomme)" },
+    { "titolo": "1 atm in mmHg", "risultatoAtteso": "= 760 mmHg (pressione al livello del mare)" },
+    { "titolo": "1.013 hPa in bar", "risultatoAtteso": "≈ 1,013 bar (pressione atmosferica media)" }
+  ],
+
+  "faq": [
+    { "domanda": "Quanti psi sono 2,2 bar?", "risposta": "Circa 31,9 psi. Il fattore è che 1 bar equivale a circa 14,504 psi, quindi 2,2 bar × 14,504 danno circa 31,9 psi. È la conversione tipica per le gomme dell'auto, dato che i manuali europei indicano i bar mentre molti compressori e manometri mostrano i psi." },
+    { "domanda": "Bar e atmosfera sono la stessa cosa?", "risposta": "Sono molto vicini ma non identici. Un bar vale esattamente 100.000 pascal, mentre un'atmosfera standard (atm) vale 101.325 pascal, cioè circa 1,013 bar. La differenza è di poco più dell'1%: per usi quotidiani si possono considerare equivalenti, ma nei calcoli tecnici o scientifici conviene distinguerle." },
+    { "domanda": "Perché in meteo si usano gli hPa?", "risposta": "L'ettopascal (hPa) è l'unità del Sistema Internazionale adottata dai servizi meteorologici e coincide numericamente con il vecchio millibar: 1 hPa = 1 mbar. La pressione atmosferica media al livello del mare è di circa 1.013 hPa; valori sopra 1.020 indicano alta pressione e bel tempo, sotto 1.000 bassa pressione e maltempo." },
+    { "domanda": "Cos'è il mmHg e dove si usa?", "risposta": "Il millimetro di mercurio (mmHg), detto anche torr, misura la pressione in base all'altezza di una colonna di mercurio. Deriva dai barometri storici ed è tuttora lo standard in medicina per la pressione arteriosa (per esempio 120/80 mmHg) e in alcune applicazioni di vuoto. Una atmosfera equivale a 760 mmHg." }
+  ],
+
+  "relatedTools": [
+    "convertitore-energia",
+    "convertitore-temperatura",
+    "convertitore-volume"
+  ],
+
+  "disclaimer": "<strong>Valori indicativi.</strong> Le conversioni sono matematicamente esatte in base ai fattori standard; per applicazioni tecniche o mediche fai riferimento agli strumenti tarati previsti. Nessun dato viene inviato o salvato.",
+
+  "fonti": [
+    { "titolo": "BIPM — Sistema Internazionale di unità (SI)", "dettaglio": "definizione del pascal e delle unità di pressione", "url": "https://www.bipm.org/en/measurement-units" }
+  ],
+
+  "jsonLd": {
+    "type": "SoftwareApplication",
+    "applicationCategory": "UtilitiesApplication"
+  }
+}

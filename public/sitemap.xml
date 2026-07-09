@@ -4,7 +4,59 @@
     <loc>https://TUO-DOMINIO.it/</loc>
   </url>
   <url>
+    <loc>https://TUO-DOMINIO.it/calcolatore-partita-iva-forfettario/</loc>
+    <lastmod>2026-07-01</lastmod>
+  </url>
+  <url>
     <loc>https://TUO-DOMINIO.it/calcolatore-stipendio-netto/</loc>
+    <lastmod>2026-07-01</lastmod>
+  </url>
+  <url>
+    <loc>https://TUO-DOMINIO.it/calcolatore-tfr/</loc>
+    <lastmod>2026-07-01</lastmod>
+  </url>
+  <url>
+    <loc>https://TUO-DOMINIO.it/convertitore-area/</loc>
+    <lastmod>2026-07-01</lastmod>
+  </url>
+  <url>
+    <loc>https://TUO-DOMINIO.it/convertitore-dati/</loc>
+    <lastmod>2026-07-01</lastmod>
+  </url>
+  <url>
+    <loc>https://TUO-DOMINIO.it/convertitore-energia/</loc>
+    <lastmod>2026-07-01</lastmod>
+  </url>
+  <url>
+    <loc>https://TUO-DOMINIO.it/convertitore-lunghezza/</loc>
+    <lastmod>2026-07-01</lastmod>
+  </url>
+  <url>
+    <loc>https://TUO-DOMINIO.it/convertitore-peso/</loc>
+    <lastmod>2026-07-01</lastmod>
+  </url>
+  <url>
+    <loc>https://TUO-DOMINIO.it/convertitore-pressione/</loc>
+    <lastmod>2026-07-01</lastmod>
+  </url>
+  <url>
+    <loc>https://TUO-DOMINIO.it/convertitore-temperatura/</loc>
+    <lastmod>2026-07-01</lastmod>
+  </url>
+  <url>
+    <loc>https://TUO-DOMINIO.it/convertitore-tempo/</loc>
+    <lastmod>2026-07-01</lastmod>
+  </url>
+  <url>
+    <loc>https://TUO-DOMINIO.it/convertitore-valuta/</loc>
+    <lastmod>2026-07-01</lastmod>
+  </url>
+  <url>
+    <loc>https://TUO-DOMINIO.it/convertitore-velocita/</loc>
+    <lastmod>2026-07-01</lastmod>
+  </url>
+  <url>
+    <loc>https://TUO-DOMINIO.it/convertitore-volume/</loc>
     <lastmod>2026-07-01</lastmod>
   </url>
   <url>
@@ -17,6 +69,14 @@
   </url>
   <url>
     <loc>https://TUO-DOMINIO.it/generatore-uuid/</loc>
+    <lastmod>2026-07-01</lastmod>
+  </url>
+  <url>
+    <loc>https://TUO-DOMINIO.it/validatore-codice-fiscale/</loc>
+    <lastmod>2026-07-01</lastmod>
+  </url>
+  <url>
+    <loc>https://TUO-DOMINIO.it/validatore-iban/</loc>
     <lastmod>2026-07-01</lastmod>
   </url>
 </urlset>

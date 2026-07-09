@@ -1,0 +1,79 @@
+{
+  "slug": "convertitore-temperatura",
+  "cluster": "convertitori",
+  "tema": "misure",
+  "updated": "2026-07",
+
+  "seo": {
+    "title": "Convertitore Temperatura – Celsius, Fahrenheit e Kelvin",
+    "metaDescription": "Converti la temperatura online tra gradi Celsius, Fahrenheit e Kelvin con le formule ufficiali. Conversione istantanea nel browser, gratis e precisa, con il passaggio inverso.",
+    "primaryKeyword": "convertitore temperatura",
+    "canonical": "/convertitore-temperatura/"
+  },
+
+  "h1": "Convertitore di Temperatura",
+
+  "intro": "Converti la temperatura tra le tre scale più usate: gradi Celsius (°C), gradi Fahrenheit (°F) e Kelvin (K). Scegli la scala di partenza e quella di arrivo, digita il valore e ottieni subito il risultato applicando le formule ufficiali. Utile per interpretare previsioni meteo americane, impostare il forno, leggere schede tecniche o svolgere esercizi di fisica. Tutto avviene nel tuo browser, senza inviare dati e senza registrazione.",
+
+  "tool": {
+    "logicId": "unita-v1",
+    "script": "convertitore-unita.js",
+    "cardNote": "Celsius, Fahrenheit, Kelvin",
+    "inputs": [
+      { "id": "valore", "label": "Valore da convertire", "type": "number", "step": "any", "default": 100 },
+      { "id": "da", "label": "Da", "type": "select", "default": "C",
+        "options": ["C","F","K"],
+        "optionLabels": {
+          "C": "Celsius (°C)",
+          "F": "Fahrenheit (°F)",
+          "K": "Kelvin (K)"
+        } },
+      { "id": "a", "label": "A", "type": "select", "default": "F",
+        "options": ["C","F","K"],
+        "optionLabels": {
+          "C": "Celsius (°C)",
+          "F": "Fahrenheit (°F)",
+          "K": "Kelvin (K)"
+        } }
+    ],
+    "outputPrimary": { "id": "risultato", "label": "Risultato", "format": "text" },
+    "outputSecondary": [ { "id": "formula", "label": "Fattore di conversione", "format": "text" } ]
+  },
+
+  "spiegazione": {
+    "titolo": "Celsius, Fahrenheit e Kelvin: scale e formule di conversione",
+    "corpo": "La temperatura, a differenza di lunghezza o peso, non si converte con un semplice fattore moltiplicativo, perché le scale hanno punti di zero diversi: la conversione richiede formule con un offset. La scala Celsius (°C), usata in Italia e in gran parte del mondo, fissa lo zero al punto di congelamento dell'acqua e i 100 gradi al punto di ebollizione a pressione atmosferica normale. La scala Fahrenheit (°F), diffusa negli Stati Uniti, colloca il congelamento dell'acqua a 32 gradi e l'ebollizione a 212 gradi: l'intervallo tra i due punti è quindi diviso in 180 gradi invece che in 100. Il Kelvin (K) è invece l'unità del Sistema Internazionale e parte dallo zero assoluto, la temperatura più bassa possibile: 0 K corrisponde a −273,15 °C, e un grado Kelvin ha la stessa ampiezza di un grado Celsius. Le formule sono: da Celsius a Fahrenheit °F = °C × 9/5 + 32; da Fahrenheit a Celsius °C = (°F − 32) × 5/9; da Celsius a Kelvin K = °C + 273,15; e in senso inverso °C = K − 273,15. Questo convertitore applica automaticamente la formula corretta in base alle scale scelte, gestendo anche i passaggi indiretti come da Fahrenheit a Kelvin. Alcuni riferimenti utili: 0 °C = 32 °F = 273,15 K; 37 °C, la temperatura corporea, equivale a 98,6 °F; 100 °C = 212 °F. Per ricordare al volo Celsius e Fahrenheit basta l'idea che 16 °C circa corrispondono a 61 °F, cifre speculari."
+  },
+
+  "esempi": [
+    { "titolo": "Acqua che bolle, da Celsius a Fahrenheit", "risultatoAtteso": "100 °C = 212 °F" },
+    { "titolo": "Temperatura corporea in Fahrenheit", "risultatoAtteso": "37 °C = 98,6 °F" },
+    { "titolo": "Congelamento dell'acqua in Kelvin", "risultatoAtteso": "0 °C = 273,15 K" }
+  ],
+
+  "faq": [
+    { "domanda": "Come si converte da Celsius a Fahrenheit?", "risposta": "Si usa la formula °F = °C × 9/5 + 32. Ad esempio 20 °C diventano 20 × 9/5 + 32 = 68 °F. Per il passaggio inverso, da Fahrenheit a Celsius, si applica °C = (°F − 32) × 5/9." },
+    { "domanda": "Qual è la formula per i Kelvin?", "risposta": "Da Celsius a Kelvin si somma 273,15: K = °C + 273,15. Quindi 25 °C corrispondono a 298,15 K. Al contrario, per passare da Kelvin a Celsius si sottrae 273,15. Il Kelvin non usa il simbolo di grado (°): si scrive semplicemente K." },
+    { "domanda": "Cos'è lo zero assoluto?", "risposta": "È la temperatura più bassa teoricamente possibile, in cui il moto termico delle particelle è minimo. Corrisponde a 0 Kelvin, cioè −273,15 °C ovvero −459,67 °F. Da qui parte la scala Kelvin, che per questo non ha valori negativi." },
+    { "domanda": "Perché gli Stati Uniti usano i Fahrenheit?", "risposta": "Per ragioni storiche e di consuetudine: la scala Fahrenheit fu adottata prima della diffusione del sistema metrico e non è mai stata sostituita nell'uso quotidiano. Nella scienza, però, anche negli USA si usano Celsius e Kelvin. Per capire il meteo americano conviene convertire in Celsius." },
+    { "domanda": "Esiste una temperatura uguale in Celsius e Fahrenheit?", "risposta": "Sì, a −40 gradi le due scale coincidono: −40 °C corrispondono esattamente a −40 °F. È l'unico punto in cui i due valori numerici sono identici, un utile promemoria per verificare che una conversione sia corretta." }
+  ],
+
+  "relatedTools": [
+    "convertitore-energia",
+    "convertitore-pressione",
+    "convertitore-lunghezza"
+  ],
+
+  "disclaimer": "<strong>Conversioni indicative.</strong> I risultati possono essere arrotondati per la lettura; per misure scientifiche o di laboratorio verifica le cifre significative necessarie e applica le formule ufficiali di conversione tra le scale.",
+
+  "fonti": [
+    { "titolo": "BIPM – Sistema Internazionale di unità (SI)", "dettaglio": "Definizione del Kelvin, unità di base della temperatura", "url": "https://www.bipm.org/en/measurement-units" },
+    { "titolo": "Wikipedia – Scala di temperatura", "dettaglio": "Formule di conversione tra Celsius, Fahrenheit e Kelvin", "url": "https://it.wikipedia.org/wiki/Scala_di_temperatura" }
+  ],
+
+  "jsonLd": {
+    "type": "SoftwareApplication",
+    "applicationCategory": "UtilitiesApplication"
+  }
+}

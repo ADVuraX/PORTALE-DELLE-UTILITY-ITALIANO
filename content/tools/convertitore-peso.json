@@ -1,0 +1,91 @@
+{
+  "slug": "convertitore-peso",
+  "cluster": "convertitori",
+  "tema": "misure",
+  "updated": "2026-07",
+
+  "seo": {
+    "title": "Convertitore Peso – Chili, Grammi, Libbre e Once",
+    "metaDescription": "Converti le unità di peso e massa online: chilogrammi, grammi, milligrammi, quintali, tonnellate, once, libbre e stone. Conversione istantanea nel browser, gratis e precisa.",
+    "primaryKeyword": "convertitore peso",
+    "canonical": "/convertitore-peso/"
+  },
+
+  "h1": "Convertitore di Peso e Massa",
+
+  "intro": "Converti in un attimo qualsiasi misura di peso e massa tra sistema metrico e unità anglosassoni: da chilogrammi a libbre, da grammi a once, da tonnellate a quintali e ritorno. Seleziona l'unità di partenza e quella di arrivo, inserisci il valore e leggi subito il risultato con il fattore di conversione. Copre le scale minime (microgrammi, milligrammi) fino a quintali e tonnellate. Tutto nel tuo browser, senza inviare dati e senza registrazione.",
+
+  "tool": {
+    "logicId": "unita-v1",
+    "script": "convertitore-unita.js",
+    "cardNote": "Metrico e imperiale",
+    "inputs": [
+      { "id": "valore", "label": "Valore da convertire", "type": "number", "step": "any", "default": 1 },
+      { "id": "da", "label": "Da", "type": "select", "default": "kg",
+        "options": ["mcg","mg","g","kg","q","t","oz","lb","st"],
+        "optionLabels": {
+          "mcg": "Microgrammo (µg)",
+          "mg": "Milligrammo (mg)",
+          "g": "Grammo (g)",
+          "kg": "Chilogrammo (kg)",
+          "q": "Quintale (q)",
+          "t": "Tonnellata (t)",
+          "oz": "Oncia (oz)",
+          "lb": "Libbra (lb)",
+          "st": "Stone (st)"
+        } },
+      { "id": "a", "label": "A", "type": "select", "default": "g",
+        "options": ["mcg","mg","g","kg","q","t","oz","lb","st"],
+        "optionLabels": {
+          "mcg": "Microgrammo (µg)",
+          "mg": "Milligrammo (mg)",
+          "g": "Grammo (g)",
+          "kg": "Chilogrammo (kg)",
+          "q": "Quintale (q)",
+          "t": "Tonnellata (t)",
+          "oz": "Oncia (oz)",
+          "lb": "Libbra (lb)",
+          "st": "Stone (st)"
+        } }
+    ],
+    "outputPrimary": { "id": "risultato", "label": "Risultato", "format": "text" },
+    "outputSecondary": [ { "id": "formula", "label": "Fattore di conversione", "format": "text" } ]
+  },
+
+  "spiegazione": {
+    "titolo": "Le unità di peso e massa: dal grammo alla tonnellata",
+    "corpo": "Nel linguaggio comune si parla di peso, ma dal punto di vista fisico l'unità che si converte qui è la massa, la cui unità di base nel Sistema Internazionale è il chilogrammo (kg). Il sistema metrico è tutto decimale: un grammo è un millesimo di chilogrammo, un milligrammo un millesimo di grammo e un microgrammo un milionesimo di grammo, mentre salendo troviamo il quintale (100 kg) e la tonnellata (1.000 kg), usati per merci pesanti, raccolti agricoli e trasporti. Ogni passaggio è una potenza di dieci, quindi la conversione è immediata. Le unità anglosassoni seguono invece rapporti fissati per convenzione: l'oncia (ounce) vale circa 28,35 grammi, la libbra (pound) equivale a 16 once ovvero 453,59237 grammi esatti, e lo stone, ancora usato nel Regno Unito per il peso corporeo, vale 14 libbre cioè circa 6,35 kg. Attenzione a non confondere l'oncia di massa con l'oncia fluida, che misura un volume. Questo convertitore lavora convertendo prima il valore inserito nell'unità di base (il chilogrammo) e poi nell'unità di destinazione, così tutte le combinazioni tra le nove unità disponibili risultano coerenti e precise. Il fattore mostrato sotto il risultato indica quanto vale una singola unità di partenza espressa nell'unità di arrivo, utile per ricette, spedizioni, etichette alimentari e conversioni tra bilance tarate in sistemi diversi."
+  },
+
+  "esempi": [
+    { "titolo": "Quanti grammi in 1 chilogrammo", "risultatoAtteso": "1 kg = 1000 g" },
+    { "titolo": "Da chilogrammi a libbre", "risultatoAtteso": "70 kg ≈ 154,32 lb" },
+    { "titolo": "Da once a grammi (ricette)", "risultatoAtteso": "8 oz ≈ 226,80 g" }
+  ],
+
+  "faq": [
+    { "domanda": "Quanto vale una libbra in chilogrammi?", "risposta": "Una libbra (pound) equivale esattamente a 0,45359237 chilogrammi, cioè circa 453,6 grammi. Al contrario, un chilogrammo corrisponde a circa 2,2046 libbre. È la conversione più usata per pesi corporei, bagagli aerei e prodotti importati dai Paesi anglosassoni." },
+    { "domanda": "Peso e massa sono la stessa cosa?", "risposta": "In fisica no: la massa è la quantità di materia e si misura in chilogrammi, mentre il peso è la forza con cui la gravità agisce su quella massa e si misura in newton. Nell'uso quotidiano, però, con peso si intende la massa, ed è questo il valore convertito dallo strumento." },
+    { "domanda": "Cos'è lo stone e dove si usa?", "risposta": "Lo stone è un'unità imperiale pari a 14 libbre, ovvero circa 6,35 chilogrammi. È ancora molto usato nel Regno Unito e in Irlanda per esprimere il peso corporeo delle persone: ad esempio 11 stone corrispondono a circa 69,85 kg." },
+    { "domanda": "Quanti chili sono un quintale e una tonnellata?", "risposta": "Un quintale equivale a 100 chilogrammi e una tonnellata a 1.000 chilogrammi, cioè 10 quintali. Sono unità metriche usate soprattutto in agricoltura, edilizia e trasporto merci per esprimere grandi quantità in modo compatto." },
+    { "domanda": "L'oncia del peso è la stessa dell'oncia dei liquidi?", "risposta": "No. L'oncia di massa (ounce) vale circa 28,35 grammi e misura un peso; l'oncia fluida (fluid ounce) misura invece un volume, circa 29,57 ml nel sistema statunitense. Per i liquidi occorre il convertitore di volume, non questo." }
+  ],
+
+  "relatedTools": [
+    "convertitore-volume",
+    "convertitore-lunghezza",
+    "convertitore-area"
+  ],
+
+  "disclaimer": "<strong>Conversioni indicative.</strong> I valori mostrati possono essere arrotondati per la lettura; per pesature ufficiali, spedizioni o usi legali verifica sempre le cifre significative necessarie e i fattori di conversione ufficiali.",
+
+  "fonti": [
+    { "titolo": "BIPM – Sistema Internazionale di unità (SI)", "dettaglio": "Definizione del chilogrammo, unità di base della massa", "url": "https://www.bipm.org/en/measurement-units" },
+    { "titolo": "Wikipedia – Unità di misura della massa", "dettaglio": "Fattori di conversione metrico/imperiale", "url": "https://it.wikipedia.org/wiki/Unit%C3%A0_di_misura_della_massa" }
+  ],
+
+  "jsonLd": {
+    "type": "SoftwareApplication",
+    "applicationCategory": "UtilitiesApplication"
+  }
+}
