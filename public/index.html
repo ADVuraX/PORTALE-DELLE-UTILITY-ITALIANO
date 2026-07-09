@@ -13,8 +13,9 @@
 <script>(function(){try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
 window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribute("data-theme"),sysDark=matchMedia("(prefers-color-scheme:dark)").matches,next=cur?(cur==="dark"?"light":"dark"):(sysDark?"light":"dark");d.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}var b=document.querySelector(".theme-toggle");if(b)b.setAttribute("aria-pressed",String(next==="dark"));};</script>
 <link rel="stylesheet" href="/assets/css/fonts.css?v=abc23a4b">
-<link rel="stylesheet" href="/assets/css/tokens.css?v=8a5d79a1">
+<link rel="stylesheet" href="/assets/css/tokens.css?v=daf77d65">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Portale delle Utility Italiano — Calcolatori, Generatori, Convertitori Gratuiti","url":"https://TUO-DOMINIO.it/"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"name":"stipendio netto","url":"https://TUO-DOMINIO.it/calcolatore-stipendio-netto/"},{"@type":"ListItem","position":2,"name":"password","url":"https://TUO-DOMINIO.it/generatore-password/"},{"@type":"ListItem","position":3,"name":"qr code","url":"https://TUO-DOMINIO.it/generatore-qr-code/"},{"@type":"ListItem","position":4,"name":"uuid","url":"https://TUO-DOMINIO.it/generatore-uuid/"}]}</script>
 </head>
 <body>
 
@@ -31,33 +32,68 @@ window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribut
 <main>
   <section class="home-hero">
     <div class="wrap">
-      <p class="eyebrow">MVP — FASE 1</p>
       <h1>Strumenti gratuiti per il quotidiano italiano</h1>
       <p class="lede">Calcolatori fiscali, generatori, convertitori e validatori. Immediati, gratuiti, senza registrazione. Ogni tool unisce calcolo interattivo e contenuto di riferimento.</p>
-      <div class="cluster-grid">
-        <a class="cluster-card" href="/calcolatori/calcolatore-stipendio-netto/">
-          <span class="status-badge">live</span>
-          <h3>Calcolatori</h3>
-          <p class="count">stipendio netto</p>
-        </a>
-        <div class="cluster-card cluster-card-disabled" aria-disabled="true">
-          <h3>Generatori</h3>
-          <p class="count">Password, QR code, UUID — in arrivo</p>
+      <form class="tool-search" role="search" onsubmit="return false">
+        <label class="sr-only" for="toolSearch">Cerca uno strumento</label>
+        <div class="tool-search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input type="search" id="toolSearch" autocomplete="off" placeholder="Cerca uno strumento… (es. stipendio, password, QR)" aria-label="Cerca uno strumento">
         </div>
-        <div class="cluster-card cluster-card-disabled" aria-disabled="true">
-          <h3>Convertitori</h3>
-          <p class="count">Valuta, unità di misura — in arrivo</p>
-        </div>
-        <div class="cluster-card cluster-card-disabled" aria-disabled="true">
-          <h3>Validatori</h3>
-          <p class="count">Codice fiscale, IBAN — in arrivo</p>
-        </div>
+      </form>
+      <div class="catalog">
+        <section class="cat">
+        <h2 class="cat-title">Calcolatori</h2>
+        <ul class="cat-list">
+          <li data-search="stipendio netto"><a class="tool-link" href="/calcolatore-stipendio-netto/"><span class="tl-name">stipendio netto</span><span class="tl-arrow" aria-hidden="true">→</span></a></li>
+        </ul>
+      </section>
+      <section class="cat">
+        <h2 class="cat-title">Generatori</h2>
+        <ul class="cat-list">
+          <li data-search="password"><a class="tool-link" href="/generatore-password/"><span class="tl-name">password</span><span class="tl-arrow" aria-hidden="true">→</span></a></li>
+          <li data-search="qr code"><a class="tool-link" href="/generatore-qr-code/"><span class="tl-name">qr code</span><span class="tl-arrow" aria-hidden="true">→</span></a></li>
+          <li data-search="uuid"><a class="tool-link" href="/generatore-uuid/"><span class="tl-name">uuid</span><span class="tl-arrow" aria-hidden="true">→</span></a></li>
+        </ul>
+      </section>
+      <section class="cat">
+        <h2 class="cat-title">Convertitori <span class="cat-soon">in arrivo</span></h2>
+        <p class="cat-soon-note">Valuta, unità di misura</p>
+      </section>
+      <section class="cat">
+        <h2 class="cat-title">Validatori <span class="cat-soon">in arrivo</span></h2>
+        <p class="cat-soon-note">Codice fiscale, IBAN</p>
+      </section>
       </div>
+      <p class="catalog-empty" id="catalogEmpty" role="status">Nessuno strumento trovato.</p>
     </div>
   </section>
 </main>
 
-<footer class="foot"><div class="wrap">Portale Italiano delle Utility — strumenti gratuiti, aggiornati, senza registrazione.</div></footer>
+<footer class="foot"><div class="wrap">
+    <p class="foot-base">Portale Italiano delle Utility — strumenti gratuiti, aggiornati, senza registrazione.</p>
+  </div></footer>
+
+<script>(function(){
+  var q=document.getElementById("toolSearch");if(!q)return;
+  var cats=[].slice.call(document.querySelectorAll(".cat"));
+  var empty=document.getElementById("catalogEmpty");
+  function norm(s){return (s||"").toLowerCase().trim();}
+  q.addEventListener("input",function(){
+    var v=norm(q.value),anyVisible=false;
+    cats.forEach(function(cat){
+      var items=[].slice.call(cat.querySelectorAll(".cat-list li"));
+      if(!items.length){cat.hidden=v!=="";if(!cat.hidden)anyVisible=true;return;}
+      var shown=0;
+      items.forEach(function(li){
+        var m=!v||(li.getAttribute("data-search")||"").indexOf(v)!==-1;
+        li.hidden=!m;if(m)shown++;
+      });
+      cat.hidden=shown===0;if(shown)anyVisible=true;
+    });
+    if(empty)empty.setAttribute("data-show",String(!anyVisible));
+  });
+})();</script>
 
 </body>
 </html>

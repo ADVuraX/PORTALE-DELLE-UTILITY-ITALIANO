@@ -96,10 +96,10 @@ async function main() {
   // --- Generazione ---
   let count = 0;
   for (const cfg of configs) {
-    const dir = path.join(PUBLIC, cfg.cluster, cfg.slug);
+    const dir = path.join(PUBLIC, cfg.slug);
     await mkdir(dir, { recursive: true });
     await writeFile(path.join(dir, "index.html"), renderToolPage(cfg, site, toolsBySlug, ver), "utf8");
-    console.log(GRN(`  ✓ ${DIM("/")}${cfg.cluster}/${cfg.slug}/`));
+    console.log(GRN(`  ✓ ${DIM("/")}${cfg.slug}/`));
     count++;
   }
 

@@ -45,8 +45,8 @@
       minimoDeterminato: 1380,   // minimo garantito per i rapporti a tempo determinato (art. 13 c.1)
       // 15.001–28.000: 1910 + 1190 * (28000 - R)/13000
       base2: 1910, quota2: 1190, sup2: 28000, ampiezza2: 13000,
-      // maggiorazione +65 per 25.001–28.000
-      maggiorazione: 65, maggiorazioneDa: 25000, maggiorazioneA: 28000,
+      // maggiorazione +65 per reddito complessivo 25.001–35.000 (L. 207/2024)
+      maggiorazione: 65, maggiorazioneDa: 25000, maggiorazioneA: 35000,
       // 28.001–50.000: 1910 * (50000 - R)/22000
       base3: 1910, sup3: 50000, ampiezza3: 22000,
     },

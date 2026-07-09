@@ -6,7 +6,8 @@
  */
 
 const CLUSTERS = ["calcolatori", "generatori", "convertitori", "validatori"];
-const FORMATS = ["currency", "percent", "number", "text"];
+const FORMATS = ["currency", "percent", "number", "text", "qr"];
+const ACTIONS = ["regenerate", "copy", "download"];
 
 function words(s) {
   return String(s || "").trim().split(/\s+/).filter(Boolean).length;
@@ -34,8 +35,8 @@ export function validateTool(cfg, allSlugs, scriptFiles) {
   if (!seo.metaDescription) err("`seo.metaDescription` obbligatorio");
   if (!seo.primaryKeyword) err("`seo.primaryKeyword` obbligatorio");
   if (!seo.canonical) err("`seo.canonical` obbligatorio");
-  else if (seo.canonical !== `/${cfg.cluster}/${cfg.slug}/`) {
-    err(`\`seo.canonical\` deve essere "/${cfg.cluster}/${cfg.slug}/", trovato "${seo.canonical}"`);
+  else if (seo.canonical !== `/${cfg.slug}/`) {
+    err(`\`seo.canonical\` deve essere "/${cfg.slug}/", trovato "${seo.canonical}"`);
   }
 
   const iw = words(cfg.intro);
@@ -74,8 +75,22 @@ export function validateTool(cfg, allSlugs, scriptFiles) {
     }
   };
   (tool.inputs || []).forEach((inp, i) => validateInput(inp, `tool.inputs[${i}]`));
-  if (!tool.outputPrimary || !tool.outputPrimary.id) err("`tool.outputPrimary` obbligatorio");
-  else if (!FORMATS.includes(tool.outputPrimary.format)) err(`\`tool.outputPrimary.format\` deve essere: ${FORMATS.join(", ")}`);
+
+  // Modalità generatore: usa `tool.output` (+ `tool.actions`) invece di `tool.outputPrimary`.
+  if (tool.kind === "generator") {
+    if (!tool.output || !tool.output.id) err("`tool.output.id` obbligatorio per i generatori (kind:generator)");
+    else {
+      if (!tool.output.label) err("`tool.output.label` obbligatorio");
+      if (!FORMATS.includes(tool.output.format)) err(`\`tool.output.format\` deve essere: ${FORMATS.join(", ")}`);
+    }
+    if (tool.actions !== undefined) {
+      if (!Array.isArray(tool.actions)) err("`tool.actions` deve essere un array");
+      else tool.actions.forEach((a) => { if (!ACTIONS.includes(a)) err(`\`tool.actions\` valore non valido: "${a}" (ammessi: ${ACTIONS.join(", ")})`); });
+    }
+  } else {
+    if (!tool.outputPrimary || !tool.outputPrimary.id) err("`tool.outputPrimary` obbligatorio");
+    else if (!FORMATS.includes(tool.outputPrimary.format)) err(`\`tool.outputPrimary.format\` deve essere: ${FORMATS.join(", ")}`);
+  }
   (tool.outputSecondary || []).forEach((o, i) => {
     if (!FORMATS.includes(o.format)) err(`\`tool.outputSecondary[${i}].format\` deve essere: ${FORMATS.join(", ")}`);
   });

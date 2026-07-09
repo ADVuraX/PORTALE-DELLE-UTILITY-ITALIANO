@@ -1,7 +1,7 @@
 /**
  * TEMPLATE — genera HTML statico dai config. Nessun contenuto renderizzato
  * a runtime: tutto il testo è nel markup per il SEO. Il runtime.js aggiunge
- * solo l'interattività del calcolo. Stile: "scheda civica raffinata".
+ * solo l'interattività del calcolo. Stile: "neobank civica" (vedi tokens.css).
  */
 
 const esc = (s) =>
@@ -77,8 +77,38 @@ function header(site, breadcrumb) {
 </header>`;
 }
 
-const footer = (site) =>
-  `<footer class="foot"><div class="wrap">${esc(site.footer)}</div></footer>`;
+/** Nome tool "pulito" per i link (rimuove il prefisso di tipo). */
+const toolName = (slug) =>
+  titolo(String(slug).replace(/^(calcolatore|generatore|convertitore|validatore)-/, ""));
+
+/**
+ * Footer-hub: indice di tutti i tool raggruppati per categoria (la categoria è
+ * solo un'etichetta, non una pagina — gli URL dei tool sono piatti /{slug}/).
+ * @param tools Array<{slug,cluster,h1}> tutti i tool costruiti.
+ */
+function footer(site) {
+  return `<footer class="foot"><div class="wrap">
+    <p class="foot-base">${esc(site.footer)}</p>
+  </div></footer>`;
+}
+
+/** Placeholder spazi pubblicitari (AdSense non ancora attivo). */
+const adSlot = (cls, dim) =>
+  `<div class="ad-slot ${cls}"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">${esc(dim)}</span></div>`;
+const adRails =
+  `<div class="ad-rail ad-rail-l" aria-hidden="true">${adSlot("ad-sky", "160×600")}</div>` +
+  `<div class="ad-rail ad-rail-r" aria-hidden="true">${adSlot("ad-sky", "160×600")}</div>`;
+const adMiniRow = `<section class="ad-mini-sec"><div class="wrap"><div class="ad-mini-grid">${
+  [0, 1].map(() => adSlot("ad-mini", "300×250")).join("")
+}</div></div></section>`;
+const adAnchor = `<div class="ad-anchor" id="adAnchor" data-expanded="false">
+  <div class="ad-anchor-tools">
+    <button type="button" class="ad-anchor-btn" data-ad-toggle aria-expanded="false">Espandi</button>
+    <button type="button" class="ad-anchor-btn ad-anchor-close" data-ad-close aria-label="Chiudi annuncio">×</button>
+  </div>
+  ${adSlot("ad-anchor-slot", "responsive · espandibile")}
+</div>
+<script>(function(){var a=document.getElementById("adAnchor");if(!a)return;var t=a.querySelector("[data-ad-toggle]"),c=a.querySelector("[data-ad-close]");if(t)t.addEventListener("click",function(){var e=a.getAttribute("data-expanded")==="true";a.setAttribute("data-expanded",String(!e));t.setAttribute("aria-expanded",String(!e));t.textContent=e?"Espandi":"Riduci";});if(c)c.addEventListener("click",function(){a.setAttribute("data-hidden","true");});})();</script>`;
 
 /** Appiattisce eventuali gruppi in una lista di soli input foglia (per il runtime). */
 function flattenInputs(inputs) {
@@ -177,8 +207,7 @@ function jsonLdFor(cfg, site) {
     "@type": "BreadcrumbList",
     itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
-      { "@type": "ListItem", position: 2, name: cfg.cluster, item: `${site.domain}/${cfg.cluster}/` },
-      { "@type": "ListItem", position: 3, name: cfg.h1, item: url },
+      { "@type": "ListItem", position: 2, name: cfg.h1, item: url },
     ],
   };
   return [app, faq, breadcrumb];
@@ -190,15 +219,24 @@ function jsonLdFor(cfg, site) {
  */
 export function renderToolPage(cfg, site, toolsBySlug, ver) {
   const tool = cfg.tool;
+  const isGenerator = tool.kind === "generator";
   const updated = fmtUpdated(cfg.updated);
   const runtimeConfig = {
     logicId: tool.logicId,
     inputs: flattenInputs(tool.inputs).map((i) => ({ id: i.id, type: i.type })),
-    outputPrimary: { id: tool.outputPrimary.id, format: tool.outputPrimary.format },
-    outputSecondary: (tool.outputSecondary || []).map((o) => ({ id: o.id, label: o.label, format: o.format })),
-    breakdown: (tool.breakdown || []).map((b) => ({ id: b.id, kind: b.kind, format: b.format || "currency", provisional: !!b.provisional })),
-    extras: (tool.extras || []).map((e) => ({ id: e.id, format: e.format })),
   };
+  if (isGenerator) {
+    runtimeConfig.kind = "generator";
+    runtimeConfig.output = { id: tool.output.id, format: tool.output.format };
+    if (tool.output.filename) runtimeConfig.output.filename = tool.output.filename;
+    runtimeConfig.actions = tool.actions || [];
+    runtimeConfig.extras = (tool.extras || []).map((e) => ({ id: e.id, format: e.format }));
+  } else {
+    runtimeConfig.outputPrimary = { id: tool.outputPrimary.id, format: tool.outputPrimary.format };
+    runtimeConfig.outputSecondary = (tool.outputSecondary || []).map((o) => ({ id: o.id, label: o.label, format: o.format }));
+    runtimeConfig.breakdown = (tool.breakdown || []).map((b) => ({ id: b.id, kind: b.kind, format: b.format || "currency", provisional: !!b.provisional }));
+    runtimeConfig.extras = (tool.extras || []).map((e) => ({ id: e.id, format: e.format }));
+  }
 
   const pills = [];
   if (cfg.fonti && cfg.fonti.length) pills.push(`<span class="pill pill-ok">${ICON.check}Fonti citate</span>`);
@@ -215,7 +253,7 @@ export function renderToolPage(cfg, site, toolsBySlug, ver) {
     const rows = tool.breakdown
       .map(
         (b) => `<div class="lrow lrow-${esc(b.kind)}${b.provisional ? " lrow-prov" : ""}">
-            <span class="ll">${esc(b.label)}${b.provisional ? ' <span class="ltag">in arrivo</span>' : ""}</span>
+            <span class="ll">${esc(b.label)}${b.provisional ? ' <span class="ltag">in arrivo</span>' : ""}${b.subnote ? `<span class="lsub" data-sub="${esc(b.id)}" hidden></span>` : ""}</span>
             <span class="la" data-out="${esc(b.id)}">—</span>
           </div>`
       )
@@ -235,6 +273,40 @@ export function renderToolPage(cfg, site, toolsBySlug, ver) {
           .join(" · ")}</p>`
       : "";
 
+  // --- Corpo del result card: generatore (text/qr + azioni) vs calcolatore ---
+  let resultBody;
+  if (isGenerator) {
+    const out = tool.output;
+    const isQR = out.format === "qr";
+    const outputEl = isQR
+      ? `<div class="gen-qr" data-out-primary data-empty="true"></div>`
+      : `<div class="gen-value" data-out-primary data-empty="true">—</div>`;
+    const actions = tool.actions || [];
+    const btns = [];
+    if (actions.includes("regenerate"))
+      btns.push(`<button type="button" class="gen-btn gen-btn-primary" data-action="regenerate">Rigenera</button>`);
+    if (actions.includes("copy"))
+      btns.push(`<button type="button" class="gen-btn" data-action="copy">${isQR ? "Copia testo" : "Copia"}</button>`);
+    if (actions.includes("download") && isQR) {
+      btns.push(`<button type="button" class="gen-btn" data-action="download-png">Scarica PNG</button>`);
+      btns.push(`<button type="button" class="gen-btn" data-action="download-svg">Scarica SVG</button>`);
+    }
+    const actionsHtml = btns.length ? `<div class="gen-actions">${btns.join("")}</div>` : "";
+    resultBody = `<div class="result gen${isQR ? " gen-qrmode" : ""}" aria-live="polite">
+          <div class="rlabel">${esc(out.label)}</div>
+          ${outputEl}
+          ${extrasHtml}
+          ${actionsHtml}
+        </div>`;
+  } else {
+    resultBody = `<div class="result" aria-live="polite">
+          <div class="rlabel">${esc(tool.outputPrimary.label)}</div>
+          <div class="value" data-out-primary>—</div>
+          <div class="value-underline"></div>
+          ${resultDetail}
+          ${extrasHtml}
+        </div>`;
+  }
   const disclaimer = cfg.disclaimer
     ? `<div class="note" id="disc">${ICON.info}<p>${cfg.disclaimer}</p></div>`
     : "";
@@ -277,7 +349,7 @@ export function renderToolPage(cfg, site, toolsBySlug, ver) {
     .map((slug) => {
       const t = toolsBySlug.get(slug);
       if (t) {
-        return `<a class="rel" href="/${esc(t.cluster)}/${esc(slug)}/"><span class="re">Tool correlato</span><span class="rn">${esc(titolo(slug))}</span></a>`;
+        return `<a class="rel" href="/${esc(slug)}/"><span class="re">Tool correlato</span><span class="rn">${esc(titolo(slug))}</span></a>`;
       }
       return `<div class="rel rel-off"><span class="re">In programma</span><span class="rn">${esc(titolo(slug))}</span></div>`;
     })
@@ -293,7 +365,9 @@ export function renderToolPage(cfg, site, toolsBySlug, ver) {
 
 <a class="skip" href="#tool">Salta al calcolatore</a>
 
-${header(site, `${esc(cfg.cluster)} / <span>${esc(titolo(cfg.slug).replace(/^calcolatore |^generatore /, ""))}</span>`)}
+${header(site, `<a href="/">Home</a> / <span>${esc(titolo(cfg.slug).replace(/^calcolatore |^generatore /, ""))}</span>`)}
+
+${adRails}
 
 <main>
   <section class="hero">
@@ -310,23 +384,26 @@ ${header(site, `${esc(cfg.cluster)} / <span>${esc(titolo(cfg.slug).replace(/^cal
   <section class="tool" id="tool" data-tool>
     <div class="wrap tool-grid">
       <div class="card card-in">
-        <div class="card-top"><span>I tuoi dati</span>${tool.cardNote ? `<span class="chip">${esc(tool.cardNote)}</span>` : ""}</div>
+        <div class="card-top"><span>I tuoi dati</span></div>
         <form data-tool-form${disclaimer ? ' aria-describedby="disc"' : ""}>
           ${renderInputs(tool.inputs)}
         </form>
       </div>
       <div class="card card-out" data-result-card>
-        <div class="card-top"><span>Risultato</span><span class="chip chip-soft">stima</span></div>
-        <div class="result" aria-live="polite">
-          <div class="rlabel">${esc(tool.outputPrimary.label)}</div>
-          <div class="value" data-out-primary>—</div>
-          <div class="value-underline"></div>
-          ${resultDetail}
-          ${extrasHtml}
-        </div>
+        <div class="card-top"><span>Risultato</span></div>
+        ${resultBody}
         ${disclaimer}
       </div>
       <script type="application/json" data-tool-config>${JSON.stringify(runtimeConfig)}</script>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Tool correlati</h2>
+      <div class="related">
+        ${related}
+      </div>
     </div>
   </section>
 
@@ -353,17 +430,12 @@ ${header(site, `${esc(cfg.cluster)} / <span>${esc(titolo(cfg.slug).replace(/^cal
     </div>
   </section>
 ${fonti}
-  <section class="section">
-    <div class="wrap">
-      <h2>Tool correlati</h2>
-      <div class="related">
-        ${related}
-      </div>
-    </div>
-  </section>
 </main>
 
+${adMiniRow}
+<div class="ad-anchor-spacer" aria-hidden="true"></div>
 ${footer(site)}
+${adAnchor}
 
 <script src="${withV("/assets/js/runtime.js", ver)}"></script>
 ${(tool.data || []).map((d) => `<script src="${withV("/assets/js/data/" + d, ver)}"></script>`).join("\n")}
@@ -373,29 +445,54 @@ ${(tool.data || []).map((d) => `<script src="${withV("/assets/js/data/" + d, ver
 `;
 }
 
-/** Homepage generata: card dei cluster (live / in arrivo). */
+const SEARCH_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>';
+
+/**
+ * Homepage generata: ricerca + catalogo completo. Ogni categoria è un titolo
+ * (non cliccabile) con l'elenco di TUTTI i suoi tool (link diretti, sempre nel
+ * DOM per il SEO). Il filtro è solo client-side: nasconde, non rimuove.
+ */
 export function renderHome(site, tools, ver) {
   const liveByCluster = {};
   for (const t of tools) (liveByCluster[t.cluster] ||= []).push(t);
 
-  const cards = Object.entries(site.clusters)
+  const catalog = Object.entries(site.clusters)
     .map(([key, c]) => {
-      const live = liveByCluster[key] || [];
+      const live = (liveByCluster[key] || []).slice().sort((a, b) => a.slug.localeCompare(b.slug));
       if (live.length) {
-        const first = live[0];
-        const names = live.map((t) => titolo(t.slug.replace(/^calcolatore-|^generatore-/, ""))).join(", ");
-        return `<a class="cluster-card" href="/${esc(key)}/${esc(first.slug)}/">
-          <span class="status-badge">live</span>
-          <h3>${esc(c.label)}</h3>
-          <p class="count">${esc(names)}</p>
-        </a>`;
+        const items = live
+          .map((t) => {
+            const name = toolName(t.slug);
+            const search = esc(name.toLowerCase());
+            return `<li data-search="${search}"><a class="tool-link" href="/${esc(t.slug)}/"><span class="tl-name">${esc(name)}</span><span class="tl-arrow" aria-hidden="true">→</span></a></li>`;
+          })
+          .join("\n          ");
+        return `<section class="cat">
+        <h2 class="cat-title">${esc(c.label)}</h2>
+        <ul class="cat-list">
+          ${items}
+        </ul>
+      </section>`;
       }
-      return `<div class="cluster-card cluster-card-disabled" aria-disabled="true">
-          <h3>${esc(c.label)}</h3>
-          <p class="count">${esc(c.hint)} — in arrivo</p>
-        </div>`;
+      return `<section class="cat">
+        <h2 class="cat-title">${esc(c.label)} <span class="cat-soon">in arrivo</span></h2>
+        <p class="cat-soon-note">${esc(c.hint)}</p>
+      </section>`;
     })
-    .join("\n        ");
+    .join("\n      ");
+
+  const itemList = tools.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        itemListElement: tools.map((t, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: toolName(t.slug),
+          url: `${site.domain}/${t.slug}/`,
+        })),
+      }
+    : null;
 
   return `${head(site, {
     title: site.home.title,
@@ -403,6 +500,7 @@ export function renderHome(site, tools, ver) {
     canonical: "/",
     jsonLdBlocks: [
       { "@context": "https://schema.org", "@type": "WebSite", name: site.home.title, url: site.domain + "/" },
+      ...(itemList ? [itemList] : []),
     ],
   }, ver)}
 <body>
@@ -412,17 +510,45 @@ ${header(site, "home")}
 <main>
   <section class="home-hero">
     <div class="wrap">
-      <p class="eyebrow">${esc(site.home.eyebrow)}</p>
       <h1>${esc(site.home.h1)}</h1>
       <p class="lede">${esc(site.home.intro)}</p>
-      <div class="cluster-grid">
-        ${cards}
+      <form class="tool-search" role="search" onsubmit="return false">
+        <label class="sr-only" for="toolSearch">Cerca uno strumento</label>
+        <div class="tool-search-box">
+          ${SEARCH_ICON}
+          <input type="search" id="toolSearch" autocomplete="off" placeholder="Cerca uno strumento… (es. stipendio, password, QR)" aria-label="Cerca uno strumento">
+        </div>
+      </form>
+      <div class="catalog">
+        ${catalog}
       </div>
+      <p class="catalog-empty" id="catalogEmpty" role="status">Nessuno strumento trovato.</p>
     </div>
   </section>
 </main>
 
 ${footer(site)}
+
+<script>(function(){
+  var q=document.getElementById("toolSearch");if(!q)return;
+  var cats=[].slice.call(document.querySelectorAll(".cat"));
+  var empty=document.getElementById("catalogEmpty");
+  function norm(s){return (s||"").toLowerCase().trim();}
+  q.addEventListener("input",function(){
+    var v=norm(q.value),anyVisible=false;
+    cats.forEach(function(cat){
+      var items=[].slice.call(cat.querySelectorAll(".cat-list li"));
+      if(!items.length){cat.hidden=v!=="";if(!cat.hidden)anyVisible=true;return;}
+      var shown=0;
+      items.forEach(function(li){
+        var m=!v||(li.getAttribute("data-search")||"").indexOf(v)!==-1;
+        li.hidden=!m;if(m)shown++;
+      });
+      cat.hidden=shown===0;if(shown)anyVisible=true;
+    });
+    if(empty)empty.setAttribute("data-show",String(!anyVisible));
+  });
+})();</script>
 
 </body>
 </html>
@@ -432,7 +558,7 @@ ${footer(site)}
 /** sitemap.xml da tutti i tool + home. */
 export function renderSitemap(site, tools) {
   const urls = [{ loc: site.domain + "/" }]
-    .concat(tools.map((t) => ({ loc: `${site.domain}/${t.cluster}/${t.slug}/`, lastmod: isoDate(t.updated) })))
+    .concat(tools.map((t) => ({ loc: `${site.domain}/${t.slug}/`, lastmod: isoDate(t.updated) })))
     .map((u) => `  <url>\n    <loc>${esc(u.loc)}</loc>${u.lastmod ? `\n    <lastmod>${u.lastmod}</lastmod>` : ""}\n  </url>`)
     .join("\n");
   return `<?xml version="1.0" encoding="UTF-8"?>

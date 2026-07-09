@@ -1,0 +1,72 @@
+{
+  "slug": "generatore-qr-code",
+  "cluster": "generatori",
+  "tema": "utilità",
+  "updated": "2026-07",
+
+  "seo": {
+    "title": "Generatore QR Code Online Gratis – Crea e Scarica",
+    "metaDescription": "Crea un QR code da un testo o un link e scaricalo in PNG o SVG. Livello di correzione errori regolabile, generato nel browser senza inviare dati. Gratis.",
+    "primaryKeyword": "generatore qr code",
+    "canonical": "/generatore-qr-code/"
+  },
+
+  "h1": "Generatore di QR Code",
+
+  "intro": "Trasforma un link, un testo, un numero di telefono o qualsiasi stringa in un QR code pronto da usare. Scrivi il contenuto e l'anteprima appare all'istante: puoi regolare il livello di correzione degli errori — utile se il codice verrà stampato, piegato o potrebbe rovinarsi — e poi scaricare il risultato in PNG (ideale per documenti e social) o in SVG vettoriale (perfetto per la stampa a qualsiasi dimensione, dal biglietto da visita al manifesto). Tutto viene generato nel tuo browser con una libreria open source: nessun contenuto viene inviato a server esterni, quindi puoi creare QR anche per dati riservati. Gratuito, senza registrazione e senza filigrane.",
+
+  "tool": {
+    "kind": "generator",
+    "logicId": "qr-gen-v1",
+    "script": "qr-gen.js",
+    "data": ["qrcode.js"],
+    "cardNote": "PNG · SVG",
+    "inputs": [
+      { "id": "testo", "label": "Testo o URL da codificare", "type": "text", "default": "https://esempio.it", "placeholder": "https://... oppure un testo qualsiasi" },
+      { "type": "group", "legend": "Opzioni", "inputs": [
+        { "id": "correzione", "label": "Correzione errori", "type": "select", "default": "M",
+          "options": ["L", "M", "Q", "H"],
+          "optionLabels": { "L": "L — bassa (7%)", "M": "M — media (15%)", "Q": "Q — alta (25%)", "H": "H — massima (30%)" } },
+        { "id": "bordo", "label": "Includi bordo bianco (zona di silenzio)", "type": "checkbox", "default": true, "hint": "consigliato: molti scanner lo richiedono" }
+      ] }
+    ],
+    "output": { "id": "qr", "label": "Anteprima QR code", "format": "qr", "filename": "codice-qr" },
+    "actions": ["copy", "download"],
+    "extras": [
+      { "id": "info", "label": "Contenuto", "format": "text" }
+    ]
+  },
+
+  "spiegazione": {
+    "titolo": "Come funziona il QR code e come scegliere la correzione degli errori",
+    "corpo": "Un QR code (Quick Response) è un codice a barre bidimensionale che immagazzina informazioni in una griglia di moduli bianchi e neri. Uno scanner o la fotocamera di uno smartphone legge quella griglia e ne ricava il testo codificato: un indirizzo web, una frase, i dati di un contatto, le credenziali di una rete Wi-Fi o qualsiasi stringa. Questo strumento costruisce il codice interamente nel browser con una libreria open source conforme allo standard ISO/IEC 18004: il contenuto che scrivi non viene mai inviato in rete, un dettaglio importante quando il QR contiene dati personali o riservati. Una caratteristica chiave dei QR è la correzione degli errori di Reed-Solomon: parte dei moduli è ridondante, così il codice resta leggibile anche se una porzione è danneggiata, sporca, coperta da un logo o stampata male. Puoi scegliere tra quattro livelli: L recupera circa il 7% dei dati, M il 15%, Q il 25% e H fino al 30%. Più alto è il livello, più il codice è robusto ma anche più denso, perché servono più moduli per contenere la stessa informazione; per un uso su schermo va benissimo M, mentre per la stampa, un'etichetta o un QR con un logo sovrapposto conviene salire a Q o H. La quantità di dati che puoi codificare dipende dalla lunghezza del testo e dal livello scelto: link brevi producono codici semplici e facili da leggere, mentre testi molto lunghi generano griglie fitte, più difficili da inquadrare. Il bordo bianco attorno al simbolo, chiamato zona di silenzio, non è decorativo: molti lettori ne hanno bisogno per isolare il codice dallo sfondo, perciò conviene tenerlo attivo. Scarica in SVG quando ti serve stampare senza perdita di qualità a qualsiasi dimensione, in PNG per un uso digitale immediato."
+  },
+
+  "esempi": [
+    { "titolo": "Link a un sito web", "risultatoAtteso": "QR compatto, livello M — pronto per social e volantini" },
+    { "titolo": "QR per la stampa con logo", "risultatoAtteso": "livello H (30%) + download SVG vettoriale" },
+    { "titolo": "Testo lungo o parametri URL", "risultatoAtteso": "griglia più fitta; usa L o M per tenerla leggibile" }
+  ],
+
+  "faq": [
+    { "domanda": "Il contenuto del QR code viene inviato a un server?", "risposta": "No. Il codice è generato interamente nel tuo browser con una libreria open source: il testo o il link che inserisci non lascia il dispositivo e non viene registrato. Per questo puoi creare QR anche per dati riservati, come credenziali Wi-Fi o informazioni personali, in sicurezza." },
+    { "domanda": "Meglio scaricare il QR in PNG o in SVG?", "risposta": "Dipende dall'uso. Il PNG è un'immagine a pixel, comoda per il web, i social e i documenti digitali. L'SVG è vettoriale: puoi ingrandirlo a qualsiasi dimensione — da un adesivo a un manifesto — senza mai perdere nitidezza, ed è la scelta giusta per la stampa professionale. Entrambi contengono lo stesso codice." },
+    { "domanda": "Cosa cambia tra i livelli di correzione L, M, Q e H?", "risposta": "Indicano quanta parte del codice può essere danneggiata restando leggibile: L circa il 7%, M il 15%, Q il 25% e H fino al 30%. Livelli più alti rendono il QR più resistente a graffi, pieghe o loghi sovrapposti, ma anche più denso. Per lo schermo va bene M; per la stampa o con un logo, scegli Q o H." },
+    { "domanda": "I QR code generati hanno una scadenza o vanno bene per sempre?", "risposta": "Il QR in sé non scade: è un'immagine che codifica un testo fisso e funzionerà sempre. Se però codifica un URL, resta valido finché quella pagina esiste. Questo è un QR statico: il contenuto è fisso e non può essere modificato dopo averlo creato, a differenza dei QR dinamici che rimandano a un link intermedio." },
+    { "domanda": "Perché serve il bordo bianco intorno al codice?", "risposta": "È la cosiddetta zona di silenzio: un margine vuoto che aiuta i lettori a distinguere il QR dallo sfondo circostante. Molti scanner non riescono a leggere un codice senza questo margine, perciò è consigliato tenerlo attivo, soprattutto quando il QR viene inserito in una grafica o stampato accanto ad altri elementi." },
+    { "domanda": "Quanto testo posso mettere in un QR code?", "risposta": "Un QR può contenere in teoria migliaia di caratteri, ma più dati inserisci più la griglia diventa fitta e difficile da inquadrare, specie da lontano o se stampata piccola. Per link e testi brevi il risultato è ottimo; se il contenuto è molto lungo conviene abbreviare l'URL o usare un livello di correzione più basso per mantenere il codice leggibile." }
+  ],
+
+  "relatedTools": [
+    "generatore-password",
+    "generatore-uuid",
+    "calcolatore-stipendio-netto"
+  ],
+
+  "disclaimer": "<strong>Generazione locale.</strong> Il QR code è creato nel tuo browser con una libreria open source e il contenuto non viene inviato o salvato. Si tratta di QR statici: il dato codificato è fisso e non modificabile dopo la creazione.",
+
+  "jsonLd": {
+    "type": "SoftwareApplication",
+    "applicationCategory": "UtilitiesApplication"
+  }
+}

@@ -8,7 +8,7 @@
     "title": "Calcolatore Stipendio Netto 2026 – da Lordo a Netto",
     "metaDescription": "Calcola il tuo stipendio netto mensile e annuo dalla RAL con i valori 2026: IRPEF, contributi INPS, taglio del cuneo fiscale e trattamento integrativo. Gratis e immediato.",
     "primaryKeyword": "calcolatore stipendio netto",
-    "canonical": "/calcolatori/calcolatore-stipendio-netto/"
+    "canonical": "/calcolatore-stipendio-netto/"
   },
 
   "h1": "Calcolatore Stipendio Netto",
@@ -41,11 +41,11 @@
     "outputPrimary": { "id": "nettoMensile", "label": "Netto mensile stimato", "format": "currency" },
     "breakdownTitle": "Dal lordo al netto",
     "breakdown": [
-      { "id": "lordo", "label": "Retribuzione lorda (RAL)", "kind": "gross", "format": "currency" },
+      { "id": "lordo", "label": "Retribuzione lorda", "kind": "gross", "format": "currency" },
       { "id": "contributiInps", "label": "Contributi INPS", "kind": "out", "format": "currency" },
       { "id": "irpefTotale", "label": "IRPEF netta (dopo detrazioni)", "kind": "out", "format": "currency" },
       { "id": "addizionali", "label": "Addizionale regionale IRPEF", "kind": "out", "format": "currency" },
-      { "id": "cuneo", "label": "Taglio del cuneo fiscale", "kind": "in", "format": "currency" },
+      { "id": "cuneo", "label": "Taglio del cuneo fiscale", "kind": "in", "format": "currency", "subnote": true },
       { "id": "trattamentoIntegrativo", "label": "Trattamento integrativo", "kind": "in", "format": "currency" },
       { "id": "nettoAnnuo", "label": "Netto totale", "kind": "total", "format": "currency" }
     ],

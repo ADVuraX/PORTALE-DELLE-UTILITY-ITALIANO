@@ -1,0 +1,69 @@
+{
+  "slug": "generatore-uuid",
+  "cluster": "generatori",
+  "tema": "sviluppo",
+  "updated": "2026-07",
+
+  "seo": {
+    "title": "Generatore UUID v4 Online – Identificatori Univoci Casuali",
+    "metaDescription": "Genera UUID versione 4 casuali online: uno o più alla volta, con o senza trattini, maiuscoli o tra graffe. Conformi RFC 4122, creati nel browser. Gratis.",
+    "primaryKeyword": "generatore uuid",
+    "canonical": "/generatore-uuid/"
+  },
+
+  "h1": "Generatore di UUID (v4)",
+
+  "intro": "Genera identificatori univoci universali (UUID) versione 4 pronti da copiare. Scegli quanti generarne in una volta — da 1 fino a 100 — e il formato che preferisci: maiuscolo o minuscolo, con o senza trattini, racchiusi tra graffe come nello stile Microsoft. Ogni UUID è prodotto con un generatore crittografico sicuro direttamente nel tuo browser ed è conforme allo standard RFC 4122, con i bit di versione e variante impostati correttamente. È lo strumento giusto per sviluppatori e DBA che hanno bisogno di chiavi primarie, identificatori di record, nomi di file o correlation ID senza collisioni. Nessun dato viene inviato: rigenera e copia quando vuoi.",
+
+  "tool": {
+    "kind": "generator",
+    "logicId": "uuid-gen-v1",
+    "script": "uuid-gen.js",
+    "cardNote": "RFC 4122",
+    "inputs": [
+      { "id": "quantita", "label": "Quantità", "type": "number", "min": 1, "max": 100, "step": 1, "default": 1, "suffix": "UUID", "hint": "da 1 a 100 per volta" },
+      { "type": "group", "legend": "Formato", "inputs": [
+        { "id": "trattini", "label": "Con trattini (8-4-4-4-12)", "type": "checkbox", "default": true },
+        { "id": "maiuscolo", "label": "Lettere maiuscole", "type": "checkbox", "default": false },
+        { "id": "graffe", "label": "Racchiudi tra graffe { }", "type": "checkbox", "default": false }
+      ] }
+    ],
+    "output": { "id": "uuid", "label": "UUID generati", "format": "text" },
+    "actions": ["regenerate", "copy"],
+    "extras": [
+      { "id": "versione", "label": "Tipo", "format": "text" }
+    ]
+  },
+
+  "spiegazione": {
+    "titolo": "Cos'è un UUID v4 e quando conviene usarlo",
+    "corpo": "Un UUID (Universally Unique Identifier), detto anche GUID, è un identificatore a 128 bit pensato per essere unico nello spazio e nel tempo senza bisogno di un'autorità centrale che lo assegni. La versione 4, la più usata, è composta quasi interamente da bit casuali: 122 bit sono generati a caso, mentre alcuni bit fissi indicano la versione (4) e la variante secondo lo standard RFC 4122. Questo strumento li produce con l'API Web Crypto del browser (crypto.getRandomValues), un generatore crittograficamente sicuro, così la casualità è di qualità e i valori non sono prevedibili. La probabilità di generare due UUID v4 identici è talmente bassa da essere considerata trascurabile nella pratica: servirebbero miliardi di UUID prima di avere una possibilità concreta di collisione. Per questo gli UUID v4 sono lo standard di fatto per chiavi primarie di database distribuiti, identificatori di messaggi e sessioni, nomi univoci di file, correlation ID nei log e chiavi idempotenti nelle API. Rispetto a un ID numerico progressivo, un UUID può essere creato ovunque — sul client, sul server, in più nodi contemporaneamente — senza coordinamento e senza rivelare quanti record esistono. Il formato canonico usa 32 cifre esadecimali divise in cinque gruppi da trattini, ma spesso serve una variante senza trattini (per URL o nomi di file), tutta maiuscola o racchiusa tra graffe: qui puoi scegliere la forma che ti serve e generarne molti in un colpo solo."
+  },
+
+  "esempi": [
+    { "titolo": "Un UUID canonico, minuscolo", "risultatoAtteso": "es. 550e8400-e29b-41d4-a716-446655440000" },
+    { "titolo": "Senza trattini, per un nome file", "risultatoAtteso": "32 cifre esadecimali di seguito" },
+    { "titolo": "50 UUID in blocco", "risultatoAtteso": "una riga per UUID, pronti da copiare" }
+  ],
+
+  "faq": [
+    { "domanda": "Gli UUID generati sono davvero unici?", "risposta": "In pratica sì. Un UUID v4 ha 122 bit casuali: la probabilità di una collisione è così bassa da essere trascurabile anche generandone miliardi. Non è una garanzia matematica assoluta come per gli UUID basati su timestamp e MAC, ma per qualsiasi uso reale la si può considerare unicità garantita." },
+    { "domanda": "Che differenza c'è tra UUID e GUID?", "risposta": "Nessuna sostanziale: GUID (Globally Unique Identifier) è il nome usato soprattutto in ambiente Microsoft, UUID è il termine dello standard RFC 4122. Si riferiscono alla stessa cosa. Lo stile Microsoft spesso racchiude il valore tra graffe, opzione che qui puoi attivare." },
+    { "domanda": "Posso usare un UUID v4 come chiave primaria di database?", "risposta": "Sì, è un uso molto comune, specialmente in sistemi distribuiti dove più nodi creano record contemporaneamente senza coordinarsi. Tieni presente che, essendo casuali, gli UUID v4 non sono ordinabili per data di creazione e possono frammentare gli indici; se questo è un problema valuta UUID v7 o ULID, pensati per essere ordinabili." },
+    { "domanda": "Gli UUID vengono generati sul server?", "risposta": "No, sono creati interamente nel tuo browser con crypto.getRandomValues. Nessun valore viene inviato o registrato: puoi generarli anche offline una volta caricata la pagina, e restano solo sul tuo dispositivo finché non li copi." },
+    { "domanda": "Perché a volte servono senza trattini o maiuscoli?", "risposta": "Dipende dal contesto. Senza trattini un UUID è più compatto e adatto a nomi di file o segmenti di URL; maiuscolo è lo stile tipico di alcune piattaforme e documenti; tra graffe è la convenzione di Windows e del formato registry. Il valore sottostante è identico, cambia solo la rappresentazione." }
+  ],
+
+  "relatedTools": [
+    "generatore-password",
+    "generatore-qr-code",
+    "calcolatore-stipendio-netto"
+  ],
+
+  "disclaimer": "<strong>Generazione locale e casuale.</strong> Gli UUID v4 sono creati nel tuo browser con un generatore crittografico conforme a RFC 4122. Non vengono salvati né inviati. Per identificatori ordinabili nel tempo valuta UUID v7 o ULID.",
+
+  "jsonLd": {
+    "type": "SoftwareApplication",
+    "applicationCategory": "DeveloperApplication"
+  }
+}

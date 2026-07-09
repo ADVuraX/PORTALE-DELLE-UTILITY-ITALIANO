@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generatore UUID v4 Online – Identificatori Univoci Casuali</title>
+<meta name="description" content="Genera UUID versione 4 casuali online: uno o più alla volta, con o senza trattini, maiuscoli o tra graffe. Conformi RFC 4122, creati nel browser. Gratis.">
+<link rel="canonical" href="https://TUO-DOMINIO.it/generatore-uuid/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Generatore UUID v4 Online – Identificatori Univoci Casuali">
+<meta property="og:description" content="Genera UUID versione 4 casuali online: uno o più alla volta, con o senza trattini, maiuscoli o tra graffe. Conformi RFC 4122, creati nel browser. Gratis.">
+<meta property="og:url" content="https://TUO-DOMINIO.it/generatore-uuid/">
+<script>(function(){try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
+window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribute("data-theme"),sysDark=matchMedia("(prefers-color-scheme:dark)").matches,next=cur?(cur==="dark"?"light":"dark"):(sysDark?"light":"dark");d.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}var b=document.querySelector(".theme-toggle");if(b)b.setAttribute("aria-pressed",String(next==="dark"));};</script>
+<link rel="stylesheet" href="/assets/css/fonts.css?v=abc23a4b">
+<link rel="stylesheet" href="/assets/css/tokens.css?v=daf77d65">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Generatore UUID v4 Online – Identificatori Univoci Casuali","applicationCategory":"DeveloperApplication","operatingSystem":"Web","url":"https://TUO-DOMINIO.it/generatore-uuid/","description":"Genera UUID versione 4 casuali online: uno o più alla volta, con o senza trattini, maiuscoli o tra graffe. Conformi RFC 4122, creati nel browser. Gratis.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"dateModified":"2026-07-01"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Gli UUID generati sono davvero unici?","acceptedAnswer":{"@type":"Answer","text":"In pratica sì. Un UUID v4 ha 122 bit casuali: la probabilità di una collisione è così bassa da essere trascurabile anche generandone miliardi. Non è una garanzia matematica assoluta come per gli UUID basati su timestamp e MAC, ma per qualsiasi uso reale la si può considerare unicità garantita."}},{"@type":"Question","name":"Che differenza c'è tra UUID e GUID?","acceptedAnswer":{"@type":"Answer","text":"Nessuna sostanziale: GUID (Globally Unique Identifier) è il nome usato soprattutto in ambiente Microsoft, UUID è il termine dello standard RFC 4122. Si riferiscono alla stessa cosa. Lo stile Microsoft spesso racchiude il valore tra graffe, opzione che qui puoi attivare."}},{"@type":"Question","name":"Posso usare un UUID v4 come chiave primaria di database?","acceptedAnswer":{"@type":"Answer","text":"Sì, è un uso molto comune, specialmente in sistemi distribuiti dove più nodi creano record contemporaneamente senza coordinarsi. Tieni presente che, essendo casuali, gli UUID v4 non sono ordinabili per data di creazione e possono frammentare gli indici; se questo è un problema valuta UUID v7 o ULID, pensati per essere ordinabili."}},{"@type":"Question","name":"Gli UUID vengono generati sul server?","acceptedAnswer":{"@type":"Answer","text":"No, sono creati interamente nel tuo browser con crypto.getRandomValues. Nessun valore viene inviato o registrato: puoi generarli anche offline una volta caricata la pagina, e restano solo sul tuo dispositivo finché non li copi."}},{"@type":"Question","name":"Perché a volte servono senza trattini o maiuscoli?","acceptedAnswer":{"@type":"Answer","text":"Dipende dal contesto. Senza trattini un UUID è più compatto e adatto a nomi di file o segmenti di URL; maiuscolo è lo stile tipico di alcune piattaforme e documenti; tra graffe è la convenzione di Windows e del formato registry. Il valore sottostante è identico, cambia solo la rappresentazione."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://TUO-DOMINIO.it/"},{"@type":"ListItem","position":2,"name":"Generatore di UUID (v4)","item":"https://TUO-DOMINIO.it/generatore-uuid/"}]}</script>
+</head>
+<body>
+
+<a class="skip" href="#tool">Salta al calcolatore</a>
+
+<header class="head">
+  <div class="wrap">
+    <a class="logo" href="/">utility<b>.it</b></a>
+    <div class="head-right">
+      <div class="crumbs"><a href="/">Home</a> / <span>uuid</span></div>
+      <button class="theme-toggle" type="button" onclick="__toggleTheme()" aria-label="Cambia tema chiaro o scuro" aria-pressed="false" title="Tema chiaro / scuro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" fill="currentColor" stroke="none"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="ad-rail ad-rail-l" aria-hidden="true"><div class="ad-slot ad-sky"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">160×600</span></div></div><div class="ad-rail ad-rail-r" aria-hidden="true"><div class="ad-slot ad-sky"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">160×600</span></div></div>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-lead">
+      <p class="eyebrow">sviluppo</p>
+      <h1>Generatore di UUID (v4)</h1>
+      <p class="lede">Genera identificatori univoci universali (UUID) versione 4 pronti da copiare. Scegli quanti generarne in una volta — da 1 fino a 100 — e il formato che preferisci: maiuscolo o minuscolo, con o senza trattini, racchiusi tra graffe come nello stile Microsoft. Ogni UUID è prodotto con un generatore crittografico sicuro direttamente nel tuo browser ed è conforme allo standard RFC 4122, con i bit di versione e variante impostati correttamente. È lo strumento giusto per sviluppatori e DBA che hanno bisogno di chiavi primarie, identificatori di record, nomi di file o correlation ID senza collisioni. Nessun dato viene inviato: rigenera e copia quando vuoi.</p>
+      <div class="meta-row">
+        <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Aggiornato luglio 2026</span>
+        <span class="pill">Gratuito · nessuna registrazione</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="tool" id="tool" data-tool>
+    <div class="wrap tool-grid">
+      <div class="card card-in">
+        <div class="card-top"><span>I tuoi dati</span></div>
+        <form data-tool-form aria-describedby="disc">
+          <div class="field field-number">
+            <label for="in-quantita">Quantità <span class="hint">da 1 a 100 per volta</span></label>
+            <div class="control has-suffix"><input type="number" id="in-quantita" inputmode="numeric" min="1" max="100" step="1" value="1"><span class="suffix">UUID</span></div>
+          </div>
+          <fieldset class="group"><legend>Formato</legend>
+            <div class="field field-check">
+            <label class="check"><input type="checkbox" id="in-trattini" checked><span>Con trattini (8-4-4-4-12)</span></label>
+          </div>
+            <div class="field field-check">
+            <label class="check"><input type="checkbox" id="in-maiuscolo"><span>Lettere maiuscole</span></label>
+          </div>
+            <div class="field field-check">
+            <label class="check"><input type="checkbox" id="in-graffe"><span>Racchiudi tra graffe { }</span></label>
+          </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="card card-out" data-result-card>
+        <div class="card-top"><span>Risultato</span></div>
+        <div class="result gen" aria-live="polite">
+          <div class="rlabel">UUID generati</div>
+          <div class="gen-value" data-out-primary data-empty="true">—</div>
+          <p class="result-note">Tipo: <span data-out="versione">—</span></p>
+          <div class="gen-actions"><button type="button" class="gen-btn gen-btn-primary" data-action="regenerate">Rigenera</button><button type="button" class="gen-btn" data-action="copy">Copia</button></div>
+        </div>
+        <div class="note" id="disc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg><p><strong>Generazione locale e casuale.</strong> Gli UUID v4 sono creati nel tuo browser con un generatore crittografico conforme a RFC 4122. Non vengono salvati né inviati. Per identificatori ordinabili nel tempo valuta UUID v7 o ULID.</p></div>
+      </div>
+      <script type="application/json" data-tool-config>{"logicId":"uuid-gen-v1","inputs":[{"id":"quantita","type":"number"},{"id":"trattini","type":"checkbox"},{"id":"maiuscolo","type":"checkbox"},{"id":"graffe","type":"checkbox"}],"kind":"generator","output":{"id":"uuid","format":"text"},"actions":["regenerate","copy"],"extras":[{"id":"versione","format":"text"}]}</script>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Tool correlati</h2>
+      <div class="related">
+        <a class="rel" href="/generatore-password/"><span class="re">Tool correlato</span><span class="rn">generatore password</span></a>
+        <a class="rel" href="/generatore-qr-code/"><span class="re">Tool correlato</span><span class="rn">generatore qr code</span></a>
+        <a class="rel" href="/calcolatore-stipendio-netto/"><span class="re">Tool correlato</span><span class="rn">calcolatore stipendio netto</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Cos'è un UUID v4 e quando conviene usarlo</h2>
+      <div class="prose"><p>Un UUID (Universally Unique Identifier), detto anche GUID, è un identificatore a 128 bit pensato per essere unico nello spazio e nel tempo senza bisogno di un'autorità centrale che lo assegni. La versione 4, la più usata, è composta quasi interamente da bit casuali: 122 bit sono generati a caso, mentre alcuni bit fissi indicano la versione (4) e la variante secondo lo standard RFC 4122. Questo strumento li produce con l'API Web Crypto del browser (crypto.getRandomValues), un generatore crittograficamente sicuro, così la casualità è di qualità e i valori non sono prevedibili. La probabilità di generare due UUID v4 identici è talmente bassa da essere considerata trascurabile nella pratica: servirebbero miliardi di UUID prima di avere una possibilità concreta di collisione. Per questo gli UUID v4 sono lo standard di fatto per chiavi primarie di database distribuiti, identificatori di messaggi e sessioni, nomi univoci di file, correlation ID nei log e chiavi idempotenti nelle API. Rispetto a un ID numerico progressivo, un UUID può essere creato ovunque — sul client, sul server, in più nodi contemporaneamente — senza coordinamento e senza rivelare quanti record esistono. Il formato canonico usa 32 cifre esadecimali divise in cinque gruppi da trattini, ma spesso serve una variante senza trattini (per URL o nomi di file), tutta maiuscola o racchiusa tra graffe: qui puoi scegliere la forma che ti serve e generarne molti in un colpo solo.</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Esempi pratici</h2>
+      <div class="examples">
+        <div class="ex"><div class="exq">Un UUID canonico, minuscolo</div><div class="exr">es. 550e8400-e29b-41d4-a716-446655440000</div></div>
+        <div class="ex"><div class="exq">Senza trattini, per un nome file</div><div class="exr">32 cifre esadecimali di seguito</div></div>
+        <div class="ex"><div class="exq">50 UUID in blocco</div><div class="exr">una riga per UUID, pronti da copiare</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap faq">
+      <h2>Domande frequenti</h2>
+      <details open><summary>Gli UUID generati sono davvero unici?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>In pratica sì. Un UUID v4 ha 122 bit casuali: la probabilità di una collisione è così bassa da essere trascurabile anche generandone miliardi. Non è una garanzia matematica assoluta come per gli UUID basati su timestamp e MAC, ma per qualsiasi uso reale la si può considerare unicità garantita.</p></div></details>
+      <details><summary>Che differenza c'è tra UUID e GUID?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>Nessuna sostanziale: GUID (Globally Unique Identifier) è il nome usato soprattutto in ambiente Microsoft, UUID è il termine dello standard RFC 4122. Si riferiscono alla stessa cosa. Lo stile Microsoft spesso racchiude il valore tra graffe, opzione che qui puoi attivare.</p></div></details>
+      <details><summary>Posso usare un UUID v4 come chiave primaria di database?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>Sì, è un uso molto comune, specialmente in sistemi distribuiti dove più nodi creano record contemporaneamente senza coordinarsi. Tieni presente che, essendo casuali, gli UUID v4 non sono ordinabili per data di creazione e possono frammentare gli indici; se questo è un problema valuta UUID v7 o ULID, pensati per essere ordinabili.</p></div></details>
+      <details><summary>Gli UUID vengono generati sul server?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>No, sono creati interamente nel tuo browser con crypto.getRandomValues. Nessun valore viene inviato o registrato: puoi generarli anche offline una volta caricata la pagina, e restano solo sul tuo dispositivo finché non li copi.</p></div></details>
+      <details><summary>Perché a volte servono senza trattini o maiuscoli?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>Dipende dal contesto. Senza trattini un UUID è più compatto e adatto a nomi di file o segmenti di URL; maiuscolo è lo stile tipico di alcune piattaforme e documenti; tra graffe è la convenzione di Windows e del formato registry. Il valore sottostante è identico, cambia solo la rappresentazione.</p></div></details>
+    </div>
+  </section>
+
+</main>
+
+<section class="ad-mini-sec"><div class="wrap"><div class="ad-mini-grid"><div class="ad-slot ad-mini"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">300×250</span></div><div class="ad-slot ad-mini"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">300×250</span></div></div></div></section>
+<div class="ad-anchor-spacer" aria-hidden="true"></div>
+<footer class="foot"><div class="wrap">
+    <p class="foot-base">Portale Italiano delle Utility — strumenti gratuiti, aggiornati, senza registrazione.</p>
+  </div></footer>
+<div class="ad-anchor" id="adAnchor" data-expanded="false">
+  <div class="ad-anchor-tools">
+    <button type="button" class="ad-anchor-btn" data-ad-toggle aria-expanded="false">Espandi</button>
+    <button type="button" class="ad-anchor-btn ad-anchor-close" data-ad-close aria-label="Chiudi annuncio">×</button>
+  </div>
+  <div class="ad-slot ad-anchor-slot"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">responsive · espandibile</span></div>
+</div>
+<script>(function(){var a=document.getElementById("adAnchor");if(!a)return;var t=a.querySelector("[data-ad-toggle]"),c=a.querySelector("[data-ad-close]");if(t)t.addEventListener("click",function(){var e=a.getAttribute("data-expanded")==="true";a.setAttribute("data-expanded",String(!e));t.setAttribute("aria-expanded",String(!e));t.textContent=e?"Espandi":"Riduci";});if(c)c.addEventListener("click",function(){a.setAttribute("data-hidden","true");});})();</script>
+
+<script src="/assets/js/runtime.js?v=814e70d4"></script>
+
+<script src="/assets/js/calculators/uuid-gen.js?v=3c0c2648"></script>
+</body>
+</html>

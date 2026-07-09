@@ -4,7 +4,19 @@
     <loc>https://TUO-DOMINIO.it/</loc>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/calcolatori/calcolatore-stipendio-netto/</loc>
+    <loc>https://TUO-DOMINIO.it/calcolatore-stipendio-netto/</loc>
+    <lastmod>2026-07-01</lastmod>
+  </url>
+  <url>
+    <loc>https://TUO-DOMINIO.it/generatore-password/</loc>
+    <lastmod>2026-07-01</lastmod>
+  </url>
+  <url>
+    <loc>https://TUO-DOMINIO.it/generatore-qr-code/</loc>
+    <lastmod>2026-07-01</lastmod>
+  </url>
+  <url>
+    <loc>https://TUO-DOMINIO.it/generatore-uuid/</loc>
     <lastmod>2026-07-01</lastmod>
   </url>
 </urlset>

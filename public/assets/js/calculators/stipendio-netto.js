@@ -20,14 +20,17 @@ function calcolaStipendioNetto(input) {
   var nFigli = Math.max(0, Math.floor(Number(input.figliACarico2129) || 0));
   var nFamiliari = Math.max(0, Math.floor(Number(input.altriFamiliari) || 0));
 
-  // 0. Tempo determinato: la RAL resta il tasso ANNUO; i giorni lavorati (1..365)
-  //    la riproporzionano al periodo effettivo. Indeterminato = anno intero.
+  // 0. Tempo determinato: la RAL è il tasso ANNUO. I giorni lavorati (1..365)
+  //    riproporzionano SOLO gli importi del periodo (retribuzione lorda RL e i
+  //    relativi totali). Il calcolo fiscale gira sempre sul tasso annuo pieno
+  //    (ragguaglio ad anno, come in busta paga): un contratto più corto NON
+  //    aumenta lo stipendio mensile, riduce solo quanto incassi nell'anno.
   var giorniAnno = F.giorniAnno || 365;
   var giorni = tipoContratto === "determinato"
     ? Math.min(giorniAnno, Math.max(1, Math.floor(Number(input.giorniLavorati) || giorniAnno)))
     : giorniAnno;
   var fattorePeriodo = giorni / giorniAnno;
-  var ral = ralAnnua * fattorePeriodo; // retribuzione lorda del periodo
+  var ral = ralAnnua; // calcolo fiscale sempre sul tasso annuo pieno
 
   // 1. Contributi INPS (IVS) — aliquota per tipo di rapporto (+1% oltre soglia).
   var aliquotaInps = (F.inps.perTipo && F.inps.perTipo[tipoLavoratore]) || F.inps.aliquota;
@@ -57,16 +60,15 @@ function calcolaStipendioNetto(input) {
     detrazioneTeorica = d.fino15k;
   } else if (R <= d.sup2) {
     detrazioneTeorica = d.base2 + d.quota2 * ((d.sup2 - R) / d.ampiezza2);
-    if (R > d.maggiorazioneDa && R <= d.maggiorazioneA) detrazioneTeorica += d.maggiorazione;
   } else if (R <= d.sup3) {
     detrazioneTeorica = d.base3 * ((d.sup3 - R) / d.ampiezza3);
   }
-  // Tempo determinato: la detrazione si rapporta ai giorni di lavoro, con il
-  // minimo garantito di legge (1.380 € per i rapporti a termine, art. 13 c.1 TUIR).
+  // Maggiorazione +65 € per reddito complessivo 25.001–35.000 (art. 13 c.1 TUIR,
+  // L. 207/2024): a cavallo del 2° e 3° scaglione, non solo entro 28.000.
+  if (R > d.maggiorazioneDa && R <= d.maggiorazioneA) detrazioneTeorica += d.maggiorazione;
+  // Detrazione al tasso annuo pieno (il riproporzionamento del periodo è a fine
+  // funzione, uguale per tutte le voci del bilancio).
   var detrazioneLavoro = detrazioneTeorica;
-  if (tipoContratto === "determinato" && detrazioneTeorica > 0) {
-    detrazioneLavoro = Math.max(detrazioneTeorica * fattorePeriodo, d.minimoDeterminato);
-  }
 
   // 4-bis. Detrazioni per figli 21–29 (art. 12) — decrescente col reddito.
   var detrFigli = 0;
@@ -103,6 +105,11 @@ function calcolaStipendioNetto(input) {
   else if (R > c.fissoFino && R < c.azzeraA) cuneoDetrazione = c.importo * ((c.azzeraA - R) / (c.azzeraA - c.fissoFino));
   cuneoDetrazione = Math.min(cuneoDetrazione, irpefTotale);
   var cuneo = cuneoBonus + cuneoDetrazione;
+  // Natura del cuneo per fascia di reddito (sotto-etichetta automatica nel bilancio):
+  // ≤ 20.000 è una somma esente in busta paga; oltre, un'ulteriore detrazione IRPEF.
+  var cuneoSub = cuneoBonus > 0
+    ? "Somma esente in busta paga"
+    : (cuneoDetrazione > 0 ? "Ulteriore detrazione IRPEF" : "");
 
   // 6. Trattamento integrativo (ex Bonus Renzi). Capienza valutata (per norma)
   //    contro la sola detrazione per lavoro dipendente.
@@ -111,7 +118,11 @@ function calcolaStipendioNetto(input) {
   if (R <= ti.sogliaPiena) {
     if (irpefLorda > detrazioneLavoro) trattamentoIntegrativo = ti.importo;
   } else if (R <= ti.sogliaMax) {
-    var capienza = detrazioneLavoro - irpefLorda;
+    // 15.001–28.000: spetta solo se la SOMMA delle detrazioni "specifiche" supera
+    // l'IRPEF lorda; l'importo è la differenza, entro il tetto (1.200 €). Nel
+    // perimetro di questo tool le detrazioni sommate sono lavoro (art.13) +
+    // familiari a carico (art.12); mutuo, locazioni ed edilizie restano fuori.
+    var capienza = (detrazioneLavoro + detrazioniFamiliari) - irpefLorda;
     if (capienza > 0) trattamentoIntegrativo = Math.min(ti.importo, capienza);
   }
 
@@ -122,18 +133,28 @@ function calcolaStipendioNetto(input) {
     ? "Dati regionali 2026 non ancora pubblicati dal MEF: stima da fonti secondarie, in aggiornamento."
     : "";
 
-  // 8. Netto del periodo. Per il tempo determinato il "netto mensile" è la media
-  //    sui mesi effettivi del periodo; per l'indeterminato è il netto annuo
-  //    diviso per le mensilità scelte.
-  var nettoAnnuo = imponibile - irpefTotale - addizionali + cuneo + trattamentoIntegrativo;
-  var mesiPeriodo = giorni / (giorniAnno / 12);
-  var nettoMensile = tipoContratto === "determinato"
-    ? (mesiPeriodo > 0 ? nettoAnnuo / mesiPeriodo : 0)
-    : nettoAnnuo / mensilita;
-  var aliquotaEffettiva = ral > 0 ? (ral - nettoAnnuo) / ral : 0; // prelievo totale su lordo
+  // 8. Netto ANNUO al tasso pieno → netto MENSILE (identico per determinato e
+  //    indeterminato: il contratto a termine non cambia lo stipendio mensile).
+  var nettoAnnuoFull = imponibile - irpefTotale - addizionali + cuneo + trattamentoIntegrativo;
+  var nettoMensile = nettoAnnuoFull / mensilita;
+  var aliquotaEffettiva = ral > 0 ? (ral - nettoAnnuoFull) / ral : 0; // prelievo totale su lordo (invariante)
+
+  // Riproporzionamento del periodo (solo tempo determinato): ogni voce del
+  // bilancio scala coi giorni lavorati. Il mensile qui sopra NON si tocca.
+  var nettoAnnuo = nettoAnnuoFull * fattorePeriodo; // "netto totale" del periodo
+  var lordoPeriodo = ral * fattorePeriodo;
+  contributiInps *= fattorePeriodo;
+  imponibile *= fattorePeriodo;
+  irpefLorda *= fattorePeriodo;
+  detrazioneLavoro *= fattorePeriodo;
+  detrazioniFamiliari *= fattorePeriodo;
+  irpefTotale *= fattorePeriodo;
+  cuneo *= fattorePeriodo;
+  trattamentoIntegrativo *= fattorePeriodo;
+  addizionali *= fattorePeriodo;
 
   return {
-    lordo: ral,
+    lordo: lordoPeriodo,
     contributiInps: contributiInps,
     imponibile: imponibile,
     irpefLorda: irpefLorda,
@@ -141,6 +162,7 @@ function calcolaStipendioNetto(input) {
     detrazioniFamiliari: detrazioniFamiliari,
     irpefTotale: irpefTotale,
     cuneo: cuneo,
+    cuneoSub: cuneoSub,
     trattamentoIntegrativo: trattamentoIntegrativo,
     addizionali: addizionali,
     nettoAnnuo: nettoAnnuo,
