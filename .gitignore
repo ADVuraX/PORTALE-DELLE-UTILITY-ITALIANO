@@ -1,0 +1,12 @@
+# Dipendenze — si ricreano con `npm install`
+node_modules/
+
+# Temporanei di Wrangler (bundle-*, dev-*): rigenerati a ogni `wrangler dev`
+.wrangler/
+
+# Permessi locali di Claude Code (per-macchina, non condivisi)
+.claude/settings.local.json
+
+# NON ignorare public/: è l'output servito da Cloudflare e DEVE restare
+# versionato — `[assets] directory = "./public"` in wrangler.toml.
+# Vedi CLAUDE.md, sezione "Gotcha di deploy".
