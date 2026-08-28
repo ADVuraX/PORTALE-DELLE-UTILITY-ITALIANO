@@ -18,7 +18,7 @@
   "tool": {
     "logicId": "unita-v1",
     "script": "convertitore-unita.js",
-    "cardNote": "decimale e binario",
+    "cardNote": "Decimale e binario",
     "inputs": [
       { "id": "valore", "label": "Valore da convertire", "type": "number", "step": "any", "default": 1 },
       { "id": "da", "label": "Da", "type": "select", "default": "GB",

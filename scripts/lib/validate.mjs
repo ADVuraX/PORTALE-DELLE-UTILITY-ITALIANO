@@ -126,16 +126,83 @@ export function validateTool(cfg, allSlugs, scriptFiles) {
   return { errors, warnings };
 }
 
-/** Controlli a livello di sito: title e primaryKeyword devono essere unici. */
-export function validateSite(configs) {
+/**
+ * Controlli a livello di sito. Ogni pagina generata (tool o area) occupa una
+ * cartella sotto public/ e una riga in sitemap.xml: title, primaryKeyword e URL
+ * devono quindi essere unici nell'intero sito, non solo fra i tool.
+ *
+ * @param configs  tutti i config tool
+ * @param site     content/site.json (contiene le quattro aree)
+ */
+export function validateSite(configs, site) {
   const errors = [];
+  const warnings = [];
   const byTitle = new Map();
   const byKw = new Map();
+
+  const claimTitle = (t, who) => {
+    t = (t || "").trim().toLowerCase();
+    if (!t) return;
+    if (byTitle.has(t)) errors.push(`seo.title duplicato tra "${byTitle.get(t)}" e "${who}"`);
+    else byTitle.set(t, who);
+  };
+  const claimKw = (k, who) => {
+    k = (k || "").trim().toLowerCase();
+    if (!k) return;
+    if (byKw.has(k)) errors.push(`seo.primaryKeyword duplicata tra "${byKw.get(k)}" e "${who}"`);
+    else byKw.set(k, who);
+  };
+
   for (const c of configs) {
-    const t = (c.seo && c.seo.title || "").trim().toLowerCase();
-    const k = (c.seo && c.seo.primaryKeyword || "").trim().toLowerCase();
-    if (t) { if (byTitle.has(t)) errors.push(`seo.title duplicato tra "${byTitle.get(t)}" e "${c.slug}"`); else byTitle.set(t, c.slug); }
-    if (k) { if (byKw.has(k)) errors.push(`seo.primaryKeyword duplicata tra "${byKw.get(k)}" e "${c.slug}"`); else byKw.set(k, c.slug); }
+    claimTitle(c.seo && c.seo.title, c.slug);
+    claimKw(c.seo && c.seo.primaryKeyword, c.slug);
   }
-  return { errors, warnings: [] };
+
+  // --- Aree: ognuna genera /{key}/ con contenuto proprio ---
+  const clusters = (site && site.clusters) || {};
+  const slugs = new Set(configs.map((c) => c.slug));
+  const seenCluster = new Set(configs.map((c) => c.cluster));
+
+  for (const key of Object.keys(clusters)) {
+    const c = clusters[key];
+    const id = `area:${key}`;
+    const err = (m) => errors.push(`[${id}] ${m}`);
+
+    // La cartella dell'area e quella di un tool finirebbero nello stesso posto.
+    if (slugs.has(key)) err(`la chiave dell'area collide con lo slug del tool "${key}" (stessa cartella public/${key}/)`);
+
+    if (!c.label) err("`label` obbligatoria (nome breve in navigazione)");
+    if (!c.hint) err("`hint` obbligatorio (sottotitolo dell'area in home)");
+    if (!c.h1) err("`h1` obbligatorio (titolo visibile della pagina area)");
+
+    const seo = c.seo || {};
+    if (!seo.title) err("`seo.title` obbligatorio");
+    if (!seo.metaDescription) err("`seo.metaDescription` obbligatorio");
+    if (!seo.primaryKeyword) err("`seo.primaryKeyword` obbligatorio");
+    claimTitle(seo.title, id);
+    claimKw(seo.primaryKeyword, id);
+
+    // La pagina area deve reggersi da sola: senza testo è thin content.
+    const iw = words(c.intro);
+    if (iw < 120) err(`\`intro\` troppo corta (${iw} parole, min 120 — anti thin-content)`);
+    if (iw > 400) err(`\`intro\` troppo lunga (${iw} parole, max 400)`);
+
+    if (!Array.isArray(c.faq) || c.faq.length < 3) err("`faq` deve avere almeno 3 elementi");
+    else
+      c.faq.forEach((f, i) => {
+        if (!f.domanda) err(`\`faq[${i}].domanda\` obbligatoria`);
+        if (!f.risposta) err(`\`faq[${i}].risposta\` obbligatoria`);
+      });
+
+    if (!seenCluster.has(key)) warnings.push(`[${id}] nessun tool assegnato: la pagina area sarà un elenco vuoto`);
+  }
+
+  // Un tool che punta a un'area inesistente romperebbe briciole e link interni.
+  for (const c of configs) {
+    if (c.cluster && !clusters[c.cluster]) {
+      errors.push(`[${c.slug}] cluster "${c.cluster}" non definito in site.json → nessuna pagina area di destinazione`);
+    }
+  }
+
+  return { errors, warnings };
 }

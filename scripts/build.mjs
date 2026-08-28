@@ -1,16 +1,18 @@
 /**
  * BUILD — generatore statico del Portale Utility.
  *
- *   content/site.json          → configurazione globale
+ *   content/site.json          → configurazione globale + contenuto delle aree
  *   content/tools/{slug}.json  → un file per tool (fonte di verità)
  *          │
  *          ▼  (validazione + template)
- *   public/{cluster}/{slug}/index.html   ← pagine generate
- *   public/index.html                    ← homepage generata
- *   public/sitemap.xml                   ← sitemap generata
+ *   public/{slug}/index.html      ← pagine tool
+ *   public/{cluster}/index.html   ← pagine area (/calcolatori/, /generatori/, …)
+ *   public/index.html             ← homepage
+ *   public/sitemap.xml            ← sitemap (home + aree + tool)
  *
  * Zero dipendenze. Fallisce (exit 1) se un tool viola il contratto
- * (docs/tool-config-schema.md) o se due tool hanno title/keyword uguali.
+ * (docs/tool-config-schema.md), se un'area è incompleta o se due pagine
+ * condividono title, keyword o URL.
  * Uso: `npm run build`.
  */
 import { readFile, writeFile, readdir, mkdir } from "node:fs/promises";
@@ -19,7 +21,7 @@ import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { validateTool, validateSite } from "./lib/validate.mjs";
-import { renderToolPage, renderHome, renderSitemap } from "./lib/template.mjs";
+import { renderToolPage, renderHome, renderClusterPage, renderSitemap } from "./lib/template.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const CONTENT = path.join(ROOT, "content");
@@ -30,6 +32,7 @@ const CALC_DIR = path.join(PUBLIC, "assets", "js", "calculators");
 const RED = (s) => `\x1b[31m${s}\x1b[0m`;
 const YEL = (s) => `\x1b[33m${s}\x1b[0m`;
 const GRN = (s) => `\x1b[32m${s}\x1b[0m`;
+const CYN = (s) => `\x1b[36m${s}\x1b[0m`;
 const DIM = (s) => `\x1b[2m${s}\x1b[0m`;
 
 /**
@@ -60,6 +63,12 @@ async function readJson(file) {
   }
 }
 
+async function emit(dirName, html) {
+  const dir = path.join(PUBLIC, dirName);
+  await mkdir(dir, { recursive: true });
+  await writeFile(path.join(dir, "index.html"), html, "utf8");
+}
+
 async function main() {
   console.log(DIM("→ build da content/ verso public/"));
 
@@ -73,7 +82,8 @@ async function main() {
     (await readdir(CALC_DIR).catch(() => [])).filter((f) => f.endsWith(".js"))
   );
   const allSlugs = new Set(configs.map((c) => c.slug));
-  const toolsBySlug = new Map(configs.map((c) => [c.slug, { h1: c.h1, cluster: c.cluster }]));
+  // Le card "tool correlato" leggono qui il nome e l'area del tool linkato.
+  const toolsBySlug = new Map(configs.map((c) => [c.slug, c]));
 
   // --- Validazione ---
   const errors = [];
@@ -83,8 +93,9 @@ async function main() {
     errors.push(...r.errors);
     warnings.push(...r.warnings);
   }
-  const siteRes = validateSite(configs);
+  const siteRes = validateSite(configs, site);
   errors.push(...siteRes.errors);
+  warnings.push(...siteRes.warnings);
 
   warnings.forEach((w) => console.log(YEL("  ⚠ " + w)));
   if (errors.length) {
@@ -93,20 +104,26 @@ async function main() {
     process.exit(1);
   }
 
-  // --- Generazione ---
-  let count = 0;
+  // --- Generazione: pagine tool ---
   for (const cfg of configs) {
-    const dir = path.join(PUBLIC, cfg.slug);
-    await mkdir(dir, { recursive: true });
-    await writeFile(path.join(dir, "index.html"), renderToolPage(cfg, site, toolsBySlug, ver), "utf8");
+    await emit(cfg.slug, renderToolPage(cfg, site, toolsBySlug, ver));
     console.log(GRN(`  ✓ ${DIM("/")}${cfg.slug}/`));
-    count++;
   }
 
+  // --- Generazione: pagine area ---
+  const clusterKeys = Object.keys(site.clusters);
+  for (const key of clusterKeys) {
+    const inCluster = configs.filter((c) => c.cluster === key);
+    await emit(key, renderClusterPage(site, key, inCluster, ver));
+    console.log(CYN(`  ✓ ${DIM("/")}${key}/ ${DIM(`(area · ${inCluster.length} tool)`)}`));
+  }
+
+  // --- Generazione: home + sitemap ---
   await writeFile(path.join(PUBLIC, "index.html"), renderHome(site, configs, ver), "utf8");
   await writeFile(path.join(PUBLIC, "sitemap.xml"), renderSitemap(site, configs), "utf8");
 
-  console.log(GRN(`\n✓ Generati ${count} tool + homepage + sitemap.`));
+  const total = configs.length + clusterKeys.length + 1;
+  console.log(GRN(`\n✓ ${configs.length} tool + ${clusterKeys.length} aree + homepage = ${total} URL, sitemap inclusa.`));
   if (warnings.length) console.log(YEL(`  (${warnings.length} warning — non bloccanti)`));
   if (site.domain.includes("TUO-DOMINIO")) {
     console.log(DIM("  Nota: dominio ancora placeholder in content/site.json (domain)."));

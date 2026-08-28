@@ -3,18 +3,136 @@
   "brandAccent": ".it",
   "domain": "https://TUO-DOMINIO.it",
   "lang": "it",
+
   "home": {
-    "title": "Portale delle Utility Italiano — Calcolatori, Generatori, Convertitori Gratuiti",
-    "metaDescription": "Strumenti gratuiti per calcoli fiscali, lavoro, casa e famiglia. Calcolatore stipendio netto, IRPEF, mutuo e molto altro. Immediati, senza registrazione.",
-    "eyebrow": "MVP — FASE 1",
+    "title": "Portale delle Utility Italiano — Calcolatori, Convertitori e Generatori Gratuiti",
+    "metaDescription": "Strumenti gratuiti per calcoli fiscali, lavoro, misure e verifiche. Stipendio netto, TFR, convertitori di valuta e unità, validatore codice fiscale e IBAN. Senza registrazione.",
+    "eyebrow": "Indice degli strumenti",
     "h1": "Strumenti gratuiti per il quotidiano italiano",
-    "intro": "Calcolatori fiscali, generatori, convertitori e validatori. Immediati, gratuiti, senza registrazione. Ogni tool unisce calcolo interattivo e contenuto di riferimento."
+    "intro": "Calcolatori fiscali, convertitori, generatori e validatori. Ogni strumento è una pagina a sé: calcolo immediato nel browser, contenuto di riferimento verificato, fonti ufficiali citate. Niente registrazione, niente dati inviati altrove."
   },
+
   "footer": "Portale Italiano delle Utility — strumenti gratuiti, aggiornati, senza registrazione.",
+
   "clusters": {
-    "calcolatori": { "label": "Calcolatori", "hint": "Stipendio netto, IRPEF, mutuo, IMU" },
-    "generatori": { "label": "Generatori", "hint": "Password, QR code, UUID" },
-    "convertitori": { "label": "Convertitori", "hint": "Valuta, unità di misura" },
-    "validatori": { "label": "Validatori", "hint": "Codice fiscale, IBAN" }
+    "calcolatori": {
+      "label": "Calcolatori",
+      "hint": "Stipendio netto, TFR, regime forfettario",
+      "seo": {
+        "title": "Calcolatori Fiscali e del Lavoro Online Gratuiti — 2026",
+        "metaDescription": "Calcolatori gratuiti per stipendio netto, TFR e partita IVA forfettaria. Aliquote 2026, bilancio completo dal lordo al netto, fonti ufficiali citate. Nessuna registrazione.",
+        "primaryKeyword": "calcolatori fiscali online"
+      },
+      "h1": "Calcolatori fiscali e del lavoro",
+      "intro": "I calcolatori di quest'area traducono regole fiscali e contrattuali italiane in un numero leggibile in pochi secondi. Ogni strumento parte dai parametri ufficiali dell'anno in corso — scaglioni IRPEF, aliquote INPS, detrazioni da lavoro dipendente, coefficienti di rivalutazione — e li applica passo per passo, mostrando il percorso completo dal lordo al netto invece del solo risultato finale. Vedere le singole trattenute serve a capire dove finiscono i soldi, non soltanto quanti ne restano in tasca. Le costanti normative sono raccolte in file versionati per anno e richiamate in fondo a ogni pagina con il riferimento alla fonte: Agenzia delle Entrate, INPS, Gazzetta Ufficiale. Quando una legge cambia si aggiorna quel file e tutte le pagine collegate si allineano insieme, senza valori nascosti nel codice. Nessuno di questi calcolatori richiede registrazione e nessun dato inserito lascia il browser: il calcolo avviene interamente sul tuo dispositivo. I risultati restano comunque una stima orientativa e non sostituiscono il conteggio di un commercialista o di un consulente del lavoro, soprattutto nei casi con contratti atipici, redditi multipli o agevolazioni territoriali.",
+      "faq": [
+        {
+          "domanda": "I calcolatori sono aggiornati alla normativa 2026?",
+          "risposta": "Sì. Scaglioni IRPEF, aliquote contributive, detrazioni e coefficienti sono raccolti in file di dati versionati per anno, citati in fondo a ogni pagina insieme alla data dell'ultimo aggiornamento. Se una voce non è ancora stata recepita viene mostrata esplicitamente come «in arrivo» nel bilancio, così sai sempre cosa è incluso nel calcolo e cosa no."
+        },
+        {
+          "domanda": "I dati che inserisco vengono salvati o inviati da qualche parte?",
+          "risposta": "No. Ogni calcolo è una funzione JavaScript eseguita nel tuo browser: reddito, giorni di lavoro e qualsiasi altro valore restano sul tuo dispositivo e non transitano su alcun server. Non esiste un account, non c'è un database di calcoli e non viene registrato nulla di ciò che digiti."
+        },
+        {
+          "domanda": "Posso usare questi risultati per la dichiarazione dei redditi?",
+          "risposta": "No, servono a orientarti prima di una decisione — valutare un'offerta di lavoro, stimare il TFR maturato, confrontare regime forfettario e ordinario. Per adempimenti fiscali, contratti e dichiarazioni fai sempre riferimento a un commercialista o a un consulente del lavoro, che conosce la tua situazione completa."
+        },
+        {
+          "domanda": "Perché il risultato differisce di qualche euro dalla mia busta paga?",
+          "risposta": "Perché la busta paga reale include voci che dipendono dal singolo contratto e dalla residenza: addizionali regionali e comunali, premi di risultato, welfare aziendale, conguagli, trattenute sindacali, benefit in natura. I calcolatori applicano la normativa nazionale su parametri standard, quindi lo scostamento tipico è di pochi euro al mese ed è indicato nel disclaimer di ogni strumento."
+        }
+      ]
+    },
+
+    "convertitori": {
+      "label": "Convertitori",
+      "hint": "Valuta a tassi BCE e undici famiglie di unità",
+      "seo": {
+        "title": "Convertitori Online Gratuiti — Valuta e Unità di Misura",
+        "metaDescription": "Converti valute a tassi BCE aggiornati e unità di misura: lunghezza, peso, temperatura, area, volume, velocità, tempo, dati, pressione, energia. Istantaneo e gratuito.",
+        "primaryKeyword": "convertitori online"
+      },
+      "h1": "Convertitori di valuta e unità di misura",
+      "intro": "Quest'area raccoglie le conversioni che servono più spesso: il cambio tra valute e il passaggio tra unità di misura di sistemi diversi. Il convertitore di valuta legge i tassi di riferimento pubblicati dalla Banca Centrale Europea, con una tabella statica di riserva se la rete non risponde, così il risultato resta disponibile anche offline. I dieci convertitori di unità condividono un'unica tabella di fattori verificati: ogni valore viene prima riportato all'unità di base del Sistema Internazionale e poi convertito nell'unità di destinazione, così qualunque combinazione resta coerente e reversibile. Sotto il risultato viene sempre mostrato il fattore applicato, utile per rifare il conto a mano o per controllare un ordine di grandezza. Le conversioni coprono metrico e anglosassone — metri e piedi, chilogrammi e libbre, Celsius e Fahrenheit, ettari e acri, litri e galloni — oltre alle unità tecniche di pressione, energia, velocità, tempo e dati informatici. Tutto avviene nel browser, senza inviare nulla e senza registrazione.",
+      "faq": [
+        {
+          "domanda": "I tassi di cambio sono aggiornati in tempo reale?",
+          "risposta": "Sono i tassi di riferimento della Banca Centrale Europea, pubblicati una volta al giorno nei giorni lavorativi intorno alle 16:00 CET. Non sono quotazioni intraday da mercato valutario: servono a orientarsi, non a operare in cambi. La data del tasso applicato è sempre indicata nella pagina del convertitore."
+        },
+        {
+          "domanda": "Cosa succede se la connessione ai tassi non funziona?",
+          "risposta": "Il convertitore ricade su una tabella di cambi statica inclusa nella pagina e te lo segnala, così il calcolo resta possibile anche senza rete. I convertitori di unità di misura non hanno questo problema: i fattori sono costanti fisiche e definizioni, quindi funzionano sempre e completamente offline."
+        },
+        {
+          "domanda": "Posso convertire tra sistema metrico e anglosassone?",
+          "risposta": "Sì, ogni convertitore di unità include entrambe le famiglie nello stesso menu: pollici, piedi, iarde e miglia accanto a millimetri, metri e chilometri; libbre e once accanto a grammi e chilogrammi; acri accanto a ettari; galloni accanto a litri. Puoi scegliere liberamente unità di partenza e di arrivo da qualunque sistema."
+        },
+        {
+          "domanda": "Quante cifre decimali usano i convertitori?",
+          "risposta": "Il risultato viene arrotondato per la leggibilità, mantenendo cifre significative sufficienti anche per valori molto piccoli o molto grandi. Il fattore di conversione mostrato sotto il risultato riporta il valore esatto usato nel calcolo, così puoi verificare la precisione o ripetere l'operazione con più decimali."
+        }
+      ]
+    },
+
+    "generatori": {
+      "label": "Generatori",
+      "hint": "Password, QR code e identificatori UUID",
+      "seo": {
+        "title": "Generatori Online Gratuiti — Password Sicure, QR Code e UUID",
+        "metaDescription": "Genera password sicure, QR code scaricabili in PNG e SVG e identificatori UUID v4. Casualità crittografica nel browser, nessun dato inviato, nessuna registrazione.",
+        "primaryKeyword": "generatori online"
+      },
+      "h1": "Generatori sicuri, direttamente nel browser",
+      "intro": "Un generatore ha senso solo se puoi fidarti di dove nasce il valore che produce. Gli strumenti di quest'area usano l'API crittografica del browser — la stessa sorgente di casualità impiegata da HTTPS — e non un generatore pseudocasuale prevedibile: password, chiavi e identificatori nascono sul tuo dispositivo e non vengono mai trasmessi, registrati o messi in cache da nessuna parte. Il generatore di password lascia scegliere lunghezza e alfabeto, mostrando l'entropia effettiva della combinazione invece di un vago indicatore colorato di robustezza. Il generatore di QR code costruisce la matrice localmente e permette di scaricarla in SVG vettoriale o in PNG ad alta risoluzione, adatta anche alla stampa. Il generatore di UUID produce identificatori versione 4 conformi alla specifica RFC 4122, utili per chiavi di database, nomi di file univoci e tracciamento di richieste. Nessuno di questi strumenti richiede registrazione e nessuno funziona meglio con un account: sono deliberatamente pagine che non ti conoscono.",
+      "faq": [
+        {
+          "domanda": "Le password generate vengono salvate da qualche parte?",
+          "risposta": "No, e non potrebbero esserlo: la generazione avviene interamente nel tuo browser e la pagina non effettua alcuna chiamata di rete durante il calcolo. Non c'è un server che vede la password, non viene scritta in cronologia né in un database. Chiudendo la scheda il valore scompare, quindi copialo dove ti serve prima di uscire."
+        },
+        {
+          "domanda": "Quanto è davvero casuale la generazione?",
+          "risposta": "Usiamo crypto.getRandomValues, l'interfaccia di casualità crittografica esposta dal browser e alimentata dal generatore di entropia del sistema operativo. È la stessa sorgente usata per le chiavi di sessione TLS ed è adatta a scopi di sicurezza, a differenza di Math.random che è pseudocasuale e prevedibile."
+        },
+        {
+          "domanda": "I QR code generati scadono o smettono di funzionare?",
+          "risposta": "No. Un QR code è una codifica grafica del testo che contiene, non un collegamento a un servizio esterno: non c'è nessun redirect intermedio e nessuna scadenza. Finché il contenuto codificato resta valido — per esempio un indirizzo web ancora attivo — il codice funziona indefinitamente, anche stampato."
+        },
+        {
+          "domanda": "Che differenza c'è tra UUID v4 e gli altri formati?",
+          "risposta": "La versione 4 è generata interamente da numeri casuali, mentre altre versioni derivano da timestamp, indirizzo MAC o da un hash di un nome. La v4 è la scelta più comune quando serve unicità senza rivelare informazioni su chi o quando l'ha generato: con 122 bit casuali la probabilità di collisione è trascurabile in qualsiasi scenario pratico."
+        }
+      ]
+    },
+
+    "validatori": {
+      "label": "Validatori",
+      "hint": "Codice fiscale e IBAN, con decodifica dei dati",
+      "seo": {
+        "title": "Validatori Online — Codice Fiscale e IBAN Gratis",
+        "metaDescription": "Verifica codice fiscale e IBAN con il controllo ufficiale del carattere di controllo. Decodifica data di nascita, sesso, codice Belfiore, ABI, CAB e numero di conto.",
+        "primaryKeyword": "validatori online"
+      },
+      "h1": "Validatori di codice fiscale e IBAN",
+      "intro": "Un errore di battitura in un IBAN o in un codice fiscale si scopre di solito troppo tardi, quando un bonifico torna indietro o una pratica viene respinta. I validatori di quest'area applicano gli stessi algoritmi di controllo usati dagli enti che quei codici li emettono, così l'errore emerge subito. Il validatore di codice fiscale ricalcola il carattere di controllo secondo il metodo del Ministero dell'Economia e delle Finanze e gestisce correttamente l'omocodia, cioè la sostituzione di cifre con lettere applicata quando due persone otterrebbero lo stesso codice; oltre all'esito mostra i dati leggibili dal codice — data di nascita, sesso e codice Belfiore del comune. Il validatore di IBAN esegue la verifica mod-97 prevista dallo standard ISO 13616 e scompone il codice nelle sue parti: CIN, ABI, CAB e numero di conto. Attenzione a una distinzione importante: questi strumenti confermano che un codice sia formalmente corretto, non che sia realmente assegnato a una persona o a un conto esistente.",
+      "faq": [
+        {
+          "domanda": "Il validatore conferma che il codice esista davvero?",
+          "risposta": "No, e nessuno strumento pubblico può farlo. La verifica è formale: controlla che la struttura sia corretta e che il carattere di controllo corrisponda al resto del codice. Un codice può risultare valido pur non essendo mai stato assegnato a nessuno. Solo l'Agenzia delle Entrate per il codice fiscale e la banca per l'IBAN possono confermare l'esistenza effettiva."
+        },
+        {
+          "domanda": "Cosa significa esattamente «formalmente valido»?",
+          "risposta": "Significa che il codice supera l'algoritmo di controllo previsto dalla sua specifica. Per il codice fiscale è il calcolo del carattere di controllo finale a partire dai quindici precedenti; per l'IBAN è il resto della divisione per 97 secondo lo standard ISO 13616. Se il conto non torna, il codice contiene sicuramente un errore; se torna, l'errore è solo improbabile."
+        },
+        {
+          "domanda": "Il mio IBAN viene inviato a un server bancario?",
+          "risposta": "No. L'intero controllo è aritmetica eseguita nel browser: il codice che digiti non lascia il tuo dispositivo, non viene registrato e non viene confrontato con nessun archivio esterno. Puoi verificarlo aprendo il pannello di rete del browser mentre usi lo strumento: non parte alcuna richiesta."
+        },
+        {
+          "domanda": "Come vengono gestiti i codici fiscali con omocodia?",
+          "risposta": "L'omocodia viene riconosciuta e risolta. Quando due persone otterrebbero lo stesso codice fiscale, l'Agenzia delle Entrate sostituisce una o più cifre con lettere secondo una tabella fissa. Il validatore inverte quella sostituzione prima di decodificare data di nascita e sesso, quindi legge correttamente anche i codici modificati e lo segnala nell'esito."
+        }
+      ]
+    }
   }
 }
