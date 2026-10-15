@@ -2,27 +2,45 @@
   "slug": "convertitore-volume",
   "cluster": "convertitori",
   "tema": "misure",
-  "updated": "2026-07",
-
+  "updated": "2026-10",
   "seo": {
     "title": "Convertitore Volume – Litri, Galloni e Metri Cubi",
     "metaDescription": "Converti le unità di volume online: litri, millilitri, centilitri, metri cubi, galloni USA e UK, pinte e once fluide. Conversione istantanea nel browser, gratis e precisa.",
     "primaryKeyword": "convertitore volume",
     "canonical": "/convertitore-volume/"
   },
-
   "h1": "Convertitore di Volume",
-
-  "intro": "Converti in un attimo qualsiasi misura di volume e capacità tra sistema metrico e unità anglosassoni: da litri a galloni, da millilitri a once fluide, da metri cubi a litri e ritorno. Scegli l'unità di partenza e quella di arrivo, digita il valore e ottieni subito il risultato con il fattore di conversione. Comodo per ricette, taniche, serbatoi e schede tecniche. Tutto nel tuo browser, senza inviare dati e senza registrazione.",
-
+  "intro": "Converti volumi fra millilitri, centilitri, decilitri, litri, centimetri cubi, decimetri cubi e metri cubi, e fra le unità statunitensi e britanniche: galloni, pinte e once fluide. Utile per una ricetta straniera, un serbatoio o la capacità di un contenitore, con il fattore applicato sotto il risultato.",
   "tool": {
     "logicId": "unita-v1",
     "script": "convertitore-unita.js",
     "cardNote": "Metrico, USA e UK",
     "inputs": [
-      { "id": "valore", "label": "Valore da convertire", "type": "number", "step": "any", "default": 1 },
-      { "id": "da", "label": "Da", "type": "select", "default": "l",
-        "options": ["ml","cl","dl","l","cm3","dm3","m3","galus","galuk","ptus","flozus"],
+      {
+        "id": "valore",
+        "label": "Valore da convertire",
+        "type": "number",
+        "step": "any",
+        "default": 1
+      },
+      {
+        "id": "da",
+        "label": "Da",
+        "type": "select",
+        "default": "l",
+        "options": [
+          "ml",
+          "cl",
+          "dl",
+          "l",
+          "cm3",
+          "dm3",
+          "m3",
+          "galus",
+          "galuk",
+          "ptus",
+          "flozus"
+        ],
         "optionLabels": {
           "ml": "Millilitro (ml)",
           "cl": "Centilitro (cl)",
@@ -35,9 +53,26 @@
           "galuk": "Gallone imperiale UK (gal UK)",
           "ptus": "Pinta USA (pt US)",
           "flozus": "Oncia fluida USA (fl oz US)"
-        } },
-      { "id": "a", "label": "A", "type": "select", "default": "ml",
-        "options": ["ml","cl","dl","l","cm3","dm3","m3","galus","galuk","ptus","flozus"],
+        }
+      },
+      {
+        "id": "a",
+        "label": "A",
+        "type": "select",
+        "default": "ml",
+        "options": [
+          "ml",
+          "cl",
+          "dl",
+          "l",
+          "cm3",
+          "dm3",
+          "m3",
+          "galus",
+          "galuk",
+          "ptus",
+          "flozus"
+        ],
         "optionLabels": {
           "ml": "Millilitro (ml)",
           "cl": "Centilitro (cl)",
@@ -50,44 +85,109 @@
           "galuk": "Gallone imperiale UK (gal UK)",
           "ptus": "Pinta USA (pt US)",
           "flozus": "Oncia fluida USA (fl oz US)"
-        } }
+        }
+      }
     ],
-    "outputPrimary": { "id": "risultato", "label": "Risultato", "format": "text" },
-    "outputSecondary": [ { "id": "formula", "label": "Fattore di conversione", "format": "text" } ]
+    "outputPrimary": {
+      "id": "risultato",
+      "label": "Risultato",
+      "format": "text"
+    },
+    "outputSecondary": [
+      {
+        "id": "formula",
+        "label": "Fattore di conversione",
+        "format": "text"
+      }
+    ]
   },
-
   "spiegazione": {
-    "titolo": "Le unità di volume: litri, metri cubi, galloni e once fluide",
-    "corpo": "Il volume misura lo spazio occupato da un corpo o da un liquido. Nel Sistema Internazionale l'unità coerente è il metro cubo (m³), ma nella vita quotidiana si usa soprattutto il litro (l), che equivale a un decimetro cubo (dm³): questa è una delle equivalenze più utili da ricordare, perché collega direttamente le misure di capacità a quelle di volume geometrico. I sottomultipli metrici sono decimali: un decilitro è un decimo di litro, un centilitro un centesimo (usato per le bevande), un millilitro un millesimo, e proprio il millilitro coincide con il centimetro cubo (cm³ o cc), riferimento tipico in cucina e in medicina. Salendo di scala, un metro cubo contiene 1.000 litri, misura usata per serbatoi, cisterne e consumi idrici. Il sistema anglosassone ha capacità diverse e, soprattutto, distingue tra galloni statunitensi e britannici: il gallone USA vale circa 3,785 litri, mentre il gallone imperiale UK vale circa 4,546 litri, quindi non sono intercambiabili. La pinta USA equivale a circa 0,473 litri e l'oncia fluida USA a circa 29,57 millilitri, valori frequenti nelle ricette americane e sulle etichette delle bevande. Questo convertitore lavora convertendo prima il valore nell'unità di base (il litro) e poi nell'unità di destinazione, così ogni combinazione tra le undici unità disponibili resta coerente. Il fattore mostrato sotto il risultato indica quanto vale una singola unità di partenza nell'unità scelta, utile per dosare ingredienti, calcolare capienze e leggere schede tecniche internazionali."
+    "titolo": "Litri, metri cubi e galloni: le corrispondenze",
+    "corpo": [
+      "Il litro è uguale a un decimetro cubo e il millilitro a un centimetro cubo: per questo le due serie si convertono senza fattori strani. Un metro cubo contiene 1.000 litri, quindi un consumo d'acqua di 150 metri cubi l'anno corrisponde a 150.000 litri.",
+      "Sulle bottiglie la quantità può essere indicata in centilitri: 75 cl sono 0,75 litri, 33 cl sono 330 millilitri. Un centilitro vale 10 millilitri, un decilitro 100.",
+      "Il gallone non è uno solo. Quello statunitense vale 3,785411784 litri, quello imperiale britannico 4,54609 litri, circa il 20% in più. Pinta e oncia fluida seguono la stessa divisione: il convertitore usa quelle statunitensi, 473,176473 millilitri per la pinta e 29,5735295625 per l'oncia fluida. La pinta britannica vale invece 568,26125 millilitri.",
+      "Per la capacità di una vasca, di un serbatoio o di una piscina si parte dalle misure in metri: lunghezza per larghezza per profondità dà i metri cubi, e ogni metro cubo sono 1.000 litri. Una piscina di 8 × 4 metri profonda 1,5 metri contiene 48 metri cubi, cioè 48.000 litri.",
+      "Un pieno da 15 galloni statunitensi, per esempio, corrisponde a circa 56,8 litri; quindici galloni britannici sarebbero circa 68,2 litri."
+    ]
   },
-
   "esempi": [
-    { "titolo": "Quanti millilitri in 1 litro", "risultatoAtteso": "1 l = 1000 ml" },
-    { "titolo": "Da galloni USA a litri (carburante)", "risultatoAtteso": "10 gal US ≈ 37,854 l" },
-    { "titolo": "Da once fluide USA a millilitri", "risultatoAtteso": "8 fl oz US ≈ 236,59 ml" }
+    {
+      "titolo": "Una bottiglia da 75 cl in litri",
+      "risultatoAtteso": "0,75 l",
+      "verifica": {
+        "input": {
+          "valore": 75,
+          "da": "cl",
+          "a": "l"
+        },
+        "campo": "risultato",
+        "testo": "0,75 l"
+      }
+    },
+    {
+      "titolo": "Un pieno da 15 galloni statunitensi in litri",
+      "risultatoAtteso": "56,781177 l",
+      "verifica": {
+        "input": {
+          "valore": 15,
+          "da": "galus",
+          "a": "l"
+        },
+        "campo": "risultato",
+        "testo": "56,781177 l"
+      }
+    },
+    {
+      "titolo": "Una pinta statunitense in millilitri",
+      "risultatoAtteso": "473,176473 ml",
+      "verifica": {
+        "input": {
+          "valore": 1,
+          "da": "ptus",
+          "a": "ml"
+        },
+        "campo": "risultato",
+        "testo": "473,176473 ml"
+      }
+    }
   ],
-
   "faq": [
-    { "domanda": "Quanti litri ci sono in un gallone?", "risposta": "Dipende dal gallone: quello statunitense vale circa 3,785 litri, mentre quello imperiale britannico vale circa 4,546 litri. Sono unità diverse, quindi è importante specificare se un valore in galloni è USA o UK, soprattutto per carburante e ricette." },
-    { "domanda": "Un litro corrisponde a quanti centimetri cubi?", "risposta": "Un litro equivale a 1.000 centimetri cubi (cm³), perché un litro è un decimetro cubo e un decimetro cubo contiene mille centimetri cubi. Di conseguenza un millilitro coincide esattamente con un centimetro cubo, spesso abbreviato in cc." },
-    { "domanda": "Qual è la differenza tra gallone USA e gallone imperiale?", "risposta": "Il gallone statunitense (US) misura circa 3,785 litri, quello imperiale britannico (UK) circa 4,546 litri: il gallone UK è quindi più grande di circa il 20%. Confonderli porta a errori notevoli, ad esempio nel calcolo dei consumi di carburante espressi in miglia per gallone." },
-    { "domanda": "Quanti litri ha un metro cubo?", "risposta": "Un metro cubo contiene 1.000 litri. È l'unità usata per misurare i consumi di acqua e gas nelle bollette, la capacità di cisterne e serbatoi e i volumi in edilizia. Al contrario, un litro equivale a 0,001 metri cubi." },
-    { "domanda": "A quanti millilitri corrisponde un'oncia fluida?", "risposta": "L'oncia fluida statunitense (fluid ounce) equivale a circa 29,57 millilitri. È un'unità di volume, da non confondere con l'oncia di peso, che misura invece una massa (circa 28,35 grammi). Nelle ricette americane le quantità dei liquidi sono spesso in once fluide o tazze (cup)." }
+    {
+      "domanda": "Quanti litri ci sono in un gallone?",
+      "risposta": "Dipende dal gallone: 3,785411784 litri per quello statunitense, 4,54609 per quello imperiale britannico. Controlla sempre quale dei due è indicato, perché la differenza è di circa il 20%."
+    },
+    {
+      "domanda": "Un litro equivale a un decimetro cubo?",
+      "risposta": "Sì, esattamente: un litro è un decimetro cubo, cioè un cubo di 10 cm di lato, e contiene 1.000 centimetri cubi. Per lo stesso motivo un millilitro è un centimetro cubo."
+    },
+    {
+      "domanda": "Quanti litri contiene un metro cubo?",
+      "risposta": "1.000 litri. Un metro cubo è un cubo di 10 decimetri di lato, quindi contiene 10 × 10 × 10 = 1.000 decimetri cubi, cioè 1.000 litri."
+    },
+    {
+      "domanda": "La pinta britannica è uguale a quella americana?",
+      "risposta": "No. La pinta imperiale britannica vale 568,26125 millilitri, quella statunitense 473,176473: la britannica è circa il 20% più grande. Il convertitore usa la pinta statunitense."
+    }
   ],
-
   "relatedTools": [
     "convertitore-area",
     "convertitore-peso",
     "convertitore-lunghezza"
   ],
-
-  "disclaimer": "<strong>Conversioni indicative.</strong> I valori possono essere arrotondati per la lettura; distingui sempre tra unità USA e UK e verifica le cifre significative necessarie per usi tecnici, commerciali o legali.",
-
+  "disclaimer": "<strong>Statunitense o britannico.</strong> Galloni statunitensi e imperiali sono distinti; pinta e oncia fluida sono quelle statunitensi. Le conversioni sono esatte; il risultato è arrotondato alla sesta cifra decimale per la lettura.",
   "fonti": [
-    { "titolo": "BIPM – Sistema Internazionale di unità (SI)", "dettaglio": "Metro cubo come unità di volume e definizione del litro", "url": "https://www.bipm.org/en/measurement-units" },
-    { "titolo": "Wikipedia – Unità di misura del volume", "dettaglio": "Fattori di conversione metrico, galloni USA e imperiali", "url": "https://it.wikipedia.org/wiki/Unit%C3%A0_di_misura_del_volume" }
+    {
+      "titolo": "NIST, SP 811 — Appendix B.8, fattori di conversione",
+      "dettaglio": "Gallone statunitense e imperiale, pinta e oncia fluida in litri",
+      "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b8"
+    },
+    {
+      "titolo": "BIPM, Il Sistema Internazionale di unità (SI Brochure)",
+      "dettaglio": "Litro uguale a un decimetro cubo",
+      "url": "https://www.bipm.org/en/publications/si-brochure"
+    }
   ],
-
   "jsonLd": {
     "type": "SoftwareApplication",
     "applicationCategory": "UtilitiesApplication"

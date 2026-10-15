@@ -2,27 +2,40 @@
   "slug": "convertitore-velocita",
   "cluster": "convertitori",
   "tema": "misure",
-  "updated": "2026-07",
-
+  "updated": "2026-10",
   "seo": {
     "title": "Convertitore Velocità – km/h, m/s, mph e Nodi",
     "metaDescription": "Converti la velocità tra chilometri orari, metri al secondo, miglia orarie, nodi, piedi al secondo e numero di Mach. Calcolo immediato e gratuito, direttamente nel browser.",
     "primaryKeyword": "convertitore velocità",
     "canonical": "/convertitore-velocita/"
   },
-
   "h1": "Convertitore di Velocità",
-
-  "intro": "Converti un valore di velocità da un'unità all'altra in un istante: chilometri orari, metri al secondo, miglia orarie, nodi, piedi al secondo e numero di Mach. Inserisci il valore, scegli l'unità di partenza e quella di arrivo e ottieni subito il risultato con il fattore di conversione applicato. Utile per confrontare la velocità del vento, un limite stradale, l'andatura di una barca o le prestazioni di un aereo. Tutto avviene nel tuo browser, senza inviare dati.",
-
+  "intro": "Converti velocità fra metri al secondo, chilometri orari, miglia orarie, nodi, piedi al secondo e numero di Mach. Le unità lineari hanno fattori esatti; il numero di Mach dipende dalla velocità del suono, e qui sotto trovi quale valore usa lo strumento. Sotto il risultato compare il fattore applicato.",
   "tool": {
     "logicId": "unita-v1",
     "script": "convertitore-unita.js",
     "cardNote": "6 unità",
     "inputs": [
-      { "id": "valore", "label": "Valore da convertire", "type": "number", "step": "any", "default": 100 },
-      { "id": "da", "label": "Da", "type": "select", "default": "km/h",
-        "options": ["m/s","km/h","mph","kn","ft/s","mach"],
+      {
+        "id": "valore",
+        "label": "Valore da convertire",
+        "type": "number",
+        "step": "any",
+        "default": 100
+      },
+      {
+        "id": "da",
+        "label": "Da",
+        "type": "select",
+        "default": "km/h",
+        "options": [
+          "m/s",
+          "km/h",
+          "mph",
+          "kn",
+          "ft/s",
+          "mach"
+        ],
         "optionLabels": {
           "m/s": "Metri al secondo (m/s)",
           "km/h": "Chilometri orari (km/h)",
@@ -32,8 +45,19 @@
           "mach": "Numero di Mach (Mach)"
         }
       },
-      { "id": "a", "label": "A", "type": "select", "default": "m/s",
-        "options": ["m/s","km/h","mph","kn","ft/s","mach"],
+      {
+        "id": "a",
+        "label": "A",
+        "type": "select",
+        "default": "m/s",
+        "options": [
+          "m/s",
+          "km/h",
+          "mph",
+          "kn",
+          "ft/s",
+          "mach"
+        ],
         "optionLabels": {
           "m/s": "Metri al secondo (m/s)",
           "km/h": "Chilometri orari (km/h)",
@@ -44,42 +68,109 @@
         }
       }
     ],
-    "outputPrimary": { "id": "risultato", "label": "Risultato", "format": "text" },
+    "outputPrimary": {
+      "id": "risultato",
+      "label": "Risultato",
+      "format": "text"
+    },
     "outputSecondary": [
-      { "id": "formula", "label": "Fattore di conversione", "format": "text" }
+      {
+        "id": "formula",
+        "label": "Fattore di conversione",
+        "format": "text"
+      }
     ]
   },
-
   "spiegazione": {
-    "titolo": "Come si converte la velocità tra unità diverse",
-    "corpo": "La velocità misura lo spazio percorso nell'unità di tempo, quindi ogni unità combina una lunghezza e una durata. L'unità del Sistema Internazionale è il metro al secondo (m/s), ma nella vita quotidiana in Italia e in gran parte d'Europa si usa il chilometro orario (km/h), mentre nei Paesi anglosassoni prevale il miglio orario (mph). Per passare da una all'altra tutte le velocità vengono prima riportate all'unità base, il metro al secondo, e poi convertite nell'unità di arrivo, così ogni coppia resta coerente. Le equivalenze fondamentali sono semplici: 1 m/s equivale esattamente a 3,6 km/h, mentre 1 km/h vale circa 0,2778 m/s. Il miglio orario corrisponde a circa 1,609 km/h. Il nodo (kn), usato in ambito nautico e aeronautico, equivale a un miglio nautico all'ora, cioè circa 1,852 km/h. Il piede al secondo (ft/s) è comune in alcune misure tecniche statunitensi. Il numero di Mach non è una vera unità fissa: esprime il rapporto tra la velocità di un oggetto e quella del suono, che qui approssimiamo a circa 340,29 m/s a livello del mare e a 15 °C; in quota, dove l'aria è più fredda e rada, il valore reale cambia. Per questo Mach 1 corrisponde grosso modo a 1.225 km/h in condizioni standard, ma va inteso come riferimento indicativo."
+    "titolo": "Chilometri orari, nodi e Mach",
+    "corpo": [
+      "Il metro al secondo è l'unità di velocità del Sistema Internazionale. Un chilometro orario vale 1/3,6 metri al secondo, perché un chilometro ha 1.000 metri e un'ora 3.600 secondi: per passare da km/h a m/s si divide per 3,6. Il limite di 130 km/h fissato dal Codice della strada per le autostrade corrisponde a circa 36,1 metri al secondo, e a circa 80,8 miglia orarie.",
+      "Il miglio orario vale 1,609344 km/h, perché il miglio terrestre è 1.609,344 metri. Il nodo, usato in navigazione, è un miglio nautico all'ora: 1.852 metri all'ora, cioè 1,852 km/h esatti. Una barca che procede a 20 nodi va a poco più di 37 km/h.",
+      "Il numero di Mach non è una velocità fissa: è il rapporto fra una velocità e quella del suono, che dipende dalla temperatura dell'aria. Il convertitore usa 340,29 metri al secondo, la velocità del suono al livello del mare nell'atmosfera standard, a 15 °C: Mach 1 corrisponde così a circa 1.225 km/h. In quota l'aria è più fredda, il suono è più lento e anche Mach 1 corrisponde a meno chilometri orari."
+    ]
   },
-
   "esempi": [
-    { "titolo": "130 km/h in m/s", "risultatoAtteso": "≈ 36,11 m/s (il limite autostradale)" },
-    { "titolo": "10 m/s in km/h", "risultatoAtteso": "= 36 km/h (una raffica di vento)" },
-    { "titolo": "20 nodi in km/h", "risultatoAtteso": "≈ 37,04 km/h (andatura di una barca a vela)" }
+    {
+      "titolo": "Il limite autostradale di 130 km/h in metri al secondo",
+      "risultatoAtteso": "36,111111 m/s",
+      "verifica": {
+        "input": {
+          "valore": 130,
+          "da": "km/h",
+          "a": "m/s"
+        },
+        "campo": "risultato",
+        "testo": "36,111111 m/s"
+      }
+    },
+    {
+      "titolo": "Una barca a 20 nodi in chilometri orari",
+      "risultatoAtteso": "37,04 km/h",
+      "verifica": {
+        "input": {
+          "valore": 20,
+          "da": "kn",
+          "a": "km/h"
+        },
+        "campo": "risultato",
+        "testo": "37,04 km/h"
+      }
+    },
+    {
+      "titolo": "Mach 1 al livello del mare (atmosfera standard) in km/h",
+      "risultatoAtteso": "1225,044 km/h",
+      "verifica": {
+        "input": {
+          "valore": 1,
+          "da": "mach",
+          "a": "km/h"
+        },
+        "campo": "risultato",
+        "testo": "1225,044 km/h"
+      }
+    }
   ],
-
   "faq": [
-    { "domanda": "Come si passa da km/h a m/s?", "risposta": "Basta dividere il valore in chilometri orari per 3,6. Ad esempio 90 km/h corrispondono a 25 m/s. Al contrario, per passare da m/s a km/h si moltiplica per 3,6. È la conversione più frequente perché il km/h è l'unità dei limiti stradali, mentre il m/s è quella usata in fisica e meteorologia." },
-    { "domanda": "Che cos'è un nodo?", "risposta": "Il nodo (kn) è l'unità di velocità usata in navigazione marittima e aerea. Corrisponde a un miglio nautico all'ora, cioè 1,852 km/h. Il miglio nautico è legato alla circonferenza terrestre (un minuto d'arco di latitudine), il che rende il nodo comodo per i calcoli di navigazione basati sulle coordinate geografiche." },
-    { "domanda": "Il numero di Mach è una velocità fissa?", "risposta": "No. Il numero di Mach è il rapporto tra la velocità di un oggetto e la velocità del suono nel mezzo in cui si muove, che dipende soprattutto dalla temperatura. Al livello del mare e a 15 °C il suono viaggia a circa 340,29 m/s, quindi Mach 1 vale circa 1.225 km/h; in alta quota, con aria più fredda, la stessa velocità reale corrisponde a un numero di Mach diverso. Il valore qui è quindi indicativo." },
-    { "domanda": "Perché mph e km/h danno numeri diversi?", "risposta": "Perché il miglio terrestre (1,609 km) è più lungo del chilometro. Un'auto a 60 mph viaggia a circa 96,6 km/h. È la ragione per cui i tachimetri di auto americane e britanniche mostrano valori numerici inferiori rispetto a un'auto europea alla stessa velocità reale." }
+    {
+      "domanda": "Come si passa da km/h a m/s?",
+      "risposta": "Si divide per 3,6: 90 km/h sono 25 m/s. Per il passaggio inverso si moltiplica per 3,6. Il numero viene da 3.600 secondi in un'ora diviso 1.000 metri in un chilometro."
+    },
+    {
+      "domanda": "Quanto vale un nodo in km/h?",
+      "risposta": "1,852 km/h esatti, perché un nodo è un miglio nautico all'ora e il miglio nautico misura 1.852 metri. 10 nodi sono 18,52 km/h."
+    },
+    {
+      "domanda": "Mach 1 è sempre la stessa velocità?",
+      "risposta": "No. È la velocità del suono, che cambia con la temperatura dell'aria: più fa freddo, più è bassa. Il convertitore usa il valore dell'atmosfera standard al livello del mare, 340,29 m/s; in quota Mach 1 corrisponde a una velocità minore."
+    },
+    {
+      "domanda": "Quante miglia orarie sono 130 km/h?",
+      "risposta": "Circa 80,8 mph. Un miglio orario vale 1,609344 km/h, quindi 130 / 1,609344 ≈ 80,78."
+    }
   ],
-
   "relatedTools": [
     "convertitore-lunghezza",
     "convertitore-tempo",
     "convertitore-temperatura"
   ],
-
-  "disclaimer": "<strong>Valori indicativi.</strong> Le conversioni sono matematicamente esatte per le unità lineari; il numero di Mach usa la velocità del suono in condizioni standard (circa 340,29 m/s) e va inteso come riferimento. Nessun dato viene inviato o salvato.",
-
+  "disclaimer": "<strong>Fattori esatti, Mach di riferimento.</strong> Le unità lineari sono convertite con fattori esatti; il numero di Mach usa la velocità del suono dell'atmosfera standard al livello del mare (340,29 m/s). Il risultato è arrotondato alla sesta cifra decimale per la lettura.",
   "fonti": [
-    { "titolo": "BIPM — Sistema Internazionale di unità (SI)", "dettaglio": "definizioni ufficiali delle unità di base e derivate", "url": "https://www.bipm.org/en/measurement-units" }
+    {
+      "titolo": "NIST, SP 811 — Appendix B.8, fattori di conversione",
+      "dettaglio": "Chilometro orario, miglio orario e nodo in metri al secondo",
+      "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b8"
+    },
+    {
+      "titolo": "NASA Glenn Research Center, speed of sound",
+      "dettaglio": "La velocità del suono dipende dalla temperatura e quindi dalla quota",
+      "url": "https://www.grc.nasa.gov/www/k-12/BGP/sound.html"
+    },
+    {
+      "titolo": "Codice della strada, art. 142 — Limiti di velocità",
+      "dettaglio": "130 km/h sulle autostrade",
+      "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:1992-04-30;285~art142"
+    }
   ],
-
   "jsonLd": {
     "type": "SoftwareApplication",
     "applicationCategory": "UtilitiesApplication"

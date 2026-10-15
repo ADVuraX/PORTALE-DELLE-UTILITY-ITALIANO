@@ -5,6 +5,8 @@
  * disabilitate, non come link rotti).
  */
 
+import { spiegazioneTesto } from "./qualita.mjs";
+
 const CLUSTERS = ["calcolatori", "generatori", "convertitori", "validatori"];
 const FORMATS = ["currency", "percent", "number", "text", "qr"];
 const ACTIONS = ["regenerate", "copy", "download"];
@@ -100,9 +102,14 @@ export function validateTool(cfg, allSlugs, scriptFiles) {
     if (!["gross", "out", "in", "total"].includes(b.kind)) err(`\`tool.breakdown[${i}].kind\` deve essere gross|out|in|total`);
   });
 
-  const sp = words(cfg.spiegazione && cfg.spiegazione.corpo);
+  // Spiegazione: `corpo` (stringa o paragrafi) e/o `sezioni` [{ titolo, paragrafi, elenco }].
+  const sp = words(spiegazioneTesto(cfg.spiegazione));
   if (!cfg.spiegazione || !cfg.spiegazione.titolo) err("`spiegazione.titolo` obbligatorio");
-  if (sp < 150) err(`\`spiegazione.corpo\` troppo corto (${sp} parole, min 150 — anti thin-content)`);
+  if (sp < 150) err(`spiegazione troppo corta (${sp} parole, min 150 — anti thin-content)`);
+  ((cfg.spiegazione && cfg.spiegazione.sezioni) || []).forEach((sez, i) => {
+    if (!sez.titolo) err(`\`spiegazione.sezioni[${i}].titolo\` obbligatorio`);
+    if (!Array.isArray(sez.paragrafi) || !sez.paragrafi.length) err(`\`spiegazione.sezioni[${i}].paragrafi\` obbligatorio e non vuoto`);
+  });
 
   if (!Array.isArray(cfg.esempi) || cfg.esempi.length < 2) err("`esempi` deve avere almeno 2 elementi");
   if (!Array.isArray(cfg.faq) || cfg.faq.length < 4) err("`faq` deve avere almeno 4 elementi");
@@ -120,8 +127,8 @@ export function validateTool(cfg, allSlugs, scriptFiles) {
 
   // Standard adottato: fonti + disclaimer. Warning (non blocca) durante l'autoring.
   if (!cfg.disclaimer) warn("manca `disclaimer` (standard del progetto: consigliato obbligatorio)");
-  if (!Array.isArray(cfg.fonti) || cfg.fonti.length < 1) warn("manca `fonti` (standard del progetto: consigliato obbligatorio)");
-  else cfg.fonti.forEach((f, i) => { if (!f.titolo) err(`\`fonti[${i}].titolo\` obbligatorio`); });
+  // Presenza e qualità delle fonti: controllate (con errore) da qualita.mjs.
+  if (Array.isArray(cfg.fonti)) cfg.fonti.forEach((f, i) => { if (!f.titolo) err(`\`fonti[${i}].titolo\` obbligatorio`); });
 
   return { errors, warnings };
 }
@@ -205,4 +212,32 @@ export function validateSite(configs, site) {
   }
 
   return { errors, warnings };
+}
+
+/**
+ * Pagine istituzionali (content/pagine/*.json): campi obbligatori e nessuna
+ * collisione di URL con tool o aree.
+ */
+export function validatePages(pages, configs, site) {
+  const errors = [];
+  const occupati = new Set([...configs.map((c) => c.slug), ...Object.keys(site.clusters || {})]);
+  const visti = new Set();
+  for (const p of pages) {
+    const id = `pagina:${p.slug || "(senza slug)"}`;
+    const err = (m) => errors.push(`[${id}] ${m}`);
+    if (!p.slug || !/^[a-z0-9-]+$/.test(p.slug)) err("`slug` obbligatorio (minuscole, cifre, trattini)");
+    if (occupati.has(p.slug)) err(`lo slug "${p.slug}" è già usato da un tool o da un'area`);
+    if (visti.has(p.slug)) err("slug duplicato fra le pagine");
+    visti.add(p.slug);
+    if (!p.titolo) err("`titolo` obbligatorio (h1)");
+    if (!p.seo || !p.seo.title || !p.seo.metaDescription) err("`seo.title` e `seo.metaDescription` obbligatori");
+    if (!p.lede) err("`lede` obbligatorio");
+    if (!p.aggiornato) err("`aggiornato` obbligatorio (AAAA-MM): le pagine legali devono dire quando sono state riviste");
+    if (!Array.isArray(p.sezioni) || !p.sezioni.length) err("`sezioni` obbligatorio e non vuoto");
+    (p.sezioni || []).forEach((s, i) => {
+      if (!s.titolo) err(`\`sezioni[${i}].titolo\` obbligatorio`);
+      if (!(s.paragrafi && s.paragrafi.length) && !(s.elenco && s.elenco.length)) err(`\`sezioni[${i}]\` senza testo`);
+    });
+  }
+  return { errors };
 }

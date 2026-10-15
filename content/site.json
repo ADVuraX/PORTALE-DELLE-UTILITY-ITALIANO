@@ -3,7 +3,26 @@
   "brandAccent": ".it",
   "domain": "https://TUO-DOMINIO.it",
   "lang": "it",
-
+  "titolare": {
+    "nome": "[NOME E COGNOME DEL TITOLARE]",
+    "tipo": "persona fisica",
+    "_nota": "Obbligatorio per la privacy policy (art. 13 GDPR). L'email di contatto è info@<dominio> salvo campo 'email' esplicito."
+  },
+  "annunci": {
+    "client": "",
+    "attivi": false,
+    "mostraSegnaposto": true,
+    "slot": {
+      "rail": "",
+      "fondo1": "",
+      "fondo2": ""
+    },
+    "_nota": "client = ca-pub-… (dalla registrazione AdSense: genera meta di verifica e ads.txt). attivi = true solo dopo l'approvazione. mostraSegnaposto = false prima di pubblicare. L'annuncio ancorato in basso si attiva nella console AdSense (formato ufficiale), non qui."
+  },
+  "analytics": {
+    "cloudflareToken": "",
+    "_nota": "Token di Cloudflare Web Analytics (senza cookie, nessun consenso richiesto)."
+  },
   "home": {
     "title": "Portale delle Utility Italiano — Calcolatori, Convertitori e Generatori Gratuiti",
     "metaDescription": "Strumenti gratuiti per calcoli fiscali, lavoro, misure e verifiche. Stipendio netto, TFR, convertitori di valuta e unità, validatore codice fiscale e IBAN. Senza registrazione.",
@@ -11,9 +30,7 @@
     "h1": "Strumenti gratuiti per il quotidiano italiano",
     "intro": "Calcolatori fiscali, convertitori, generatori e validatori. Ogni strumento è una pagina a sé: calcolo immediato nel browser, contenuto di riferimento verificato, fonti ufficiali citate. Niente registrazione, niente dati inviati altrove."
   },
-
   "footer": "Portale Italiano delle Utility — strumenti gratuiti, aggiornati, senza registrazione.",
-
   "clusters": {
     "calcolatori": {
       "label": "Calcolatori",
@@ -44,7 +61,6 @@
         }
       ]
     },
-
     "convertitori": {
       "label": "Convertitori",
       "hint": "Valuta a tassi BCE e undici famiglie di unità",
@@ -54,7 +70,7 @@
         "primaryKeyword": "convertitori online"
       },
       "h1": "Convertitori di valuta e unità di misura",
-      "intro": "Quest'area raccoglie le conversioni che servono più spesso: il cambio tra valute e il passaggio tra unità di misura di sistemi diversi. Il convertitore di valuta legge i tassi di riferimento pubblicati dalla Banca Centrale Europea, con una tabella statica di riserva se la rete non risponde, così il risultato resta disponibile anche offline. I dieci convertitori di unità condividono un'unica tabella di fattori verificati: ogni valore viene prima riportato all'unità di base del Sistema Internazionale e poi convertito nell'unità di destinazione, così qualunque combinazione resta coerente e reversibile. Sotto il risultato viene sempre mostrato il fattore applicato, utile per rifare il conto a mano o per controllare un ordine di grandezza. Le conversioni coprono metrico e anglosassone — metri e piedi, chilogrammi e libbre, Celsius e Fahrenheit, ettari e acri, litri e galloni — oltre alle unità tecniche di pressione, energia, velocità, tempo e dati informatici. Tutto avviene nel browser, senza inviare nulla e senza registrazione.",
+      "intro": "Quest'area raccoglie le conversioni che servono più spesso: il cambio tra valute e il passaggio tra unità di misura di sistemi diversi. Il convertitore di valuta legge i tassi di riferimento pubblicati dalla Banca Centrale Europea; se il servizio non risponde prova una seconda fonte e, in ultima istanza, usa una tabella salvata nella pagina, così il risultato resta disponibile anche senza rete. I dieci convertitori di unità condividono un'unica tabella di fattori verificati: ogni valore viene prima riportato all'unità di base del Sistema Internazionale e poi convertito nell'unità di destinazione, così qualunque combinazione resta coerente e reversibile. Sotto il risultato viene sempre mostrato il fattore applicato, utile per rifare il conto a mano o per controllare un ordine di grandezza. Le conversioni coprono metrico e anglosassone — metri e piedi, chilogrammi e libbre, Celsius e Fahrenheit, ettari e acri, litri e galloni — oltre alle unità tecniche di pressione, energia, velocità, tempo e dati informatici. Tutto avviene nel browser, senza inviare nulla e senza registrazione.",
       "faq": [
         {
           "domanda": "I tassi di cambio sono aggiornati in tempo reale?",
@@ -62,7 +78,7 @@
         },
         {
           "domanda": "Cosa succede se la connessione ai tassi non funziona?",
-          "risposta": "Il convertitore ricade su una tabella di cambi statica inclusa nella pagina e te lo segnala, così il calcolo resta possibile anche senza rete. I convertitori di unità di misura non hanno questo problema: i fattori sono costanti fisiche e definizioni, quindi funzionano sempre e completamente offline."
+          "risposta": "Il convertitore prova prima una seconda fonte dei tassi e, se anche quella non risponde, usa una tabella salvata nella pagina, con la sua data; lo indica accanto al risultato, così sai su quale dato stai ragionando. I convertitori di unità di misura non hanno questo problema: i fattori sono definizioni fisse e funzionano sempre, anche senza connessione."
         },
         {
           "domanda": "Posso convertire tra sistema metrico e anglosassone?",
@@ -74,7 +90,6 @@
         }
       ]
     },
-
     "generatori": {
       "label": "Generatori",
       "hint": "Password, QR code e identificatori UUID",
@@ -84,27 +99,26 @@
         "primaryKeyword": "generatori online"
       },
       "h1": "Generatori sicuri, direttamente nel browser",
-      "intro": "Un generatore ha senso solo se puoi fidarti di dove nasce il valore che produce. Gli strumenti di quest'area usano l'API crittografica del browser — la stessa sorgente di casualità impiegata da HTTPS — e non un generatore pseudocasuale prevedibile: password, chiavi e identificatori nascono sul tuo dispositivo e non vengono mai trasmessi, registrati o messi in cache da nessuna parte. Il generatore di password lascia scegliere lunghezza e alfabeto, mostrando l'entropia effettiva della combinazione invece di un vago indicatore colorato di robustezza. Il generatore di QR code costruisce la matrice localmente e permette di scaricarla in SVG vettoriale o in PNG ad alta risoluzione, adatta anche alla stampa. Il generatore di UUID produce identificatori versione 4 conformi alla specifica RFC 4122, utili per chiavi di database, nomi di file univoci e tracciamento di richieste. Nessuno di questi strumenti richiede registrazione e nessuno funziona meglio con un account: sono deliberatamente pagine che non ti conoscono.",
+      "intro": "Un generatore ha senso solo se puoi fidarti di dove nasce il valore che produce. Gli strumenti di quest'area usano il generatore crittografico della Web Crypto API del browser, che la specifica W3C descrive come fonte di valori crittograficamente robusti, e non Math.random, che non è pensato per la sicurezza. Password e identificatori nascono sul tuo dispositivo e non vengono trasmessi né registrati. Il generatore di password ti fa scegliere lunghezza e tipi di carattere e mostra l'entropia della combinazione in bit, con le soglie di lunghezza raccomandate dal NIST. Il generatore di QR code costruisce il codice nel browser e lo esporta in SVG vettoriale o in PNG di 1.024 pixel per lato, adatto anche alla stampa; i codici sono statici e non scadono. Il generatore di UUID produce identificatori della versione 4 secondo l'RFC 9562, la specifica IETF che dal 2024 ha sostituito la RFC 4122, utili come chiavi di database, nomi di file univoci o identificatori di richieste. Nessuno di questi strumenti richiede un account.",
       "faq": [
         {
           "domanda": "Le password generate vengono salvate da qualche parte?",
-          "risposta": "No, e non potrebbero esserlo: la generazione avviene interamente nel tuo browser e la pagina non effettua alcuna chiamata di rete durante il calcolo. Non c'è un server che vede la password, non viene scritta in cronologia né in un database. Chiudendo la scheda il valore scompare, quindi copialo dove ti serve prima di uscire."
+          "risposta": "No. La generazione avviene interamente nel tuo browser e la pagina non effettua richieste di rete per crearla. Non c'è un server che vede la password, non viene scritta in un archivio né nella cronologia del sito. Chiudendo la scheda il valore scompare, quindi copialo dove ti serve prima di uscire."
         },
         {
-          "domanda": "Quanto è davvero casuale la generazione?",
-          "risposta": "Usiamo crypto.getRandomValues, l'interfaccia di casualità crittografica esposta dal browser e alimentata dal generatore di entropia del sistema operativo. È la stessa sorgente usata per le chiavi di sessione TLS ed è adatta a scopi di sicurezza, a differenza di Math.random che è pseudocasuale e prevedibile."
+          "domanda": "Da dove viene la casualità dei generatori?",
+          "risposta": "Da crypto.getRandomValues, l'interfaccia della Web Crypto API che secondo la specifica W3C fornisce valori crittograficamente robusti, prodotti da un generatore pseudocasuale alimentato da entropia di alta qualità. Math.random, la funzione casuale comune di JavaScript, non offre questa garanzia e non è adatta alla sicurezza."
         },
         {
           "domanda": "I QR code generati scadono o smettono di funzionare?",
-          "risposta": "No. Un QR code è una codifica grafica del testo che contiene, non un collegamento a un servizio esterno: non c'è nessun redirect intermedio e nessuna scadenza. Finché il contenuto codificato resta valido — per esempio un indirizzo web ancora attivo — il codice funziona indefinitamente, anche stampato."
+          "risposta": "No. Un QR code statico è una codifica grafica del testo che contiene, non un collegamento a un servizio esterno: non c'è un indirizzo intermedio che possa essere disattivato. Finché il contenuto resta valido — per esempio una pagina web ancora online — il codice funziona, anche stampato."
         },
         {
           "domanda": "Che differenza c'è tra UUID v4 e gli altri formati?",
-          "risposta": "La versione 4 è generata interamente da numeri casuali, mentre altre versioni derivano da timestamp, indirizzo MAC o da un hash di un nome. La v4 è la scelta più comune quando serve unicità senza rivelare informazioni su chi o quando l'ha generato: con 122 bit casuali la probabilità di collisione è trascurabile in qualsiasi scenario pratico."
+          "risposta": "La versione 4 è fatta quasi solo di bit casuali, 122 su 128, e non rivela né quando né dove è stata creata. La versione 7, definita dalla stessa RFC 9562, inizia invece con un'indicazione temporale ed è ordinata nel tempo: utile come chiave di database molto grandi. Con un UUID v4 la probabilità di due valori uguali è trascurabile in qualsiasi uso pratico."
         }
       ]
     },
-
     "validatori": {
       "label": "Validatori",
       "hint": "Codice fiscale e IBAN, con decodifica dei dati",

@@ -74,9 +74,9 @@
 
     // — Velocità (base: metro al secondo) —
     "m/s": { c: "velocita", f: 1, s: "m/s" },
-    "km/h": { c: "velocita", f: 0.2777777778, s: "km/h" },
+    "km/h": { c: "velocita", f: 1 / 3.6, s: "km/h" },
     mph: { c: "velocita", f: 0.44704, s: "mph" },
-    kn: { c: "velocita", f: 0.5144444444, s: "kn" },
+    kn: { c: "velocita", f: 1852 / 3600, s: "kn" },
     "ft/s": { c: "velocita", f: 0.3048, s: "ft/s" },
     mach: { c: "velocita", f: 340.29, s: "Mach" },
 
@@ -85,10 +85,10 @@
     s: { c: "tempo", f: 1, s: "s" },
     min: { c: "tempo", f: 60, s: "min" },
     h: { c: "tempo", f: 3600, s: "h" },
-    d: { c: "tempo", f: 86400, s: "giorni" },
-    wk: { c: "tempo", f: 604800, s: "settimane" },
-    mo: { c: "tempo", f: 2629800, s: "mesi" },
-    yr: { c: "tempo", f: 31557600, s: "anni" },
+    d: { c: "tempo", f: 86400, s: "giorni", s1: "giorno" },
+    wk: { c: "tempo", f: 604800, s: "settimane", s1: "settimana" },
+    mo: { c: "tempo", f: 2629800, s: "mesi", s1: "mese" },
+    yr: { c: "tempo", f: 31557600, s: "anni", s1: "anno" },
 
     // — Dati digitali (base: byte; distinzione decimale/binaria) —
     bit: { c: "dati", f: 0.125, s: "bit" },
@@ -111,7 +111,7 @@
     bar: { c: "pressione", f: 100000, s: "bar" },
     atm: { c: "pressione", f: 101325, s: "atm" },
     mmHg: { c: "pressione", f: 133.322387415, s: "mmHg" },
-    psi: { c: "pressione", f: 6894.757293, s: "psi" },
+    psi: { c: "pressione", f: 6894.757293168, s: "psi" },
 
     // — Energia (base: joule) —
     J: { c: "energia", f: 1, s: "J" },
@@ -178,7 +178,8 @@
       formula = valore === 0 && da === a ? "" : ud.s + " → " + ua.s;
     } else {
       var uno = ud.f / ua.f;
-      formula = "1 " + ud.s + " = " + fmt(uno) + " " + ua.s;
+      // "1 settimana = 168 h", non "1 settimane": al singolare serve s1.
+      formula = "1 " + (ud.s1 || ud.s) + " = " + fmt(uno) + " " + ua.s;
     }
 
     return {

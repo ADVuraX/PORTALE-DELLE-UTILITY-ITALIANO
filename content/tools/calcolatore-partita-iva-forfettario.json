@@ -2,88 +2,345 @@
   "slug": "calcolatore-partita-iva-forfettario",
   "cluster": "calcolatori",
   "tema": "fisco",
-  "updated": "2026-07",
-
+  "updated": "2026-10",
   "seo": {
     "title": "Calcolatore Partita IVA Forfettario 2026 – Tasse e Contributi",
     "metaDescription": "Calcola tasse, contributi INPS e netto della partita IVA in regime forfettario 2026: reddito imponibile dal coefficiente ATECO, imposta sostitutiva 5% o 15%. Gratis.",
     "primaryKeyword": "calcolatore partita iva forfettario",
     "canonical": "/calcolatore-partita-iva-forfettario/"
   },
-
   "h1": "Calcolatore Partita IVA Forfettario",
-
-  "intro": "Scopri quanto ti resta davvero con la partita IVA in regime forfettario nel 2026. Inserisci i ricavi o compensi annui, il coefficiente di redditività del tuo settore ATECO e la cassa previdenziale: il calcolatore stima il reddito imponibile, i contributi INPS (gestione separata, artigiani, commercianti o cassa professionale), l'imposta sostitutiva al 5% per le nuove attività o al 15% ordinaria e il netto che ti rimane in tasca. Vedrai il percorso completo dai ricavi al netto, voce per voce, con le costanti aggiornate al 2026. È una stima seria per orientarti, ma non sostituisce il tuo commercialista.",
-
+  "intro": "Inserisci i ricavi o compensi dell'anno, il coefficiente di redditività del tuo codice ATECO e la gestione previdenziale: il calcolatore stima il reddito forfettario, i contributi INPS, l'imposta sostitutiva al 15% o al 5% e il netto che ti resta. Ogni passaggio è mostrato nel bilancio dai ricavi al netto, con le aliquote 2026 delle circolari INPS e le regole della L. 190/2014 citate in fondo. È una stima per orientarti, non un conteggio per la dichiarazione: per quella serve il tuo commercialista.",
   "tool": {
     "logicId": "forfettario-v1",
     "script": "partita-iva-forfettario.js",
-    "data": ["forfettario-2026.js"],
+    "data": [
+      "forfettario-2026.js"
+    ],
     "cardNote": "Regime 2026",
     "inputs": [
-      { "type": "group", "legend": "Attività e ricavi", "inputs": [
-        { "id": "ricavi", "label": "Ricavi / compensi annui", "type": "number", "min": 0, "step": 1000, "suffix": "€/anno", "default": 50000 },
-        { "id": "coefficiente", "label": "Coefficiente di redditività (settore ATECO)", "type": "select", "options": ["40", "54", "62", "67", "78", "86"], "optionLabels": { "40": "40% — Commercio, alimentari, alloggio e ristorazione", "54": "54% — Commercio ambulante altri prodotti", "62": "62% — Intermediari del commercio", "67": "67% — Altre attività", "78": "78% — Professionisti, attività tecniche/sanitarie/istruzione", "86": "86% — Costruzioni e attività immobiliari" }, "default": "78" }
-      ] },
-      { "type": "group", "legend": "Previdenza e agevolazioni", "inputs": [
-        { "id": "gestioneInps", "label": "Cassa previdenziale", "type": "select", "options": ["gestione-separata", "artigiani", "commercianti", "cassa-professionale"], "optionLabels": { "gestione-separata": "Gestione Separata INPS (professionisti senza cassa)", "artigiani": "INPS Artigiani", "commercianti": "INPS Commercianti", "cassa-professionale": "Cassa professionale (ordine)" }, "default": "gestione-separata" },
-        { "id": "startup", "label": "Nuova attività — imposta 5% (primi 5 anni)", "type": "checkbox", "default": false, "hint": "se non hai esercitato attività nei 3 anni precedenti" },
-        { "id": "riduzione35", "label": "Riduzione contributiva 35% (solo artigiani/commercianti)", "type": "checkbox", "default": false },
-        { "id": "pensionato", "label": "Già pensionato o altra copertura (aliquota 24%)", "type": "checkbox", "default": false, "showIf": { "input": "gestioneInps", "equals": "gestione-separata" } },
-        { "id": "contributiCassa", "label": "Contributi cassa versati (stima annua)", "type": "number", "min": 0, "step": 100, "suffix": "€/anno", "default": 0, "showIf": { "input": "gestioneInps", "equals": "cassa-professionale" } }
-      ] }
+      {
+        "type": "group",
+        "legend": "Attività e ricavi",
+        "inputs": [
+          {
+            "id": "ricavi",
+            "label": "Ricavi / compensi annui",
+            "type": "number",
+            "min": 0,
+            "step": 1000,
+            "suffix": "€/anno",
+            "default": 50000
+          },
+          {
+            "id": "coefficiente",
+            "label": "Coefficiente di redditività (settore ATECO)",
+            "type": "select",
+            "options": [
+              "40",
+              "54",
+              "62",
+              "67",
+              "78",
+              "86"
+            ],
+            "optionLabels": {
+              "40": "40% — Commercio, alimentari, alloggio e ristorazione",
+              "54": "54% — Commercio ambulante altri prodotti",
+              "62": "62% — Intermediari del commercio",
+              "67": "67% — Altre attività",
+              "78": "78% — Professionisti, attività tecniche/sanitarie/istruzione",
+              "86": "86% — Costruzioni e attività immobiliari"
+            },
+            "default": "78"
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "legend": "Previdenza e agevolazioni",
+        "inputs": [
+          {
+            "id": "gestioneInps",
+            "label": "Cassa previdenziale",
+            "type": "select",
+            "options": [
+              "gestione-separata",
+              "artigiani",
+              "commercianti",
+              "cassa-professionale"
+            ],
+            "optionLabels": {
+              "gestione-separata": "Gestione Separata INPS (professionisti senza cassa)",
+              "artigiani": "INPS Artigiani",
+              "commercianti": "INPS Commercianti",
+              "cassa-professionale": "Cassa professionale (ordine)"
+            },
+            "default": "gestione-separata"
+          },
+          {
+            "id": "startup",
+            "label": "Nuova attività — imposta 5% (primi 5 anni)",
+            "type": "checkbox",
+            "default": false,
+            "hint": "solo per attività davvero nuove: le tre condizioni sono nella guida qui sotto"
+          },
+          {
+            "id": "riduzione35",
+            "label": "Riduzione contributiva 35% (solo artigiani/commercianti)",
+            "type": "checkbox",
+            "default": false
+          },
+          {
+            "id": "pensionato",
+            "label": "Già pensionato o altra copertura (aliquota 24%)",
+            "type": "checkbox",
+            "default": false,
+            "showIf": {
+              "input": "gestioneInps",
+              "equals": "gestione-separata"
+            }
+          },
+          {
+            "id": "contributiCassa",
+            "label": "Contributi cassa versati (stima annua)",
+            "type": "number",
+            "min": 0,
+            "step": 100,
+            "suffix": "€/anno",
+            "default": 0,
+            "showIf": {
+              "input": "gestioneInps",
+              "equals": "cassa-professionale"
+            }
+          }
+        ]
+      }
     ],
-    "outputPrimary": { "id": "netto", "label": "Netto in tasca stimato", "format": "currency" },
+    "outputPrimary": {
+      "id": "netto",
+      "label": "Netto in tasca stimato",
+      "format": "currency"
+    },
     "breakdownTitle": "Dai ricavi al netto",
     "breakdown": [
-      { "id": "ricavi", "label": "Ricavi / compensi", "kind": "gross", "format": "currency" },
-      { "id": "contributiInps", "label": "Contributi previdenziali", "kind": "out", "format": "currency" },
-      { "id": "impostaSostitutiva", "label": "Imposta sostitutiva", "kind": "out", "format": "currency" },
-      { "id": "netto", "label": "Netto disponibile", "kind": "total", "format": "currency" }
+      {
+        "id": "ricavi",
+        "label": "Ricavi / compensi",
+        "kind": "gross",
+        "format": "currency"
+      },
+      {
+        "id": "contributiInps",
+        "label": "Contributi previdenziali",
+        "kind": "out",
+        "format": "currency"
+      },
+      {
+        "id": "impostaSostitutiva",
+        "label": "Imposta sostitutiva",
+        "kind": "out",
+        "format": "currency"
+      },
+      {
+        "id": "netto",
+        "label": "Netto disponibile",
+        "kind": "total",
+        "format": "currency"
+      }
     ],
     "extras": [
-      { "id": "redditoImponibile", "label": "Reddito imponibile (dopo contributi)", "format": "currency" },
-      { "id": "aliquotaImposta", "label": "Aliquota imposta sostitutiva", "format": "percent" },
-      { "id": "pressione", "label": "Pressione fiscale + contributiva", "format": "percent" }
+      {
+        "id": "redditoImponibile",
+        "label": "Reddito imponibile (dopo contributi)",
+        "format": "currency"
+      },
+      {
+        "id": "aliquotaImposta",
+        "label": "Aliquota imposta sostitutiva",
+        "format": "percent"
+      },
+      {
+        "id": "pressione",
+        "label": "Pressione fiscale + contributiva",
+        "format": "percent"
+      }
     ]
   },
-
   "spiegazione": {
-    "titolo": "Come si calcolano tasse e contributi in regime forfettario nel 2026",
-    "corpo": "Nel regime forfettario il calcolo parte dai ricavi o compensi effettivamente incassati nell'anno (principio di cassa). Il primo passo è il reddito lordo forfettario: si moltiplicano i ricavi per il coefficiente di redditività del proprio settore ATECO. Il coefficiente rappresenta in modo forfettario la quota di ricavi considerata reddito: i costi reali non si scaricano, perché già inglobati nella percentuale. I nove gruppi ATECO hanno coefficienti diversi: 40% per industrie alimentari, commercio all'ingrosso e al dettaglio, commercio ambulante di alimentari, alloggio e ristorazione; 54% per il commercio ambulante di altri prodotti; 62% per gli intermediari del commercio; 67% per le altre attività di servizi (il catch-all); 78% per professionisti, attività tecniche, scientifiche, sanitarie, di istruzione e finanziarie; 86% per costruzioni e attività immobiliari. Secondo passo: i contributi previdenziali, calcolati sul reddito lordo forfettario e non sull'imponibile. In Gestione Separata INPS (professionisti senza cassa) si applica il 26,07% sul reddito lordo, senza alcun minimo fisso, ridotto al 24% per chi è già pensionato o ha altra copertura. Per artigiani e commercianti esiste invece un minimale di reddito di 18.808 € su cui è dovuto un contributo fisso di circa 4.500 € l'anno, dovuto anche a reddito zero; sulla parte eccedente il minimale si versa in percentuale (circa 24-25%), con aliquota maggiorata di un punto oltre 56.224 €. Artigiani e commercianti forfettari possono chiedere la riduzione contributiva del 35% su fissi e percentuali. Chi è iscritto a una cassa professionale d'ordine versa secondo le proprie regole: qui si inserisce la stima manuale. Terzo passo: l'imponibile fiscale è il reddito lordo forfettario meno i contributi versati, mai negativo. Quarto passo: l'imposta sostitutiva, che sostituisce IRPEF, addizionali e IRAP, è pari al 5% per le nuove attività nei primi cinque anni oppure al 15% ordinario. Il netto finale è: ricavi meno contributi meno imposta. Attenzione alla soglia: fino a 85.000 € di ricavi si resta nel forfettario; tra 85.000 e 100.000 € si esce dall'anno successivo; oltre 100.000 € l'uscita è immediata nello stesso anno, con IVA dovuta."
+    "titolo": "Come si calcolano imposta e contributi nel regime forfettario",
+    "corpo": [
+      "Nel regime forfettario il reddito non si calcola sottraendo le spese effettive: si applica ai ricavi una percentuale fissa stabilita dalla legge. Da lì si tolgono i contributi previdenziali e sul resto si paga un'unica imposta. Sono tre passaggi, con alcune soglie da tenere d'occhio."
+    ],
+    "sezioni": [
+      {
+        "titolo": "1. Dai ricavi al reddito: il coefficiente di redditività",
+        "paragrafi": [
+          "Il reddito imponibile si ottiene applicando ai ricavi o compensi percepiti un coefficiente che dipende dal codice ATECO (L. 190/2014, comma 64; la tabella è l'allegato 4, nel testo sostituito dalla L. 145/2018). È la legge a presumere quanta parte dei ricavi siano costi: per questo le spese reali — attrezzatura, affitto, software — non si deducono.",
+          "I coefficienti sono sei valori, assegnati a nove gruppi di attività:"
+        ],
+        "elenco": [
+          "40% — industrie alimentari e delle bevande, commercio all'ingrosso e al dettaglio, ambulante di prodotti alimentari e bevande, alloggio e ristorazione;",
+          "54% — commercio ambulante di altri prodotti;",
+          "62% — intermediari del commercio;",
+          "67% — altre attività economiche;",
+          "78% — attività professionali, scientifiche, tecniche, sanitarie, di istruzione, servizi finanziari e assicurativi;",
+          "86% — costruzioni e attività immobiliari."
+        ]
+      },
+      {
+        "titolo": "2. I contributi previdenziali",
+        "paragrafi": [
+          "I contributi si calcolano sul reddito forfettario e sono l'unica voce che si sottrae dal reddito prima dell'imposta. L'importo dipende dalla gestione a cui sei iscritto.",
+          "Professionisti senza una cassa propria: Gestione separata INPS, 26,07% del reddito nel 2026, oppure 24% se sei già pensionato o hai un'altra copertura previdenziale obbligatoria (circolare INPS n. 8/2026). Non c'è un contributo minimo; il reddito su cui si pagano contributi si ferma a 122.295 €.",
+          "Artigiani e commercianti: si paga comunque un contributo fisso sul reddito minimale di 18.808 €, pari a 4.521,36 € per gli artigiani e 4.611,64 € per i commercianti, anche se il reddito è più basso. Oltre il minimale si versa il 24% (artigiani) o il 24,48% (commercianti), un punto in più sopra 56.224 € (circolare INPS n. 14/2026). Il tetto è 122.295 € per chi è iscritto dal 1996, 93.707 € per chi ha contributi precedenti.",
+          "Solo per artigiani e commercianti in regime forfettario esiste una riduzione del 35% dei contributi, su domanda (L. 190/2014, comma 77): l'accredito ai fini della pensione segue i contributi effettivamente versati. Chi è iscritto a una cassa professionale (avvocati, ingegneri, medici e altri ordini) segue le regole della propria cassa: nel calcolatore inserisci la tua stima."
+        ]
+      },
+      {
+        "titolo": "3. L'imposta sostitutiva",
+        "paragrafi": [
+          "Sul reddito che resta dopo i contributi si paga un'imposta del 15%, che sostituisce IRPEF, addizionali regionali e comunali e IRAP. Per l'anno di inizio e i quattro successivi l'aliquota scende al 5% (comma 65), a tre condizioni: nei tre anni precedenti non hai svolto attività artistica, professionale o d'impresa, nemmeno in forma associata o familiare; la nuova attività non è la semplice prosecuzione di un lavoro dipendente o autonomo svolto prima, salvo il periodo di pratica obbligatoria per una professione; se rilevi l'attività di qualcun altro, i suoi ricavi dell'anno precedente rientrano nella soglia del regime.",
+          "In fattura non si addebita l'IVA (comma 58): per chi compra da te il prezzo è quello, senza imposta da aggiungere."
+        ]
+      },
+      {
+        "titolo": "4. Le soglie del regime",
+        "paragrafi": [
+          "Si accede e si resta nel regime con ricavi o compensi dell'anno precedente fino a 85.000 €, sommando tutte le attività. Se nell'anno superi 85.000 € esci dal regime dall'anno successivo; se superi 100.000 € esci subito, e l'IVA è dovuta già dalle operazioni che fanno superare la soglia.",
+          "Restano fuori, fra gli altri, i lavoratori che nell'anno precedente hanno avuto redditi di lavoro dipendente o assimilati oltre 30.000 €: per il 2025 e il 2026 il limite è stato portato a 35.000 €, e non conta se quel rapporto si è chiuso nell'anno precedente. Sono esclusi anche, a certe condizioni, chi partecipa a società di persone o controlla una SRL con un'attività riconducibile alla propria, e chi fattura soprattutto a un datore di lavoro attuale o degli ultimi due anni."
+        ]
+      },
+      {
+        "titolo": "Un esempio completo",
+        "paragrafi": [
+          "Professionista in Gestione separata, coefficiente 78%, 50.000 € di compensi, aliquota ordinaria. Reddito forfettario: 50.000 × 78% = 39.000 €. Contributi: 26,07% di 39.000 € = 10.167,30 €. Reddito imponibile: 39.000 − 10.167,30 = 28.832,70 €. Imposta al 15%: 4.324,91 €.",
+          "Netto: 50.000 − 10.167,30 − 4.324,91 = 35.507,79 €, cioè il 71% dei compensi. Con l'aliquota al 5% l'imposta scenderebbe a 1.441,64 € e il netto salirebbe a 38.391,06 €."
+        ]
+      },
+      {
+        "titolo": "Ipotesi del calcolo",
+        "paragrafi": [
+          "Per dare un numero leggibile il calcolatore semplifica alcune regole:"
+        ],
+        "elenco": [
+          "i contributi sono sottratti dal reddito dello stesso anno; nella realtà si deducono quelli versati nell'anno, cioè saldo dell'anno prima e acconti, quindi il primo anno di attività il risultato reale è diverso;",
+          "per artigiani e commercianti il tetto contributivo usato è 122.295 €;",
+          "non sono considerati diritto annuale della Camera di commercio, eventuale premio INAIL e costi effettivi dell'attività;",
+          "le cause di esclusione dal regime non sono verificate: controllale prima di aprire la partita IVA."
+        ]
+      }
+    ]
   },
-
   "esempi": [
-    { "titolo": "Professionista, Gestione Separata, coefficiente 78%, ricavi 50.000 €, nuova attività (5%)", "risultatoAtteso": "≈ 38.400 €/anno netti (contributi 10.167 €, imposta 1.442 €)" },
-    { "titolo": "Commerciante, coefficiente 40%, ricavi 40.000 €, imposta ordinaria 15%", "risultatoAtteso": "≈ 33.680 €/anno netti (contributo fisso 4.612 €, imposta 1.708 €)" },
-    { "titolo": "Professionista, Gestione Separata, coefficiente 78%, ricavi 30.000 €, imposta ordinaria 15%", "risultatoAtteso": "≈ 21.300 €/anno netti (contributi 6.100 €, imposta 2.595 €)" }
+    {
+      "titolo": "Professionista in Gestione separata, coefficiente 78%, compensi 50.000 €, aliquota 15%",
+      "risultatoAtteso": "≈ 35.508 € netti l'anno (contributi 10.167 €, imposta 4.325 €)",
+      "verifica": {
+        "input": {
+          "ricavi": 50000,
+          "coefficiente": "78",
+          "gestioneInps": "gestione-separata"
+        },
+        "campo": "netto",
+        "atteso": 35507.79,
+        "tolleranza": 1
+      }
+    },
+    {
+      "titolo": "Commerciante, coefficiente 40%, ricavi 40.000 €, riduzione del 35%, aliquota 15%",
+      "risultatoAtteso": "≈ 35.052 € netti l'anno (contributi 2.998 €)",
+      "verifica": {
+        "input": {
+          "ricavi": 40000,
+          "coefficiente": "40",
+          "gestioneInps": "commercianti",
+          "riduzione35": true
+        },
+        "campo": "netto",
+        "atteso": 35052.07,
+        "tolleranza": 1
+      }
+    },
+    {
+      "titolo": "Professionista in Gestione separata, coefficiente 78%, compensi 30.000 €, nuova attività al 5%",
+      "risultatoAtteso": "≈ 23.035 € netti l'anno (imposta 865 €)",
+      "verifica": {
+        "input": {
+          "ricavi": 30000,
+          "coefficiente": "78",
+          "gestioneInps": "gestione-separata",
+          "startup": true
+        },
+        "campo": "netto",
+        "atteso": 23034.64,
+        "tolleranza": 1
+      }
+    }
   ],
-
   "faq": [
-    { "domanda": "Come si calcolano le tasse in regime forfettario?", "risposta": "Si moltiplicano i ricavi per il coefficiente di redditività del settore ATECO per ottenere il reddito lordo forfettario. Da questo si sottraggono i contributi previdenziali versati per ottenere l'imponibile fiscale. Sull'imponibile si applica l'imposta sostitutiva, che sostituisce IRPEF, addizionali e IRAP: 5% per le nuove attività nei primi cinque anni oppure 15% ordinaria. Il netto è dato da ricavi meno contributi meno imposta." },
-    { "domanda": "Quanto si paga di INPS in regime forfettario?", "risposta": "Dipende dalla cassa. I professionisti senza cassa iscritti alla Gestione Separata INPS versano il 26,07% sul reddito lordo forfettario, senza contributo minimo fisso (24% se già pensionati o con altra copertura). Artigiani e commercianti pagano un contributo fisso di circa 4.500 € l'anno sul minimale di 18.808 €, dovuto anche a reddito zero, più circa il 24-25% sulla parte eccedente; possono però chiedere la riduzione del 35%. Gli iscritti a una cassa professionale versano secondo le regole del proprio ordine." },
-    { "domanda": "Cos'è il coefficiente di redditività?", "risposta": "È la percentuale dei ricavi che, nel regime forfettario, viene considerata reddito imponibile. Serve a determinare in modo forfettario il reddito senza scaricare i costi reali, che si presumono già inclusi nella percentuale. Varia per gruppo ATECO: 40% per commercio, alimentari, alloggio e ristorazione; 54% per il commercio ambulante di altri prodotti; 62% per gli intermediari; 67% per le altre attività; 78% per professionisti e attività tecniche, sanitarie e di istruzione; 86% per costruzioni e immobiliare." },
-    { "domanda": "Quando conviene il regime forfettario?", "risposta": "Il forfettario conviene tipicamente a chi ha pochi costi reali deducibili e ricavi contenuti, perché applica un'unica imposta sostitutiva agevolata (5% o 15%) al posto di IRPEF a scaglioni e addizionali, con una gestione contabile semplificata e senza IVA. Diventa meno vantaggioso quando i costi effettivi sono alti, perché nel forfettario non si scaricano: in quel caso il regime ordinario, che deduce i costi reali, può risultare più conveniente. Utile confrontare le due stime con il commercialista." },
-    { "domanda": "Fino a che ricavi si resta nel regime forfettario?", "risposta": "La soglia è 85.000 € di ricavi o compensi incassati nell'anno. Fino a 85.000 € si resta nel forfettario. Tra 85.000 e 100.000 € si resta per l'anno in corso ma si passa al regime ordinario dall'anno successivo. Superati i 100.000 € in corso d'anno l'uscita è immediata, nello stesso anno, con IVA dovuta sulle operazioni successive al superamento." },
-    { "domanda": "L'imposta sostitutiva al 5% quando si applica?", "risposta": "L'aliquota ridotta del 5% spetta alle nuove attività per i primi cinque anni (anno di inizio più i quattro successivi), a tre condizioni: non aver esercitato attività d'impresa, arte o professione nei tre anni precedenti; non proseguire di fatto un'attività già svolta come dipendente o autonomo (salvo la pratica obbligatoria); in caso di subentro, i ricavi del periodo precedente non devono superare 85.000 €. Dal sesto anno l'aliquota diventa quella ordinaria del 15%." }
+    {
+      "domanda": "Nel forfettario posso scaricare le spese?",
+      "risposta": "No. Il reddito si calcola applicando ai ricavi il coefficiente del tuo codice ATECO, che rappresenta già in modo forfettario i costi dell'attività. L'unica voce che si sottrae sono i contributi previdenziali obbligatori; l'eventuale parte che non trova spazio nel reddito forfettario si può dedurre dal reddito complessivo."
+    },
+    {
+      "domanda": "Cosa succede se supero 85.000 € o 100.000 € di ricavi?",
+      "risposta": "Fra 85.000 e 100.000 € resti nel regime fino alla fine dell'anno e ne esci dall'anno successivo. Oltre 100.000 € esci subito: il regime ordinario si applica già dall'anno in corso e l'IVA è dovuta dalle operazioni che fanno superare la soglia."
+    },
+    {
+      "domanda": "Posso essere dipendente e avere una partita IVA forfettaria?",
+      "risposta": "Sì, se nell'anno precedente i redditi di lavoro dipendente o assimilati non hanno superato 35.000 € (limite valido per il 2025 e il 2026; quello ordinario è 30.000 €) e non fatturi soprattutto al tuo datore di lavoro attuale o degli ultimi due anni. Il limite non conta se il rapporto di lavoro si è chiuso nell'anno precedente."
+    },
+    {
+      "domanda": "Come funziona la riduzione del 35% dei contributi?",
+      "risposta": "È riservata ai forfettari iscritti alle gestioni INPS artigiani e commercianti e si chiede all'INPS. Riduce del 35% sia il contributo fisso sul minimale sia la parte sul reddito eccedente. L'accredito contributivo ai fini della pensione segue quanto effettivamente versato. Non si applica alla Gestione separata né alle casse professionali."
+    },
+    {
+      "domanda": "Quale coefficiente di redditività devo usare?",
+      "risposta": "Quello del gruppo a cui appartiene il codice ATECO della tua attività, secondo la tabella allegata alla L. 190/2014 (nel testo della L. 145/2018): per esempio 78% per le attività professionali, scientifiche e tecniche, 40% per commercio e ristorazione, 86% per costruzioni e attività immobiliari. Il codice ATECO lo indichi all'apertura della partita IVA."
+    },
+    {
+      "domanda": "Perché il netto reale del primo anno può essere diverso?",
+      "risposta": "Perché nel forfettario si deducono i contributi effettivamente pagati nell'anno. Il primo anno, artigiani e commercianti pagano i contributi fissi ma non ancora saldo e acconti sul reddito, che arrivano l'anno dopo; anche l'imposta si versa in parte l'anno successivo. Il calcolatore mostra invece la situazione a regime, con contributi e imposta riferiti allo stesso anno."
+    }
   ],
-
   "relatedTools": [
     "calcolatore-stipendio-netto",
     "calcolatore-tfr",
     "validatore-iban",
     "validatore-codice-fiscale"
   ],
-
-  "disclaimer": "<strong>Stima indicativa 2026.</strong> Non sostituisce il commercialista né una consulenza fiscale. Include reddito imponibile da coefficiente ATECO, contributi INPS (gestione separata, artigiani, commercianti) e imposta sostitutiva 5% o 15%. <strong>Non</strong> include addizionali (già assorbite dall'imposta sostitutiva), IVA (di norma non applicata nel forfettario), diritto camerale né la tassa d'iscrizione. Le <strong>casse professionali</strong> hanno regole, minimi e aliquote diverse per ciascun ordine: per queste inserisci una stima manuale dei contributi.",
-
+  "disclaimer": "<strong>Stima 2026, non un conteggio per la dichiarazione.</strong> Calcola reddito forfettario da coefficiente ATECO, contributi INPS (Gestione separata, artigiani, commercianti) e imposta sostitutiva al 15% o al 5%. Riferisce i contributi allo stesso anno del reddito, mentre la legge li deduce nell'anno in cui li versi. <strong>Non</strong> verifica le cause di esclusione dal regime e non include diritto camerale, INAIL e costi reali. Per le casse professionali inserisci una tua stima dei contributi. Prima di aprire una partita IVA confrontati con un commercialista.",
   "fonti": [
-    { "titolo": "Regime forfetario — Agenzia delle Entrate", "dettaglio": "Regime forfetario per imprese e professionisti (L. 190/2014) · soglia 85.000 €, imposta sostitutiva 5%/15%, coefficienti di redditività", "url": "https://www.agenziaentrate.gov.it/portale/web/guest/regime-forfetario-imprese-professionisti" },
-    { "titolo": "Gestioni Artigiani e Commercianti — contributi 2026", "dettaglio": "INPS, Circ. n. 6/2026 · minimale 18.808 €, contributo fisso ~4.500 €, aliquote 24%/24,48% (+1% oltre 56.224 €)", "url": "https://www.inps.it/it/it/inps-comunica/notizie/dettaglio-news-page.news.2026.02.gestioni-artigiani-e-commercianti-i-contributi-per-il-2026.html" },
-    { "titolo": "Gestione Separata — aliquote contributive 2026", "dettaglio": "INPS, Circ. n. 8/2026 · aliquota 26,07% (24% con altra copertura), massimale 122.295 €, nessun minimo fisso", "url": "https://www.inps.it/it/it/inps-comunica/notizie/dettaglio-news-page.news.2026.02.gestione-separata-le-aliquote-contributive-per-il-2026.html" },
-    { "titolo": "Coefficienti di redditività per gruppo ATECO", "dettaglio": "Tabella completa dei 9 coefficienti (40%–86%) per il calcolo del reddito forfettario", "url": "https://flextax.it/regime-forfettario-coefficiente-di-redditivita/" }
+    {
+      "titolo": "Agenzia delle Entrate, regime forfetario — che cos'è",
+      "dettaglio": "Soglie di 85.000 e 100.000 €, limite di 35.000 € di reddito da lavoro dipendente per 2025 e 2026, cause di esclusione (aggiornamento luglio 2026)",
+      "url": "https://www.agenziaentrate.gov.it/portale/regime-forfetario-le-regole-2020-/infogen-regime-forfetario-le-regole-2020-"
+    },
+    {
+      "titolo": "Legge 23 dicembre 2014, n. 190, art. 1, commi 54–89",
+      "dettaglio": "Comma 64: coefficienti, imposta sostitutiva al 15%, deduzione dei contributi · comma 65: aliquota al 5% · comma 58: IVA · comma 77: riduzione contributiva del 35% · allegato 4: coefficienti",
+      "url": "https://www.agenziaentrate.gov.it/portale/documents/20143/241330/commi+54_+89_LEGGE+23+dicembre+2014.pdf/e5221678-d627-821c-fc47-d3c5be04f123"
+    },
+    {
+      "titolo": "Tabella dei coefficienti di redditività (allegato 4 alla L. 190/2014)",
+      "dettaglio": "Nove gruppi di settore e sei coefficienti, testo sostituito dalla L. 145/2018 (GU n. 302 del 31/12/2018, S.O. 62)",
+      "url": "https://www.agenziaentrate.gov.it/portale/documents/20143/241208/allegato%2B4.pdf/d69be7fc-b18a-3c73-bd2e-b0f3c1970218"
+    },
+    {
+      "titolo": "Legge 30 dicembre 2025, n. 199, art. 1, comma 27",
+      "dettaglio": "Proroga al 2026 del limite di 35.000 € per i redditi di lavoro dipendente",
+      "url": "https://www.normattiva.it/eli/id/2025/12/30/25G00212/ORIGINAL"
+    },
+    {
+      "titolo": "INPS, circolare n. 8 del 3 febbraio 2026",
+      "dettaglio": "Gestione separata 2026: 26,07% (24% con altra copertura), massimale 122.295 €"
+    },
+    {
+      "titolo": "INPS, circolare n. 14 del 9 febbraio 2026",
+      "dettaglio": "Artigiani e commercianti 2026: minimale 18.808 €, contributi fissi, aliquote 24% e 24,48%, massimali"
+    }
   ],
-
   "jsonLd": {
     "type": "SoftwareApplication",
     "applicationCategory": "FinanceApplication"

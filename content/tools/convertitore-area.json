@@ -2,27 +2,46 @@
   "slug": "convertitore-area",
   "cluster": "convertitori",
   "tema": "misure",
-  "updated": "2026-07",
-
+  "updated": "2026-10",
   "seo": {
     "title": "Convertitore Area – Metri Quadri, Ettari e Acri",
     "metaDescription": "Converti le unità di superficie online: metri quadri, centimetri quadri, ettari, are, chilometri quadri, acri, piedi e iarde quadrate. Conversione istantanea nel browser, gratis.",
     "primaryKeyword": "convertitore area",
     "canonical": "/convertitore-area/"
   },
-
   "h1": "Convertitore di Superficie",
-
-  "intro": "Converti al volo qualsiasi misura di superficie tra sistema metrico e unità anglosassoni: da metri quadri a piedi quadrati, da ettari ad acri, da are a metri quadri e ritorno. Scegli l'unità di partenza e quella di arrivo, inserisci il valore e leggi subito il risultato con il fattore di conversione. Utile per planimetrie, terreni agricoli, annunci immobiliari e progetti. Tutto nel tuo browser, senza inviare dati e senza registrazione.",
-
+  "intro": "Converti superfici fra unità metriche, agrarie e anglosassoni: dai metri quadri di una planimetria agli ettari e alle are di una visura catastale, dagli acri ai piedi quadrati di un annuncio americano. Sotto il risultato trovi il fattore applicato, per rifare il conto o controllarlo.",
   "tool": {
     "logicId": "unita-v1",
     "script": "convertitore-unita.js",
     "cardNote": "Metrico e imperiale",
     "inputs": [
-      { "id": "valore", "label": "Valore da convertire", "type": "number", "step": "any", "default": 1 },
-      { "id": "da", "label": "Da", "type": "select", "default": "m2",
-        "options": ["mm2","cm2","dm2","m2","a","ha","km2","in2","ft2","yd2","ac","mi2"],
+      {
+        "id": "valore",
+        "label": "Valore da convertire",
+        "type": "number",
+        "step": "any",
+        "default": 1
+      },
+      {
+        "id": "da",
+        "label": "Da",
+        "type": "select",
+        "default": "m2",
+        "options": [
+          "mm2",
+          "cm2",
+          "dm2",
+          "m2",
+          "a",
+          "ha",
+          "km2",
+          "in2",
+          "ft2",
+          "yd2",
+          "ac",
+          "mi2"
+        ],
         "optionLabels": {
           "mm2": "Millimetro quadrato (mm²)",
           "cm2": "Centimetro quadrato (cm²)",
@@ -36,9 +55,27 @@
           "yd2": "Iarda quadrata (yd²)",
           "ac": "Acro (ac)",
           "mi2": "Miglio quadrato (mi²)"
-        } },
-      { "id": "a", "label": "A", "type": "select", "default": "cm2",
-        "options": ["mm2","cm2","dm2","m2","a","ha","km2","in2","ft2","yd2","ac","mi2"],
+        }
+      },
+      {
+        "id": "a",
+        "label": "A",
+        "type": "select",
+        "default": "cm2",
+        "options": [
+          "mm2",
+          "cm2",
+          "dm2",
+          "m2",
+          "a",
+          "ha",
+          "km2",
+          "in2",
+          "ft2",
+          "yd2",
+          "ac",
+          "mi2"
+        ],
         "optionLabels": {
           "mm2": "Millimetro quadrato (mm²)",
           "cm2": "Centimetro quadrato (cm²)",
@@ -52,44 +89,113 @@
           "yd2": "Iarda quadrata (yd²)",
           "ac": "Acro (ac)",
           "mi2": "Miglio quadrato (mi²)"
-        } }
+        }
+      }
     ],
-    "outputPrimary": { "id": "risultato", "label": "Risultato", "format": "text" },
-    "outputSecondary": [ { "id": "formula", "label": "Fattore di conversione", "format": "text" } ]
+    "outputPrimary": {
+      "id": "risultato",
+      "label": "Risultato",
+      "format": "text"
+    },
+    "outputSecondary": [
+      {
+        "id": "formula",
+        "label": "Fattore di conversione",
+        "format": "text"
+      }
+    ]
   },
-
   "spiegazione": {
-    "titolo": "Le unità di superficie: dal metro quadro all'ettaro e all'acro",
-    "corpo": "L'area misura l'estensione di una superficie e nel Sistema Internazionale si esprime in metro quadrato (m²), cioè la superficie di un quadrato con lato di un metro. Rispetto alle misure lineari, i rapporti tra i multipli sono elevati al quadrato: passando da metro a centimetro il fattore lineare è 100, ma tra metro quadro e centimetro quadro diventa 100 × 100 = 10.000. Così un metro quadro contiene 10.000 centimetri quadri e un milione di millimetri quadri, mentre un chilometro quadro equivale a un milione di metri quadri. Per i terreni si usano unità dedicate: l'ara vale 100 metri quadri e l'ettaro (il multiplo più comune in agricoltura e catasto) vale 100 are, cioè 10.000 metri quadri, all'incirca la superficie di un campo da calcio e mezzo. Il sistema anglosassone ha le sue unità quadrate: il piede quadrato (circa 0,0929 m²) e la iarda quadrata (0,8361 m²) sono comuni nell'edilizia, mentre l'acro, pari a circa 4.046,86 metri quadri (0,4047 ettari), è la misura tradizionale dei terreni; il miglio quadrato copre invece grandi estensioni, oltre 2,59 chilometri quadri. Questo convertitore lavora convertendo prima il valore nell'unità di base (il metro quadro) e poi nell'unità di destinazione, così ogni combinazione tra le dodici unità disponibili è coerente. Il fattore mostrato sotto il risultato indica quanto vale una singola unità di partenza nell'unità scelta, comodo per confrontare metrature di case, superfici di terreni e planimetrie tecniche."
+    "titolo": "Superfici: dalla visura catastale ai piedi quadrati",
+    "corpo": [
+      "Una superficie si misura in unità al quadrato, e il fattore fra due unità è il quadrato di quello fra le lunghezze. Un metro sono 100 centimetri, ma un metro quadro sono 100 × 100 = 10.000 centimetri quadri; un chilometro quadro è un milione di metri quadri. Dimenticare il quadrato è l'errore più frequente nelle conversioni fatte a mano.",
+      "Nel catasto terreni la visura sintetica dell'Agenzia delle Entrate indica la superficie in ettari, are e centiare; quella analitica direttamente in metri quadri. Un'ara vale 100 m², un ettaro 100 are, cioè 10.000 m², e una centiara è un centesimo di ara: un metro quadro. Una particella di 2 ettari, 35 are e 40 centiare misura quindi 23.540 m².",
+      "Se leggi una superficie in piedi quadrati, ricorda che il piede vale 0,3048 metri esatti: un piede quadrato è 0,09290304 m², e 1.500 piedi quadrati sono circa 139 m². Per i terreni anglosassoni si usa l'acro, che nella definizione internazionale vale 4.046,8564224 m², poco più di 0,4 ettari.",
+      "Il convertitore porta ogni valore in metri quadri e poi nell'unità scelta, così le dodici unità restano coerenti fra loro in ogni combinazione."
+    ]
   },
-
   "esempi": [
-    { "titolo": "Quanti metri quadri in un ettaro", "risultatoAtteso": "1 ha = 10000 m²" },
-    { "titolo": "Da metri quadri a piedi quadrati", "risultatoAtteso": "100 m² ≈ 1076,39 ft²" },
-    { "titolo": "Da acri a ettari (terreni)", "risultatoAtteso": "5 ac ≈ 2,0234 ha" }
+    {
+      "titolo": "1 ettaro della visura catastale in metri quadri",
+      "risultatoAtteso": "10000 m²",
+      "verifica": {
+        "input": {
+          "valore": 1,
+          "da": "ha",
+          "a": "m2"
+        },
+        "campo": "risultato",
+        "testo": "10000 m²"
+      }
+    },
+    {
+      "titolo": "Un appartamento da 1.500 piedi quadrati in metri quadri",
+      "risultatoAtteso": "139,35456 m²",
+      "verifica": {
+        "input": {
+          "valore": 1500,
+          "da": "ft2",
+          "a": "m2"
+        },
+        "campo": "risultato",
+        "testo": "139,35456 m²"
+      }
+    },
+    {
+      "titolo": "Un terreno di 3 acri in ettari",
+      "risultatoAtteso": "1,214057 ha",
+      "verifica": {
+        "input": {
+          "valore": 3,
+          "da": "ac",
+          "a": "ha"
+        },
+        "campo": "risultato",
+        "testo": "1,214057 ha"
+      }
+    }
   ],
-
   "faq": [
-    { "domanda": "Quanti metri quadri ha un ettaro?", "risposta": "Un ettaro (ha) equivale a 10.000 metri quadri, cioè 100 are. È l'unità di superficie più usata in agricoltura e in catasto per i terreni. Per avere un'idea, un ettaro corrisponde all'incirca a un campo da calcio e mezzo." },
-    { "domanda": "Quanto vale un acro in metri quadri?", "risposta": "Un acro equivale a circa 4.046,86 metri quadri, ovvero circa 0,4047 ettari. È l'unità tradizionale usata nei Paesi anglosassoni per misurare i terreni. Di conseguenza un ettaro corrisponde a circa 2,47 acri." },
-    { "domanda": "Perché tra metri quadri e centimetri quadri il fattore è 10.000?", "risposta": "Perché l'area è una grandezza al quadrato. Nel passaggio lineare da metro a centimetro il fattore è 100; elevandolo al quadrato per la superficie diventa 100 × 100 = 10.000. Quindi un metro quadro contiene 10.000 centimetri quadri, non 100." },
-    { "domanda": "Qual è la differenza tra ara ed ettaro?", "risposta": "L'ara vale 100 metri quadri, l'ettaro vale 100 are ovvero 10.000 metri quadri. Sono due unità agrarie: l'ara si usa per superfici piccole, l'ettaro per quelle grandi. Nel catasto italiano i terreni sono spesso espressi in ettari, are e centiare." },
-    { "domanda": "Come converto la metratura di casa da metri quadri a piedi quadrati?", "risposta": "Si moltiplica per circa 10,764, perché un metro quadro equivale a 10,7639 piedi quadrati. Ad esempio un appartamento di 80 m² corrisponde a circa 861 piedi quadrati, unità usata negli annunci immobiliari dei Paesi anglosassoni." }
+    {
+      "domanda": "Come si leggono ettari, are e centiare in una visura catastale?",
+      "risposta": "Sono tre colonne della stessa misura. Gli ettari valgono 10.000 m² ciascuno, le are 100 m², le centiare 1 m². «1 ha 20 are 05 ca» significa quindi 10.000 + 2.000 + 5 = 12.005 m². Nella visura analitica la stessa superficie compare già in metri quadri."
+    },
+    {
+      "domanda": "Perché fra metri quadri e centimetri quadri il fattore è 10.000?",
+      "risposta": "Perché in una superficie entrambe le dimensioni cambiano unità. Un metro è 100 centimetri in lunghezza e 100 in larghezza, quindi un metro quadro contiene 100 × 100 = 10.000 centimetri quadri. Lo stesso vale per tutte le unità al quadrato."
+    },
+    {
+      "domanda": "Quanti metri quadri sono 1.000 piedi quadrati?",
+      "risposta": "92,90304 m². Un piede è 0,3048 m esatti, un piede quadrato 0,3048 × 0,3048 = 0,09290304 m², e mille piedi quadrati sono mille volte tanto."
+    },
+    {
+      "domanda": "È più grande un acro o un ettaro?",
+      "risposta": "L'ettaro. Un acro internazionale vale 4.046,8564224 m², cioè circa 0,405 ettari; un ettaro corrisponde a circa 2,471 acri."
+    }
   ],
-
   "relatedTools": [
     "convertitore-lunghezza",
     "convertitore-volume",
     "convertitore-peso"
   ],
-
-  "disclaimer": "<strong>Conversioni indicative.</strong> I valori possono essere arrotondati per la lettura; per atti catastali, compravendite o usi legali fai sempre riferimento alle misure ufficiali e ai fattori di conversione esatti.",
-
+  "disclaimer": "<strong>Fattori esatti, risultato arrotondato.</strong> Le conversioni usano le definizioni esatte delle unità; il risultato è arrotondato alla sesta cifra decimale per la lettura. Per atti catastali e compravendite fanno fede le misure ufficiali.",
   "fonti": [
-    { "titolo": "BIPM – Sistema Internazionale di unità (SI)", "dettaglio": "Metro quadrato come unità derivata di superficie", "url": "https://www.bipm.org/en/measurement-units" },
-    { "titolo": "Wikipedia – Unità di misura della superficie", "dettaglio": "Fattori di conversione metrico/imperiale e unità agrarie", "url": "https://it.wikipedia.org/wiki/Unit%C3%A0_di_misura_della_superficie" }
+    {
+      "titolo": "NIST, SP 811 — Appendix B.8, fattori di conversione",
+      "dettaglio": "Piede quadrato, iarda quadrata, acro e miglio quadrato in metri quadri",
+      "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b8"
+    },
+    {
+      "titolo": "BIPM, Il Sistema Internazionale di unità (SI Brochure)",
+      "dettaglio": "Metro, unità derivate e prefissi",
+      "url": "https://www.bipm.org/en/publications/si-brochure"
+    },
+    {
+      "titolo": "Agenzia delle Entrate, come leggere la visura catastale",
+      "dettaglio": "Superficie dei terreni in ettari, are e centiare (visura sintetica) o in metri quadri (visura analitica)",
+      "url": "https://www.agenziaentrate.gov.it/portale/schede/fabbricatiterreni/visura-catastale/come-leggere-la-visura"
+    }
   ],
-
   "jsonLd": {
     "type": "SoftwareApplication",
     "applicationCategory": "UtilitiesApplication"

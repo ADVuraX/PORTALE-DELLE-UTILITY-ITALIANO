@@ -2,27 +2,46 @@
   "slug": "convertitore-lunghezza",
   "cluster": "convertitori",
   "tema": "misure",
-  "updated": "2026-07",
-
+  "updated": "2026-10",
   "seo": {
     "title": "Convertitore Lunghezza – Metri, Piedi, Miglia e Pollici",
     "metaDescription": "Converti le unità di lunghezza online: metri, centimetri, chilometri, pollici, piedi, iarde, miglia e miglia nautiche. Conversione istantanea nel browser, gratis e precisa.",
     "primaryKeyword": "convertitore lunghezza",
     "canonical": "/convertitore-lunghezza/"
   },
-
   "h1": "Convertitore di Lunghezza",
-
-  "intro": "Converti al volo qualsiasi misura di lunghezza tra sistema metrico e sistema imperiale: da metri a piedi, da centimetri a pollici, da chilometri a miglia e viceversa. Scegli l'unità di partenza e quella di arrivo, digita il valore e leggi subito il risultato con il fattore di conversione esatto. Copre le scale più piccole (nanometri, micrometri, millimetri) fino alle distanze marittime in miglia nautiche. Tutto avviene nel tuo browser, senza inviare dati e senza registrazione.",
-
+  "intro": "Converti lunghezze fra il sistema metrico, dal nanometro al chilometro, e le unità anglosassoni: pollici, piedi, iarde, miglia terrestri e miglia nautiche. Le unità anglosassoni hanno un valore esatto in metri, quindi il risultato non contiene approssimazioni oltre all'arrotondamento per la lettura. Sotto compare il fattore usato.",
   "tool": {
     "logicId": "unita-v1",
     "script": "convertitore-unita.js",
     "cardNote": "Metrico e imperiale",
     "inputs": [
-      { "id": "valore", "label": "Valore da convertire", "type": "number", "step": "any", "default": 1 },
-      { "id": "da", "label": "Da", "type": "select", "default": "m",
-        "options": ["nm","um","mm","cm","dm","m","km","in","ft","yd","mi","nmi"],
+      {
+        "id": "valore",
+        "label": "Valore da convertire",
+        "type": "number",
+        "step": "any",
+        "default": 1
+      },
+      {
+        "id": "da",
+        "label": "Da",
+        "type": "select",
+        "default": "m",
+        "options": [
+          "nm",
+          "um",
+          "mm",
+          "cm",
+          "dm",
+          "m",
+          "km",
+          "in",
+          "ft",
+          "yd",
+          "mi",
+          "nmi"
+        ],
         "optionLabels": {
           "nm": "Nanometro (nm)",
           "um": "Micrometro (µm)",
@@ -36,9 +55,27 @@
           "yd": "Iarda (yd)",
           "mi": "Miglio (mi)",
           "nmi": "Miglio nautico (nmi)"
-        } },
-      { "id": "a", "label": "A", "type": "select", "default": "cm",
-        "options": ["nm","um","mm","cm","dm","m","km","in","ft","yd","mi","nmi"],
+        }
+      },
+      {
+        "id": "a",
+        "label": "A",
+        "type": "select",
+        "default": "cm",
+        "options": [
+          "nm",
+          "um",
+          "mm",
+          "cm",
+          "dm",
+          "m",
+          "km",
+          "in",
+          "ft",
+          "yd",
+          "mi",
+          "nmi"
+        ],
         "optionLabels": {
           "nm": "Nanometro (nm)",
           "um": "Micrometro (µm)",
@@ -52,44 +89,109 @@
           "yd": "Iarda (yd)",
           "mi": "Miglio (mi)",
           "nmi": "Miglio nautico (nmi)"
-        } }
+        }
+      }
     ],
-    "outputPrimary": { "id": "risultato", "label": "Risultato", "format": "text" },
-    "outputSecondary": [ { "id": "formula", "label": "Fattore di conversione", "format": "text" } ]
+    "outputPrimary": {
+      "id": "risultato",
+      "label": "Risultato",
+      "format": "text"
+    },
+    "outputSecondary": [
+      {
+        "id": "formula",
+        "label": "Fattore di conversione",
+        "format": "text"
+      }
+    ]
   },
-
   "spiegazione": {
-    "titolo": "Le unità di lunghezza: sistema metrico e sistema imperiale",
-    "corpo": "La lunghezza è una grandezza fondamentale del Sistema Internazionale (SI) e la sua unità di base è il metro (m). Dal metro derivano i multipli e i sottomultipli decimali: il chilometro vale 1.000 metri, mentre scendendo troviamo decimetro (0,1 m), centimetro (0,01 m), millimetro (0,001 m) e, per la scala microscopica, micrometro e nanometro (un miliardesimo di metro). Il grande vantaggio del sistema metrico è che ogni passaggio è una potenza di dieci, quindi convertire significa semplicemente spostare la virgola. Il sistema imperiale, usato soprattutto nei Paesi anglosassoni, segue invece rapporti irregolari fissati per convenzione: un pollice (inch) equivale esattamente a 2,54 centimetri, un piede (foot) a 12 pollici cioè 30,48 cm, una iarda a 3 piedi (0,9144 m) e un miglio terrestre a 1.760 iarde, ovvero 1.609,344 metri. A parte c'è il miglio nautico, pari a 1.852 metri esatti, usato in navigazione marittima e aerea perché corrisponde a un minuto di arco di meridiano. Questo convertitore passa da un sistema all'altro applicando i fattori ufficiali: converte prima il valore inserito nell'unità di base (il metro) e poi nell'unità di destinazione, così ogni combinazione tra le dodici unità disponibili è gestita con la stessa precisione. Il fattore mostrato in basso indica quanto vale una singola unità di partenza espressa nell'unità scelta."
+    "titolo": "Metri, pollici, piedi e miglia: definizioni esatte",
+    "corpo": [
+      "Le unità anglosassoni hanno una definizione esatta in metri, stabilita dall'accordo internazionale del 1959 su iarda e libbra: un pollice è 2,54 cm, un piede 30,48 cm (12 pollici), una iarda 0,9144 m (3 piedi), un miglio terrestre 1.609,344 m. Per questo la conversione non contiene approssimazioni: il risultato è arrotondato solo per essere letto.",
+      "Il miglio nautico è un'unità diversa, di 1.852 metri esatti, usata nella navigazione marittima e aerea. È circa il 15% più lungo del miglio terrestre, e da esso deriva il nodo, che vale un miglio nautico all'ora.",
+      "La diagonale degli schermi si indica in pollici: un televisore da 55 pollici ha una diagonale di 139,7 cm, uno da 65 di 165,1 cm. Le altezze nei paesi anglosassoni si esprimono in piedi e pollici: 5 piedi e 10 pollici sono 70 pollici, cioè 177,8 cm.",
+      "Nelle schede tecniche e nei disegni di prodotti americani le misure piccole compaiono spesso come frazioni di pollice. Basta trasformare la frazione in decimale e moltiplicare per 25,4: un quarto di pollice sono 6,35 mm, tre ottavi 9,525 mm, mezzo pollice 12,7 mm.",
+      "Nel sistema metrico ogni unità vale dieci volte la precedente — millimetro, centimetro, decimetro, metro — e convertire significa spostare la virgola. Il micrometro è un millesimo di millimetro, il nanometro un milionesimo."
+    ]
   },
-
   "esempi": [
-    { "titolo": "Quanti centimetri in 1 metro", "risultatoAtteso": "1 m = 100 cm" },
-    { "titolo": "Da un'altezza in piedi ai metri", "risultatoAtteso": "6 ft ≈ 1,8288 m" },
-    { "titolo": "Da chilometri a miglia terrestri", "risultatoAtteso": "10 km ≈ 6,2137 mi" }
+    {
+      "titolo": "Un televisore da 55 pollici: diagonale in centimetri",
+      "risultatoAtteso": "139,7 cm",
+      "verifica": {
+        "input": {
+          "valore": 55,
+          "da": "in",
+          "a": "cm"
+        },
+        "campo": "risultato",
+        "testo": "139,7 cm"
+      }
+    },
+    {
+      "titolo": "Una quota di 35.000 piedi in metri",
+      "risultatoAtteso": "10668 m",
+      "verifica": {
+        "input": {
+          "valore": 35000,
+          "da": "ft",
+          "a": "m"
+        },
+        "campo": "risultato",
+        "testo": "10668 m"
+      }
+    },
+    {
+      "titolo": "10 miglia nautiche in chilometri",
+      "risultatoAtteso": "18,52 km",
+      "verifica": {
+        "input": {
+          "valore": 10,
+          "da": "nmi",
+          "a": "km"
+        },
+        "campo": "risultato",
+        "testo": "18,52 km"
+      }
+    }
   ],
-
   "faq": [
-    { "domanda": "Quanto vale un pollice in centimetri?", "risposta": "Un pollice (inch) equivale esattamente a 2,54 centimetri per definizione internazionale. Di conseguenza 12 pollici formano un piede (30,48 cm). È una delle conversioni più richieste per televisori, schermi e diametri, spesso espressi in pollici anche in Italia." },
-    { "domanda": "Qual è la differenza tra miglio terrestre e miglio nautico?", "risposta": "Il miglio terrestre (statute mile) misura 1.609,344 metri e si usa per le distanze su strada nei Paesi anglosassoni. Il miglio nautico misura 1.852 metri e si usa in navigazione marittima e aerea, perché corrisponde a un minuto di arco di meridiano terrestre. Sono due unità diverse: non vanno confuse." },
-    { "domanda": "Come converto rapidamente metri in piedi?", "risposta": "Un metro equivale a circa 3,2808 piedi. Per una stima veloce puoi moltiplicare i metri per 3,28; per un valore preciso usa il convertitore, che applica il fattore esatto 1 ft = 0,3048 m. Ad esempio 10 metri corrispondono a 32,808 piedi." },
-    { "domanda": "Perché nel sistema metrico basta spostare la virgola?", "risposta": "Perché i multipli e sottomultipli del metro sono tutti potenze di dieci: da metro a centimetro si moltiplica per 100, da metro a chilometro si divide per 1.000. Non ci sono rapporti irregolari come nel sistema imperiale, dove piedi, pollici e iarde seguono fattori diversi tra loro." },
-    { "domanda": "Le conversioni sono precise?", "risposta": "Sì, si basano sui fattori ufficiali del Sistema Internazionale e sulle definizioni esatte delle unità imperiali (pollice = 2,54 cm, miglio = 1.609,344 m). Il risultato può essere arrotondato per la visualizzazione, ma il calcolo interno mantiene la piena precisione." }
+    {
+      "domanda": "Quanti centimetri è un pollice?",
+      "risposta": "Esattamente 2,54 cm. Il valore non è un'approssimazione: dal 1959 il pollice è definito come 25,4 millimetri."
+    },
+    {
+      "domanda": "Quanto è diverso il miglio nautico da quello terrestre?",
+      "risposta": "Il miglio terrestre vale 1.609,344 m, quello nautico 1.852 m: il nautico è circa il 15% più lungo. Il primo si usa per le distanze stradali nei paesi anglosassoni, il secondo per la navigazione."
+    },
+    {
+      "domanda": "Come si converte un'altezza in piedi e pollici in centimetri?",
+      "risposta": "Trasforma tutto in pollici e moltiplica per 2,54. Per 5 piedi e 10 pollici: 5 × 12 + 10 = 70 pollici, e 70 × 2,54 = 177,8 cm."
+    },
+    {
+      "domanda": "Quanti metri sono 35.000 piedi?",
+      "risposta": "10.668 metri. Un piede è 0,3048 m esatti, quindi 35.000 × 0,3048 = 10.668."
+    }
   ],
-
   "relatedTools": [
     "convertitore-area",
     "convertitore-volume",
     "convertitore-velocita"
   ],
-
-  "disclaimer": "<strong>Conversioni indicative.</strong> I risultati mostrati possono essere arrotondati per la lettura; per usi tecnici o legali verifica sempre le cifre significative necessarie e i fattori di conversione ufficiali.",
-
+  "disclaimer": "<strong>Fattori esatti, risultato arrotondato.</strong> Le unità anglosassoni usate sono quelle internazionali del 1959. Le conversioni sono esatte; il risultato è arrotondato alla sesta cifra decimale per la lettura.",
   "fonti": [
-    { "titolo": "BIPM – Sistema Internazionale di unità (SI)", "dettaglio": "Definizione del metro e delle unità di base", "url": "https://www.bipm.org/en/measurement-units" },
-    { "titolo": "Wikipedia – Unità di misura della lunghezza", "dettaglio": "Fattori di conversione metrico/imperiale", "url": "https://it.wikipedia.org/wiki/Unit%C3%A0_di_misura_della_lunghezza" }
+    {
+      "titolo": "NIST, SP 811 — Appendix B.8, fattori di conversione",
+      "dettaglio": "Pollice, piede, iarda, miglio e miglio nautico in metri",
+      "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b8"
+    },
+    {
+      "titolo": "BIPM, Il Sistema Internazionale di unità (SI Brochure)",
+      "dettaglio": "Definizione del metro e prefissi decimali",
+      "url": "https://www.bipm.org/en/publications/si-brochure"
+    }
   ],
-
   "jsonLd": {
     "type": "SoftwareApplication",
     "applicationCategory": "UtilitiesApplication"

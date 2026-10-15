@@ -2,27 +2,42 @@
   "slug": "convertitore-energia",
   "cluster": "convertitori",
   "tema": "misure",
-  "updated": "2026-07",
-
+  "updated": "2026-10",
   "seo": {
     "title": "Convertitore Energia – Joule, Calorie, kWh e BTU",
     "metaDescription": "Converti l'energia tra joule, kilojoule, calorie, chilocalorie, wattora, kilowattora, elettronvolt e BTU. Utile per bollette, alimenti e calcoli tecnici. Gratis e immediato.",
     "primaryKeyword": "convertitore energia",
     "canonical": "/convertitore-energia/"
   },
-
   "h1": "Convertitore di Energia",
-
-  "intro": "Converti un valore di energia tra le unità più comuni: joule, kilojoule, calorie, chilocalorie, wattora, kilowattora, elettronvolt e BTU. Inserisci il valore, scegli l'unità di partenza e quella di arrivo e ottieni subito il risultato con il fattore applicato. Utile per leggere la bolletta della luce in kWh, confrontare le kcal degli alimenti o svolgere calcoli tecnici e di fisica. Tutto avviene nel tuo browser, senza inviare alcun dato.",
-
+  "intro": "Converti energia fra joule, kilojoule, calorie, kilocalorie, wattora, kilowattora, elettronvolt e BTU. Ti serve per confrontare un consumo elettrico in kWh, leggere un'etichetta alimentare in kJ e kcal o capire la scheda di un condizionatore espressa in BTU. Sotto il risultato compaiono il fattore usato e la conversione inversa.",
   "tool": {
     "logicId": "unita-v1",
     "script": "convertitore-unita.js",
     "cardNote": "8 unità",
     "inputs": [
-      { "id": "valore", "label": "Valore da convertire", "type": "number", "step": "any", "default": 1 },
-      { "id": "da", "label": "Da", "type": "select", "default": "kWh",
-        "options": ["J","kJ","cal","kcal","Wh","kWh","eV","BTU"],
+      {
+        "id": "valore",
+        "label": "Valore da convertire",
+        "type": "number",
+        "step": "any",
+        "default": 1
+      },
+      {
+        "id": "da",
+        "label": "Da",
+        "type": "select",
+        "default": "kWh",
+        "options": [
+          "J",
+          "kJ",
+          "cal",
+          "kcal",
+          "Wh",
+          "kWh",
+          "eV",
+          "BTU"
+        ],
         "optionLabels": {
           "J": "Joule (J)",
           "kJ": "Kilojoule (kJ)",
@@ -34,8 +49,21 @@
           "BTU": "British Thermal Unit (BTU)"
         }
       },
-      { "id": "a", "label": "A", "type": "select", "default": "kcal",
-        "options": ["J","kJ","cal","kcal","Wh","kWh","eV","BTU"],
+      {
+        "id": "a",
+        "label": "A",
+        "type": "select",
+        "default": "kcal",
+        "options": [
+          "J",
+          "kJ",
+          "cal",
+          "kcal",
+          "Wh",
+          "kWh",
+          "eV",
+          "BTU"
+        ],
         "optionLabels": {
           "J": "Joule (J)",
           "kJ": "Kilojoule (kJ)",
@@ -48,42 +76,110 @@
         }
       }
     ],
-    "outputPrimary": { "id": "risultato", "label": "Risultato", "format": "text" },
+    "outputPrimary": {
+      "id": "risultato",
+      "label": "Risultato",
+      "format": "text"
+    },
     "outputSecondary": [
-      { "id": "formula", "label": "Fattore di conversione", "format": "text" }
+      {
+        "id": "formula",
+        "label": "Fattore di conversione",
+        "format": "text"
+      }
     ]
   },
-
   "spiegazione": {
-    "titolo": "Le unità di energia e dove le incontri",
-    "corpo": "L'energia è la capacità di compiere un lavoro e la sua unità nel Sistema Internazionale è il joule (J). Molte altre unità, però, sono nate in ambiti diversi e restano di uso comune: questo convertitore riporta tutto al joule e poi trasforma nell'unità di arrivo. Le equivalenze fondamentali: 1 kilojoule (kJ) vale 1.000 J; la caloria (cal), definita come l'energia per scaldare un grammo d'acqua di un grado, equivale a 4,184 J, mentre la chilocaloria (kcal) — quella delle etichette alimentari, spesso scritta impropriamente 'Caloria' con la maiuscola — vale 4.184 J. Il wattora (Wh) misura l'energia di una potenza di un watt erogata per un'ora e vale 3.600 J; il suo multiplo kilowattora (kWh), l'unità della bolletta elettrica, vale 3,6 milioni di joule. Da qui una conversione utile: 1 kWh corrisponde a circa 860 kcal. L'elettronvolt (eV) è invece minuscolo, l'energia acquisita da un elettrone attraverso un volt di differenza di potenziale (circa 1,602 × 10⁻¹⁹ J), ed è lo standard della fisica atomica e delle particelle. Il BTU (British Thermal Unit) è diffuso nel mondo anglosassone per riscaldamento e condizionamento e vale circa 1.055 J: la potenza dei climatizzatori è spesso indicata in BTU/h. Attenzione a non confondere energia e potenza: il watt è potenza (energia nel tempo), il wattora è energia. Un elettrodomestico da 2.000 W acceso per mezz'ora consuma 1 kWh."
+    "titolo": "Joule, calorie, kilowattora e BTU",
+    "corpo": [
+      "Il joule è l'unità di energia del Sistema Internazionale. Il wattora è l'energia di un watt mantenuto per un'ora, cioè 3.600 joule; il kilowattora, l'unità con cui si misurano i consumi elettrici, vale 3,6 milioni di joule. Watt e wattora non sono intercambiabili: il primo è una potenza, il secondo un'energia.",
+      "La caloria usata qui è quella termochimica, definita come 4,184 joule esatti: una kilocaloria vale quindi 4,184 kilojoule. Il Regolamento UE 1169/2011 chiede che il valore energetico in etichetta sia espresso sia in kJ sia in kcal. Nella dicitura sull'assunzione di riferimento di un adulto medio, «8.400 kJ / 2.000 kcal», i due valori sono arrotondati: con il fattore esatto 2.000 kcal corrispondono a 8.368 kJ.",
+      "Il BTU (British Thermal Unit) usato qui è quello della tabella internazionale, 1.055,05585262 joule. Quando la scheda di un condizionatore indica 9.000 BTU si tratta di BTU all'ora, cioè di una potenza: 9.000 × 1.055,06 joule divisi per 3.600 secondi danno circa 2.638 watt, quindi circa 2,64 kW.",
+      "L'elettronvolt è l'energia che acquista un elettrone accelerato da una differenza di potenziale di un volt. Dalla revisione del Sistema Internazionale del 2019 vale esattamente 1,602176634 × 10⁻¹⁹ joule: è un'unità della fisica, non dei consumi domestici."
+    ]
   },
-
   "esempi": [
-    { "titolo": "1 kWh in kcal", "risultatoAtteso": "≈ 860,4 kcal" },
-    { "titolo": "500 kcal in kJ", "risultatoAtteso": "= 2.092 kJ (una porzione di cibo)" },
-    { "titolo": "1 BTU in joule", "risultatoAtteso": "≈ 1.055 J" }
+    {
+      "titolo": "1 kWh in kilocalorie",
+      "risultatoAtteso": "860,42065 kcal",
+      "verifica": {
+        "input": {
+          "valore": 1,
+          "da": "kWh",
+          "a": "kcal"
+        },
+        "campo": "risultato",
+        "testo": "860,42065 kcal"
+      }
+    },
+    {
+      "titolo": "Le 2.000 kcal dell'etichetta in kJ, con il fattore esatto",
+      "risultatoAtteso": "8368 kJ",
+      "verifica": {
+        "input": {
+          "valore": 2000,
+          "da": "kcal",
+          "a": "kJ"
+        },
+        "campo": "risultato",
+        "testo": "8368 kJ"
+      }
+    },
+    {
+      "titolo": "Un condizionatore da 9.000 BTU/h: l'energia di un'ora in kWh",
+      "risultatoAtteso": "2,63764 kWh",
+      "verifica": {
+        "input": {
+          "valore": 9000,
+          "da": "BTU",
+          "a": "kWh"
+        },
+        "campo": "risultato",
+        "testo": "2,63764 kWh"
+      }
+    }
   ],
-
   "faq": [
-    { "domanda": "Quante kcal ci sono in un kWh?", "risposta": "Circa 860,4 chilocalorie. Un kilowattora vale 3,6 milioni di joule e una chilocaloria vale 4.184 joule, quindi dividendo si ottengono circa 860 kcal. È una conversione utile per confrontare l'energia elettrica con quella termica o alimentare, anche se i due tipi di energia non sono intercambiabili nella pratica." },
-    { "domanda": "Le calorie del cibo sono le stesse della fisica?", "risposta": "Quasi sempre no. Sulle etichette alimentari la 'Caloria' con la maiuscola indica in realtà una chilocaloria (kcal), cioè 1.000 calorie fisiche. Quando leggi che un alimento ha 200 kcal, in unità fisiche sono 200.000 calorie o circa 837 kJ. Questo convertitore distingue chiaramente la caloria (cal) dalla chilocaloria (kcal)." },
-    { "domanda": "Qual è la differenza tra watt e wattora?", "risposta": "Il watt (W) è una potenza, cioè energia per unità di tempo; il wattora (Wh) è un'energia, pari alla potenza di un watt mantenuta per un'ora. Un apparecchio da 1.000 W acceso per un'ora consuma 1.000 Wh, cioè 1 kWh. In bolletta paghi i kWh (energia), non i watt (potenza istantanea)." },
-    { "domanda": "Cos'è un BTU e perché si usa per i condizionatori?", "risposta": "Il BTU (British Thermal Unit) è l'energia necessaria per scaldare una libbra d'acqua di un grado Fahrenheit e vale circa 1.055 joule. Nel settore del riscaldamento e del condizionamento la capacità di un apparecchio si esprime spesso in BTU all'ora (BTU/h): più alto il valore, maggiore la potenza termica o frigorifera." }
+    {
+      "domanda": "Quante kilocalorie ci sono in un kWh?",
+      "risposta": "Circa 860,42. Un kilowattora vale 3.600.000 joule e una kilocaloria 4.184 joule: 3.600.000 / 4.184 = 860,42. Il calcolo usa la caloria termochimica."
+    },
+    {
+      "domanda": "Perché le etichette alimentari riportano sia kJ sia kcal?",
+      "risposta": "Perché il Regolamento UE 1169/2011 sull'informazione ai consumatori chiede di esprimere il valore energetico in entrambe le unità. Il kilojoule è l'unità del Sistema Internazionale, la kilocaloria quella più familiare: 1 kcal = 4,184 kJ."
+    },
+    {
+      "domanda": "Che differenza c'è fra watt e wattora?",
+      "risposta": "Il watt misura una potenza, cioè quanta energia si usa in ogni istante; il wattora misura un'energia, cioè quanta se ne è usata in un certo tempo. Un apparecchio da 2.000 watt acceso per due ore consuma 4.000 wattora, cioè 4 kWh."
+    },
+    {
+      "domanda": "Come si convertono i BTU di un condizionatore in kW?",
+      "risposta": "I BTU indicati su un condizionatore sono BTU all'ora. Si dividono per circa 3.412: 9.000 BTU/h sono circa 2,64 kW, 12.000 BTU/h circa 3,52 kW. Il fattore deriva da 3.600.000 joule (un kWh) divisi per 1.055,06 joule (un BTU)."
+    }
   ],
-
   "relatedTools": [
     "convertitore-pressione",
     "convertitore-temperatura",
     "convertitore-peso"
   ],
-
-  "disclaimer": "<strong>Valori indicativi.</strong> Le conversioni sono matematicamente esatte in base ai fattori standard; energie di tipo diverso (elettrica, termica, alimentare) non sono intercambiabili nella pratica pur avendo la stessa unità. Nessun dato viene inviato o salvato.",
-
+  "disclaimer": "<strong>Fattori esatti, risultato arrotondato.</strong> Caloria termochimica (4,184 J) e BTU della tabella internazionale. Le conversioni sono esatte; il risultato è arrotondato alla sesta cifra decimale per la lettura.",
   "fonti": [
-    { "titolo": "BIPM — Sistema Internazionale di unità (SI)", "dettaglio": "definizione del joule e delle unità di energia", "url": "https://www.bipm.org/en/measurement-units" }
+    {
+      "titolo": "NIST, SP 811 — Appendix B.8, fattori di conversione",
+      "dettaglio": "Caloria termochimica 4,184 J; BTU della tabella internazionale 1.055,05585262 J",
+      "url": "https://www.nist.gov/pml/special-publication-811/nist-guide-si-appendix-b-conversion-factors/nist-guide-si-appendix-b8"
+    },
+    {
+      "titolo": "BIPM, Il Sistema Internazionale di unità (SI Brochure)",
+      "dettaglio": "Joule; valore esatto dell'elettronvolt dalla revisione del 2019",
+      "url": "https://www.bipm.org/en/publications/si-brochure"
+    },
+    {
+      "titolo": "Regolamento (UE) n. 1169/2011, testo consolidato",
+      "dettaglio": "Valore energetico in kJ e kcal; assunzione di riferimento 8.400 kJ / 2.000 kcal",
+      "url": "https://eur-lex.europa.eu/legal-content/IT/TXT/HTML/?uri=CELEX:02011R1169-20250401"
+    }
   ],
-
   "jsonLd": {
     "type": "SoftwareApplication",
     "applicationCategory": "UtilitiesApplication"

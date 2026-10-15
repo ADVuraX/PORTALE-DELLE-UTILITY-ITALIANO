@@ -1,0 +1,67 @@
+{
+  "slug": "cookie",
+  "ordine": 4,
+  "gruppo": "legale",
+  "etichetta": "Cookie",
+  "titolo": "Cookie policy",
+  "kicker": "Informazioni legali",
+  "aggiornato": "2026-10",
+  "seo": {
+    "title": "Cookie policy — {{brand}}",
+    "metaDescription": "Quali cookie e strumenti di memorizzazione usa il sito, a cosa servono, quali richiedono il tuo consenso e come cambiare le tue scelte in qualsiasi momento."
+  },
+  "lede": "Un cookie è un piccolo file che un sito salva nel tuo browser; strumenti simili, come il localStorage, funzionano allo stesso modo. Qui trovi quali usa {{dominio}}, a cosa servono e come gestirli, secondo le linee guida del Garante privacy del 2021.",
+  "sezioni": [
+    {
+      "titolo": "Cosa usa oggi il sito",
+      "condizione": "!annunci",
+      "paragrafi": [
+        "Al momento il sito **non usa cookie di profilazione né cookie pubblicitari**, e per questo non mostra un banner di consenso. L'unica informazione salvata nel tuo browser è la preferenza per il tema chiaro o scuro, se la scegli. Questa pagina verrà aggiornata, e il banner attivato, prima dell'introduzione di qualsiasi cookie che richieda il tuo consenso."
+      ]
+    },
+    {
+      "titolo": "Come funziona il consenso",
+      "condizione": "annunci",
+      "paragrafi": [
+        "Il sito usa strumenti tecnici, che non richiedono consenso, e cookie pubblicitari di Google e dei suoi partner, che vengono usati **solo se li accetti**. Alla prima visita un banner ti chiede la tua scelta: «Accetta» e «Rifiuta» hanno la stessa evidenza, e chiudere il banner equivale a rifiutare. Scorrere la pagina o continuare la navigazione non vale come consenso, e non ci sono caselle già selezionate. Puoi cambiare idea in ogni momento dal link «Preferenze cookie» in fondo a ogni pagina."
+      ]
+    },
+    {
+      "titolo": "Strumenti tecnici",
+      "paragrafi": [
+        "Sono necessari a fornirti una funzione che hai chiesto e non richiedono consenso (art. 122 del Codice privacy)."
+      ],
+      "elenco": [
+        "**Preferenza del tema** — chiave «theme» nel localStorage del browser: ricorda se hai scelto il tema chiaro o scuro. Resta finché non la cancelli.",
+        "**Registrazione delle tue scelte sui cookie** — quando il banner è attivo, la piattaforma di gestione del consenso salva nel browser un cookie tecnico con le tue preferenze, per non chiedertele a ogni pagina."
+      ]
+    },
+    {
+      "titolo": "Statistiche senza cookie",
+      "condizione": "analytics",
+      "paragrafi": [
+        "Il sito misura le visite con Cloudflare Web Analytics, che non usa cookie né salva informazioni nel tuo browser: per questo non rientra fra gli strumenti che richiedono consenso. Dettagli nell'[informativa sulla privacy](/privacy/)."
+      ]
+    },
+    {
+      "titolo": "Cookie pubblicitari",
+      "condizione": "annunci",
+      "paragrafi": [
+        "Gli annunci sono forniti da Google AdSense. Con il tuo consenso Google e i fornitori terzi suoi partner usano cookie per mostrarti annunci basati sulle visite a questo e ad altri siti, limitare il numero di volte che vedi lo stesso annuncio e misurarne l'efficacia. L'elenco completo dei fornitori e delle finalità è consultabile dal banner, alla voce delle opzioni di gestione.",
+        "Questi cookie sono di terze parti: li gestisce Google come titolare autonomo, secondo le proprie regole. Puoi approfondire su [come Google usa i dati dei siti partner](https://policies.google.com/technologies/partner-sites) e disattivare la pubblicità personalizzata dalle [impostazioni degli annunci di Google](https://adssettings.google.com)."
+      ]
+    },
+    {
+      "titolo": "Come gestire i cookie",
+      "paragrafi": [
+        "Puoi rivedere le tue scelte in ogni momento dal link «Preferenze cookie» in fondo a ogni pagina. Puoi anche cancellare i cookie e i dati dei siti dalle impostazioni del browser, oppure bloccarli del tutto: in quel caso il sito continua a funzionare, ma non ricorderà il tema scelto e, se presenti, ti chiederà di nuovo il consenso."
+      ]
+    },
+    {
+      "titolo": "Titolare e contatti",
+      "paragrafi": [
+        "Il titolare del trattamento è {{titolare}}, raggiungibile a [{{email}}](mailto:{{email}}). Per finalità, basi giuridiche e diritti vedi l'[informativa sulla privacy](/privacy/)."
+      ]
+    }
+  ]
+}

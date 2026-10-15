@@ -20,12 +20,17 @@ import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
-import { validateTool, validateSite } from "./lib/validate.mjs";
-import { renderToolPage, renderHome, renderClusterPage, renderSitemap } from "./lib/template.mjs";
+import { validateTool, validateSite, validatePages } from "./lib/validate.mjs";
+import { controllaQualita } from "./lib/qualita.mjs";
+import {
+  renderToolPage, renderHome, renderClusterPage, renderInfoPage, renderSitemap,
+  renderRobots, renderAdsTxt, impostaPaginePiede,
+} from "./lib/template.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const CONTENT = path.join(ROOT, "content");
 const TOOLS_DIR = path.join(CONTENT, "tools");
+const PAGES_DIR = path.join(CONTENT, "pagine");
 const PUBLIC = path.join(ROOT, "public");
 const CALC_DIR = path.join(PUBLIC, "assets", "js", "calculators");
 
@@ -78,6 +83,11 @@ async function main() {
   const configs = [];
   for (const f of toolFiles) configs.push(await readJson(path.join(TOOLS_DIR, f)));
 
+  const pageFiles = (await readdir(PAGES_DIR).catch(() => [])).filter((f) => f.endsWith(".json"));
+  const pages = [];
+  for (const f of pageFiles) pages.push(await readJson(path.join(PAGES_DIR, f)));
+  pages.sort((a, b) => (a.ordine || 99) - (b.ordine || 99));
+
   const scriptFiles = new Set(
     (await readdir(CALC_DIR).catch(() => [])).filter((f) => f.endsWith(".js"))
   );
@@ -96,6 +106,12 @@ async function main() {
   const siteRes = validateSite(configs, site);
   errors.push(...siteRes.errors);
   warnings.push(...siteRes.warnings);
+  errors.push(...validatePages(pages, configs, site).errors);
+
+  // Livello 4 del metodo di verifica: qualità editoriale (docs/verifica/metodo.md).
+  const q = controllaQualita(configs, site, pages);
+  errors.push(...q.errors);
+  warnings.push(...q.warnings);
 
   warnings.forEach((w) => console.log(YEL("  ⚠ " + w)));
   if (errors.length) {
@@ -103,6 +119,8 @@ async function main() {
     console.log(RED(`\nBuild interrotta: ${errors.length} error${errors.length === 1 ? "e" : "i"}.`));
     process.exit(1);
   }
+
+  impostaPaginePiede(pages);
 
   // --- Generazione: pagine tool ---
   for (const cfg of configs) {
@@ -118,12 +136,21 @@ async function main() {
     console.log(CYN(`  ✓ ${DIM("/")}${key}/ ${DIM(`(area · ${inCluster.length} tool)`)}`));
   }
 
-  // --- Generazione: home + sitemap ---
-  await writeFile(path.join(PUBLIC, "index.html"), renderHome(site, configs, ver), "utf8");
-  await writeFile(path.join(PUBLIC, "sitemap.xml"), renderSitemap(site, configs), "utf8");
+  // --- Generazione: pagine istituzionali ---
+  for (const pg of pages) {
+    await emit(pg.slug, renderInfoPage(pg, site, ver));
+    console.log(DIM(`  ✓ /${pg.slug}/ (pagina)`));
+  }
 
-  const total = configs.length + clusterKeys.length + 1;
-  console.log(GRN(`\n✓ ${configs.length} tool + ${clusterKeys.length} aree + homepage = ${total} URL, sitemap inclusa.`));
+  // --- Generazione: home, sitemap, robots, ads.txt ---
+  await writeFile(path.join(PUBLIC, "index.html"), renderHome(site, configs, ver), "utf8");
+  await writeFile(path.join(PUBLIC, "sitemap.xml"), renderSitemap(site, configs, pages), "utf8");
+  await writeFile(path.join(PUBLIC, "robots.txt"), renderRobots(site), "utf8");
+  const adsTxt = renderAdsTxt(site);
+  if (adsTxt) await writeFile(path.join(PUBLIC, "ads.txt"), adsTxt, "utf8");
+
+  const total = configs.length + clusterKeys.length + pages.length + 1;
+  console.log(GRN(`\n✓ ${configs.length} tool + ${clusterKeys.length} aree + ${pages.length} pagine + homepage = ${total} URL, sitemap inclusa.`));
   if (warnings.length) console.log(YEL(`  (${warnings.length} warning — non bloccanti)`));
   if (site.domain.includes("TUO-DOMINIO")) {
     console.log(DIM("  Nota: dominio ancora placeholder in content/site.json (domain)."));

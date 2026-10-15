@@ -62,6 +62,60 @@ function searchIndex(cfg, clusterLabel) {
   return parts.filter(Boolean).join(" ").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
 }
 
+/** Host del dominio configurato ("https://esempio.it" → "esempio.it"). */
+const hostOf = (site) => {
+  try { return new URL(site.domain).hostname; } catch (e) { return site.domain; }
+};
+/** Email di contatto: esplicita in site.json, altrimenti info@<dominio>. */
+const emailOf = (site) => (site.titolare && site.titolare.email) || `info@${hostOf(site)}`;
+
+/**
+ * Mini-markup per i testi lunghi (pagine istituzionali, sezioni delle guide):
+ * tutto viene prima escapato, poi si riconoscono solo
+ *   {{brand}} {{dominio}} {{url}} {{titolare}} {{email}}   segnaposto da site.json
+ *   [testo](https://…) [testo](/percorso/) [testo](mailto:…)   link
+ *   **testo**                                                 grassetto
+ * Nessun HTML arbitrario passa: il contenuto resta dati, non codice.
+ */
+export function inline(s, site) {
+  const valori = site ? {
+    brand: site.brand, dominio: hostOf(site), url: site.domain,
+    titolare: (site.titolare && site.titolare.nome) || "", email: emailOf(site),
+  } : {};
+  let out = esc(s).replace(/\{\{(\w+)\}\}/g, (m, k) => (k in valori ? esc(valori[k]) : m));
+  out = out.replace(/\[([^\]]+)\]\(((?:https?:\/\/|\/|mailto:)[^)\s]*)\)/g, (m, t, href) => {
+    const est = /^https?:/.test(href);
+    return `<a href="${href}"${est ? ' target="_blank" rel="noopener"' : ""}>${t}</a>`;
+  });
+  return out.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+}
+
+/**
+ * Spiegazione di un tool: `corpo` (stringa o array di paragrafi) seguito da
+ * `sezioni` facoltative [{ titolo, paragrafi, elenco }], rese con h3.
+ */
+function spiegazioneHtml(sp, site) {
+  const corpo = sp.corpo == null ? [] : Array.isArray(sp.corpo) ? sp.corpo : [sp.corpo];
+  return corpo.map((p) => `<p>${inline(p, site)}</p>`).join("\n") +
+    (sp.sezioni || []).map((s) => sezioneHtml(s, site)).join("\n");
+}
+
+/** Segnaposto {{...}} risolti in testo semplice (titoli, meta description). */
+function piano(s, site) {
+  const valori = { brand: site.brand, dominio: hostOf(site), url: site.domain,
+    titolare: (site.titolare && site.titolare.nome) || "", email: emailOf(site) };
+  return String(s || "").replace(/\{\{(\w+)\}\}/g, (m, k) => (k in valori ? valori[k] : m));
+}
+
+/** Paragrafi + elenco di una sezione in prosa. */
+function sezioneHtml(s, site, livello = "h3") {
+  const tit = s.titolo ? `<${livello}>${inline(s.titolo, site)}</${livello}>` : "";
+  const par = (s.paragrafi || []).map((p) => `<p>${inline(p, site)}</p>`).join("\n");
+  const el = s.elenco && s.elenco.length
+    ? `<ul>${s.elenco.map((x) => `<li>${inline(x, site)}</li>`).join("")}</ul>` : "";
+  return `${tit}${par}${el}`;
+}
+
 /** Prime `n` frasi di un testo (per il sommario) + il resto (per il corpo). */
 function splitIntro(text, n = 2) {
   const parts = String(text || "").split(/(?<=\.)\s+/);
@@ -74,7 +128,27 @@ const ICON = {
   theme: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg>',
 };
 
-function head(site, { title, description, canonical, jsonLdBlocks = [] }, ver) {
+/**
+ * Script di terze parti, tutti pilotati da site.json:
+ *  - annunci.client → meta di verifica AdSense (serve già in fase di candidatura);
+ *  - annunci.attivi → libreria AdSense. La CMP certificata (Google "Privacy e
+ *    messaggi") viene servita da questa stessa libreria quando è attivata nella
+ *    console AdSense: nessun banner da scrivere a mano.
+ *  - analytics.cloudflareToken → beacon Cloudflare Web Analytics (senza cookie).
+ */
+function terzeParti(site) {
+  const a = site.annunci || {};
+  const out = [];
+  if (a.client) out.push(`<meta name="google-adsense-account" content="${esc(a.client)}">`);
+  if (a.client && a.attivi) {
+    out.push(`<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${esc(a.client)}" crossorigin="anonymous"></script>`);
+  }
+  const t = site.analytics && site.analytics.cloudflareToken;
+  if (t) out.push(`<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='${esc(JSON.stringify({ token: t }))}'></script>`);
+  return out.join("\n");
+}
+
+function head(site, { title, description, canonical, jsonLdBlocks = [], noindex = false }, ver) {
   const url = site.domain + canonical;
   const ld = jsonLdBlocks
     .map((b) => `<script type="application/ld+json">${JSON.stringify(b)}</script>`)
@@ -86,15 +160,17 @@ function head(site, { title, description, canonical, jsonLdBlocks = [] }, ver) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
-<link rel="canonical" href="${esc(url)}">
+<link rel="canonical" href="${esc(url)}">${noindex ? '\n<meta name="robots" content="noindex, follow">' : ""}
 <meta property="og:type" content="website">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${esc(url)}">
 <script>(function(){try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
-window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribute("data-theme"),sysDark=matchMedia("(prefers-color-scheme:dark)").matches,next=cur?(cur==="dark"?"light":"dark"):(sysDark?"light":"dark");d.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}var b=document.querySelector(".theme-toggle");if(b)b.setAttribute("aria-pressed",String(next==="dark"));};</script>
+window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribute("data-theme"),sysDark=matchMedia("(prefers-color-scheme:dark)").matches,next=cur?(cur==="dark"?"light":"dark"):(sysDark?"light":"dark");d.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}var b=document.querySelector(".theme-toggle");if(b)b.setAttribute("aria-pressed",String(next==="dark"));};
+window.__cookiePrefs=function(){var g=window.googlefc;if(g&&typeof g.showRevocationMessage==="function"){g.showRevocationMessage();return;}location.href="/cookie/";};</script>
 <link rel="stylesheet" href="${withV("/assets/css/fonts.css", ver)}">
 <link rel="stylesheet" href="${withV("/assets/css/tokens.css", ver)}">
+${terzeParti(site)}
 ${ld}
 </head>`;
 }
@@ -121,10 +197,22 @@ function header(site, { nav = null, crumbs = null } = {}) {
 </header>`;
 }
 
-/** Piede: marchio + indice delle quattro aree (link interni su ogni pagina). */
+/**
+ * Elenco delle pagine istituzionali per il piede, impostato da build.mjs
+ * (renderToolPage & co. non lo ricevono come parametro: è uguale ovunque).
+ */
+let PAGINE_PIEDE = [];
+export function impostaPaginePiede(pagine) {
+  PAGINE_PIEDE = pagine.map((p) => ({ slug: p.slug, label: p.etichetta || p.titolo, gruppo: p.gruppo }));
+}
+
+/** Piede: marchio, aree, pagine istituzionali, preferenze cookie. */
 function footer(site) {
-  const links = Object.entries(site.clusters)
+  const aree = Object.entries(site.clusters)
     .map(([k, c]) => `<li><a href="/${esc(k)}/">${esc(c.label)}</a></li>`)
+    .join("");
+  const istituzionali = PAGINE_PIEDE
+    .map((p) => `<li><a href="/${esc(p.slug)}/">${esc(p.label)}</a></li>`)
     .join("");
   return `<footer class="foot"><div class="wrap">
     <div class="foot-grid">
@@ -132,7 +220,10 @@ function footer(site) {
         <a class="foot-brand" href="/">${esc(site.brand.replace(site.brandAccent, ""))}<b>${esc(site.brandAccent)}</b></a>
         <p class="foot-note">${esc(site.home.intro.split(". ")[0])}.</p>
       </div>
-      <ul class="foot-links">${links}</ul>
+      <div class="foot-cols">
+        <div><p class="foot-h">Aree</p><ul class="foot-links">${aree}</ul></div>
+        <div><p class="foot-h">Il sito</p><ul class="foot-links">${istituzionali}<li><button type="button" class="foot-cookie" onclick="__cookiePrefs()">Preferenze cookie</button></li></ul></div>
+      </div>
     </div>
     <p class="foot-base">${esc(site.footer)}</p>
   </div></footer>`;
@@ -152,23 +243,34 @@ const searchBox = (placeholder, label) => `<form class="search" role="search" on
         </div>
       </form>`;
 
-/* ---------- Spazi pubblicitari (AdSense non ancora attivo) ---------- */
-const adSlot = (cls, dim) =>
-  `<div class="ad-slot ${cls}"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">${esc(dim)}</span></div>`;
-const adRails =
-  `<div class="ad-rail ad-rail-l" aria-hidden="true">${adSlot("ad-sky", "160×600")}</div>` +
-  `<div class="ad-rail ad-rail-r" aria-hidden="true">${adSlot("ad-sky", "160×600")}</div>`;
-const adMiniRow = `<section class="ad-mini-sec"><div class="wrap"><div class="ad-mini-grid">${
-  [0, 1].map(() => adSlot("ad-mini", "300×250")).join("")
-}</div></div></section>`;
-const adAnchor = `<div class="ad-anchor" id="adAnchor" data-expanded="false">
-  <div class="ad-anchor-tools">
-    <button type="button" class="ad-anchor-btn" data-ad-toggle aria-expanded="false">Espandi</button>
-    <button type="button" class="ad-anchor-btn ad-anchor-close" data-ad-close aria-label="Chiudi annuncio">×</button>
-  </div>
-  ${adSlot("ad-anchor-slot", "responsive · espandibile")}
-</div>
-<script>(function(){var a=document.getElementById("adAnchor");if(!a)return;var t=a.querySelector("[data-ad-toggle]"),c=a.querySelector("[data-ad-close]");if(t)t.addEventListener("click",function(){var e=a.getAttribute("data-expanded")==="true";a.setAttribute("data-expanded",String(!e));t.setAttribute("aria-expanded",String(!e));t.textContent=e?"Espandi":"Riduci";});if(c)c.addEventListener("click",function(){a.setAttribute("data-hidden","true");});})();</script>`;
+/* ---------- Spazi pubblicitari ----------
+ * Conformi alle norme AdSense (vedi docs/verifica/metodo.md, livello 3):
+ *  - un solo annuncio fisso, solo desktop largo, ≤ 300 px, mai speculare;
+ *  - nessun contenitore mobile fatto in casa: l'annuncio ancorato in basso è
+ *    il formato ufficiale Google, da attivare nella console AdSense;
+ *  - nessun annuncio a ridosso dei pulsanti degli strumenti (solo in fondo);
+ *  - etichetta "Pubblicità", l'unica forma descrittiva ammessa oltre "Annunci".
+ * Stati (site.json → annunci): attivi + slot → unità reali; altrimenti
+ * mostraSegnaposto → riquadri di anteprima; altrimenti niente. */
+function adSlot(site, nome, cls, dim) {
+  const a = site.annunci || {};
+  const slot = a.slot && a.slot[nome];
+  if (a.attivi && a.client && slot) {
+    return `<div class="ad-unit ${cls}"><span class="ad-lbl">Pubblicità</span><ins class="adsbygoogle" style="display:block" data-ad-client="${esc(a.client)}" data-ad-slot="${esc(slot)}" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div>`;
+  }
+  if (a.mostraSegnaposto) {
+    return `<div class="ad-slot ${cls}"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">${esc(dim)}</span></div>`;
+  }
+  return "";
+}
+const adRail = (site) => {
+  const s = adSlot(site, "rail", "ad-sky", "160×600 · solo desktop");
+  return s ? `<div class="ad-rail" aria-hidden="true">${s}</div>` : "";
+};
+const adFondo = (site) => {
+  const s = ["fondo1", "fondo2"].map((n) => adSlot(site, n, "ad-mini", "300×250")).join("");
+  return s ? `<section class="ad-mini-sec"><div class="wrap"><div class="ad-mini-grid">${s}</div></div></section>` : "";
+};
 
 /* ---------- Form del tool ---------- */
 
@@ -414,7 +516,7 @@ export function renderToolPage(cfg, site, toolsBySlug, ver) {
   sections.push(`<section class="section">
     <div class="wrap">
       ${secHead(++n, cfg.spiegazione.titolo)}
-      <div class="prose"><p>${esc(cfg.spiegazione.corpo)}</p></div>
+      <div class="prose">${spiegazioneHtml(cfg.spiegazione, site)}</div>
     </div>
   </section>`);
   sections.push(`<section class="section">
@@ -469,7 +571,7 @@ ${header(site, {
   crumbs: `<a href="/">Home</a> / <a href="/${esc(cfg.cluster)}/">${esc(cluster.label)}</a> / <span>${esc(shortName(cfg))}</span>`,
 })}
 
-${adRails}
+${adRail(site)}
 
 <main>
   <section class="lead">
@@ -511,10 +613,8 @@ ${adRails}
 ${sections.join("\n")}
 </main>
 
-${adMiniRow}
-<div class="ad-anchor-spacer" aria-hidden="true"></div>
+${adFondo(site)}
 ${footer(site)}
-${adAnchor}
 
 <script src="${withV("/assets/js/runtime.js", ver)}"></script>
 ${(tool.data || []).map((d) => `<script src="${withV("/assets/js/data/" + d, ver)}"></script>`).join("\n")}
@@ -602,7 +702,7 @@ export function renderHome(site, tools, ver) {
 
 ${header(site, { nav: true })}
 
-${adRails}
+${adRail(site)}
 
 <main>
   <section class="lead">
@@ -629,10 +729,8 @@ ${adRails}
   </section>
 </main>
 
-${adMiniRow}
-<div class="ad-anchor-spacer" aria-hidden="true"></div>
+${adFondo(site)}
 ${footer(site)}
-${adAnchor}
 
 <script src="${withV("/assets/js/search.js", ver)}"></script>
 </body>
@@ -728,7 +826,7 @@ export function renderClusterPage(site, key, tools, ver) {
 
 ${header(site, { nav: key })}
 
-${adRails}
+${adRail(site)}
 
 <main>
   <section class="lead">
@@ -785,10 +883,8 @@ ${adRails}
   </section>
 </main>
 
-${adMiniRow}
-<div class="ad-anchor-spacer" aria-hidden="true"></div>
+${adFondo(site)}
 ${footer(site)}
-${adAnchor}
 
 <script src="${withV("/assets/js/search.js", ver)}"></script>
 </body>
@@ -796,13 +892,102 @@ ${adAnchor}
 `;
 }
 
-/* ================= SITEMAP ================= */
+/* ================= PAGINA ISTITUZIONALE ================= */
 
-/** sitemap.xml: home + le quattro pagine area + tutti i tool. */
-export function renderSitemap(site, tools) {
+/**
+ * Pagine del sito (privacy, cookie, note legali, metodologia, chi siamo,
+ * contatti) da content/pagine/{slug}.json. Stessa griglia delle altre pagine;
+ * il testo passa da inline(): segnaposto e link, nessun HTML libero.
+ */
+/**
+ * Una sezione può dipendere dalla configurazione del sito, così l'informativa
+ * descrive ciò che il sito fa davvero e non ciò che potrebbe fare:
+ *   condizione: "annunci"   → solo se annunci.client è compilato
+ *   condizione: "analytics" → solo se analytics.cloudflareToken è compilato
+ *   condizione: "!annunci"  → solo se gli annunci NON sono configurati
+ */
+export function sezioneAttiva(s, site) {
+  if (!s.condizione) return true;
+  const neg = s.condizione.startsWith("!");
+  const k = s.condizione.replace(/^!/, "");
+  const attivo = k === "annunci" ? !!(site.annunci && site.annunci.client)
+    : k === "analytics" ? !!(site.analytics && site.analytics.cloudflareToken)
+    : false;
+  return neg ? !attivo : attivo;
+}
+
+export function renderInfoPage(p, site, ver) {
+  const updated = fmtUpdated(p.aggiornato);
+  let n = 0;
+  const sezioni = (p.sezioni || [])
+    .filter((s) => sezioneAttiva(s, site))
+    .map((s) => `<section class="section">
+    <div class="wrap">
+      ${secHead(++n, s.titolo)}
+      <div class="prose">${sezioneHtml({ ...s, titolo: "" }, site)}${(s.sottosezioni || []).map((x) => sezioneHtml(x, site)).join("\n")}</div>
+    </div>
+  </section>`)
+    .join("\n");
+
+  const meta = [
+    updated ? `<li><span class="mk">Aggiornato</span><span class="mv">${esc(updated)}</span></li>` : "",
+    p.versione ? `<li><span class="mk">Versione</span><span class="mv">${esc(p.versione)}</span></li>` : "",
+  ].filter(Boolean).join("");
+
+  return `${head(site, {
+    title: piano(p.seo.title, site),
+    description: piano(p.seo.metaDescription, site),
+    canonical: `/${p.slug}/`,
+    noindex: p.indicizza === false,
+    jsonLdBlocks: [{
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: site.domain + "/" },
+        { "@type": "ListItem", position: 2, name: p.titolo, item: `${site.domain}/${p.slug}/` },
+      ],
+    }],
+  }, ver)}
+<body>
+
+<a class="skip" href="#contenuto">Salta al contenuto</a>
+
+${header(site, { crumbs: `<a href="/">Home</a> / <span>${esc(p.etichetta || p.titolo)}</span>` })}
+
+<main id="contenuto">
+  <section class="lead">
+    <div class="wrap">
+      <p class="kicker"><b>${esc(p.kicker || "Il sito")}</b></p>
+      <div class="lead-grid">
+        <div class="lead-main">
+          <h1>${esc(p.titolo)}</h1>
+        </div>
+        <div class="lead-side">
+          <p class="lede">${inline(p.lede, site)}</p>
+          ${meta ? `<ul class="meta">${meta}</ul>` : ""}
+        </div>
+      </div>
+    </div>
+  </section>
+
+${sezioni}
+</main>
+
+${footer(site)}
+</body>
+</html>
+`;
+}
+
+/* ================= SITEMAP, ROBOTS, ADS.TXT ================= */
+
+/** sitemap.xml: home, aree, tool e pagine istituzionali indicizzabili. */
+export function renderSitemap(site, tools, pagine = []) {
   const urls = [{ loc: site.domain + "/", priority: "1.0" }]
     .concat(Object.keys(site.clusters).map((k) => ({ loc: `${site.domain}/${k}/`, priority: "0.8" })))
     .concat(tools.map((t) => ({ loc: `${site.domain}/${t.slug}/`, lastmod: isoDate(t.updated), priority: "0.7" })))
+    .concat(pagine.filter((p) => p.indicizza !== false)
+      .map((p) => ({ loc: `${site.domain}/${p.slug}/`, lastmod: isoDate(p.aggiornato), priority: "0.3" })))
     .map(
       (u) =>
         `  <url>\n    <loc>${esc(u.loc)}</loc>${u.lastmod ? `\n    <lastmod>${u.lastmod}</lastmod>` : ""}\n    <priority>${u.priority}</priority>\n  </url>`
@@ -813,4 +998,20 @@ export function renderSitemap(site, tools) {
 ${urls}
 </urlset>
 `;
+}
+
+/** robots.txt generato: il dominio vive solo in site.json. */
+export function renderRobots(site) {
+  return `User-agent: *\nAllow: /\n\nSitemap: ${site.domain}/sitemap.xml\n`;
+}
+
+/**
+ * ads.txt (IAB): dichiara Google come venditore autorizzato. Generato solo
+ * quando annunci.client è compilato; f08c47fec0942fa0 è l'ID di
+ * certificazione TAG di Google, uguale per tutti i publisher.
+ */
+export function renderAdsTxt(site) {
+  const c = site.annunci && site.annunci.client;
+  if (!c) return null;
+  return `google.com, ${c.replace(/^ca-/, "")}, DIRECT, f08c47fec0942fa0\n`;
 }

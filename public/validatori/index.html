@@ -11,9 +11,11 @@
 <meta property="og:description" content="Verifica codice fiscale e IBAN con il controllo ufficiale del carattere di controllo. Decodifica data di nascita, sesso, codice Belfiore, ABI, CAB e numero di conto.">
 <meta property="og:url" content="https://TUO-DOMINIO.it/validatori/">
 <script>(function(){try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
-window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribute("data-theme"),sysDark=matchMedia("(prefers-color-scheme:dark)").matches,next=cur?(cur==="dark"?"light":"dark"):(sysDark?"light":"dark");d.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}var b=document.querySelector(".theme-toggle");if(b)b.setAttribute("aria-pressed",String(next==="dark"));};</script>
+window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribute("data-theme"),sysDark=matchMedia("(prefers-color-scheme:dark)").matches,next=cur?(cur==="dark"?"light":"dark"):(sysDark?"light":"dark");d.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}var b=document.querySelector(".theme-toggle");if(b)b.setAttribute("aria-pressed",String(next==="dark"));};
+window.__cookiePrefs=function(){var g=window.googlefc;if(g&&typeof g.showRevocationMessage==="function"){g.showRevocationMessage();return;}location.href="/cookie/";};</script>
 <link rel="stylesheet" href="/assets/css/fonts.css?v=abc23a4b">
-<link rel="stylesheet" href="/assets/css/tokens.css?v=1fec9ce7">
+<link rel="stylesheet" href="/assets/css/tokens.css?v=71b3fdd5">
+
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Validatori Online — Codice Fiscale e IBAN Gratis","url":"https://TUO-DOMINIO.it/validatori/","description":"Verifica codice fiscale e IBAN con il controllo ufficiale del carattere di controllo. Decodifica data di nascita, sesso, codice Belfiore, ABI, CAB e numero di conto.","isPartOf":{"@type":"WebSite","name":"Portale delle Utility Italiano — Calcolatori, Convertitori e Generatori Gratuiti","url":"https://TUO-DOMINIO.it/"},"mainEntity":{"@type":"ItemList","numberOfItems":2,"itemListElement":[{"@type":"ListItem","position":1,"name":"Codice Fiscale","url":"https://TUO-DOMINIO.it/validatore-codice-fiscale/"},{"@type":"ListItem","position":2,"name":"IBAN","url":"https://TUO-DOMINIO.it/validatore-iban/"}]}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://TUO-DOMINIO.it/"},{"@type":"ListItem","position":2,"name":"Validatori","item":"https://TUO-DOMINIO.it/validatori/"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Il validatore conferma che il codice esista davvero?","acceptedAnswer":{"@type":"Answer","text":"No, e nessuno strumento pubblico può farlo. La verifica è formale: controlla che la struttura sia corretta e che il carattere di controllo corrisponda al resto del codice. Un codice può risultare valido pur non essendo mai stato assegnato a nessuno. Solo l'Agenzia delle Entrate per il codice fiscale e la banca per l'IBAN possono confermare l'esistenza effettiva."}},{"@type":"Question","name":"Cosa significa esattamente «formalmente valido»?","acceptedAnswer":{"@type":"Answer","text":"Significa che il codice supera l'algoritmo di controllo previsto dalla sua specifica. Per il codice fiscale è il calcolo del carattere di controllo finale a partire dai quindici precedenti; per l'IBAN è il resto della divisione per 97 secondo lo standard ISO 13616. Se il conto non torna, il codice contiene sicuramente un errore; se torna, l'errore è solo improbabile."}},{"@type":"Question","name":"Il mio IBAN viene inviato a un server bancario?","acceptedAnswer":{"@type":"Answer","text":"No. L'intero controllo è aritmetica eseguita nel browser: il codice che digiti non lascia il tuo dispositivo, non viene registrato e non viene confrontato con nessun archivio esterno. Puoi verificarlo aprendo il pannello di rete del browser mentre usi lo strumento: non parte alcuna richiesta."}},{"@type":"Question","name":"Come vengono gestiti i codici fiscali con omocodia?","acceptedAnswer":{"@type":"Answer","text":"L'omocodia viene riconosciuta e risolta. Quando due persone otterrebbero lo stesso codice fiscale, l'Agenzia delle Entrate sostituisce una o più cifre con lettere secondo una tabella fissa. Il validatore inverte quella sostituzione prima di decodificare data di nascita e sesso, quindi legge correttamente anche i codici modificati e lo segnala nell'esito."}}]}</script>
@@ -32,7 +34,7 @@ window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribut
   </div>
 </header>
 
-<div class="ad-rail ad-rail-l" aria-hidden="true"><div class="ad-slot ad-sky"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">160×600</span></div></div><div class="ad-rail ad-rail-r" aria-hidden="true"><div class="ad-slot ad-sky"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">160×600</span></div></div>
+<div class="ad-rail" aria-hidden="true"><div class="ad-slot ad-sky"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">160×600 · solo desktop</span></div></div>
 
 <main>
   <section class="lead">
@@ -113,26 +115,20 @@ window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribut
 </main>
 
 <section class="ad-mini-sec"><div class="wrap"><div class="ad-mini-grid"><div class="ad-slot ad-mini"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">300×250</span></div><div class="ad-slot ad-mini"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">300×250</span></div></div></div></section>
-<div class="ad-anchor-spacer" aria-hidden="true"></div>
 <footer class="foot"><div class="wrap">
     <div class="foot-grid">
       <div>
         <a class="foot-brand" href="/">utility<b>.it</b></a>
         <p class="foot-note">Calcolatori fiscali, convertitori, generatori e validatori.</p>
       </div>
-      <ul class="foot-links"><li><a href="/calcolatori/">Calcolatori</a></li><li><a href="/convertitori/">Convertitori</a></li><li><a href="/generatori/">Generatori</a></li><li><a href="/validatori/">Validatori</a></li></ul>
+      <div class="foot-cols">
+        <div><p class="foot-h">Aree</p><ul class="foot-links"><li><a href="/calcolatori/">Calcolatori</a></li><li><a href="/convertitori/">Convertitori</a></li><li><a href="/generatori/">Generatori</a></li><li><a href="/validatori/">Validatori</a></li></ul></div>
+        <div><p class="foot-h">Il sito</p><ul class="foot-links"><li><a href="/chi-siamo/">Chi siamo</a></li><li><a href="/metodologia/">Metodologia</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/cookie/">Cookie</a></li><li><a href="/note-legali/">Note legali</a></li><li><a href="/contatti/">Contatti</a></li><li><button type="button" class="foot-cookie" onclick="__cookiePrefs()">Preferenze cookie</button></li></ul></div>
+      </div>
     </div>
     <p class="foot-base">Portale Italiano delle Utility — strumenti gratuiti, aggiornati, senza registrazione.</p>
   </div></footer>
-<div class="ad-anchor" id="adAnchor" data-expanded="false">
-  <div class="ad-anchor-tools">
-    <button type="button" class="ad-anchor-btn" data-ad-toggle aria-expanded="false">Espandi</button>
-    <button type="button" class="ad-anchor-btn ad-anchor-close" data-ad-close aria-label="Chiudi annuncio">×</button>
-  </div>
-  <div class="ad-slot ad-anchor-slot"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">responsive · espandibile</span></div>
-</div>
-<script>(function(){var a=document.getElementById("adAnchor");if(!a)return;var t=a.querySelector("[data-ad-toggle]"),c=a.querySelector("[data-ad-close]");if(t)t.addEventListener("click",function(){var e=a.getAttribute("data-expanded")==="true";a.setAttribute("data-expanded",String(!e));t.setAttribute("aria-expanded",String(!e));t.textContent=e?"Espandi":"Riduci";});if(c)c.addEventListener("click",function(){a.setAttribute("data-hidden","true");});})();</script>
 
-<script src="/assets/js/search.js?v=946f3b0b"></script>
+<script src="/assets/js/search.js?v=9f14752f"></script>
 </body>
 </html>

@@ -2,68 +2,154 @@
   "slug": "validatore-iban",
   "cluster": "validatori",
   "tema": "banca",
-  "updated": "2026-07",
-
+  "updated": "2026-10",
   "seo": {
     "title": "Validatore IBAN – Verifica Codice e Coordinate Bancarie",
     "metaDescription": "Verifica se un IBAN è corretto: controlla la lunghezza per paese e il checksum mod-97 (ISO 7064) e decodifica CIN, ABI, CAB e numero di conto per gli IBAN italiani. Tutto nel browser.",
     "primaryKeyword": "validatore iban",
     "canonical": "/validatore-iban/"
   },
-
   "h1": "Validatore di IBAN",
-
-  "intro": "Controlla se un codice IBAN è formalmente corretto prima di usarlo per un bonifico. Lo strumento verifica che la lunghezza sia quella prevista per il paese e che il checksum mod-97 (ISO 7064) sia valido, l'algoritmo che intercetta gli errori di battitura più comuni. Per gli IBAN italiani decodifica anche le coordinate bancarie contenute nel codice: CIN, ABI (la banca), CAB (lo sportello) e numero di conto. Tutto avviene nel tuo browser, senza inviare né salvare nulla. È una verifica formale del codice: conferma che l'IBAN è ben costruito, non che il conto esista davvero o sia attivo.",
-
+  "intro": "Incolla un IBAN, anche con gli spazi: lo strumento controlla che la lunghezza sia quella prevista per il paese e ricalcola le cifre di controllo con l'algoritmo mod-97. Per gli IBAN italiani e di San Marino scompone anche le coordinate: CIN, ABI, CAB e numero di conto. Il controllo avviene nel tuo browser e il codice non viene inviato. La verifica è formale: dice se l'IBAN è costruito correttamente, non se il conto esiste o a chi è intestato.",
   "tool": {
     "logicId": "iban-v1",
     "script": "validatore-iban.js",
     "cardNote": "Checksum mod-97",
     "inputs": [
-      { "id": "iban", "label": "Codice IBAN", "type": "text", "placeholder": "es. IT60X0542811101000000123456" }
+      {
+        "id": "iban",
+        "label": "Codice IBAN",
+        "type": "text",
+        "placeholder": "es. IT60X0542811101000000123456"
+      }
     ],
-    "outputPrimary": { "id": "esito", "label": "Esito verifica", "format": "text" },
+    "outputPrimary": {
+      "id": "esito",
+      "label": "Esito verifica",
+      "format": "text"
+    },
     "outputSecondary": [
-      { "id": "paese", "label": "Paese", "format": "text" },
-      { "id": "cin", "label": "CIN", "format": "text" },
-      { "id": "abi", "label": "ABI (banca)", "format": "text" },
-      { "id": "cab", "label": "CAB (sportello)", "format": "text" },
-      { "id": "conto", "label": "Numero di conto", "format": "text" }
+      {
+        "id": "paese",
+        "label": "Paese",
+        "format": "text"
+      },
+      {
+        "id": "cin",
+        "label": "CIN",
+        "format": "text"
+      },
+      {
+        "id": "abi",
+        "label": "ABI (banca)",
+        "format": "text"
+      },
+      {
+        "id": "cab",
+        "label": "CAB (sportello)",
+        "format": "text"
+      },
+      {
+        "id": "conto",
+        "label": "Numero di conto",
+        "format": "text"
+      }
     ]
   },
-
   "spiegazione": {
-    "titolo": "Come è strutturato un IBAN e come funziona il controllo mod-97",
-    "corpo": "L'IBAN (International Bank Account Number) è definito dallo standard ISO 13616 e serve a identificare in modo univoco un conto corrente a livello internazionale. Ogni IBAN inizia con 2 lettere che indicano il paese (IT per l'Italia), seguite da 2 cifre di controllo e poi dal BBAN, la parte nazionale che identifica banca, sportello e conto. Sia la lunghezza sia la composizione del BBAN cambiano da paese a paese: un IBAN italiano ha sempre 27 caratteri, uno tedesco 22, uno francese 27, e così via. Per l'Italia il BBAN è composto da 1 lettera di CIN (Control Internal Number, un carattere di controllo nazionale), 5 cifre di ABI (il codice che identifica la banca), 5 cifre di CAB (il codice dello sportello o agenzia) e 12 caratteri per il numero di conto. Il cuore della verifica è l'algoritmo mod-97 previsto dallo standard ISO 7064: si spostano i primi 4 caratteri (paese + cifre di controllo) in fondo alla stringa, si convertono le lettere in numeri secondo lo schema A=10, B=11 e così via fino a Z=35, e si calcola il resto della divisione del numero risultante per 97. Se il resto è esattamente 1, l'IBAN supera il controllo; qualsiasi altro valore segnala un errore. Questo meccanismo è molto efficace nell'intercettare refusi, cifre invertite e caratteri mancanti. È importante capire i limiti dello strumento: verifica la correttezza formale del codice, ma non traduce l'ABI nel nome della banca e soprattutto non può confermare che il conto esista davvero, che sia attivo o che sia intestato a una determinata persona. Per quelle informazioni serve una verifica presso l'istituto di credito."
+    "titolo": "Com'è fatto un IBAN e come funziona il controllo mod-97",
+    "corpo": [
+      "L'IBAN è il codice internazionale di un conto bancario, definito dallo standard ISO 13616. Inizia con due lettere per il paese — IT per l'Italia — e due cifre di controllo; segue il BBAN, la parte nazionale, che cambia per lunghezza e contenuto da paese a paese. Il registro tenuto da SWIFT fissa la lunghezza di ciascuno: 27 caratteri per l'Italia, 22 per la Germania, 27 per la Francia. Lo strumento conosce le lunghezze di 36 paesi; per gli altri accetta qualsiasi lunghezza fra 15 e 34.",
+      "Il BBAN italiano è formato da una lettera di CIN, un carattere di controllo nazionale; cinque cifre di ABI, che identificano la banca; cinque cifre di CAB, che identificano lo sportello; dodici caratteri per il numero di conto. Lo strumento mostra questi pezzi ma non traduce l'ABI nel nome della banca.",
+      "Il controllo delle due cifre segue l'algoritmo MOD 97-10 dello standard ISO/IEC 7064. Si spostano i primi quattro caratteri in fondo, si trasformano le lettere in numeri (A = 10, B = 11, fino a Z = 35) e si calcola il resto della divisione per 97 del numero che ne risulta: deve essere 1. Poiché 97 è un numero primo, sbagliare una sola cifra cambia sempre il resto: un errore di questo tipo viene sempre intercettato.",
+      "Superare il controllo vuol dire che il codice è ben costruito, non che il conto esista, sia attivo o appartenga alla persona a cui stai per fare un bonifico. Per quello c'è la verifica del beneficiario: dal 9 ottobre 2025, nei paesi dell'euro, banche e Poste devono controllare gratuitamente che nome e IBAN corrispondano prima che tu autorizzi un bonifico, tradizionale o istantaneo (Reg. UE 2024/886)."
+    ]
   },
-
   "esempi": [
-    { "titolo": "IT60X0542811101000000123456", "risultatoAtteso": "IBAN valido · Italia · CIN X · ABI 05428 · CAB 11101 · conto 000000123456" },
-    { "titolo": "DE89370400440532013000", "risultatoAtteso": "IBAN valido · Germania · 22 caratteri · BBAN mostrato senza scomposizione italiana" },
-    { "titolo": "IT60X0542811101000000123457", "risultatoAtteso": "Non valido: checksum mod-97 non torna (una cifra del conto è errata)" }
+    {
+      "titolo": "IT60 X054 2811 1010 0000 0123 456 — l'esempio italiano del registro IBAN",
+      "risultatoAtteso": "✓ IBAN formalmente valido · CIN X · ABI 05428 · CAB 11101 · conto 000000123456",
+      "verifica": {
+        "input": {
+          "iban": "IT60X0542811101000000123456"
+        },
+        "campo": "esito",
+        "testo": "✓ IBAN formalmente valido"
+      }
+    },
+    {
+      "titolo": "DE89 3704 0044 0532 0130 00 — un IBAN tedesco di 22 caratteri",
+      "risultatoAtteso": "✓ IBAN formalmente valido · DE · Germania",
+      "verifica": {
+        "input": {
+          "iban": "DE89370400440532013000"
+        },
+        "campo": "paese",
+        "testo": "DE · Germania"
+      }
+    },
+    {
+      "titolo": "IT60 X054 2811 1010 0000 0123 457 — ultima cifra sbagliata",
+      "risultatoAtteso": "✗ Checksum non valido: le cifre di controllo non tornano (mod-97)",
+      "verifica": {
+        "input": {
+          "iban": "IT60X0542811101000000123457"
+        },
+        "campo": "esito",
+        "testo": "✗ Checksum non valido: le cifre di controllo non tornano (mod-97)"
+      }
+    }
   ],
-
   "faq": [
-    { "domanda": "Come funziona il controllo mod-97 dell'IBAN?", "risposta": "Si spostano i primi 4 caratteri dell'IBAN (le 2 lettere del paese e le 2 cifre di controllo) alla fine della stringa, poi si convertono tutte le lettere in numeri (A=10, B=11, fino a Z=35) e si calcola il resto della divisione del numero ottenuto per 97. Se il resto è esattamente 1, l'IBAN è formalmente valido; qualunque altro risultato indica un errore, tipicamente un refuso." },
-    { "domanda": "Cosa sono ABI e CAB?", "risposta": "Sono i codici che, negli IBAN italiani, identificano la banca e lo sportello. L'ABI (Associazione Bancaria Italiana) è un codice di 5 cifre che individua l'istituto di credito; il CAB (Codice di Avviamento Bancario) è un codice di 5 cifre che individua la specifica filiale o agenzia. Insieme localizzano con precisione dove è radicato il conto." },
-    { "domanda": "Cos'è il CIN?", "risposta": "Il CIN (Control Internal Number) è la lettera che, negli IBAN italiani, precede ABI, CAB e numero di conto. È un carattere di controllo di livello nazionale, calcolato sulle coordinate bancarie: serve come ulteriore verifica interna della correttezza del BBAN, in aggiunta alle 2 cifre di controllo internazionali dell'IBAN." },
-    { "domanda": "Il validatore dice a quale banca appartiene l'IBAN?", "risposta": "No. Lo strumento mostra il codice ABI, ma non lo traduce nel nome della banca, per non caricare la pagina con un archivio bancario esteso e soggetto a continui aggiornamenti. Con il codice ABI puoi comunque risalire all'istituto tramite gli elenchi ufficiali della Banca d'Italia o dell'ABI." },
-    { "domanda": "Quanti caratteri ha un IBAN italiano?", "risposta": "Un IBAN italiano ha sempre 27 caratteri: 2 lettere per il paese (IT), 2 cifre di controllo internazionali, 1 lettera di CIN, 5 cifre di ABI, 5 cifre di CAB e 12 caratteri per il numero di conto. Se il codice inserito ha una lunghezza diversa, non può essere un IBAN italiano valido." }
+    {
+      "domanda": "Come funziona il controllo mod-97 dell'IBAN?",
+      "risposta": "Si spostano in fondo i primi quattro caratteri (paese e cifre di controllo), si trasformano le lettere in numeri da 10 (A) a 35 (Z) e si divide il numero ottenuto per 97. Se il resto è 1 l'IBAN supera il controllo; con qualsiasi altro resto c'è un errore. Una singola cifra sbagliata viene sempre intercettata."
+    },
+    {
+      "domanda": "Cosa indicano ABI e CAB in un IBAN italiano?",
+      "risposta": "L'ABI è il codice di cinque cifre che identifica la banca, il CAB quello di cinque cifre che identifica lo sportello. Nell'IBAN italiano stanno subito dopo la lettera di CIN, e prima dei dodici caratteri del numero di conto."
+    },
+    {
+      "domanda": "Che differenza c'è fra CIN e cifre di controllo?",
+      "risposta": "Le due cifre dopo IT sono il controllo internazionale dell'IBAN, verificato con il mod-97. Il CIN è la lettera che apre la parte nazionale ed è un controllo interno sulle coordinate bancarie italiane. Questo strumento verifica le cifre internazionali e mostra il CIN, senza ricalcolarlo."
+    },
+    {
+      "domanda": "Un IBAN che supera il controllo è sicuro per un bonifico?",
+      "risposta": "Dice solo che il codice è scritto correttamente. Non conferma che il conto esista né a chi appartenga: un IBAN corretto può appartenere a qualcun altro. Per sapere se nome e IBAN corrispondono c'è la verifica del beneficiario, che dal 9 ottobre 2025 la tua banca deve fare gratuitamente prima di ogni bonifico in euro."
+    },
+    {
+      "domanda": "Quanti caratteri ha un IBAN italiano?",
+      "risposta": "Sempre 27: IT, due cifre di controllo, una lettera di CIN, cinque cifre di ABI, cinque di CAB e dodici caratteri di conto. Anche San Marino usa 27 caratteri con la stessa struttura. Se ne conti di più o di meno, c'è un errore di trascrizione."
+    }
   ],
-
   "relatedTools": [
     "validatore-codice-fiscale",
     "convertitore-valuta",
     "calcolatore-tfr"
   ],
-
-  "disclaimer": "<strong>Verifica formale del codice.</strong> Lo strumento controlla lunghezza e checksum mod-97 e scompone le coordinate degli IBAN italiani, ma <strong>non</strong> conferma che il conto esista, sia attivo o sia intestato a una determinata persona, e non traduce l'ABI nel nome della banca. <strong>Nessun dato viene inviato:</strong> tutto il calcolo avviene in locale nel tuo browser.",
-
+  "disclaimer": "<strong>Verifica formale.</strong> Controlla lunghezza e cifre di controllo mod-97 e scompone gli IBAN italiani e sammarinesi. <strong>Non</strong> conferma che il conto esista, sia attivo o sia intestato a una persona, e non traduce l'ABI nel nome della banca. L'IBAN resta nel tuo browser: non viene inviato né salvato.",
   "fonti": [
-    { "titolo": "IBAN — standard ISO 13616 e checksum ISO 7064", "dettaglio": "struttura internazionale dell'IBAN e algoritmo di controllo mod-97", "url": "https://www.iso.org/standard/81090.html" },
-    { "titolo": "Coordinate bancarie e IBAN — Banca d'Italia", "dettaglio": "informazioni ufficiali su IBAN, ABI, CAB e servizi di pagamento", "url": "https://www.bancaditalia.it/compiti/sispaga-mercati/iban/index.html" }
+    {
+      "titolo": "SWIFT, IBAN Registry",
+      "dettaglio": "Lunghezza e struttura dell'IBAN per ogni paese, esempi ufficiali",
+      "url": "https://www.swift.com/standards/data-standards/iban-international-bank-account-number"
+    },
+    {
+      "titolo": "ISO 13616-1:2020 — IBAN",
+      "dettaglio": "Struttura dell'IBAN e controllo con ISO/IEC 7064 MOD 97-10",
+      "url": "https://www.iso.org/standard/81090.html"
+    },
+    {
+      "titolo": "Banca d'Italia, Economia per tutti — IBAN",
+      "dettaglio": "Struttura dell'IBAN italiano: 27 caratteri, CIN, ABI, CAB, numero di conto",
+      "url": "https://economiapertutti.bancaditalia.it/aree-tematiche/pagamenti/iban/index.html"
+    },
+    {
+      "titolo": "Regolamento (UE) 2024/886 — bonifici istantanei e verifica del beneficiario",
+      "dettaglio": "Verifica gratuita della corrispondenza fra nome e IBAN, obbligatoria dal 9 ottobre 2025 nei paesi dell'euro",
+      "url": "https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=OJ:L_202400886"
+    }
   ],
-
   "jsonLd": {
     "type": "SoftwareApplication",
     "applicationCategory": "FinanceApplication"

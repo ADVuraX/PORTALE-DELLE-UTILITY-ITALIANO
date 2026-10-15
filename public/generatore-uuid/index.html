@@ -11,11 +11,13 @@
 <meta property="og:description" content="Genera UUID versione 4 casuali online: uno o più alla volta, con o senza trattini, maiuscoli o tra graffe. Conformi RFC 4122, creati nel browser. Gratis.">
 <meta property="og:url" content="https://TUO-DOMINIO.it/generatore-uuid/">
 <script>(function(){try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
-window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribute("data-theme"),sysDark=matchMedia("(prefers-color-scheme:dark)").matches,next=cur?(cur==="dark"?"light":"dark"):(sysDark?"light":"dark");d.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}var b=document.querySelector(".theme-toggle");if(b)b.setAttribute("aria-pressed",String(next==="dark"));};</script>
+window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribute("data-theme"),sysDark=matchMedia("(prefers-color-scheme:dark)").matches,next=cur?(cur==="dark"?"light":"dark"):(sysDark?"light":"dark");d.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}var b=document.querySelector(".theme-toggle");if(b)b.setAttribute("aria-pressed",String(next==="dark"));};
+window.__cookiePrefs=function(){var g=window.googlefc;if(g&&typeof g.showRevocationMessage==="function"){g.showRevocationMessage();return;}location.href="/cookie/";};</script>
 <link rel="stylesheet" href="/assets/css/fonts.css?v=abc23a4b">
-<link rel="stylesheet" href="/assets/css/tokens.css?v=1fec9ce7">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Generatore UUID v4 Online – Identificatori Univoci Casuali","applicationCategory":"DeveloperApplication","operatingSystem":"Web","url":"https://TUO-DOMINIO.it/generatore-uuid/","description":"Genera UUID versione 4 casuali online: uno o più alla volta, con o senza trattini, maiuscoli o tra graffe. Conformi RFC 4122, creati nel browser. Gratis.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"dateModified":"2026-07-01"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Gli UUID generati sono davvero unici?","acceptedAnswer":{"@type":"Answer","text":"In pratica sì. Un UUID v4 ha 122 bit casuali: la probabilità di una collisione è così bassa da essere trascurabile anche generandone miliardi. Non è una garanzia matematica assoluta come per gli UUID basati su timestamp e MAC, ma per qualsiasi uso reale la si può considerare unicità garantita."}},{"@type":"Question","name":"Che differenza c'è tra UUID e GUID?","acceptedAnswer":{"@type":"Answer","text":"Nessuna sostanziale: GUID (Globally Unique Identifier) è il nome usato soprattutto in ambiente Microsoft, UUID è il termine dello standard RFC 4122. Si riferiscono alla stessa cosa. Lo stile Microsoft spesso racchiude il valore tra graffe, opzione che qui puoi attivare."}},{"@type":"Question","name":"Posso usare un UUID v4 come chiave primaria di database?","acceptedAnswer":{"@type":"Answer","text":"Sì, è un uso molto comune, specialmente in sistemi distribuiti dove più nodi creano record contemporaneamente senza coordinarsi. Tieni presente che, essendo casuali, gli UUID v4 non sono ordinabili per data di creazione e possono frammentare gli indici; se questo è un problema valuta UUID v7 o ULID, pensati per essere ordinabili."}},{"@type":"Question","name":"Gli UUID vengono generati sul server?","acceptedAnswer":{"@type":"Answer","text":"No, sono creati interamente nel tuo browser con crypto.getRandomValues. Nessun valore viene inviato o registrato: puoi generarli anche offline una volta caricata la pagina, e restano solo sul tuo dispositivo finché non li copi."}},{"@type":"Question","name":"Perché a volte servono senza trattini o maiuscoli?","acceptedAnswer":{"@type":"Answer","text":"Dipende dal contesto. Senza trattini un UUID è più compatto e adatto a nomi di file o segmenti di URL; maiuscolo è lo stile tipico di alcune piattaforme e documenti; tra graffe è la convenzione di Windows e del formato registry. Il valore sottostante è identico, cambia solo la rappresentazione."}}]}</script>
+<link rel="stylesheet" href="/assets/css/tokens.css?v=71b3fdd5">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Generatore UUID v4 Online – Identificatori Univoci Casuali","applicationCategory":"DeveloperApplication","operatingSystem":"Web","url":"https://TUO-DOMINIO.it/generatore-uuid/","description":"Genera UUID versione 4 casuali online: uno o più alla volta, con o senza trattini, maiuscoli o tra graffe. Conformi RFC 4122, creati nel browser. Gratis.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"dateModified":"2026-10-01"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Due UUID v4 possono essere uguali?","acceptedAnswer":{"@type":"Answer","text":"In teoria sì, in pratica la probabilità è trascurabile. Con 122 bit casuali, per avere il 50% di probabilità di una sola coppia uguale servirebbero circa 2,7 miliardi di miliardi di UUID. Se il tuo sistema non può tollerare neppure questo rischio teorico, un vincolo di unicità nel database lo elimina."}},{"@type":"Question","name":"Che differenza c'è fra UUID e GUID?","acceptedAnswer":{"@type":"Answer","text":"Nessuna nella sostanza: GUID è il nome usato in ambiente Microsoft per lo stesso identificatore a 128 bit che l'RFC 9562 chiama UUID. Lo stile Microsoft spesso lo racchiude fra parentesi graffe, opzione che qui puoi attivare."}},{"@type":"Question","name":"Posso usare un UUID v4 come chiave primaria?","acceptedAnswer":{"@type":"Answer","text":"Sì, soprattutto quando più sistemi creano record in parallelo senza coordinarsi. Essendo casuali, però, i valori non seguono l'ordine di inserimento e su tabelle molto grandi possono rendere meno efficienti gli indici. In quel caso valuta la versione 7 definita dalla stessa RFC 9562, ordinata nel tempo."}},{"@type":"Question","name":"Dove vengono generati gli UUID?","acceptedAnswer":{"@type":"Answer","text":"Nel tuo browser, con crypto.getRandomValues. Nessun valore viene inviato a un server o registrato: una volta caricata la pagina puoi generarli anche senza connessione, e restano sul tuo dispositivo finché non li copi."}},{"@type":"Question","name":"Perché togliere i trattini o usare le maiuscole?","acceptedAnswer":{"@type":"Answer","text":"Il valore non cambia, cambia solo la sua rappresentazione. Senza trattini l'UUID è più compatto, comodo nei nomi di file e negli indirizzi web; in maiuscolo è lo stile di alcune piattaforme; fra graffe è la convenzione dell'ambiente Microsoft. L'RFC 9562 stabilisce che in lettura le lettere possono essere tutte maiuscole, tutte minuscole o miste."}}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://TUO-DOMINIO.it/"},{"@type":"ListItem","position":2,"name":"Generatori","item":"https://TUO-DOMINIO.it/generatori/"},{"@type":"ListItem","position":3,"name":"Generatore di UUID (v4)","item":"https://TUO-DOMINIO.it/generatore-uuid/"}]}</script>
 </head>
 <body>
@@ -32,7 +34,7 @@ window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribut
   </div>
 </header>
 
-<div class="ad-rail ad-rail-l" aria-hidden="true"><div class="ad-slot ad-sky"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">160×600</span></div></div><div class="ad-rail ad-rail-r" aria-hidden="true"><div class="ad-slot ad-sky"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">160×600</span></div></div>
+<div class="ad-rail" aria-hidden="true"><div class="ad-slot ad-sky"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">160×600 · solo desktop</span></div></div>
 
 <main>
   <section class="lead">
@@ -43,10 +45,11 @@ window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribut
           <h1>Generatore di UUID (v4)</h1>
         </div>
         <div class="lead-side">
-          <p class="lede">Genera identificatori univoci universali (UUID) versione 4 pronti da copiare. Scegli quanti generarne in una volta — da 1 fino a 100 — e il formato che preferisci: maiuscolo o minuscolo, con o senza trattini, racchiusi tra graffe come nello stile Microsoft. Ogni UUID è prodotto con un generatore crittografico sicuro direttamente nel tuo browser ed è conforme allo standard RFC 4122, con i bit di versione e variante impostati correttamente. È lo strumento giusto per sviluppatori e DBA che hanno bisogno di chiavi primarie, identificatori di record, nomi di file o correlation ID senza collisioni. Nessun dato viene inviato: rigenera e copia quando vuoi.</p>
+          <p class="lede">Genera da 1 a 100 identificatori UUID versione 4 in una volta, nel formato che ti serve: minuscolo o maiuscolo, con o senza trattini, fra parentesi graffe. Ogni valore nasce nel tuo browser dal generatore crittografico della Web Crypto API e rispetta la struttura definita dallo standard IETF RFC 9562. Nessun valore viene inviato o registrato.</p>
           <ul class="meta">
         <li><span class="mk">Area</span><span class="mv"><a href="/generatori/">Generatori</a></span></li>
-        <li><span class="mk">Aggiornato</span><span class="mv">luglio 2026</span></li>
+        <li><span class="mk">Aggiornato</span><span class="mv">ottobre 2026</span></li>
+        <li><span class="mk">Fonti</span><span class="mv mv-ok">2 ufficiali</span></li>
         <li><span class="mk">Accesso</span><span class="mv">Libero</span></li>
           </ul>
         </div>
@@ -85,7 +88,7 @@ window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribut
           <p class="result-note">Tipo: <span data-out="versione">—</span></p>
           <div class="gen-actions"><button type="button" class="gen-btn gen-btn-primary" data-action="regenerate">Rigenera</button><button type="button" class="gen-btn" data-action="copy">Copia</button></div>
         </div>
-          <div class="note" id="disc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg><p><strong>Generazione locale e casuale.</strong> Gli UUID v4 sono creati nel tuo browser con un generatore crittografico conforme a RFC 4122. Non vengono salvati né inviati. Per identificatori ordinabili nel tempo valuta UUID v7 o ULID.</p></div>
+          <div class="note" id="disc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg><p><strong>Generazione nel browser.</strong> Gli UUID versione 4 sono creati sul tuo dispositivo con la Web Crypto API secondo la struttura dell'RFC 9562; non vengono trasmessi né conservati. La probabilità di due valori uguali è trascurabile ma non nulla: se serve, imponi l'unicità nel database.</p></div>
         </div>
         <script type="application/json" data-tool-config>{"logicId":"uuid-gen-v1","inputs":[{"id":"quantita","type":"number"},{"id":"trattini","type":"checkbox"},{"id":"maiuscolo","type":"checkbox"},{"id":"graffe","type":"checkbox"}],"kind":"generator","output":{"id":"uuid","format":"text"},"actions":["regenerate","copy"],"extras":[{"id":"versione","format":"text"}]}</script>
       </div>
@@ -96,27 +99,30 @@ window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribut
     <div class="wrap">
       <div class="sec-head"><span class="sec-num">01</span><h2>Esempi pratici</h2><span class="sec-rule" aria-hidden="true"></span></div>
       <ol class="ex-list">
-        <li><span class="ex-i">01</span><span class="ex-q">Un UUID canonico, minuscolo</span><span class="ex-r">es. 550e8400-e29b-41d4-a716-446655440000</span></li>
-        <li><span class="ex-i">02</span><span class="ex-q">Senza trattini, per un nome file</span><span class="ex-r">32 cifre esadecimali di seguito</span></li>
-        <li><span class="ex-i">03</span><span class="ex-q">50 UUID in blocco</span><span class="ex-r">una riga per UUID, pronti da copiare</span></li>
+        <li><span class="ex-i">01</span><span class="ex-q">Un UUID nella forma canonica</span><span class="ex-r">es. 550e8400-e29b-41d4-a716-446655440000 (4 = versione, a = variante)</span></li>
+        <li><span class="ex-i">02</span><span class="ex-q">Senza trattini, per un nome di file</span><span class="ex-r">32 cifre esadecimali consecutive</span></li>
+        <li><span class="ex-i">03</span><span class="ex-q">50 UUID in blocco</span><span class="ex-r">UUID v4 · 50 valori, uno per riga</span></li>
       </ol>
     </div>
   </section>
 <section class="section">
     <div class="wrap">
-      <div class="sec-head"><span class="sec-num">02</span><h2>Cos'è un UUID v4 e quando conviene usarlo</h2><span class="sec-rule" aria-hidden="true"></span></div>
-      <div class="prose"><p>Un UUID (Universally Unique Identifier), detto anche GUID, è un identificatore a 128 bit pensato per essere unico nello spazio e nel tempo senza bisogno di un'autorità centrale che lo assegni. La versione 4, la più usata, è composta quasi interamente da bit casuali: 122 bit sono generati a caso, mentre alcuni bit fissi indicano la versione (4) e la variante secondo lo standard RFC 4122. Questo strumento li produce con l'API Web Crypto del browser (crypto.getRandomValues), un generatore crittograficamente sicuro, così la casualità è di qualità e i valori non sono prevedibili. La probabilità di generare due UUID v4 identici è talmente bassa da essere considerata trascurabile nella pratica: servirebbero miliardi di UUID prima di avere una possibilità concreta di collisione. Per questo gli UUID v4 sono lo standard di fatto per chiavi primarie di database distribuiti, identificatori di messaggi e sessioni, nomi univoci di file, correlation ID nei log e chiavi idempotenti nelle API. Rispetto a un ID numerico progressivo, un UUID può essere creato ovunque — sul client, sul server, in più nodi contemporaneamente — senza coordinamento e senza rivelare quanti record esistono. Il formato canonico usa 32 cifre esadecimali divise in cinque gruppi da trattini, ma spesso serve una variante senza trattini (per URL o nomi di file), tutta maiuscola o racchiusa tra graffe: qui puoi scegliere la forma che ti serve e generarne molti in un colpo solo.</p></div>
+      <div class="sec-head"><span class="sec-num">02</span><h2>Cos'è un UUID versione 4 e quanto è unico</h2><span class="sec-rule" aria-hidden="true"></span></div>
+      <div class="prose"><p>Un UUID è un identificatore di 128 bit pensato per essere unico senza un'autorità che lo assegni. La specifica attuale è l'RFC 9562 dell'IETF, pubblicata nel maggio 2024, che ha sostituito la precedente RFC 4122. In ambiente Microsoft lo stesso identificatore si chiama GUID.</p>
+<p>Nella versione 4 quasi tutto è casuale: dei 128 bit, 4 indicano la versione e 2 la variante, gli altri 122 sono estratti a caso. Nella forma canonica sono 32 cifre esadecimali in cinque gruppi separati da trattini; il primo carattere del terzo gruppo è sempre 4, il primo del quarto è 8, 9, a oppure b. Questo strumento usa crypto.getRandomValues, che la specifica W3C Web Cryptography descrive come fonte di valori crittograficamente robusti.</p>
+<p>Quanto è unico un UUID v4 si può calcolare. Con 122 bit casuali ci sono 2¹²² valori possibili, circa 5,3 × 10³⁶. Per arrivare al 50% di probabilità di una sola coppia uguale bisogna generarne circa √(2 · ln 2 · 2¹²²), cioè circa 2,7 miliardi di miliardi. Per qualsiasi applicazione reale la probabilità di collisione è trascurabile, ma resta una probabilità, non un'impossibilità.</p>
+<p>Un UUID v4 si può creare ovunque — nel browser, sul server, su più macchine insieme — senza coordinamento, e non rivela né quando è stato creato né quanti record esistono. Il rovescio è che i valori casuali non hanno un ordine: usati come chiave di un database, distribuiscono gli inserimenti in punti sparsi dell'indice. Per chiavi ordinate nel tempo l'RFC 9562 definisce la versione 7, che inizia con un'indicazione temporale.</p></div>
     </div>
   </section>
 <section class="section">
     <div class="wrap">
       <div class="sec-head"><span class="sec-num">03</span><h2>Domande frequenti</h2><span class="sec-rule" aria-hidden="true"></span></div>
       <div class="faq">
-      <details open><summary>Gli UUID generati sono davvero unici?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>In pratica sì. Un UUID v4 ha 122 bit casuali: la probabilità di una collisione è così bassa da essere trascurabile anche generandone miliardi. Non è una garanzia matematica assoluta come per gli UUID basati su timestamp e MAC, ma per qualsiasi uso reale la si può considerare unicità garantita.</p></div></details>
-      <details><summary>Che differenza c'è tra UUID e GUID?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>Nessuna sostanziale: GUID (Globally Unique Identifier) è il nome usato soprattutto in ambiente Microsoft, UUID è il termine dello standard RFC 4122. Si riferiscono alla stessa cosa. Lo stile Microsoft spesso racchiude il valore tra graffe, opzione che qui puoi attivare.</p></div></details>
-      <details><summary>Posso usare un UUID v4 come chiave primaria di database?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>Sì, è un uso molto comune, specialmente in sistemi distribuiti dove più nodi creano record contemporaneamente senza coordinarsi. Tieni presente che, essendo casuali, gli UUID v4 non sono ordinabili per data di creazione e possono frammentare gli indici; se questo è un problema valuta UUID v7 o ULID, pensati per essere ordinabili.</p></div></details>
-      <details><summary>Gli UUID vengono generati sul server?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>No, sono creati interamente nel tuo browser con crypto.getRandomValues. Nessun valore viene inviato o registrato: puoi generarli anche offline una volta caricata la pagina, e restano solo sul tuo dispositivo finché non li copi.</p></div></details>
-      <details><summary>Perché a volte servono senza trattini o maiuscoli?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>Dipende dal contesto. Senza trattini un UUID è più compatto e adatto a nomi di file o segmenti di URL; maiuscolo è lo stile tipico di alcune piattaforme e documenti; tra graffe è la convenzione di Windows e del formato registry. Il valore sottostante è identico, cambia solo la rappresentazione.</p></div></details>
+      <details open><summary>Due UUID v4 possono essere uguali?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>In teoria sì, in pratica la probabilità è trascurabile. Con 122 bit casuali, per avere il 50% di probabilità di una sola coppia uguale servirebbero circa 2,7 miliardi di miliardi di UUID. Se il tuo sistema non può tollerare neppure questo rischio teorico, un vincolo di unicità nel database lo elimina.</p></div></details>
+      <details><summary>Che differenza c'è fra UUID e GUID?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>Nessuna nella sostanza: GUID è il nome usato in ambiente Microsoft per lo stesso identificatore a 128 bit che l'RFC 9562 chiama UUID. Lo stile Microsoft spesso lo racchiude fra parentesi graffe, opzione che qui puoi attivare.</p></div></details>
+      <details><summary>Posso usare un UUID v4 come chiave primaria?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>Sì, soprattutto quando più sistemi creano record in parallelo senza coordinarsi. Essendo casuali, però, i valori non seguono l'ordine di inserimento e su tabelle molto grandi possono rendere meno efficienti gli indici. In quel caso valuta la versione 7 definita dalla stessa RFC 9562, ordinata nel tempo.</p></div></details>
+      <details><summary>Dove vengono generati gli UUID?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>Nel tuo browser, con crypto.getRandomValues. Nessun valore viene inviato a un server o registrato: una volta caricata la pagina puoi generarli anche senza connessione, e restano sul tuo dispositivo finché non li copi.</p></div></details>
+      <details><summary>Perché togliere i trattini o usare le maiuscole?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>Il valore non cambia, cambia solo la sua rappresentazione. Senza trattini l'UUID è più compatto, comodo nei nomi di file e negli indirizzi web; in maiuscolo è lo stile di alcune piattaforme; fra graffe è la convenzione dell'ambiente Microsoft. L'RFC 9562 stabilisce che in lettura le lettere possono essere tutte maiuscole, tutte minuscole o miste.</p></div></details>
       </div>
     </div>
   </section>
@@ -130,28 +136,35 @@ window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribut
       </ul>
     </div>
   </section>
+<section class="section">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">05</span><h2>Fonti e metodo</h2><span class="sec-rule" aria-hidden="true"></span></div>
+      <div class="fonti">
+        <div class="fonti-head">
+          <h3>Riferimenti usati nel calcolo</h3>
+          <span class="upd">Ultimo aggiornamento: ottobre 2026</span>
+        </div>
+        <div class="src"><span class="n">01</span><div class="b"><div class="t"><a class="t" href="https://www.rfc-editor.org/rfc/rfc9562.html" target="_blank" rel="noopener">IETF, RFC 9562 — Universally Unique IDentifiers (UUIDs)</a></div><div class="d">Maggio 2024, sostituisce la RFC 4122; versione 4 (§5.4), versione 7, variante, formato testuale</div></div></div>
+        <div class="src"><span class="n">02</span><div class="b"><div class="t"><a class="t" href="https://www.w3.org/TR/webcrypto-2/" target="_blank" rel="noopener">W3C, Web Cryptography Level 2 — getRandomValues</a></div><div class="d">Valori crittograficamente robusti per la parte casuale</div></div></div>
+      </div>
+    </div>
+  </section>
 </main>
 
 <section class="ad-mini-sec"><div class="wrap"><div class="ad-mini-grid"><div class="ad-slot ad-mini"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">300×250</span></div><div class="ad-slot ad-mini"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">300×250</span></div></div></div></section>
-<div class="ad-anchor-spacer" aria-hidden="true"></div>
 <footer class="foot"><div class="wrap">
     <div class="foot-grid">
       <div>
         <a class="foot-brand" href="/">utility<b>.it</b></a>
         <p class="foot-note">Calcolatori fiscali, convertitori, generatori e validatori.</p>
       </div>
-      <ul class="foot-links"><li><a href="/calcolatori/">Calcolatori</a></li><li><a href="/convertitori/">Convertitori</a></li><li><a href="/generatori/">Generatori</a></li><li><a href="/validatori/">Validatori</a></li></ul>
+      <div class="foot-cols">
+        <div><p class="foot-h">Aree</p><ul class="foot-links"><li><a href="/calcolatori/">Calcolatori</a></li><li><a href="/convertitori/">Convertitori</a></li><li><a href="/generatori/">Generatori</a></li><li><a href="/validatori/">Validatori</a></li></ul></div>
+        <div><p class="foot-h">Il sito</p><ul class="foot-links"><li><a href="/chi-siamo/">Chi siamo</a></li><li><a href="/metodologia/">Metodologia</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/cookie/">Cookie</a></li><li><a href="/note-legali/">Note legali</a></li><li><a href="/contatti/">Contatti</a></li><li><button type="button" class="foot-cookie" onclick="__cookiePrefs()">Preferenze cookie</button></li></ul></div>
+      </div>
     </div>
     <p class="foot-base">Portale Italiano delle Utility — strumenti gratuiti, aggiornati, senza registrazione.</p>
   </div></footer>
-<div class="ad-anchor" id="adAnchor" data-expanded="false">
-  <div class="ad-anchor-tools">
-    <button type="button" class="ad-anchor-btn" data-ad-toggle aria-expanded="false">Espandi</button>
-    <button type="button" class="ad-anchor-btn ad-anchor-close" data-ad-close aria-label="Chiudi annuncio">×</button>
-  </div>
-  <div class="ad-slot ad-anchor-slot"><span class="ad-lbl">Spazio pubblicitario</span><span class="ad-dim">responsive · espandibile</span></div>
-</div>
-<script>(function(){var a=document.getElementById("adAnchor");if(!a)return;var t=a.querySelector("[data-ad-toggle]"),c=a.querySelector("[data-ad-close]");if(t)t.addEventListener("click",function(){var e=a.getAttribute("data-expanded")==="true";a.setAttribute("data-expanded",String(!e));t.setAttribute("aria-expanded",String(!e));t.textContent=e?"Espandi":"Riduci";});if(c)c.addEventListener("click",function(){a.setAttribute("data-hidden","true");});})();</script>
 
 <script src="/assets/js/runtime.js?v=814e70d4"></script>
 

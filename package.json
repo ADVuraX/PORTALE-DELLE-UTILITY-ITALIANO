@@ -9,7 +9,9 @@
     "fonts": "node scripts/fetch-fonts.mjs",
     "dev": "npm run build && npx wrangler dev",
     "deploy": "npm run build && npx wrangler deploy",
-    "preview": "npm run build && npx wrangler dev"
+    "preview": "npm run build && npx wrangler dev",
+    "test": "node --test \"tests/*.test.mjs\"",
+    "verifica:link": "node scripts/verifica-link.mjs"
   },
   "devDependencies": {
     "wrangler": "^4.107.0"

@@ -2,71 +2,174 @@
   "slug": "generatore-qr-code",
   "cluster": "generatori",
   "tema": "utilità",
-  "updated": "2026-07",
-
+  "updated": "2026-10",
   "seo": {
     "title": "Generatore QR Code Online Gratis – Crea e Scarica",
     "metaDescription": "Crea un QR code da un testo o un link e scaricalo in PNG o SVG. Livello di correzione errori regolabile, generato nel browser senza inviare dati. Gratis.",
     "primaryKeyword": "generatore qr code",
     "canonical": "/generatore-qr-code/"
   },
-
   "h1": "Generatore di QR Code",
-
-  "intro": "Trasforma un link, un testo, un numero di telefono o qualsiasi stringa in un QR code pronto da usare. Scrivi il contenuto e l'anteprima appare all'istante: puoi regolare il livello di correzione degli errori — utile se il codice verrà stampato, piegato o potrebbe rovinarsi — e poi scaricare il risultato in PNG (ideale per documenti e social) o in SVG vettoriale (perfetto per la stampa a qualsiasi dimensione, dal biglietto da visita al manifesto). Tutto viene generato nel tuo browser con una libreria open source: nessun contenuto viene inviato a server esterni, quindi puoi creare QR anche per dati riservati. Gratuito, senza registrazione e senza filigrane.",
-
+  "intro": "Scrivi un link, un testo o un numero e il QR code compare subito. Scegli il livello di correzione degli errori in base a dove lo userai e scaricalo in PNG per schermi e documenti o in SVG per stamparlo a qualunque dimensione. Il codice viene costruito nel tuo browser: il contenuto non passa da nessun server e non c'è un collegamento intermedio che possa scadere.",
   "tool": {
     "kind": "generator",
     "logicId": "qr-gen-v1",
     "script": "qr-gen.js",
-    "data": ["qrcode.js"],
+    "data": [
+      "qrcode.js"
+    ],
     "cardNote": "PNG · SVG",
     "inputs": [
-      { "id": "testo", "label": "Testo o URL da codificare", "type": "text", "default": "https://esempio.it", "placeholder": "https://... oppure un testo qualsiasi" },
-      { "type": "group", "legend": "Opzioni", "inputs": [
-        { "id": "correzione", "label": "Correzione errori", "type": "select", "default": "M",
-          "options": ["L", "M", "Q", "H"],
-          "optionLabels": { "L": "L — bassa (7%)", "M": "M — media (15%)", "Q": "Q — alta (25%)", "H": "H — massima (30%)" } },
-        { "id": "bordo", "label": "Includi bordo bianco (zona di silenzio)", "type": "checkbox", "default": true, "hint": "consigliato: molti scanner lo richiedono" }
-      ] }
+      {
+        "id": "testo",
+        "label": "Testo o URL da codificare",
+        "type": "text",
+        "default": "https://esempio.it",
+        "placeholder": "https://... oppure un testo qualsiasi"
+      },
+      {
+        "type": "group",
+        "legend": "Opzioni",
+        "inputs": [
+          {
+            "id": "correzione",
+            "label": "Correzione errori",
+            "type": "select",
+            "default": "M",
+            "options": [
+              "L",
+              "M",
+              "Q",
+              "H"
+            ],
+            "optionLabels": {
+              "L": "L — bassa (7%)",
+              "M": "M — media (15%)",
+              "Q": "Q — alta (25%)",
+              "H": "H — massima (30%)"
+            }
+          },
+          {
+            "id": "bordo",
+            "label": "Includi bordo bianco (zona di silenzio)",
+            "type": "checkbox",
+            "default": true,
+            "hint": "consigliato: molti scanner lo richiedono"
+          }
+        ]
+      }
     ],
-    "output": { "id": "qr", "label": "Anteprima QR code", "format": "qr", "filename": "codice-qr" },
-    "actions": ["copy", "download"],
+    "output": {
+      "id": "qr",
+      "label": "Anteprima QR code",
+      "format": "qr",
+      "filename": "codice-qr"
+    },
+    "actions": [
+      "copy",
+      "download"
+    ],
     "extras": [
-      { "id": "info", "label": "Contenuto", "format": "text" }
+      {
+        "id": "info",
+        "label": "Contenuto",
+        "format": "text"
+      }
     ]
   },
-
   "spiegazione": {
-    "titolo": "Come funziona il QR code e come scegliere la correzione degli errori",
-    "corpo": "Un QR code (Quick Response) è un codice a barre bidimensionale che immagazzina informazioni in una griglia di moduli bianchi e neri. Uno scanner o la fotocamera di uno smartphone legge quella griglia e ne ricava il testo codificato: un indirizzo web, una frase, i dati di un contatto, le credenziali di una rete Wi-Fi o qualsiasi stringa. Questo strumento costruisce il codice interamente nel browser con una libreria open source conforme allo standard ISO/IEC 18004: il contenuto che scrivi non viene mai inviato in rete, un dettaglio importante quando il QR contiene dati personali o riservati. Una caratteristica chiave dei QR è la correzione degli errori di Reed-Solomon: parte dei moduli è ridondante, così il codice resta leggibile anche se una porzione è danneggiata, sporca, coperta da un logo o stampata male. Puoi scegliere tra quattro livelli: L recupera circa il 7% dei dati, M il 15%, Q il 25% e H fino al 30%. Più alto è il livello, più il codice è robusto ma anche più denso, perché servono più moduli per contenere la stessa informazione; per un uso su schermo va benissimo M, mentre per la stampa, un'etichetta o un QR con un logo sovrapposto conviene salire a Q o H. La quantità di dati che puoi codificare dipende dalla lunghezza del testo e dal livello scelto: link brevi producono codici semplici e facili da leggere, mentre testi molto lunghi generano griglie fitte, più difficili da inquadrare. Il bordo bianco attorno al simbolo, chiamato zona di silenzio, non è decorativo: molti lettori ne hanno bisogno per isolare il codice dallo sfondo, perciò conviene tenerlo attivo. Scarica in SVG quando ti serve stampare senza perdita di qualità a qualsiasi dimensione, in PNG per un uso digitale immediato."
+    "titolo": "Come funziona un QR code e quale correzione scegliere",
+    "corpo": [
+      "Un QR code è un codice a barre bidimensionale: una griglia di moduli chiari e scuri che una fotocamera traduce di nuovo nel testo di partenza. È stato sviluppato da DENSO WAVE, che ne detiene il marchio, ed è descritto dallo standard internazionale ISO/IEC 18004, la cui edizione in vigore è del 2024. La griglia va da 21 × 21 moduli fino a 177 × 177 nella versione più grande, che può contenere fino a 7.089 cifre: più testo inserisci, più fitta diventa e più difficile da inquadrare da lontano o se stampata piccola.",
+      "Una parte dei moduli è ridondante grazie a un codice di correzione Reed-Solomon, così il simbolo resta leggibile anche se è rovinato in parte. I livelli sono quattro e indicano quanta parte dei dati si può recuperare: L circa il 7%, M il 15%, Q il 25%, H il 30%. Un livello più alto rende il codice più resistente ma anche più denso. M è la scelta più usata; Q o H servono per etichette esposte a graffi e sporco o quando sopra il codice va un logo.",
+      "Il margine bianco attorno al simbolo si chiama zona di silenzio e DENSO WAVE indica una larghezza di quattro moduli su ogni lato: serve al lettore per separare il codice da ciò che lo circonda. Lascialo attivo, soprattutto se il QR finisce dentro una grafica.",
+      "I QR generati qui sono statici: il testo è scritto direttamente nel codice. Non scadono e non dipendono da un servizio esterno. Se il codice contiene un indirizzo web, funziona finché quella pagina esiste. Per modificarlo devi generarne uno nuovo."
+    ]
   },
-
   "esempi": [
-    { "titolo": "Link a un sito web", "risultatoAtteso": "QR compatto, livello M — pronto per social e volantini" },
-    { "titolo": "QR per la stampa con logo", "risultatoAtteso": "livello H (30%) + download SVG vettoriale" },
-    { "titolo": "Testo lungo o parametri URL", "risultatoAtteso": "griglia più fitta; usa L o M per tenerla leggibile" }
+    {
+      "titolo": "Indirizzo di un sito, correzione M",
+      "risultatoAtteso": "URL · 18 caratteri: griglia compatta, adatta a schermi e volantini",
+      "verifica": {
+        "input": {
+          "testo": "https://esempio.it",
+          "correzione": "M",
+          "bordo": true
+        },
+        "campo": "info",
+        "testo": "URL · 18 caratteri"
+      }
+    },
+    {
+      "titolo": "Messaggio breve per un cartello stampato, correzione Q",
+      "risultatoAtteso": "Testo · 28 caratteri: più resistente a sporco e graffi",
+      "verifica": {
+        "input": {
+          "testo": "Ci vediamo alle 18 in piazza",
+          "correzione": "Q",
+          "bordo": true
+        },
+        "campo": "info",
+        "testo": "Testo · 28 caratteri"
+      }
+    },
+    {
+      "titolo": "QR con un logo sovrapposto",
+      "risultatoAtteso": "correzione H (30%) e download SVG per la stampa"
+    }
   ],
-
   "faq": [
-    { "domanda": "Il contenuto del QR code viene inviato a un server?", "risposta": "No. Il codice è generato interamente nel tuo browser con una libreria open source: il testo o il link che inserisci non lascia il dispositivo e non viene registrato. Per questo puoi creare QR anche per dati riservati, come credenziali Wi-Fi o informazioni personali, in sicurezza." },
-    { "domanda": "Meglio scaricare il QR in PNG o in SVG?", "risposta": "Dipende dall'uso. Il PNG è un'immagine a pixel, comoda per il web, i social e i documenti digitali. L'SVG è vettoriale: puoi ingrandirlo a qualsiasi dimensione — da un adesivo a un manifesto — senza mai perdere nitidezza, ed è la scelta giusta per la stampa professionale. Entrambi contengono lo stesso codice." },
-    { "domanda": "Cosa cambia tra i livelli di correzione L, M, Q e H?", "risposta": "Indicano quanta parte del codice può essere danneggiata restando leggibile: L circa il 7%, M il 15%, Q il 25% e H fino al 30%. Livelli più alti rendono il QR più resistente a graffi, pieghe o loghi sovrapposti, ma anche più denso. Per lo schermo va bene M; per la stampa o con un logo, scegli Q o H." },
-    { "domanda": "I QR code generati hanno una scadenza o vanno bene per sempre?", "risposta": "Il QR in sé non scade: è un'immagine che codifica un testo fisso e funzionerà sempre. Se però codifica un URL, resta valido finché quella pagina esiste. Questo è un QR statico: il contenuto è fisso e non può essere modificato dopo averlo creato, a differenza dei QR dinamici che rimandano a un link intermedio." },
-    { "domanda": "Perché serve il bordo bianco intorno al codice?", "risposta": "È la cosiddetta zona di silenzio: un margine vuoto che aiuta i lettori a distinguere il QR dallo sfondo circostante. Molti scanner non riescono a leggere un codice senza questo margine, perciò è consigliato tenerlo attivo, soprattutto quando il QR viene inserito in una grafica o stampato accanto ad altri elementi." },
-    { "domanda": "Quanto testo posso mettere in un QR code?", "risposta": "Un QR può contenere in teoria migliaia di caratteri, ma più dati inserisci più la griglia diventa fitta e difficile da inquadrare, specie da lontano o se stampata piccola. Per link e testi brevi il risultato è ottimo; se il contenuto è molto lungo conviene abbreviare l'URL o usare un livello di correzione più basso per mantenere il codice leggibile." }
+    {
+      "domanda": "Il testo del QR code viene inviato a un server?",
+      "risposta": "No. Il codice viene costruito nel tuo browser da una libreria open source: il testo o il link che scrivi non lascia il dispositivo e non viene registrato. Puoi quindi generare codici anche per informazioni riservate, come i dati di accesso a una rete Wi-Fi."
+    },
+    {
+      "domanda": "Meglio scaricare il QR in PNG o in SVG?",
+      "risposta": "Il PNG è un'immagine a pixel di 1.024 × 1.024, comoda per siti, social e documenti. L'SVG è vettoriale: puoi ingrandirlo da un adesivo a un manifesto senza perdere nitidezza, quindi è il formato per la stampa. Il codice contenuto è identico."
+    },
+    {
+      "domanda": "Quale livello di correzione degli errori scegliere?",
+      "risposta": "Dipende da dove andrà il codice. Per uno schermo basta M, che recupera circa il 15% dei dati. Per etichette, adesivi o superfici che si possono rovinare scegli Q (25%) o H (30%), che resiste anche a un logo sovrapposto. Più alto il livello, più fitta la griglia."
+    },
+    {
+      "domanda": "Un QR code generato qui scade?",
+      "risposta": "No. È un QR statico: il contenuto è scritto nel codice stesso, senza collegamenti intermedi che un servizio potrebbe disattivare. Se contiene un indirizzo web, funziona finché quella pagina resta online; per cambiare il contenuto devi generare un codice nuovo."
+    },
+    {
+      "domanda": "Quanto testo può contenere un QR code?",
+      "risposta": "Nella versione più grande, 177 × 177 moduli, fino a 7.089 cifre; con lettere e simboli la capacità è minore. In pratica conviene restare brevi: una griglia molto fitta è difficile da leggere da lontano o se stampata piccola. Per indirizzi lunghi usa un link più corto."
+    }
   ],
-
   "relatedTools": [
     "generatore-password",
     "generatore-uuid",
     "calcolatore-stipendio-netto"
   ],
-
-  "disclaimer": "<strong>Generazione locale.</strong> Il QR code è creato nel tuo browser con una libreria open source e il contenuto non viene inviato o salvato. Si tratta di QR statici: il dato codificato è fisso e non modificabile dopo la creazione.",
-
+  "disclaimer": "<strong>Generazione nel browser.</strong> Il QR code è costruito sul tuo dispositivo con la libreria open source QR Code Generator di Kazuhiko Arase (licenza MIT); il contenuto non viene inviato né conservato. I codici sono statici. QR Code è un marchio registrato di DENSO WAVE INCORPORATED.",
   "jsonLd": {
     "type": "SoftwareApplication",
     "applicationCategory": "UtilitiesApplication"
-  }
+  },
+  "fonti": [
+    {
+      "titolo": "DENSO WAVE, QR Code standardization",
+      "dettaglio": "Livelli di correzione L 7%, M 15%, Q 25%, H 30%; capacità massima 7.089 cifre; dimensioni da 21 × 21 a 177 × 177 moduli",
+      "url": "https://www.qrcode.com/en/about/standards.html"
+    },
+    {
+      "titolo": "DENSO WAVE, error correction feature",
+      "dettaglio": "Correzione con codice Reed-Solomon; M è il livello più usato",
+      "url": "https://www.qrcode.com/en/about/error_correction.html"
+    },
+    {
+      "titolo": "DENSO WAVE, point for determining the code area",
+      "dettaglio": "Zona di silenzio di quattro moduli su ogni lato",
+      "url": "https://www.qrcode.com/en/howto/code.html"
+    },
+    {
+      "titolo": "ISO/IEC 18004:2024 — QR Code bar code symbology specification",
+      "dettaglio": "Standard internazionale in vigore, edizione 4 (agosto 2024)",
+      "url": "https://www.iso.org/standard/83389.html"
+    }
+  ]
 }

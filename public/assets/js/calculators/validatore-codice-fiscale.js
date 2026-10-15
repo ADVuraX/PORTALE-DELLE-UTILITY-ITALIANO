@@ -69,11 +69,20 @@
     }
 
     // Decodifica dati (posizioni numeriche: 6,7 anno · 9,10 giorno · 12,13,14 Belfiore).
-    var d = deomocodia(raw, [6, 7, 9, 10, 12, 13, 14]);
+    // In quelle posizioni sono ammesse solo cifre o le 10 lettere dell'omocodia.
+    var POS_NUM = [6, 7, 9, 10, 12, 13, 14];
+    var omocodico = false;
+    for (var k = 0; k < POS_NUM.length; k++) {
+      var c = raw[POS_NUM[k]];
+      if (c >= "0" && c <= "9") continue;
+      if (OMO[c] === undefined) return invalido("Carattere «" + c + "» non ammesso in posizione " + (POS_NUM[k] + 1));
+      omocodico = true;
+    }
+    var d = deomocodia(raw, POS_NUM);
     var annoYY = parseInt(d.slice(6, 8), 10);
     var meseCh = d[8];
     var giorno = parseInt(d.slice(9, 11), 10);
-    var belfiore = raw.slice(11, 15); // codice catastale (con eventuale omocodia lasciata com'è)
+    var belfiore = d.slice(11, 15); // codice catastale, riportato a cifre se omocodico
 
     var mese = MESI[meseCh];
     if (!mese) return invalido("Lettera del mese non valida («" + meseCh + "»)");
@@ -83,20 +92,23 @@
     else if (giorno >= 1 && giorno <= 31) { sesso = "Maschio"; giornoReale = giorno; }
     else return invalido("Giorno di nascita non valido");
 
-    // Secolo ambiguo (2 cifre): scelgo quello che dà un'età plausibile (0–105).
-    var annoPieno1900 = 1900 + annoYY;
-    var annoPieno2000 = 2000 + annoYY;
-    var ANNO_CORRENTE = 2026;
-    var annoPieno;
-    if (annoPieno2000 <= ANNO_CORRENTE) annoPieno = annoPieno2000;
-    else annoPieno = annoPieno1900;
+    // Secolo ambiguo (2 cifre): il più recente che non cada nel futuro.
+    var annoCorrente = new Date().getFullYear();
+    var annoPieno = 2000 + annoYY <= annoCorrente ? 2000 + annoYY : 1900 + annoYY;
+    // Data di calendario reale (niente 31 febbraio; 29 febbraio solo negli anni bisestili).
+    var giorniMese = new Date(Date.UTC(annoPieno, mese, 0)).getUTCDate();
+    if (giornoReale > giorniMese) {
+      return invalido("Data di nascita inesistente: " + giornoReale + " " + MESI_NOME[mese] + " " + annoPieno);
+    }
 
     var dd = String(giornoReale).padStart(2, "0");
     var mm = String(mese).padStart(2, "0");
     var dataNascita = dd + "/" + mm + "/" + annoPieno + " (" + giornoReale + " " + MESI_NOME[mese] + " " + annoPieno + ")";
 
     return {
-      esito: "✓ Codice fiscale formalmente valido",
+      esito: omocodico
+        ? "✓ Codice fiscale formalmente valido (omocodico: alcune cifre sono sostituite da lettere)"
+        : "✓ Codice fiscale formalmente valido",
       valido: true,
       sesso: sesso,
       dataNascita: dataNascita,

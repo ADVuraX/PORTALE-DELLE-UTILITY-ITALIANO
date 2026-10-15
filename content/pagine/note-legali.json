@@ -1,0 +1,66 @@
+{
+  "slug": "note-legali",
+  "ordine": 5,
+  "gruppo": "legale",
+  "etichetta": "Note legali",
+  "titolo": "Note legali e termini d'uso",
+  "kicker": "Informazioni legali",
+  "aggiornato": "2026-10",
+  "seo": {
+    "title": "Note legali e termini d'uso — {{brand}}",
+    "metaDescription": "Chi gestisce il sito, natura informativa degli strumenti e dei risultati, limiti di responsabilità, diritti sui contenuti, licenze del software e legge applicabile."
+  },
+  "lede": "Usando {{dominio}} accetti queste condizioni. Sono poche e servono soprattutto a chiarire una cosa: gli strumenti del sito producono stime a scopo informativo, non consulenze.",
+  "sezioni": [
+    {
+      "titolo": "Chi gestisce il sito",
+      "paragrafi": [
+        "Il sito {{dominio}} è gestito da **{{titolare}}**, persona fisica. Contatto: [{{email}}](mailto:{{email}}).",
+        "Il sito non è collegato all'Agenzia delle Entrate, all'INPS, al Ministero dell'Economia o ad altre amministrazioni pubbliche, né agisce per loro conto. I riferimenti a norme e documenti ufficiali servono a indicare la fonte delle regole applicate."
+      ]
+    },
+    {
+      "titolo": "Natura degli strumenti e dei risultati",
+      "paragrafi": [
+        "I calcolatori, i convertitori, i generatori e i validatori sono strumenti a scopo informativo. I risultati sono stime basate sulle norme e sui dati citati in ogni pagina, sulle ipotesi dichiarate e sui valori che inserisci. Non costituiscono consulenza fiscale, legale, previdenziale o finanziaria, e non sostituiscono la busta paga, il conteggio del datore di lavoro, la dichiarazione dei redditi o il parere di un professionista.",
+        "I validatori controllano la correttezza formale di un codice, non la sua esistenza o titolarità. Per decisioni che hanno conseguenze economiche o legali, verifica sempre con le fonti ufficiali o con un professionista abilitato."
+      ]
+    },
+    {
+      "titolo": "Accuratezza e aggiornamento",
+      "paragrafi": [
+        "Ogni strumento è costruito e verificato con il metodo descritto nella pagina [Metodologia e fonti](/metodologia/), e ogni pagina indica la data dell'ultimo aggiornamento. Norme, aliquote e tassi però cambiano, e un errore resta sempre possibile. Se ne trovi uno, scrivi a [{{email}}](mailto:{{email}}): le correzioni vengono pubblicate e annotate nella pagina sulla metodologia."
+      ]
+    },
+    {
+      "titolo": "Limitazione di responsabilità",
+      "paragrafi": [
+        "Nei limiti consentiti dalla legge, il titolare non risponde di danni derivanti dall'uso dei risultati degli strumenti, da errori o omissioni nei contenuti, da interruzioni del servizio o dal contenuto dei siti esterni collegati. Restano ferme la responsabilità per dolo o colpa grave, che non può essere esclusa (art. 1229 del codice civile), e le tutele inderogabili previste per i consumatori dal Codice del consumo (D.Lgs. 206/2005)."
+      ]
+    },
+    {
+      "titolo": "Diritti sui contenuti",
+      "paragrafi": [
+        "Testi, struttura delle pagine e codice originale del sito appartengono al titolare. Puoi citarne brevi parti indicando la fonte con un link alla pagina; la riproduzione integrale o sistematica richiede un'autorizzazione scritta. I testi di norme e documenti pubblici citati restano liberamente consultabili alle fonti ufficiali."
+      ]
+    },
+    {
+      "titolo": "Software e caratteri di terze parti",
+      "paragrafi": [
+        "Il sito usa componenti di terze parti, ciascuno con la propria licenza:"
+      ],
+      "elenco": [
+        "**QR Code Generator for JavaScript** di Kazuhiko Arase — licenza MIT. «QR Code» è un marchio registrato di DENSO WAVE INCORPORATED.",
+        "**IBM Plex Sans** e **IBM Plex Mono** di IBM — SIL Open Font License 1.1.",
+        "**Fraunces** di Undercase Type — SIL Open Font License 1.1.",
+        "Tassi di cambio di riferimento della **Banca Centrale Europea**, ottenuti tramite il servizio open source **Frankfurter**."
+      ]
+    },
+    {
+      "titolo": "Legge applicabile",
+      "paragrafi": [
+        "Queste condizioni sono regolate dalla legge italiana. Il titolare può aggiornarle; la data dell'ultima revisione è indicata in cima alla pagina."
+      ]
+    }
+  ]
+}

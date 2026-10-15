@@ -2,66 +2,139 @@
   "slug": "validatore-codice-fiscale",
   "cluster": "validatori",
   "tema": "documenti",
-  "updated": "2026-07",
-
+  "updated": "2026-10",
   "seo": {
     "title": "Validatore Codice Fiscale – Verifica e Calcolo Carattere di Controllo",
     "metaDescription": "Verifica se un codice fiscale è formalmente corretto: controlla struttura e carattere di controllo, decodifica sesso, data e luogo di nascita. Tutto nel browser, nessun dato inviato.",
     "primaryKeyword": "validatore codice fiscale",
     "canonical": "/validatore-codice-fiscale/"
   },
-
   "h1": "Validatore di Codice Fiscale",
-
-  "intro": "Controlla in un istante se un codice fiscale è formalmente valido. Lo strumento verifica la struttura dei 16 caratteri e ricalcola il carattere di controllo con l'algoritmo ufficiale del Ministero delle Finanze, poi decodifica i dati anagrafici deducibili dal codice: sesso, data di nascita e codice catastale (Belfiore) del luogo di nascita. Gestisce anche l'omocodia, cioè i casi in cui alcune cifre sono state sostituite da lettere per distinguere persone con dati simili. Tutto avviene nel tuo browser: nessun codice viene inviato o salvato. Attenzione, però: questa è una verifica formale della struttura, non conferma che il codice appartenga davvero a una persona esistente.",
-
+  "intro": "Incolla un codice fiscale di persona fisica: lo strumento controlla la struttura dei 16 caratteri, ricalcola il carattere di controllo con l'algoritmo del decreto ministeriale del 1976 e, se il codice è coerente, ricava sesso, data di nascita e codice catastale del luogo di nascita. Riconosce anche i codici omocodici, in cui alcune cifre sono sostituite da lettere. Il controllo avviene nel tuo browser: il codice non viene inviato né salvato. Ricorda che la verifica è formale e non dice se il codice è stato davvero assegnato a qualcuno.",
   "tool": {
     "logicId": "codice-fiscale-v1",
     "script": "validatore-codice-fiscale.js",
     "cardNote": "Verifica formale",
     "inputs": [
-      { "id": "codice", "label": "Codice fiscale", "type": "text", "placeholder": "es. RSSMRA85M01H501U" }
+      {
+        "id": "codice",
+        "label": "Codice fiscale",
+        "type": "text",
+        "placeholder": "es. RSSMRA85M01H501U"
+      }
     ],
-    "outputPrimary": { "id": "esito", "label": "Esito verifica", "format": "text" },
+    "outputPrimary": {
+      "id": "esito",
+      "label": "Esito verifica",
+      "format": "text"
+    },
     "outputSecondary": [
-      { "id": "sesso", "label": "Sesso", "format": "text" },
-      { "id": "dataNascita", "label": "Data di nascita", "format": "text" },
-      { "id": "codiceCatastale", "label": "Luogo di nascita (codice Belfiore)", "format": "text" }
+      {
+        "id": "sesso",
+        "label": "Sesso",
+        "format": "text"
+      },
+      {
+        "id": "dataNascita",
+        "label": "Data di nascita",
+        "format": "text"
+      },
+      {
+        "id": "codiceCatastale",
+        "label": "Luogo di nascita (codice Belfiore)",
+        "format": "text"
+      }
     ]
   },
-
   "spiegazione": {
-    "titolo": "Come è fatto il codice fiscale e come si verifica il carattere di controllo",
-    "corpo": "Il codice fiscale delle persone fisiche è composto da 16 caratteri alfanumerici, generati secondo le regole del Decreto Ministeriale del 23 dicembre 1976. I primi 6 caratteri derivano dal cognome (3 lettere) e dal nome (3 lettere), estratte con criteri precisi da consonanti e vocali. Seguono 2 cifre per l'anno di nascita, 1 lettera per il mese (A per gennaio fino a T per dicembre) e 2 cifre per il giorno: per le donne al giorno si sommano 40, così lo stesso schema distingue il sesso senza aggiungere caratteri. I 4 caratteri successivi sono il codice catastale, detto codice Belfiore, del comune (o dello Stato estero) di nascita. L'ultimo carattere è il carattere di controllo, calcolato sui 15 precedenti: ogni carattere ha un valore diverso a seconda che occupi una posizione di ordine dispari o pari (secondo due tabelle di conversione fissate dal decreto), i valori si sommano e il resto della divisione per 26 individua una lettera da A a Z. Se la lettera calcolata coincide con il sedicesimo carattere, il codice è formalmente coerente. Un ulteriore meccanismo è l'omocodia: quando due persone otterrebbero lo stesso codice, l'Agenzia delle Entrate sostituisce una o più cifre con lettere secondo una mappa predefinita, per rendere il codice univoco; il validatore riconosce queste sostituzioni prima di decodificare la data. Due limiti sono importanti. Primo: la verifica è puramente formale, cioè conferma che il codice rispetta le regole di costruzione, ma non attesta che corrisponda a una persona realmente esistente o registrata. Secondo: dalle sole 2 cifre dell'anno il secolo è ambiguo (per esempio 25 può essere 1925 o 2025), perciò si assume l'ipotesi più plausibile in base all'età."
+    "titolo": "Come è costruito il codice fiscale e come si controlla",
+    "corpo": [
+      "Il codice fiscale delle persone fisiche ha 16 caratteri, costruiti con le regole del decreto del Ministero delle Finanze del 23 dicembre 1976. I primi sei vengono dal cognome e dal nome, tre lettere ciascuno, scelte fra consonanti e vocali secondo criteri fissi. Seguono due cifre per l'anno di nascita, una lettera per il mese — A gennaio, B febbraio, C marzo, D aprile, E maggio, H giugno, L luglio, M agosto, P settembre, R ottobre, S novembre, T dicembre — e due cifre per il giorno, a cui per le donne si aggiunge 40: un 41 indica una donna nata il primo del mese. I quattro caratteri successivi sono il codice catastale, detto codice Belfiore, del comune italiano o dello Stato estero di nascita.",
+      "Il sedicesimo carattere serve a intercettare gli errori di battitura. A ognuno dei primi 15 caratteri si assegna un valore preso da due tabelle diverse, una per le posizioni dispari e una per le pari; i valori si sommano e il resto della divisione per 26 indica una lettera da A a Z. Se quella lettera coincide con l'ultima del codice, il codice è coerente; se no, almeno un carattere è sbagliato e lo strumento ti dice quale lettera si aspettava.",
+      "Quando due persone otterrebbero lo stesso codice, una o più delle sette cifre vengono sostituite da lettere secondo una tabella fissa: 0 diventa L, 1 M, 2 N, 3 P, 4 Q, 5 R, 6 S, 7 T, 8 U, 9 V. È l'omocodia. Lo strumento riporta quelle lettere a cifre prima di leggere la data e il codice catastale, e ti segnala nell'esito che il codice è omocodico.",
+      "Due limiti da conoscere. L'anno ha solo due cifre, quindi il secolo non è scritto nel codice: lo strumento sceglie l'anno più recente che non cada nel futuro, per cui un 30 diventa 1930 e un 15 diventa 2015. E la verifica è formale: conferma che il codice rispetta le regole di costruzione e controlla anche che la data esista davvero, ma non può dire se l'Agenzia delle Entrate lo abbia assegnato a una persona."
+    ]
   },
-
   "esempi": [
-    { "titolo": "RSSMRA85M01H501U", "risultatoAtteso": "Formalmente valido · Maschio · 01/08/1985 · Belfiore H501 (Roma)" },
-    { "titolo": "RSSMRA85M41H501A", "risultatoAtteso": "Femmina · giorno 41 = 1 (giorno +40) · nata a agosto 1985" },
-    { "titolo": "RSSMRA85M01H501B", "risultatoAtteso": "Non valido: carattere di controllo errato rispetto ai primi 15 caratteri" }
+    {
+      "titolo": "RSSMRA85M01H501Q",
+      "risultatoAtteso": "✓ Codice fiscale formalmente valido · Maschio · 01/08/1985 · codice catastale H501",
+      "verifica": {
+        "input": {
+          "codice": "RSSMRA85M01H501Q"
+        },
+        "campo": "esito",
+        "testo": "✓ Codice fiscale formalmente valido"
+      }
+    },
+    {
+      "titolo": "RSSMRA85M41H501U — stesso schema, giorno 41",
+      "risultatoAtteso": "✓ Codice fiscale formalmente valido · Femmina · 01/08/1985",
+      "verifica": {
+        "input": {
+          "codice": "RSSMRA85M41H501U"
+        },
+        "campo": "sesso",
+        "testo": "Femmina"
+      }
+    },
+    {
+      "titolo": "RSSMRA85M01H501U — ultima lettera sbagliata",
+      "risultatoAtteso": "✗ Carattere di controllo errato: atteso «Q», trovato «U»",
+      "verifica": {
+        "input": {
+          "codice": "RSSMRA85M01H501U"
+        },
+        "campo": "esito",
+        "testo": "✗ Carattere di controllo errato: atteso «Q», trovato «U»"
+      }
+    }
   ],
-
   "faq": [
-    { "domanda": "Come si calcola il carattere di controllo?", "risposta": "Si prendono i primi 15 caratteri del codice e a ciascuno si assegna un valore numerico, diverso a seconda che occupi una posizione di ordine dispari o pari (secondo due tabelle fissate dal D.M. del 1976). Si sommano tutti i valori e si calcola il resto della divisione per 26: quel resto individua una lettera da A a Z, che è il sedicesimo carattere. Se coincide, il codice è coerente." },
-    { "domanda": "Cos'è l'omocodia?", "risposta": "È il caso in cui due persone diverse otterrebbero lo stesso codice fiscale perché hanno cognome, nome, data, sesso e comune di nascita che generano la stessa sequenza. Per rendere il codice univoco, l'Agenzia delle Entrate sostituisce una o più cifre con lettere secondo una mappa predefinita. Il validatore riconosce queste sostituzioni e le riporta a cifra prima di decodificare i dati." },
-    { "domanda": "Perché le donne hanno il giorno +40?", "risposta": "È un espediente della codifica: per distinguere il sesso senza aggiungere caratteri, al giorno di nascita delle donne si sommano 40. Così un giorno tra 41 e 71 indica una donna (a cui si sottraggono 40 per ottenere il giorno reale), mentre un giorno tra 1 e 31 indica un uomo. Il validatore applica questa regola per dedurre sesso e data." },
-    { "domanda": "Il validatore conferma che il codice esiste davvero?", "risposta": "No. Lo strumento verifica solo la correttezza formale: struttura, carattere di controllo e coerenza dei dati decodificati. Non consulta gli archivi dell'Anagrafe Tributaria, quindi non può confermare che il codice sia stato effettivamente assegnato a una persona reale né che sia intestato a un determinato individuo. L'unica verifica ufficiale di esistenza è quella dell'Agenzia delle Entrate." },
-    { "domanda": "Posso capire dove è nata una persona dal codice fiscale?", "risposta": "In parte. I caratteri dall'undicesimo al quattordicesimo sono il codice catastale (Belfiore) del comune o dello Stato estero di nascita. Il validatore mostra questo codice, ma non lo traduce automaticamente nel nome del comune per non appesantire la pagina con un archivio esteso. Il codice Belfiore è comunque una chiave con cui risalire alla località tramite le tabelle ufficiali." }
+    {
+      "domanda": "Come si calcola il carattere di controllo del codice fiscale?",
+      "risposta": "Si prendono i primi 15 caratteri e a ciascuno si assegna un valore numerico preso da due tabelle del D.M. del 1976, una per le posizioni dispari e una per le pari. Si sommano i valori e si divide per 26: il resto, da 0 a 25, corrisponde a una lettera da A a Z. È quella lettera il sedicesimo carattere."
+    },
+    {
+      "domanda": "Cos'è un codice fiscale omocodico?",
+      "risposta": "È un codice in cui una o più cifre sono state sostituite da lettere perché, con le regole normali, due persone avrebbero avuto lo stesso codice. La tabella è fissa: 0 diventa L, 1 M, 2 N, 3 P, 4 Q, 5 R, 6 S, 7 T, 8 U, 9 V. Un codice omocodico è valido a tutti gli effetti; lo strumento lo riconosce e lo segnala."
+    },
+    {
+      "domanda": "Perché nelle donne il giorno di nascita supera 40?",
+      "risposta": "Perché il codice distingue il sesso sommando 40 al giorno di nascita delle donne, senza aggiungere caratteri. Un giorno fra 41 e 71 indica quindi una donna, e togliendo 40 si ottiene il giorno reale; fra 1 e 31 indica un uomo."
+    },
+    {
+      "domanda": "Questo strumento conferma che il codice esiste?",
+      "risposta": "No. Verifica struttura, carattere di controllo ed esistenza della data, ma non consulta l'Anagrafe tributaria: un codice può essere formalmente corretto senza essere mai stato assegnato. Per l'Agenzia delle Entrate l'unico codice valido è quello che rilascia lei, e sul suo sito c'è un [servizio gratuito](https://www.agenziaentrate.gov.it/portale/verifica-codice-fiscale) per controllare che un codice corrisponda ai dati anagrafici di una persona."
+    },
+    {
+      "domanda": "Dal codice fiscale si capisce dove è nata una persona?",
+      "risposta": "Sì, attraverso i caratteri dall'undicesimo al quattordicesimo: sono il codice catastale del comune di nascita, oppure dello Stato estero. Lo strumento mostra il codice ma non lo traduce nel nome del comune, perché servirebbe un elenco di migliaia di voci da tenere aggiornato."
+    }
   ],
-
   "relatedTools": [
     "validatore-iban",
     "calcolatore-stipendio-netto",
     "calcolatore-partita-iva-forfettario"
   ],
-
-  "disclaimer": "<strong>Verifica formale, non ufficiale.</strong> Lo strumento controlla struttura e carattere di controllo e decodifica i dati deducibili dal codice, ma <strong>non</strong> attesta l'esistenza reale né la titolarità del codice fiscale. Il secolo di nascita è presunto in base all'età più plausibile. <strong>Nessun dato viene inviato:</strong> tutto il calcolo avviene in locale nel tuo browser.",
-
+  "disclaimer": "<strong>Verifica formale.</strong> Controlla struttura, carattere di controllo ed esistenza della data, e ricava i dati scritti nel codice. <strong>Non</strong> attesta che il codice sia stato assegnato a una persona né a chi appartenga. Il secolo di nascita è dedotto. Il codice resta nel tuo browser: non viene inviato né salvato.",
   "fonti": [
-    { "titolo": "Struttura del codice fiscale (D.M. 23/12/1976)", "dettaglio": "Ministero delle Finanze · regole di formazione e carattere di controllo", "url": "https://www.gazzettaufficiale.it/eli/id/1977/01/20/077U0006/sg" },
-    { "titolo": "Codice fiscale — Agenzia delle Entrate", "dettaglio": "informazioni ufficiali su composizione, rilascio e verifica del codice fiscale", "url": "https://www.agenziaentrate.gov.it/portale/schede/istanze/codice-fiscale-tessera-sanitaria/richiesta-codice-fiscale" }
+    {
+      "titolo": "D.M. 23 dicembre 1976 — Sistemi di codificazione dei soggetti da iscrivere all'anagrafe tributaria",
+      "dettaglio": "Composizione del codice, tabelle per il carattere di controllo, omocodia",
+      "url": "https://www.gazzettaufficiale.it/eli/id/1977/01/20/077U0006/sg"
+    },
+    {
+      "titolo": "Agenzia delle Entrate, il codice fiscale",
+      "dettaglio": "Composizione dei 16 caratteri; l'unico codice valido è quello rilasciato dall'Agenzia; omocodia",
+      "url": "https://www.agenziaentrate.gov.it/portale/codice-fiscale-e-tessera-sanitaria/che-cos-"
+    },
+    {
+      "titolo": "Agenzia delle Entrate, verifica del codice fiscale",
+      "dettaglio": "Servizio gratuito per verificare la corrispondenza fra codice fiscale e dati anagrafici",
+      "url": "https://www.agenziaentrate.gov.it/portale/verifica-codice-fiscale"
+    }
   ],
-
   "jsonLd": {
     "type": "SoftwareApplication",
     "applicationCategory": "UtilitiesApplication"

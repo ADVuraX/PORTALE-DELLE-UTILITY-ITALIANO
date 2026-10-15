@@ -1,0 +1,88 @@
+{
+  "slug": "privacy",
+  "ordine": 3,
+  "gruppo": "legale",
+  "etichetta": "Privacy",
+  "titolo": "Informativa sulla privacy",
+  "kicker": "Informazioni legali",
+  "aggiornato": "2026-10",
+  "seo": {
+    "title": "Informativa sulla privacy — {{brand}}",
+    "metaDescription": "Quali dati tratta il sito, per quali finalità e su quale base giuridica, con chi li condivide, per quanto tempo e quali diritti hai. Informativa ai sensi dell'art. 13 GDPR."
+  },
+  "lede": "Questa pagina spiega quali dati personali tratta il sito {{dominio}}, perché, per quanto tempo e quali diritti hai, come richiede l'art. 13 del Regolamento UE 2016/679 (GDPR). In breve: gli strumenti funzionano nel tuo browser e i valori che inserisci non vengono inviati né salvati; il sito non ha account né moduli.",
+  "sezioni": [
+    {
+      "titolo": "Titolare del trattamento",
+      "paragrafi": [
+        "Il titolare del trattamento è **{{titolare}}**, persona fisica, che gestisce il sito {{dominio}}. Puoi scrivere per qualsiasi questione sui tuoi dati a [{{email}}](mailto:{{email}}). Il titolare non ha nominato un responsabile della protezione dei dati, perché non è obbligatorio per la sua attività."
+      ]
+    },
+    {
+      "titolo": "Cosa non raccogliamo",
+      "paragrafi": [
+        "Gli strumenti del sito — calcolatori, convertitori, generatori, validatori — eseguono i calcoli nel tuo browser. Retribuzioni, codici fiscali, IBAN, password generate e qualsiasi altro valore che inserisci restano sul tuo dispositivo: non vengono trasmessi al sito né conservati. Il sito non prevede registrazione, account, newsletter o moduli da compilare.",
+        "I caratteri tipografici sono ospitati sul sito stesso: la loro visualizzazione non comporta richieste a servizi di terzi."
+      ]
+    },
+    {
+      "titolo": "Dati di navigazione e hosting",
+      "paragrafi": [
+        "Come ogni sito web, anche questo riceve dal tuo browser alcuni dati tecnici necessari a consegnarti le pagine: indirizzo IP, data e ora della richiesta, pagina richiesta, tipo di browser e sistema operativo. Il sito è ospitato da **Cloudflare, Inc.**, che tratta questi dati come responsabile del trattamento per conto del titolare, anche per proteggere il servizio da abusi e attacchi.",
+        "**Base giuridica**: il legittimo interesse del titolare a far funzionare il sito in modo sicuro (art. 6, par. 1, lett. f, GDPR). **Conservazione**: per il tempo strettamente necessario a queste finalità, secondo le politiche del fornitore. Cloudflare può trattare i dati anche negli Stati Uniti: è certificata nell'EU-U.S. Data Privacy Framework e il suo accordo sul trattamento dei dati incorpora le clausole contrattuali standard della Commissione europea."
+      ]
+    },
+    {
+      "titolo": "Statistiche di visita",
+      "condizione": "analytics",
+      "paragrafi": [
+        "Per sapere quali pagine vengono visitate il sito usa **Cloudflare Web Analytics**. Il servizio non usa cookie né altri dati salvati nel tuo browser e, secondo Cloudflare, non identifica i visitatori nel tempo tramite indirizzo IP o altri attributi: produce solo conteggi aggregati, come il numero di visite a una pagina.",
+        "**Base giuridica**: legittimo interesse a capire come viene usato il sito per migliorarlo (art. 6, par. 1, lett. f, GDPR). Poiché non vengono salvate informazioni sul tuo dispositivo, non serve il tuo consenso."
+      ]
+    },
+    {
+      "titolo": "Convertitore di valuta: servizi esterni",
+      "paragrafi": [
+        "Solo nella pagina del convertitore di valuta il tuo browser contatta direttamente due servizi esterni per ottenere i tassi di cambio aggiornati: **Frankfurter** (api.frankfurter.dev) e, se questo non risponde, **open.er-api.com** (ExchangeRate-API). Come in ogni richiesta web, questi servizi ricevono il tuo indirizzo IP e i dati tecnici della richiesta; non ricevono l'importo che converti, che resta nel tuo browser.",
+        "**Base giuridica**: legittimo interesse a fornirti un tasso aggiornato (art. 6, par. 1, lett. f, GDPR). Al trattamento svolto da questi servizi si applicano le rispettive informative. Se non vuoi che vengano contattati, puoi usare gli altri strumenti del sito, che non fanno richieste esterne."
+      ]
+    },
+    {
+      "titolo": "Pubblicità e cookie di Google",
+      "condizione": "annunci",
+      "paragrafi": [
+        "Il sito mostra annunci tramite **Google AdSense**. Fornitori terzi, tra cui Google, utilizzano cookie per pubblicare annunci in base alle tue visite precedenti a questo e ad altri siti. L'uso dei cookie pubblicitari consente a Google e ai suoi partner di mostrarti annunci basati sulle visite a questo sito e/o ad altri siti su Internet.",
+        "Nell'Unione europea i cookie pubblicitari vengono usati solo con il tuo consenso, raccolto tramite una piattaforma di gestione del consenso certificata da Google e integrata con il Transparency & Consent Framework di IAB Europe. Puoi cambiare scelta in ogni momento dal link «Preferenze cookie» in fondo a ogni pagina. Se rifiuti, Google può comunque mostrarti annunci non personalizzati, secondo le proprie regole.",
+        "Puoi disattivare la pubblicità personalizzata dalle [impostazioni degli annunci di Google](https://adssettings.google.com) oppure, per i fornitori terzi che aderiscono, da [youronlinechoices.com](https://www.youronlinechoices.com/it/) e [aboutads.info](https://www.aboutads.info). Per sapere come Google usa i dati quando visiti i siti dei suoi partner leggi [questa pagina di Google](https://policies.google.com/technologies/partner-sites).",
+        "**Base giuridica**: il tuo consenso (art. 6, par. 1, lett. a, GDPR, e art. 122 del Codice privacy). Google tratta questi dati come titolare autonomo; Google LLC è certificata nell'EU-U.S. Data Privacy Framework. Dettagli sui cookie nella [cookie policy](/cookie/)."
+      ]
+    },
+    {
+      "titolo": "Preferenze salvate nel browser",
+      "paragrafi": [
+        "Se scegli il tema chiaro o scuro, la scelta viene salvata nel tuo browser (localStorage) per ricordarla alla visita successiva. È un'informazione tecnica che resta sul tuo dispositivo, non viene inviata al sito e puoi cancellarla dalle impostazioni del browser. Non serve consenso, perché è necessaria a fornirti la funzione che hai chiesto."
+      ]
+    },
+    {
+      "titolo": "Email",
+      "paragrafi": [
+        "Se scrivi a [{{email}}](mailto:{{email}}), il titolare tratta il tuo indirizzo email e il contenuto del messaggio per risponderti. I messaggi sono inoltrati alla casella del titolare tramite il servizio di inoltro email di Cloudflare.",
+        "**Base giuridica**: la risposta a una tua richiesta (art. 6, par. 1, lett. b e f, GDPR). **Conservazione**: per il tempo necessario a gestire la richiesta e comunque non oltre 24 mesi dall'ultimo scambio, salvo che serva più a lungo per far valere o difendere un diritto."
+      ]
+    },
+    {
+      "titolo": "I tuoi diritti",
+      "paragrafi": [
+        "Hai diritto di chiedere l'accesso ai tuoi dati, la loro rettifica o cancellazione, la limitazione del trattamento e la portabilità, e di opporti ai trattamenti basati sul legittimo interesse (articoli 15–22 GDPR). Se hai dato un consenso puoi revocarlo in ogni momento, senza conseguenze sui trattamenti fatti prima. Per esercitare i diritti scrivi a [{{email}}](mailto:{{email}}).",
+        "Se ritieni che il trattamento violi il GDPR puoi proporre reclamo al [Garante per la protezione dei dati personali](https://www.garanteprivacy.it).",
+        "Il titolare non prende decisioni basate unicamente su trattamenti automatizzati che producano effetti giuridici su di te. Il sito non è rivolto ai minori di 14 anni."
+      ]
+    },
+    {
+      "titolo": "Modifiche",
+      "paragrafi": [
+        "Questa informativa viene aggiornata quando cambiano i servizi usati dal sito. La data dell'ultima revisione è indicata in cima alla pagina."
+      ]
+    }
+  ]
+}

@@ -54,14 +54,15 @@ function calcolaStipendioNetto(input) {
 
   // 4. Detrazione per lavoro dipendente (art. 13 TUIR). La formula dà l'importo
   //    annuo teorico sul reddito (del periodo, per il tempo determinato).
+  //    I rapporti si assumono alle prime 4 cifre decimali (730/2026, tab. 6).
   var d = F.detrazioneLavoro;
   var detrazioneTeorica = 0;
   if (R <= 15000) {
     detrazioneTeorica = d.fino15k;
   } else if (R <= d.sup2) {
-    detrazioneTeorica = d.base2 + d.quota2 * ((d.sup2 - R) / d.ampiezza2);
+    detrazioneTeorica = d.base2 + d.quota2 * tronca((d.sup2 - R) / d.ampiezza2, d.decimaliRapporto);
   } else if (R <= d.sup3) {
-    detrazioneTeorica = d.base3 * ((d.sup3 - R) / d.ampiezza3);
+    detrazioneTeorica = d.base3 * tronca((d.sup3 - R) / d.ampiezza3, d.decimaliRapporto);
   }
   // Maggiorazione +65 € per reddito complessivo 25.001–35.000 (art. 13 c.1 TUIR,
   // L. 207/2024): a cavallo del 2° e 3° scaglione, non solo entro 28.000.
@@ -75,7 +76,7 @@ function calcolaStipendioNetto(input) {
   if (nFigli > 0) {
     var df = F.detrazioniFigli;
     var denom = df.denomBase + df.denomPerFiglioExtra * (nFigli - 1);
-    var ratio = Math.max(0, (denom - R) / denom);
+    var ratio = Math.max(0, tronca((denom - R) / denom, df.decimaliRapporto));
     detrFigli = df.teorica * nFigli * ratio;
   }
 
@@ -83,7 +84,7 @@ function calcolaStipendioNetto(input) {
   var detrFamiliari = 0;
   if (nFamiliari > 0) {
     var da = F.detrazioniAltriFamiliari;
-    var ratioF = Math.max(0, (da.tettoReddito - R) / da.tettoReddito);
+    var ratioF = Math.max(0, tronca((da.tettoReddito - R) / da.tettoReddito, da.decimaliRapporto));
     detrFamiliari = da.teorica * nFamiliari * ratioF;
   }
 
@@ -111,12 +112,14 @@ function calcolaStipendioNetto(input) {
     ? "Somma esente in busta paga"
     : (cuneoDetrazione > 0 ? "Ulteriore detrazione IRPEF" : "");
 
-  // 6. Trattamento integrativo (ex Bonus Renzi). Capienza valutata (per norma)
-  //    contro la sola detrazione per lavoro dipendente.
+  // 6. Trattamento integrativo (ex Bonus Renzi). Fino a 15.000 € spetta se
+  //    l'imposta lorda supera la detrazione per lavoro dipendente DIMINUITA DI
+  //    75 € (L. 207/2024 c. 3, circ. AdE 4/E/2025): senza la riduzione il
+  //    beneficio sparirebbe per redditi fra circa 8.174 e 8.500 €.
   var ti = F.trattamentoIntegrativo;
   var trattamentoIntegrativo = 0;
   if (R <= ti.sogliaPiena) {
-    if (irpefLorda > detrazioneLavoro) trattamentoIntegrativo = ti.importo;
+    if (irpefLorda > detrazioneLavoro - ti.riduzioneCapienza) trattamentoIntegrativo = ti.importo;
   } else if (R <= ti.sogliaMax) {
     // 15.001–28.000: spetta solo se la SOMMA delle detrazioni "specifiche" supera
     // l'IRPEF lorda; l'importo è la differenza, entro il tetto (1.200 €). Nel
@@ -126,12 +129,13 @@ function calcolaStipendioNetto(input) {
     if (capienza > 0) trattamentoIntegrativo = Math.min(ti.importo, capienza);
   }
 
-  // 7. Addizionale regionale (progressiva a scaglioni o fissa).
+  // 7. Addizionale regionale. È dovuta solo se l'IRPEF, al netto di TUTTE le
+  //    detrazioni (cuneo compreso), risulta positiva (art. 50 c. 2 D.Lgs. 446/1997):
+  //    chi resta nella no tax area non la paga.
   var reg = F.addizionaleRegionale && F.addizionaleRegionale[regione];
-  var addizionali = addizionaleRegionale(R, reg);
-  var notaRegione = reg && reg.affidabilita === "provvisoria"
-    ? "Dati regionali 2026 non ancora pubblicati dal MEF: stima da fonti secondarie, in aggiornamento."
-    : "";
+  var irpefDovuta = irpefTotale - cuneoDetrazione;
+  var addizionali = irpefDovuta > 0 ? addizionaleRegionale(R, reg) : 0;
+  var notaRegione = "";
 
   // 8. Netto ANNUO al tasso pieno → netto MENSILE (identico per determinato e
   //    indeterminato: il contratto a termine non cambia lo stipendio mensile).
@@ -153,6 +157,21 @@ function calcolaStipendioNetto(input) {
   trattamentoIntegrativo *= fattorePeriodo;
   addizionali *= fattorePeriodo;
 
+  // Minimo della detrazione effettivamente spettante (art. 13, R ≤ 15.000):
+  // rapportata a un periodo breve può scendere sotto 690 € (1.380 € a tempo
+  // determinato), soglia sotto la quale la norma non la lascia andare. Conta
+  // solo per i totali del periodo; il netto mensile resta al tasso annuo pieno.
+  if (fattorePeriodo < 1 && R <= 15000) {
+    var minimo = tipoContratto === "determinato" ? d.minimoDeterminato : d.minimoIndeterminato;
+    if (detrazioneLavoro < minimo) {
+      var irpefPrima = irpefTotale;
+      detrazioneLavoro = minimo;
+      irpefTotale = Math.max(0, irpefLorda - detrazioneLavoro - detrazioniFamiliari);
+      if (irpefTotale <= 0) { nettoAnnuo += addizionali; addizionali = 0; }
+      nettoAnnuo += irpefPrima - irpefTotale;
+    }
+  }
+
   return {
     lordo: lordoPeriodo,
     contributiInps: contributiInps,
@@ -172,21 +191,44 @@ function calcolaStipendioNetto(input) {
   };
 }
 
-/** Addizionale regionale su imponibile R. Scaglioni = progressiva per fascia. */
+/** Tronca alla n-esima cifra decimale (rapporti delle detrazioni, 730/2026). */
+function tronca(x, n) {
+  if (!n) return x;
+  var p = Math.pow(10, n);
+  // + 1e-9: evita che 0,2 * 10000 = 1999,9999… perda un'unità per errore binario.
+  return Math.floor(x * p + 1e-9) / p;
+}
+
+/**
+ * Addizionale regionale su imponibile R, secondo il modello di fisco-2026.js:
+ * esenzione, aliquota unica sotto soglia, fissa o a scaglioni progressivi,
+ * poi detrazioni regionali (che non generano credito: il minimo è zero).
+ */
 function addizionaleRegionale(R, reg) {
   if (!reg || R <= 0) return 0;
   if (reg.esenzioneFino && R <= reg.esenzioneFino) return 0;
-  if (reg.tipo === "fissa") return R * (reg.aliquota || 0);
-  if (reg.tipo === "scaglioni" && reg.scaglioni) {
-    var tot = 0, prev = 0;
+  var lorda = 0;
+  if (reg.unicaFino && R <= reg.unicaFino.fino) {
+    lorda = R * reg.unicaFino.aliquota;
+  } else if (reg.tipo === "fissa") {
+    lorda = R * (reg.aliquota || 0);
+  } else if (reg.tipo === "scaglioni" && reg.scaglioni) {
+    var prev = 0;
     for (var i = 0; i < reg.scaglioni.length; i++) {
       var s = reg.scaglioni[i];
       var fino = s.fino == null ? Infinity : s.fino;
-      if (R > prev) { tot += (Math.min(R, fino) - prev) * s.aliquota; prev = fino; }
+      if (R > prev) { lorda += (Math.min(R, fino) - prev) * s.aliquota; prev = fino; }
     }
-    return tot;
   }
-  return 0;
+  var detr = 0;
+  (reg.detrazioni || []).forEach(function (dt) {
+    if (R > (dt.oltre || 0) && R <= dt.fino) detr += dt.importo;
+  });
+  if (reg.detrazioneOltre && R > reg.detrazioneOltre.soglia) {
+    var o = reg.detrazioneOltre;
+    detr += Math.min(o.importo, o.importo * (R - o.soglia) / o.ampiezza);
+  }
+  return Math.max(0, lorda - detr);
 }
 
 if (typeof registerCalculator === "function") {

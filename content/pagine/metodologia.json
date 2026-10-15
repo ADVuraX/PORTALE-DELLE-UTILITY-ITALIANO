@@ -1,0 +1,74 @@
+{
+  "slug": "metodologia",
+  "ordine": 2,
+  "gruppo": "progetto",
+  "etichetta": "Metodologia",
+  "titolo": "Come costruiamo e verifichiamo gli strumenti",
+  "kicker": "Metodologia e fonti",
+  "aggiornato": "2026-10",
+  "seo": {
+    "title": "Metodologia e fonti: come verifichiamo i calcoli — {{brand}}",
+    "metaDescription": "Il metodo in quattro livelli con cui ogni strumento viene costruito e controllato: fonti ufficiali, test automatici sui calcoli, verifica delle policy, controllo dei testi. Con il registro delle correzioni."
+  },
+  "lede": "Su questo sito si calcolano stipendi, imposte e contributi: un errore non è un refuso, è una persona che prende una decisione su un numero sbagliato. Per questo ogni strumento e ogni testo passano da quattro livelli di controllo prima di essere pubblicati, e ogni correzione viene annotata qui.",
+  "sezioni": [
+    {
+      "titolo": "Da quali fonti partiamo",
+      "paragrafi": [
+        "Ogni regola applicata da uno strumento deve avere almeno una **fonte primaria**: la Gazzetta Ufficiale e Normattiva per le leggi, le circolari e le istruzioni dei modelli dell'Agenzia delle Entrate, le circolari dell'INPS, le tabelle del Dipartimento delle Finanze, l'ISTAT, la COVIP; per gli strumenti tecnici gli enti che definiscono gli standard, come BIPM, NIST, IETF, ISO e W3C. Testate specializzate e guide di settore sono ammesse solo come conferma, mai da sole. Forum, blog anonimi e calcolatori di altri siti non sono fonti di una regola.",
+        "Le fonti usate da ogni strumento sono elencate in fondo alla sua pagina, insieme alla data dell'ultimo aggiornamento."
+      ]
+    },
+    {
+      "titolo": "I quattro livelli di controllo",
+      "paragrafi": [
+        "Un contenuto che non supera uno dei livelli viene riscritto e ricontrollato da capo."
+      ],
+      "elenco": [
+        "**Fatti.** Ogni aliquota, soglia, data o riferimento normativo viene registrato con le sue fonti. Un'affermazione che non si riesce a verificare su una fonte primaria viene tolta, non ammorbidita. Le ipotesi del calcolo, come una retribuzione costante negli anni, sono dichiarate in pagina come ipotesi.",
+        "**Calcoli.** Ogni strumento ha test automatici: casi calcolati a mano dalla norma, una seconda implementazione scritta da zero e confrontata su migliaia di combinazioni di reddito, regione e tipo di rapporto, e il ricalcolo di ogni esempio pubblicato. Un esempio che non torna blocca la pubblicazione.",
+        "**Policy.** Ogni pagina viene confrontata con le regole sulla privacy (GDPR e linee guida del Garante sui cookie) e con le norme di Google sugli annunci. Le pagine che trattano denaro dichiarano cosa includono e cosa no.",
+        "**Testi.** Controlli automatici bloccano formule promozionali, promesse di ufficialità o garanzia, pagine troppo simili fra loro e strumenti senza fonti."
+      ]
+    },
+    {
+      "titolo": "Confronto con altri calcolatori",
+      "paragrafi": [
+        "Per i calcolatori fiscali confrontiamo i risultati con calcolatori ed esempi pubblici indipendenti. La tolleranza è di 1 € di netto mensile; ogni scarto più grande deve avere una spiegazione documentata, altrimenti lo trattiamo come un errore nostro.",
+        "Un esempio: per una RAL di 30.000 € un calcolatore pubblico indica un'IRPEF di 65 € più alta della nostra. La differenza è la maggiorazione di 65 € della detrazione per lavoro dipendente fra 25.000 e 35.000 € di reddito, prevista dalle istruzioni ufficiali del modello 730, che quel calcolatore non applica."
+      ]
+    },
+    {
+      "titolo": "Quando aggiorniamo",
+      "elenco": [
+        "**Gennaio**: legge di bilancio, nuove circolari INPS su contributi e soglie, prime tabelle delle addizionali regionali.",
+        "**Da febbraio a giugno**: istruzioni dei modelli 730 e Redditi; le tabelle regionali, che le Regioni possono pubblicare fino all'estate, vengono ricontrollate ogni mese.",
+        "**Ogni mese**: coefficiente di rivalutazione del TFR pubblicato dall'ISTAT.",
+        "**A ogni modifica normativa**: aggiornamento dei dati, nuovi test, nuova verifica."
+      ],
+      "paragrafi": [
+        "Il calendario segue i tempi in cui le amministrazioni pubblicano i dati:"
+      ]
+    },
+    {
+      "titolo": "Registro delle correzioni",
+      "paragrafi": [
+        "La verifica completa di ottobre 2026 ha trovato e corretto questi errori:"
+      ],
+      "elenco": [
+        "**Stipendio netto — trattamento integrativo.** Fino a 15.000 € di reddito la condizione va confrontata con la detrazione per lavoro dipendente diminuita di 75 € (L. 207/2024): senza la riduzione, fra circa 8.174 e 8.500 € di imponibile non venivano riconosciuti 1.200 € che spettano.",
+        "**Stipendio netto — addizionale regionale.** Veniva calcolata anche quando l'IRPEF netta è zero; per l'art. 50 del D.Lgs. 446/1997 in quel caso non è dovuta.",
+        "**Stipendio netto — tabelle regionali.** Le aliquote 2026 di nove regioni e province autonome erano errate o provvisorie (Abruzzo, Bolzano, Calabria, Campania, Emilia-Romagna, Friuli Venezia Giulia, Lazio, Liguria, Umbria); ora tutte e 21 seguono le tabelle del Dipartimento delle Finanze, comprese le regole speciali.",
+        "**Validatore di codice fiscale.** Gli esempi in pagina riportavano caratteri di controllo sbagliati; inoltre lo strumento accettava date inesistenti, come il 31 febbraio, e non segnalava i codici omocodici.",
+        "**Generatore di UUID.** La specifica citata era la RFC 4122, sostituita nel 2024 dalla RFC 9562.",
+        "**TFR e forfettario.** Un esempio del TFR non tornava con il calcolo; il link alla scheda dell'Agenzia delle Entrate sul forfettario non funzionava e una delle circolari INPS citate era sbagliata."
+      ]
+    },
+    {
+      "titolo": "Se trovi un errore",
+      "paragrafi": [
+        "Scrivi a [{{email}}](mailto:{{email}}) indicando la pagina, i valori che hai inserito e il risultato che ti aspettavi, possibilmente con la fonte. Ogni segnalazione verificata viene corretta, coperta da un nuovo test perché non si ripeta e aggiunta al registro qui sopra."
+      ]
+    }
+  ]
+}

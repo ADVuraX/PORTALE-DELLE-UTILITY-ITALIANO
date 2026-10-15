@@ -1,0 +1,53 @@
+{
+  "slug": "chi-siamo",
+  "ordine": 1,
+  "gruppo": "progetto",
+  "etichetta": "Chi siamo",
+  "titolo": "Chi siamo",
+  "kicker": "Il progetto",
+  "aggiornato": "2026-10",
+  "seo": {
+    "title": "Chi siamo — {{brand}}",
+    "metaDescription": "Cos'è questo sito, con quali principi costruisce gli strumenti, chi ne è responsabile e come si sostiene."
+  },
+  "lede": "{{brand}} è una raccolta di strumenti gratuiti per i conti di tutti i giorni in Italia: stipendio netto, TFR, regime forfettario, conversioni di valuta e unità di misura, password, QR code, verifiche di codice fiscale e IBAN. Ogni strumento è una pagina a sé, con il calcolo, la spiegazione delle regole e le fonti.",
+  "sezioni": [
+    {
+      "titolo": "Perché esiste",
+      "paragrafi": [
+        "Molti calcolatori online danno un numero senza dire da dove viene. Qui il numero arriva insieme al percorso: le trattenute una per una, la norma che le regola, le ipotesi fatte e ciò che il calcolo non include. Se sai come si arriva a un risultato, puoi capire quanto fidarti e cosa chiedere al tuo commercialista o al tuo ufficio paghe."
+      ]
+    },
+    {
+      "titolo": "I principi",
+      "elenco": [
+        "**I tuoi dati restano tuoi.** I calcoli avvengono nel browser: retribuzioni, codici e IBAN non vengono inviati né salvati. Non ci sono account da creare.",
+        "**Le fonti sono visibili.** Ogni regola applicata è collegata alla legge, alla circolare o allo standard da cui deriva.",
+        "**Stime, non consulenze.** Gli strumenti spiegano e stimano; non danno pareri sulla tua situazione personale.",
+        "**Gli errori si correggono in pubblico.** Ogni correzione è annotata nella pagina [Metodologia e fonti](/metodologia/)."
+      ],
+      "paragrafi": [
+        "Ogni strumento segue quattro regole:"
+      ]
+    },
+    {
+      "titolo": "Chi ne è responsabile",
+      "paragrafi": [
+        "Il sito è curato da una persona fisica, che ne è titolare e responsabile dei contenuti; i suoi dati sono indicati nelle [note legali](/note-legali/) e nell'[informativa sulla privacy](/privacy/). Contenuti e calcoli sono costruiti e verificati con il metodo descritto nella pagina sulla metodologia, partendo dalle fonti ufficiali.",
+        "Il sito non è collegato all'Agenzia delle Entrate, all'INPS o ad altre amministrazioni pubbliche."
+      ]
+    },
+    {
+      "titolo": "Come si sostiene",
+      "paragrafi": [
+        "Gli strumenti sono gratuiti. Quando presente, la pubblicità serve a coprire i costi del sito; gli annunci sono separati dai contenuti, sono indicati come tali e non influenzano risultati o testi."
+      ]
+    },
+    {
+      "titolo": "Contatti",
+      "paragrafi": [
+        "Per segnalazioni, correzioni o domande sul sito scrivi a [{{email}}](mailto:{{email}}). Trovi le indicazioni nella pagina [Contatti](/contatti/)."
+      ]
+    }
+  ]
+}

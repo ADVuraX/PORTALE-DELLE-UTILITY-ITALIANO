@@ -67,7 +67,7 @@
       return base("✗ Checksum non valido: le cifre di controllo non tornano (mod-97)", false);
     }
 
-    var r = base("✓ IBAN valido", true);
+    var r = base("✓ IBAN formalmente valido", true);
     r.paese = paese + (PAESE_NOME[paese] ? " · " + PAESE_NOME[paese] : "");
 
     if (paese === "IT" || paese === "SM") {

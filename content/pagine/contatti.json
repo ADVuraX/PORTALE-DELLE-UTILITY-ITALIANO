@@ -1,0 +1,34 @@
+{
+  "slug": "contatti",
+  "ordine": 6,
+  "gruppo": "progetto",
+  "etichetta": "Contatti",
+  "titolo": "Contatti",
+  "kicker": "Il progetto",
+  "aggiornato": "2026-10",
+  "seo": {
+    "title": "Contatti — {{brand}}",
+    "metaDescription": "Come segnalare un errore in uno strumento, proporre un miglioramento o chiedere informazioni sul sito."
+  },
+  "lede": "Puoi scrivere a [{{email}}](mailto:{{email}}) per segnalare un errore, proporre uno strumento o fare una domanda sul sito. Leggiamo ogni messaggio.",
+  "sezioni": [
+    {
+      "titolo": "Segnalare un errore",
+      "paragrafi": [
+        "Una segnalazione utile contiene tre cose: la pagina dello strumento, i valori che hai inserito e il risultato che ti aspettavi, possibilmente con la fonte che lo conferma. Ogni errore verificato viene corretto, coperto da un nuovo test automatico e annotato nella pagina [Metodologia e fonti](/metodologia/)."
+      ]
+    },
+    {
+      "titolo": "Cosa non possiamo fare",
+      "paragrafi": [
+        "Non forniamo consulenze personalizzate fiscali, legali o previdenziali, e non possiamo verificare dati personali come l'esistenza di un codice fiscale o la titolarità di un conto. Per questo rivolgiti a un professionista abilitato o all'ente competente: Agenzia delle Entrate, INPS, la tua banca."
+      ]
+    },
+    {
+      "titolo": "Privacy",
+      "paragrafi": [
+        "Il tuo indirizzo e il contenuto del messaggio servono solo a risponderti. Come vengono trattati e per quanto tempo è spiegato nell'[informativa sulla privacy](/privacy/)."
+      ]
+    }
+  ]
+}
