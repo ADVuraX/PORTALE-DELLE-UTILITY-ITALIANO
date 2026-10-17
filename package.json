@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Portale Italiano delle Utility — ecosistema di tool SEO-driven (calcolatori, generatori, convertitori, validatori). Sito statico generato a build-time da config JSON.",
+  "description": "Utility Italia (utilityitalia.it) — strumenti gratuiti SEO-first: calcolatori, convertitori, generatori, validatori. Sito statico generato a build-time da config JSON.",
   "scripts": {
     "build": "node scripts/build.mjs",
     "fonts": "node scripts/fetch-fonts.mjs",

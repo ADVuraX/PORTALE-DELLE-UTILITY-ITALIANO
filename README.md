@@ -1,4 +1,4 @@
-# Portale Italiano delle Utility
+# Utility Italia — utilityitalia.it
 
 Fabbrica di micro-tool SEO-first (calcolatori, generatori, convertitori, validatori) in italiano.
 Sito **statico generato a build-time** da config JSON, servito da Cloudflare Workers static assets.
@@ -10,12 +10,14 @@ content/site.json           configurazione globale (brand, dominio, cluster)
 content/tools/{slug}.json    UN file per tool = fonte di verità (contratto: docs/tool-config-schema.md)
         │
         ▼   npm run build  →  node scripts/build.mjs  (valida + genera)
-public/{cluster}/{slug}/index.html   pagine statiche
-public/index.html                    homepage
-public/sitemap.xml                   sitemap
+public/{slug}/index.html             pagine strumento
+public/{cluster}/index.html          pagine area
+public/{pagina}/index.html           pagine istituzionali (content/pagine/)
+public/index.html, 404.html          homepage e pagina 404
+public/sitemap.xml, robots.txt       generati
 ```
 
-**Non modificare a mano i file dentro `public/{cluster}/`**: sono generati e vengono sovrascritti a
+**Non modificare a mano le pagine HTML dentro `public/`**: sono generati e vengono sovrascritti a
 ogni build. Si modifica il config in `content/tools/` e si rilancia `npm run build`.
 
 ## Comandi
@@ -26,6 +28,8 @@ npm run build     # genera public/ dai config (valida il contratto; fallisce se 
 npm run dev       # build + npx wrangler dev → anteprima locale su http://localhost:8787
 npm run deploy    # build + npx wrangler deploy
 npm run fonts     # (una tantum) scarica e self-hosta i font in public/assets/fonts/
+npm test          # verifica calcoli ed esempi pubblicati
+npm run verifica:link   # (rete) ogni fonte citata deve rispondere
 ```
 
 ## Aggiungere un tool
@@ -36,6 +40,11 @@ npm run fonts     # (una tantum) scarica e self-hosta i font in public/assets/fo
 3. `npm run build` — se il contratto è rispettato, la pagina e la sitemap si aggiornano da sole.
 4. I `relatedTools` non ancora esistenti diventano card disabilitate (nessun 404); si attivano da
    soli quando crei quei tool.
+
+## Pubblicazione
+
+Passi per dominio, Cloudflare, email, statistiche e AdSense: [docs/guida-pubblicazione.md](docs/guida-pubblicazione.md).
+Metodo di verifica dei contenuti: [docs/verifica/metodo.md](docs/verifica/metodo.md).
 
 ## ⚠️ Checklist anti-errore deploy
 

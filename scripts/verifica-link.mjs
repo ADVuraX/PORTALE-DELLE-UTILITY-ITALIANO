@@ -51,7 +51,7 @@ async function controlla(url) {
   if (ECCEZIONI[url]) return { stato: "ECCEZIONE", nota: ECCEZIONI[url] };
   const opzioni = (method) => ({
     method, redirect: "follow", signal: AbortSignal.timeout(20000),
-    headers: { "user-agent": "Mozilla/5.0 (verifica link; portale utility)", accept: "text/html,application/pdf,*/*" },
+    headers: { "user-agent": "Mozilla/5.0 (verifica link; utilityitalia.it)", accept: "text/html,application/pdf,*/*" },
   });
   try {
     let r = await fetch(url, opzioni("HEAD"));

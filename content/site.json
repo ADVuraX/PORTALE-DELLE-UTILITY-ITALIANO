@@ -1,7 +1,7 @@
 {
-  "brand": "utility.it",
-  "brandAccent": ".it",
-  "domain": "https://TUO-DOMINIO.it",
+  "brand": "Utility Italia",
+  "brandAccent": "Italia",
+  "domain": "https://utilityitalia.it",
   "lang": "it",
   "titolare": {
     "nome": "Alessandro Ventura",
@@ -11,7 +11,7 @@
   "annunci": {
     "client": "",
     "attivi": false,
-    "mostraSegnaposto": true,
+    "mostraSegnaposto": false,
     "slot": {
       "rail": "",
       "fondo1": "",
@@ -24,13 +24,13 @@
     "_nota": "Token di Cloudflare Web Analytics (senza cookie, nessun consenso richiesto)."
   },
   "home": {
-    "title": "Portale delle Utility Italiano — Calcolatori, Convertitori e Generatori Gratuiti",
+    "title": "Utility Italia — Calcolatori, convertitori e generatori gratuiti",
     "metaDescription": "Strumenti gratuiti per calcoli fiscali, lavoro, misure e verifiche. Stipendio netto, TFR, convertitori di valuta e unità, validatore codice fiscale e IBAN. Senza registrazione.",
     "eyebrow": "Indice degli strumenti",
     "h1": "Strumenti gratuiti per il quotidiano italiano",
     "intro": "Calcolatori fiscali, convertitori, generatori e validatori. Ogni strumento è una pagina a sé: calcolo immediato nel browser, contenuto di riferimento verificato, fonti ufficiali citate. Niente registrazione, niente dati inviati altrove."
   },
-  "footer": "Portale Italiano delle Utility — strumenti gratuiti, aggiornati, senza registrazione.",
+  "footer": "Utility Italia — strumenti gratuiti, aggiornati, senza registrazione.",
   "clusters": {
     "calcolatori": {
       "label": "Calcolatori",

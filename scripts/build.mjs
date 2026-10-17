@@ -1,5 +1,5 @@
 /**
- * BUILD — generatore statico del Portale Utility.
+ * BUILD — generatore statico di Utility Italia (utilityitalia.it).
  *
  *   content/site.json          → configurazione globale + contenuto delle aree
  *   content/tools/{slug}.json  → un file per tool (fonte di verità)
@@ -24,7 +24,7 @@ import { validateTool, validateSite, validatePages } from "./lib/validate.mjs";
 import { controllaQualita } from "./lib/qualita.mjs";
 import {
   renderToolPage, renderHome, renderClusterPage, renderInfoPage, renderSitemap,
-  renderRobots, renderAdsTxt, impostaPaginePiede,
+  renderRobots, renderAdsTxt, renderNotFound, impostaPaginePiede,
 } from "./lib/template.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -146,6 +146,7 @@ async function main() {
   await writeFile(path.join(PUBLIC, "index.html"), renderHome(site, configs, ver), "utf8");
   await writeFile(path.join(PUBLIC, "sitemap.xml"), renderSitemap(site, configs, pages), "utf8");
   await writeFile(path.join(PUBLIC, "robots.txt"), renderRobots(site), "utf8");
+  await writeFile(path.join(PUBLIC, "404.html"), renderNotFound(site, configs, ver), "utf8");
   const adsTxt = renderAdsTxt(site);
   if (adsTxt) await writeFile(path.join(PUBLIC, "ads.txt"), adsTxt, "utf8");
 
