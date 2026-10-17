@@ -4,7 +4,8 @@ Ordine obbligato: ogni passo dipende dal precedente. Tempi indicativi fra parent
 
 ## 0. Prima di iniziare
 
-- Account Cloudflare gratuito: [dash.cloudflare.com](https://dash.cloudflare.com).
+- **Registra il dominio.** Al 17 ottobre 2026 il registro `.it` dà `utilityitalia.it` come **libero** (WHOIS: `Status: AVAILABLE`): acquistalo su [aruba.it](https://www.aruba.it) prima di tutto il resto. Basta il solo dominio, con la gestione DNS inclusa; non servono hosting né caselle email Aruba.
+- Account Cloudflare: è già quello collegato al repository GitHub, dove esiste il Worker `portaledelleutilityitaliano` che pubblica il sito a ogni push su `main`.
 - Accesso al pannello Aruba: [admin.aruba.it](https://admin.aruba.it).
 - Sul tuo computer, dalla cartella del progetto (quella che contiene `wrangler.toml`):
 
@@ -42,23 +43,19 @@ La propagazione richiede da pochi minuti a 24–48 ore. Cloudflare ti manda un'e
 
 Guida Aruba: [gestire i name server](https://guide.aruba.it/hosting-e-domini/gestione-dns/gestione-name-server-e-record/gestire-name-server).
 
-## 3. Pubblica il sito (5 minuti)
+## 3. Collega il dominio al sito (5 minuti)
 
-Dal terminale, nella cartella del progetto:
+Il sito si pubblica già da solo: Cloudflare è collegato al repository e a ogni push su `main` ricarica il Worker `portaledelleutilityitaliano`. Finché il dominio non è attivo, lo trovi all'indirizzo `workers.dev` indicato in **Workers & Pages** → `portaledelleutilityitaliano`.
 
-```bash
-npx wrangler login
-```
+Quando Cloudflare segna `utilityitalia.it` come **Attivo**:
 
-Si apre il browser: accedi a Cloudflare e autorizza Wrangler. Poi:
+1. In `wrangler.toml` togli il `#` dalle tre righe del blocco `[[routes]]` (`pattern = "utilityitalia.it"`, `custom_domain = true`), oppure chiedilo a Claude.
+2. Fai commit e push su `main`. Il deploy automatico crea il dominio personalizzato e il suo certificato HTTPS.
+3. Dopo un paio di minuti apri [https://utilityitalia.it](https://utilityitalia.it). In **Workers & Pages** → `portaledelleutilityitaliano` → **Deployments** vedi l'esito di ogni pubblicazione.
 
-```bash
-npm run deploy
-```
+Non attivare il blocco prima che il dominio sia attivo: il deploy fallirebbe perché Cloudflare non trova il dominio.
 
-Il comando rigenera `public/`, carica il sito e crea il dominio personalizzato `utilityitalia.it` con il suo certificato HTTPS (configurazione in `wrangler.toml`). Dopo un paio di minuti apri [https://utilityitalia.it](https://utilityitalia.it).
-
-**In alternativa, pubblicazione automatica da GitHub**: Workers & Pages → **Crea** → importa il repository `ADVuraX/PORTALE-DELLE-UTILITY-ITALIANO`, branch `main`, comando di build vuoto, comando di deploy `npx wrangler deploy`. Da lì ogni push su `main` pubblica il sito. Scegli **una** delle due strade.
+Il comando `npm run deploy` (dopo `npx wrangler login`) pubblica lo stesso Worker dal tuo computer: è un'alternativa, ma con il collegamento a GitHub non serve.
 
 ## 4. Reindirizza www verso il dominio principale (5 minuti)
 
@@ -85,11 +82,7 @@ Email Routing riceve e inoltra, ma non invia: rispondi dalla tua casella persona
 1. **Analytics e log** → **Web Analytics** → **Aggiungi un sito** → `utilityitalia.it`.
 2. Scegli l'installazione **con snippet JS**, non quella automatica: lo snippet lo inserisce il sito, e averli entrambi raddoppierebbe i conteggi.
 3. Dallo snippet copia solo il valore del token: `data-cf-beacon='{"token": "QUESTO"}'`.
-4. Incollalo in `content/site.json` → `analytics.cloudflareToken`, poi:
-
-```bash
-npm run deploy
-```
+4. Incollalo in `content/site.json` → `analytics.cloudflareToken`, poi esegui `npm run build` e fai push su `main` (o chiedilo a Claude).
 
 La sezione sulle statistiche compare da sola in privacy e cookie policy. Il servizio non usa cookie, quindi non serve il banner di consenso.
 
@@ -102,10 +95,10 @@ La sezione sulle statistiche compare da sola in privacy e cookie policy. Il serv
 ## 9. AdSense (ultimo passo, dopo qualche settimana online)
 
 1. Iscriviti su [adsense.google.com](https://adsense.google.com) indicando `utilityitalia.it`.
-2. Copia il tuo ID publisher `ca-pub-…` in `content/site.json` → `annunci.client` e pubblica (`npm run deploy`). Il sito genera da solo il meta di verifica, `ads.txt` e le sezioni su annunci e cookie in privacy e cookie policy.
+2. Copia il tuo ID publisher `ca-pub-…` in `content/site.json` → `annunci.client`, poi `npm run build` e push su `main`. Il sito genera da solo il meta di verifica, `ads.txt` e le sezioni su annunci e cookie in privacy e cookie policy.
 3. In AdSense → **Privacy e messaggi** → messaggio per i regolamenti europei: opzioni **Acconsento, Non acconsento o Gestisci opzioni**, attiva **Chiudi (non acconsentire)**, collega `https://utilityitalia.it/privacy/`.
 4. Richiedi la revisione e attendi l'esito.
-5. Dopo l'approvazione: crea tre unità display (una verticale 160×600 per il rail, due 300×250 per il fondo pagina), inserisci gli ID in `annunci.slot` (`rail`, `fondo1`, `fondo2`), imposta `annunci.attivi` a `true` e pubblica. L'annuncio ancorato in basso si attiva dalla console: **Annunci automatici** → solo formato **ancorato**.
+5. Dopo l'approvazione: crea tre unità display (una verticale 160×600 per il rail, due 300×250 per il fondo pagina), inserisci gli ID in `annunci.slot` (`rail`, `fondo1`, `fondo2`), imposta `annunci.attivi` a `true`, `npm run build` e push su `main`. L'annuncio ancorato in basso si attiva dalla console: **Annunci automatici** → solo formato **ancorato**.
 
 ## Prima di ogni aggiornamento del sito
 
@@ -121,4 +114,4 @@ npm run build
 npm run verifica:link
 ```
 
-Poi `npm run deploy` (o push su `main`, se usi la pubblicazione da GitHub).
+Poi commit e push su `main`: la pubblicazione è automatica.
