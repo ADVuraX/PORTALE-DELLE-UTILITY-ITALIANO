@@ -4,7 +4,7 @@
   "domain": "https://TUO-DOMINIO.it",
   "lang": "it",
   "titolare": {
-    "nome": "[NOME E COGNOME DEL TITOLARE]",
+    "nome": "Alessandro Ventura",
     "tipo": "persona fisica",
     "_nota": "Obbligatorio per la privacy policy (art. 13 GDPR). L'email di contatto è info@<dominio> salvo campo 'email' esplicito."
   },
