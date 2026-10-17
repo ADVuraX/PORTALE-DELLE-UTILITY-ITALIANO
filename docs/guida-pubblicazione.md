@@ -75,7 +75,7 @@ Il comando rigenera `public/`, carica il sito e crea il dominio personalizzato `
 1. Dominio → **Email** → **Email Routing** → **Inizia**.
 2. **Indirizzi di destinazione** → aggiungi la tua casella personale (per esempio Gmail) e apri il link di verifica che Cloudflare ti manda.
 3. **Regole di instradamento** → crea l'indirizzo `info` → azione **Invia a un'email** → destinazione: la casella appena verificata.
-4. Quando Cloudflare propone di aggiungere i record **MX** e **SPF**, conferma.
+4. Quando Cloudflare propone di aggiungere i record **MX** e **SPF**, conferma. Se trova record MX importati da Aruba (la vecchia posta), ti chiede di eliminarli: accetta, perché Email Routing funziona solo con i suoi.
 5. Prova: da un account **diverso** da quello di destinazione scrivi a `info@utilityitalia.it` e controlla anche lo spam.
 
 Email Routing riceve e inoltra, ma non invia: rispondi dalla tua casella personale.
