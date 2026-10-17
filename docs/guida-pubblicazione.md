@@ -4,7 +4,7 @@ Ordine obbligato: ogni passo dipende dal precedente. Tempi indicativi fra parent
 
 ## 0. Prima di iniziare
 
-- **Registra il dominio.** Al 17 ottobre 2026 il registro `.it` dà `utilityitalia.it` come **libero** (WHOIS: `Status: AVAILABLE`): acquistalo su [aruba.it](https://www.aruba.it) prima di tutto il resto. Basta il solo dominio, con la gestione DNS inclusa; non servono hosting né caselle email Aruba.
+- **Dominio.** `utilityitalia.it` è registrato su Aruba dal 17 ottobre 2026 (scadenza 17 ottobre 2027); passi 1–3 completati lo stesso giorno. Basta il solo dominio, con la gestione DNS inclusa; non servono hosting né caselle email Aruba.
 - Account Cloudflare: è già quello collegato al repository GitHub, dove esiste il Worker `portaledelleutilityitaliano` che pubblica il sito a ogni push su `main`.
 - Accesso al pannello Aruba: [admin.aruba.it](https://admin.aruba.it).
 - Sul tuo computer, dalla cartella del progetto (quella che contiene `wrangler.toml`):

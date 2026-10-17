@@ -10,12 +10,10 @@ directory = "./public"
 # ogni tool è una URL indicizzabile a sé).
 not_found_handling = "404-page"
 
-# Dominio di produzione — DA ATTIVARE quando utilityitalia.it è registrato e
-# risulta "Attivo" su Cloudflare (nameserver cambiati su Aruba). Finché il
-# dominio non esiste, questo blocco farebbe fallire ogni deploy: per questo è
-# commentato. Per attivarlo togli il "#" dalle tre righe sotto e fai push su
-# main (o npm run deploy): Cloudflare crea dominio e certificato HTTPS.
+# Dominio di produzione: utilityitalia.it, zona attiva su Cloudflare dal
+# 17/10/2026 (nameserver delegati da Aruba). Al deploy Cloudflare collega il
+# dominio al Worker e ne emette il certificato HTTPS.
 # Il www si reindirizza all'apex con una Redirect Rule: docs/guida-pubblicazione.md.
-# [[routes]]
-# pattern = "utilityitalia.it"
-# custom_domain = true
+[[routes]]
+pattern = "utilityitalia.it"
+custom_domain = true
