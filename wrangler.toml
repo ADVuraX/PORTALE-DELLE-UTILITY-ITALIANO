@@ -4,6 +4,12 @@ compatibility_date = "2024-09-23"
 # La directory "./public" DEVE esistere nel repo committato su Git ed è
 # generata da `npm run build`. Se compare l'errore "does not exist", i comandi
 # sono stati lanciati da una cartella diversa da quella che contiene questo file.
+# Ogni deploy (anche quello automatico di Workers Builds dopo un push) rigenera
+# public/ da content/: una modifica fatta solo a content/, per esempio da GitHub,
+# arriva comunque online. Se la build fallisce, il deploy si ferma.
+[build]
+command = "node scripts/build.mjs"
+
 [assets]
 directory = "./public"
 # Ogni URL inesistente riceve public/404.html con stato 404 (niente SPA fallback:
