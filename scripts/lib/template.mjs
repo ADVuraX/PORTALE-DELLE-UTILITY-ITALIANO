@@ -162,12 +162,14 @@ function head(site, { title, description, canonical, jsonLdBlocks = [], noindex 
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="${esc(url)}">${noindex ? '\n<meta name="robots" content="noindex, follow">' : ""}
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="${esc(site.brand)}">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${esc(url)}">
 <script>(function(){try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
 window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribute("data-theme"),sysDark=matchMedia("(prefers-color-scheme:dark)").matches,next=cur?(cur==="dark"?"light":"dark"):(sysDark?"light":"dark");d.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}var b=document.querySelector(".theme-toggle");if(b)b.setAttribute("aria-pressed",String(next==="dark"));};
 window.__cookiePrefs=function(){var g=window.googlefc;if(g&&typeof g.showRevocationMessage==="function"){g.showRevocationMessage();return;}location.href="/cookie/";};</script>
+<link rel="icon" href="${withV("/favicon.svg", ver)}" type="image/svg+xml">
 <link rel="stylesheet" href="${withV("/assets/css/fonts.css", ver)}">
 <link rel="stylesheet" href="${withV("/assets/css/tokens.css", ver)}">
 ${terzeParti(site)}
@@ -692,7 +694,7 @@ export function renderHome(site, tools, ver) {
     description: site.home.metaDescription,
     canonical: "/",
     jsonLdBlocks: [
-      { "@context": "https://schema.org", "@type": "WebSite", name: site.home.title, url: site.domain + "/" },
+      { "@context": "https://schema.org", "@type": "WebSite", name: site.brand, url: site.domain + "/", inLanguage: site.lang },
       ...(itemList ? [itemList] : []),
     ],
   }, ver)}
@@ -780,7 +782,7 @@ export function renderClusterPage(site, key, tools, ver) {
       name: c.seo.title,
       url,
       description: c.seo.metaDescription,
-      isPartOf: { "@type": "WebSite", name: site.home.title, url: site.domain + "/" },
+      isPartOf: { "@type": "WebSite", name: site.brand, url: site.domain + "/" },
       mainEntity: {
         "@type": "ItemList",
         numberOfItems: live.length,
@@ -1014,4 +1016,60 @@ export function renderAdsTxt(site) {
   const c = site.annunci && site.annunci.client;
   if (!c) return null;
   return `google.com, ${c.replace(/^ca-/, "")}, DIRECT, f08c47fec0942fa0\n`;
+}
+
+/* ================= PAGINA 404 ================= */
+
+/**
+ * public/404.html: servita da Cloudflare con stato 404 per qualsiasi URL
+ * inesistente (wrangler.toml → assets.not_found_handling = "404-page").
+ * Non indicizzata; rimanda alle aree, perché chi sbaglia indirizzo di solito
+ * cerca uno strumento.
+ */
+export function renderNotFound(site, tools, ver) {
+  const aree = Object.entries(site.clusters)
+    .map(([k, c]) => {
+      const n = tools.filter((t) => t.cluster === k).length;
+      return `<li><a class="oa" href="/${esc(k)}/"><span class="oa-n">${esc(c.label)}</span><span class="oa-c">${n} strument${n === 1 ? "o" : "i"} · ${esc(c.hint)}</span></a></li>`;
+    })
+    .join("\n        ");
+  return `${head(site, {
+    title: `Pagina non trovata — ${site.brand}`,
+    description: "L'indirizzo richiesto non esiste. Trovi tutti gli strumenti nelle quattro aree del sito.",
+    canonical: "/404.html",
+    noindex: true,
+  }, ver)}
+<body>
+
+${header(site, { nav: true })}
+
+<main>
+  <section class="lead">
+    <div class="wrap">
+      <p class="kicker"><b>404</b> Pagina non trovata</p>
+      <div class="lead-grid">
+        <div class="lead-main">
+          <h1>Questa pagina non esiste</h1>
+        </div>
+        <div class="lead-side">
+          <p class="lede">L'indirizzo potrebbe essere scritto male oppure la pagina è stata spostata. Tutti gli strumenti sono raccolti nelle quattro aree qui sotto, oppure puoi tornare alla <a href="/">pagina iniziale</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      ${secHead(1, "Le aree del sito")}
+      <ul class="other-areas">
+        ${aree}
+      </ul>
+    </div>
+  </section>
+</main>
+
+${footer(site)}
+</body>
+</html>
+`;
 }

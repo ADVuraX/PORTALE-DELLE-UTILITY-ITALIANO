@@ -1,0 +1,6 @@
+# Fine riga LF ovunque: gli hash di cache-busting (?v=) dipendono dal contenuto
+# dei file, e la conversione CRLF di Windows li cambiava a ogni checkout.
+* text=auto eol=lf
+*.woff2 binary
+*.png binary
+*.pdf binary

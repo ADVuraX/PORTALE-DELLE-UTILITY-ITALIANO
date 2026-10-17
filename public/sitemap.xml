@@ -1,147 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://TUO-DOMINIO.it/</loc>
+    <loc>https://utilityitalia.it/</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/calcolatori/</loc>
+    <loc>https://utilityitalia.it/calcolatori/</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/convertitori/</loc>
+    <loc>https://utilityitalia.it/convertitori/</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/generatori/</loc>
+    <loc>https://utilityitalia.it/generatori/</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/validatori/</loc>
+    <loc>https://utilityitalia.it/validatori/</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/calcolatore-partita-iva-forfettario/</loc>
+    <loc>https://utilityitalia.it/calcolatore-partita-iva-forfettario/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/calcolatore-stipendio-netto/</loc>
+    <loc>https://utilityitalia.it/calcolatore-stipendio-netto/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/calcolatore-tfr/</loc>
+    <loc>https://utilityitalia.it/calcolatore-tfr/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/convertitore-area/</loc>
+    <loc>https://utilityitalia.it/convertitore-area/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/convertitore-dati/</loc>
+    <loc>https://utilityitalia.it/convertitore-dati/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/convertitore-energia/</loc>
+    <loc>https://utilityitalia.it/convertitore-energia/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/convertitore-lunghezza/</loc>
+    <loc>https://utilityitalia.it/convertitore-lunghezza/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/convertitore-peso/</loc>
+    <loc>https://utilityitalia.it/convertitore-peso/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/convertitore-pressione/</loc>
+    <loc>https://utilityitalia.it/convertitore-pressione/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/convertitore-temperatura/</loc>
+    <loc>https://utilityitalia.it/convertitore-temperatura/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/convertitore-tempo/</loc>
+    <loc>https://utilityitalia.it/convertitore-tempo/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/convertitore-valuta/</loc>
+    <loc>https://utilityitalia.it/convertitore-valuta/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/convertitore-velocita/</loc>
+    <loc>https://utilityitalia.it/convertitore-velocita/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/convertitore-volume/</loc>
+    <loc>https://utilityitalia.it/convertitore-volume/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/generatore-password/</loc>
+    <loc>https://utilityitalia.it/generatore-password/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/generatore-qr-code/</loc>
+    <loc>https://utilityitalia.it/generatore-qr-code/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/generatore-uuid/</loc>
+    <loc>https://utilityitalia.it/generatore-uuid/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/validatore-codice-fiscale/</loc>
+    <loc>https://utilityitalia.it/validatore-codice-fiscale/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/validatore-iban/</loc>
+    <loc>https://utilityitalia.it/validatore-iban/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/chi-siamo/</loc>
+    <loc>https://utilityitalia.it/chi-siamo/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/metodologia/</loc>
+    <loc>https://utilityitalia.it/metodologia/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/privacy/</loc>
+    <loc>https://utilityitalia.it/privacy/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/cookie/</loc>
+    <loc>https://utilityitalia.it/cookie/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/note-legali/</loc>
+    <loc>https://utilityitalia.it/note-legali/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://TUO-DOMINIO.it/contatti/</loc>
+    <loc>https://utilityitalia.it/contatti/</loc>
     <lastmod>2026-10-01</lastmod>
     <priority>0.3</priority>
   </url>

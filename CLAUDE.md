@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Cos'è
 
-Portale delle Utility Italiano: fabbrica di micro-tool SEO-first (calcolatori, generatori, convertitori, validatori) in italiano. Ogni tool è una URL statica indicizzabile a sé — **niente SPA, niente fallback client-side**. Sito multi-pagina servito da Cloudflare Workers static assets.
+**Utility Italia** (https://utilityitalia.it, repo `portale-utility-italiano`): fabbrica di micro-tool SEO-first (calcolatori, generatori, convertitori, validatori) in italiano. Ogni tool è una URL statica indicizzabile a sé — **niente SPA, niente fallback client-side**. Sito multi-pagina servito da Cloudflare Workers static assets.
 
 ## Comandi
 
@@ -93,11 +93,11 @@ Se Wrangler/Git vengono lanciati dalla cartella esterna `PORTALE DELLE UTILITY I
 
 ## Stato / priorità
 
-- Live: **24 URL** = 19 tool + 4 pagine area + home. **Calcolatori**: stipendio-netto, tfr, partita-iva-forfettario. **Generatori**: password, qr-code, uuid. **Convertitori**: valuta (tassi BCE live via Frankfurter + fallback statico), lunghezza, peso, temperatura, area, volume, velocita, tempo, dati, pressione, energia. **Validatori**: codice-fiscale (checksum + decode data/sesso/Belfiore, gestione omocodia), iban (mod-97 + decode CIN/ABI/CAB/conto).
+- Sito: **30 URL** = 19 tool + 4 pagine area + 6 pagine istituzionali + home, più `404.html`. **Calcolatori**: stipendio-netto, tfr, partita-iva-forfettario. **Generatori**: password, qr-code, uuid. **Convertitori**: valuta (tassi BCE live via Frankfurter + fallback statico), lunghezza, peso, temperatura, area, volume, velocita, tempo, dati, pressione, energia. **Validatori**: codice-fiscale (checksum + decode data/sesso/Belfiore, gestione omocodia), iban (mod-97 + decode CIN/ABI/CAB/conto).
   - Dati versionati: `tfr-2026.js`, `forfettario-2026.js`, `valute-2026-07.js` (+ `valute-live.js` per il fetch client-side). Brief fonti in `docs/research/`.
   - I 10 convertitori unità condividono un solo calcolatore `convertitore-unita.js` (logicId `unita-v1`, tabella master di fattori); le pagine differiscono solo per le `options` del config.
   - Validatori e convertitori usano la **modalità calcolatore** (non serve una modalità dedicata): `outputPrimary` format `text` + `outputSecondary` per i campi decodificati.
-- Dominio: non ancora registrato — un solo segnaposto in `site.json` (`domain`), da cui derivano email, robots, sitemap, canonical. Titolare: segnaposto da compilare. Non ancora deployato.
+- Dominio: **utilityitalia.it** (registrato su Aruba, DNS da delegare a Cloudflare), in `site.json` → `domain`; da lì derivano email `info@utilityitalia.it`, robots, sitemap, canonical. Titolare compilato. Dominio personalizzato in `wrangler.toml` (`[[routes]] custom_domain`), www → apex con Redirect Rule. Procedura completa: `docs/guida-pubblicazione.md`.
 - Verifica completa ottobre 2026: vedi `docs/verifica/report-2026-10.md` (errori trovati e corretti, checklist di go-live).
 - Priorità contenuti: completare cluster **calcolatori fiscali/lavoro** (irpef, tredicesima, imu, mutuo).
 - Monetizzazione prevista: AdSense (richiede dominio live + approvazione — non testabile in locale).
