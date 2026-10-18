@@ -20,7 +20,7 @@
     "_nota": "client = ca-pub-… (dalla registrazione AdSense: genera meta di verifica e ads.txt). attivi = true solo dopo l'approvazione. mostraSegnaposto = false prima di pubblicare. L'annuncio ancorato in basso si attiva nella console AdSense (formato ufficiale), non qui."
   },
   "analytics": {
-    "cloudflareToken": "",
+    "cloudflareToken": "c6ec4052551d427f9912b010547e4aed",
     "_nota": "Token di Cloudflare Web Analytics (senza cookie, nessun consenso richiesto)."
   },
   "home": {
