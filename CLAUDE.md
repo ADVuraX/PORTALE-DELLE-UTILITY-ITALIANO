@@ -14,6 +14,7 @@ npm run build    # node scripts/build.mjs — genera public/ dai config in conte
 npm run dev      # build + npx wrangler dev — anteprima locale http://localhost:8787
 npm run deploy   # build + npx wrangler deploy
 npm run fonts    # (una tantum) scarica e self-hosta i font in public/assets/fonts/
+npm run og       # (locale, serve Chrome) PNG 1200×630 di anteprima per ogni pagina in public/assets/og/
 npm test         # node --test: calcoli fiscali vs riferimento indipendente, strumenti, esempi pubblicati
 npm run verifica:link   # (rete) ogni URL citato nei contenuti deve rispondere
 ```
@@ -47,7 +48,7 @@ public/index.html + sitemap.xml ← home + sitemap (+ robots.txt, ads.txt genera
 - **Documentazione fonti**: ogni calcolo fiscale nasce da un brief `docs/research/{slug}-brief.md` (l'utente ricerca da fonti ufficiali, Claude codifica). Il calcolo di `stipendio-netto` è verificato 2026 contro calcolatori pubblici; blocco `fonti` con link ufficiali. Addizionale regionale inclusa (tabelle MEF 2026).
 - **Ricerca**: `public/assets/js/search.js`, condiviso da home e pagine area. Filtra il DOM già presente, non fa fetch. Contratto: `[data-search-input]`, `[data-search-scope]`, `[data-search-list]`, `li[data-search]`, `[data-search-count]`, `[data-search-empty]`. Il testo indicizzato (`data-search`) è generato da `searchIndex()` in `template.mjs` e normalizzato senza accenti; termini multipli in AND. `/` mette il fuoco, Invio su risultato unico apre il tool.
 - **Troncamento della home**: ogni area mostra ~5,6 righe (`.cat-list.is-clip`), le altre sono **nascoste dalla maschera CSS, non dal DOM** — restano indicizzabili e la ricerca le riporta a galla (`body[data-searching="true"]` toglie clip e sfocatura). Soglia in `template.mjs` → `CLIP_OVER`; l'altezza dipende da `--row-h`, quindi le righe d'indice devono restare ad altezza fissa.
-- **SEO**: ogni pagina tool ha 3 blocchi JSON-LD (SoftwareApplication + FAQPage + BreadcrumbList a 3 livelli); ogni pagina area ne ha 3 (CollectionPage con ItemList + BreadcrumbList + FAQPage); la home ha WebSite + ItemList. OpenGraph e canonical ovunque.
+- **SEO**: ogni pagina tool ha 3 blocchi JSON-LD (SoftwareApplication + FAQPage + BreadcrumbList a 3 livelli); ogni pagina area ne ha 3 (CollectionPage con ItemList + BreadcrumbList + FAQPage); la home ha WebSite + ItemList. OpenGraph e canonical ovunque; `og:image` = `public/assets/og/{slug}.png` (o `home.png` per la home e come ripiego), generate da `scripts/og.mjs` con Chrome headless e committate: la build di Cloudflare le collega soltanto.
 - **Design**: `public/assets/css/tokens.css`. Identità **"editoriale asimmetrica"**: carta calda + inchiostro bruno, un solo accento (petrolio `#0B5560`) riservato ai numeri-risultato e alle azioni; Fraunces per i titoli, IBM Plex Sans per il testo, IBM Plex Mono per numeri ed etichette. Tre regole: **niente centrato** (colonne 7/5 e 4/8, mai `text-align:center`), **filetti hairline al posto delle ombre**, **angoli tagliati** (`.notch`) solo su card risultato e bottone Esplora. Font **self-hosted** in `public/assets/fonts/` via `npm run fonts`; `public/assets/css/fonts.css` generato.
 
 Migrazione a Next.js rimandata oltre ~50 tool (i config JSON e i calcolatori restano identici).
@@ -89,7 +90,8 @@ Se Wrangler/Git vengono lanciati dalla cartella esterna `PORTALE DELLE UTILITY I
 1. Crea `content/tools/{slug}.json` conforme a `docs/tool-config-schema.md`. Il campo `cluster` deve essere una chiave esistente in `site.json` (la build fallisce altrimenti) e `tool.cardNote` compare nelle righe d'indice: scrivilo con l'iniziale maiuscola.
 2. Crea il calcolatore `public/assets/js/calculators/{script}.js`: funzione pura + `registerCalculator("{logicId}", fn)`.
 3. `npm run build` — pagina tool, pagina area, home e sitemap si rigenerano da sole; la build fallisce se il contratto è violato.
-4. Non scrivere HTML a mano: la pagina è output del generatore.
+4. `npm run og` — genera l'immagine di anteprima del nuovo tool (senza, la pagina usa quella della home).
+5. Non scrivere HTML a mano: la pagina è output del generatore.
 
 ## Stato / priorità
 

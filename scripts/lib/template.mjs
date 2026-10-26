@@ -148,8 +148,20 @@ function terzeParti(site) {
   return out.join("\n");
 }
 
+/**
+ * Immagine di anteprima della pagina: public/assets/og/{chiave}.png, generata da
+ * `npm run og` (chiave = slug, o "home" per "/"). Se manca usa quella della home.
+ */
+function ogImage(site, canonical, ver) {
+  const chiave = canonical === "/" ? "home" : canonical.replace(/^\/|\/$/g, "");
+  const propria = `/assets/og/${chiave}.png`;
+  const p = ver(propria) ? propria : "/assets/og/home.png";
+  return site.domain + withV(p, ver);
+}
+
 function head(site, { title, description, canonical, jsonLdBlocks = [], noindex = false }, ver) {
   const url = site.domain + canonical;
+  const img = ogImage(site, canonical, ver);
   const ld = jsonLdBlocks
     .map((b) => `<script type="application/ld+json">${JSON.stringify(b)}</script>`)
     .join("\n");
@@ -166,6 +178,12 @@ function head(site, { title, description, canonical, jsonLdBlocks = [], noindex 
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${esc(url)}">
+<meta property="og:image" content="${esc(img)}">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${esc(title)}">
+<meta name="twitter:card" content="summary_large_image">
 <script>(function(){try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
 window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribute("data-theme"),sysDark=matchMedia("(prefers-color-scheme:dark)").matches,next=cur?(cur==="dark"?"light":"dark"):(sysDark?"light":"dark");d.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}var b=document.querySelector(".theme-toggle");if(b)b.setAttribute("aria-pressed",String(next==="dark"));};
 window.__cookiePrefs=function(){var g=window.googlefc;if(g&&typeof g.showRevocationMessage==="function"){g.showRevocationMessage();return;}location.href="/cookie/";};</script>
