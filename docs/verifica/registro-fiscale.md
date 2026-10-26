@@ -99,6 +99,28 @@ spiegato da maggiorazione F03 ed addizionale comunale. Nessuno scarto non spiega
 | P08 | Contributi dedotti nell'anno stesso del reddito (nella realtà: per cassa, l'anno del pagamento) | — | I · dichiarata |
 | P09 | Causa di esclusione: redditi di lavoro dipendente/pensione oltre 35.000 € nell'anno precedente — soglia **transitoria** per 2025 e 2026 (ordinaria: 30.000 €, L. 190/2014 c. 57 lett. d-ter) | L. 207/2024 art. 1 c. 12; prorogata da GU-199 art. 1 c. 27 ("gli anni 2025 e 2026"); Studio Pizzano, ItaliaOggi | V · non modellata, citata in pagina |
 
+## Scorporo IVA (`iva.js`)
+
+Letti su Normattiva il 26/10/2026, testo vigente al 30/01/2026 (`!vig=2026-01-30`).
+
+| # | Valore / affermazione | Fonte primaria | Stato |
+|---|---|---|---|
+| I01 | Aliquota ordinaria 22%; ridotte 4%, 5%, 10% per tabella A parti II, II-bis, III | DPR 633/1972 art. 16 | V |
+| I02 | Esempi: 4% latte fresco (II n. 3), pane (II), frutta (II n. 8); 5% basilico, rosmarino, salvia freschi (II-bis n. 1-bis), prestazioni socio-sanitarie di cooperative sociali (II-bis n. 1); 10% prestazioni ai clienti alloggiati nelle strutture ricettive (III n. 120), somministrazioni di alimenti e bevande (III n. 121) | DPR 633/1972 tabella A | V |
+| I03 | Fattura: aliquota, imposta e imponibile con arrotondamento al centesimo di euro | DPR 633/1972 art. 21 c. 2 lett. l | V |
+| I04 | Testo unico IVA: in vigore dal 31/01/2026, si applica dal 1° gennaio 2027 (art. 171); art. 34 = stesse aliquote, tabella A parti II, III, IV; abroga l'art. 16 DPR 633/1972 | D.Lgs. 10/2026 | V |
+| I05 | Forfettari: niente rivalsa IVA per le operazioni nazionali | L. 190/2014 art. 1 c. 58 lett. a | V |
+| I06 | Mezzo centesimo per eccesso; nello scorporo IVA = prezzo − imponibile arrotondato | — | I · convenzione dello strumento, dichiarata |
+| I07 | Riferimento indipendente in centesimi interi: 4 aliquote × 2.000 importi, scorporo e aggiunta | `tests/fiscale.test.mjs` | V |
+
+**Nota per il 2027.** Su Normattiva la vista «vigente» mostra già come abrogati
+l'art. 16 DPR 633/1972 (D.Lgs. 10/2026) e i commi 54–89 della L. 190/2014
+(D.Lgs. 117/2026, Testo unico delle imposte sui redditi, che si applica dal
+1° gennaio 2027 — art. 377 — e abroga da quella data anche le norme dell'IRPEF
+oggi nel TUIR, art. 376). Per l'anno d'imposta 2026 le norme citate restano
+quelle applicabili; i link a Normattiva vanno datati (`!vig=`). Da gennaio 2027
+tutte le citazioni normative del sito vanno riportate ai nuovi testi unici.
+
 ## Fuori perimetro (citati come esclusioni in pagina)
 
 - Addizionale comunale; coniuge a carico; flat tax 2026 su aumenti contrattuali,

@@ -21,6 +21,8 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const ECCEZIONI = {
   "https://www.covip.it/per-il-cittadino/educazione-previdenziale/faq/trattamento-fiscale":
     "403 ai client automatici; contenuto confermato da motore di ricerca il 2026-10-15 — aprire a mano prima di pubblicare",
+  "https://www.iso.org/standard/84108.html":
+    "403 ai client automatici; scheda ISO 9362:2022 (BIC) aperta nel browser dalla ricerca di iso.org il 2026-10-26 — aprire a mano prima di pubblicare",
   "https://www.iso.org/standard/83389.html":
     "403 ai client automatici; scheda ISO/IEC 18004:2024 confermata da motore di ricerca il 2026-10-15 — aprire a mano prima di pubblicare",
 };

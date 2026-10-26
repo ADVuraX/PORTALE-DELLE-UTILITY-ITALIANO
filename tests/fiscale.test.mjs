@@ -272,3 +272,45 @@ test("forfettario, artigiani oltre la 1ª fascia: 24% fino a 56.224 €, poi 25%
   const o = forfettario({ ricavi: 80000, coefficiente: 86, gestioneInps: "artigiani" });
   vicino(o.contributiInps, 16645.2, 0.005, "contributi");
 });
+
+/* ================================== IVA ================================== */
+// Riferimento indipendente in centesimi interi (niente virgola mobile): per un'aliquota
+// intera p, imponibile = arrotondamento di totale × 100 / (100 + p), mezzo centesimo per eccesso.
+
+const iva = calcolatore("iva-v1", "iva.js");
+const arrotonda = (num, den) => Math.floor((2 * num + den) / (2 * den)); // num/den al più vicino, .5 in su
+
+test("IVA: scorporo e aggiunta coincidono col calcolo in centesimi su 4 aliquote × 2.000 importi", () => {
+  for (const p of [4, 5, 10, 22]) {
+    for (let c = 1; c <= 2000; c++) {
+      const cents = c * 7 + (c % 13);                     // importi irregolari fino a ~140 €
+      const impS = arrotonda(cents * 100, 100 + p);        // scorporo
+      const s = iva({ modalita: "scorpora", importo: cents / 100, aliquota: String(p) });
+      assert.equal(Math.round(s.imponibile * 100), impS, `scorporo ${cents / 100} al ${p}%`);
+      assert.equal(Math.round(s.iva * 100), cents - impS, `IVA scorporata ${cents / 100} al ${p}%`);
+      const ivaA = arrotonda(cents * p, 100);              // aggiunta
+      const a = iva({ modalita: "aggiungi", importo: cents / 100, aliquota: String(p) });
+      assert.equal(Math.round(a.iva * 100), ivaA, `IVA aggiunta ${cents / 100} al ${p}%`);
+      assert.equal(Math.round(a.totale * 100), cents + ivaA, `totale ${cents / 100} al ${p}%`);
+    }
+  }
+});
+
+test("IVA: casi ancorati (122 → 100 + 22; 100 → 81,97 + 18,03; 1.500 + 330 = 1.830)", () => {
+  const a = iva({ modalita: "scorpora", importo: 122, aliquota: "22" });
+  assert.equal(a.imponibile, 100); assert.equal(a.iva, 22);
+  const b = iva({ modalita: "scorpora", importo: 100, aliquota: "22" });
+  assert.equal(b.imponibile, 81.97); assert.equal(b.iva, 18.03);
+  const c = iva({ modalita: "aggiungi", importo: 1500, aliquota: "22" });
+  assert.equal(c.iva, 330); assert.equal(c.totale, 1830);
+});
+
+test("IVA: il mezzo centesimo si arrotonda per eccesso (0,05 € × 10% = 0,005 → 0,01)", () => {
+  assert.equal(iva({ modalita: "aggiungi", importo: 0.05, aliquota: "10" }).iva, 0.01);
+});
+
+test("IVA: aliquota personalizzata e fuori intervallo", () => {
+  const o = iva({ modalita: "scorpora", importo: 100, aliquota: "altra", aliquotaAltra: 5.5 });
+  assert.equal(o.imponibile, 94.79);                      // 100 / 1,055 = 94,786…
+  assert.ok(Number.isNaN(iva({ modalita: "scorpora", importo: 100, aliquota: "altra", aliquotaAltra: 150 }).imponibile));
+});

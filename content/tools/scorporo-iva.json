@@ -1,0 +1,262 @@
+{
+  "slug": "scorporo-iva",
+  "cluster": "calcolatori",
+  "tema": "fisco",
+  "updated": "2026-10",
+  "seo": {
+    "title": "Scorporo IVA Online – Calcolo IVA al 22%, 10%, 5% e 4%",
+    "metaDescription": "Togli l'IVA da un prezzo o aggiungila a un imponibile con le aliquote italiane 22%, 10%, 5% e 4%. Imponibile e imposta al centesimo, con il conto mostrato passo per passo.",
+    "primaryKeyword": "scorporo iva",
+    "canonical": "/scorporo-iva/"
+  },
+  "h1": "Scorporo e Calcolo dell'IVA",
+  "intro": "Scegli se partire da un prezzo che comprende l'IVA, per scorporarla, o da un imponibile, per aggiungerla. Indica l'importo e l'aliquota: 22% ordinaria oppure una delle ridotte al 10%, 5% e 4%, o un'altra aliquota a tua scelta. Il calcolatore separa imponibile e imposta al centesimo, come si scrivono in fattura, e mostra il conto che ha fatto, così puoi rifarlo a mano. Le aliquote sono quelle dell'articolo 16 del DPR 633/1972, citato in fondo alla pagina insieme al Testo unico IVA che lo sostituirà dal 2027.",
+  "tool": {
+    "logicId": "iva-v1",
+    "script": "iva.js",
+    "cardNote": "22 · 10 · 5 · 4%",
+    "inputs": [
+      {
+        "id": "modalita",
+        "label": "Cosa vuoi fare",
+        "type": "radio",
+        "options": [
+          "scorpora",
+          "aggiungi"
+        ],
+        "optionLabels": {
+          "scorpora": "Togli l'IVA da un prezzo",
+          "aggiungi": "Aggiungi l'IVA a un imponibile"
+        },
+        "default": "scorpora"
+      },
+      {
+        "id": "importo",
+        "label": "Importo",
+        "type": "number",
+        "min": 0,
+        "step": 0.01,
+        "suffix": "€",
+        "default": 122
+      },
+      {
+        "id": "aliquota",
+        "label": "Aliquota IVA",
+        "type": "select",
+        "options": [
+          "22",
+          "10",
+          "5",
+          "4",
+          "altra"
+        ],
+        "optionLabels": {
+          "22": "22% — ordinaria",
+          "10": "10% — ridotta",
+          "5": "5% — ridotta",
+          "4": "4% — ridotta",
+          "altra": "Altra aliquota"
+        },
+        "default": "22"
+      },
+      {
+        "id": "aliquotaAltra",
+        "label": "Aliquota",
+        "type": "number",
+        "min": 0,
+        "max": 100,
+        "step": 0.1,
+        "suffix": "%",
+        "default": 22,
+        "showIf": {
+          "input": "aliquota",
+          "equals": "altra"
+        }
+      }
+    ],
+    "outputPrimary": {
+      "id": "risultato",
+      "label": "Imponibile (prezzo senza IVA)",
+      "format": "currency2"
+    },
+    "outputSecondary": [
+      {
+        "id": "imponibile",
+        "label": "Imponibile",
+        "format": "currency2"
+      },
+      {
+        "id": "iva",
+        "label": "IVA",
+        "format": "currency2"
+      },
+      {
+        "id": "totale",
+        "label": "Totale con IVA",
+        "format": "currency2"
+      },
+      {
+        "id": "aliquotaApplicata",
+        "label": "Aliquota applicata",
+        "format": "percent"
+      }
+    ],
+    "extras": [
+      {
+        "id": "conto",
+        "label": "Il conto",
+        "format": "text"
+      }
+    ]
+  },
+  "spiegazione": {
+    "titolo": "Come si toglie e come si aggiunge l'IVA",
+    "corpo": [
+      "L'imposta sul valore aggiunto si applica sul prezzo di beni e servizi: il venditore la incassa da chi compra e la versa allo Stato. In ogni prezzo con IVA convivono quindi due parti, l'imponibile, cioè il valore del bene, e l'imposta calcolata su quel valore. Scorporare vuol dire separarle partendo dal totale; aggiungere vuol dire costruire il totale partendo dall'imponibile. Sono due conti diversi, e confonderli è l'errore più comune."
+    ],
+    "sezioni": [
+      {
+        "titolo": "Le aliquote in Italia",
+        "paragrafi": [
+          "L'articolo 16 del DPR 633/1972 fissa l'aliquota ordinaria al 22% della base imponibile e la riduce al 4%, al 5% e al 10% per i beni e i servizi elencati nella tabella A allegata al decreto, rispettivamente nella parte II, nella parte II-bis e nella parte III. Qualche esempio letto nella tabella: al 4% il latte fresco, il pane, la frutta; al 5% basilico, rosmarino e salvia freschi e alcune prestazioni socio-sanitarie delle cooperative sociali; al 10% i servizi resi ai clienti degli alberghi e la somministrazione di alimenti e bevande, cioè bar e ristoranti. Ciò che la tabella non elenca, salvo esenzioni e regimi speciali, sta al 22%.",
+          "Dal 1° gennaio 2027 le regole dell'IVA passano nel Testo unico approvato con il D.Lgs. 10/2026. L'articolo 34 del testo unico riprende le stesse quattro aliquote; cambia solo la numerazione delle parti della tabella A, che diventano II, III e IV. Per il conto che fa questo strumento non cambia nulla."
+        ]
+      },
+      {
+        "titolo": "Scorporare: dividere, non sottrarre",
+        "paragrafi": [
+          "Se un prezzo di 122 € comprende l'IVA al 22%, l'imponibile non si ottiene togliendo il 22% di 122. Il 22% si calcola sull'imponibile, non sul totale: il totale vale imponibile per 1,22. Per tornare indietro si divide quindi per 1,22: 122 / 1,22 = 100 € di imponibile e 22 € di IVA. Togliere il 22% di 122, cioè 26,84 €, porterebbe a un imponibile di 95,16 €, sbagliato di quasi 5 euro.",
+          "Lo stesso vale per le altre aliquote: si divide per 1,10, per 1,05 o per 1,04. Una cena da 55 € con IVA al 10% ha un imponibile di 55 / 1,10 = 50 € e 5 € di imposta. Una spesa alimentare da 10,40 € al 4% contiene 10 € di imponibile e 0,40 € di IVA."
+        ]
+      },
+      {
+        "titolo": "Aggiungere: moltiplicare per l'aliquota",
+        "paragrafi": [
+          "Il conto inverso è più semplice. Su un imponibile di 1.500 € al 22% l'IVA vale 1.500 × 0,22 = 330 €, e il totale da pagare è 1.830 €. È quello che succede in una fattura: si parte dal prezzo concordato senza imposta, si calcola l'IVA e si somma.",
+          "Chi lavora in regime forfettario non addebita l'IVA sulle operazioni nazionali (L. 190/2014, art. 1, comma 58): in quel caso il prezzo è quello, senza imposta da aggiungere né da scorporare. Il [calcolatore del forfettario](/calcolatore-partita-iva-forfettario/) mostra come si calcolano tasse e contributi in quel regime."
+        ]
+      },
+      {
+        "titolo": "Gli arrotondamenti",
+        "paragrafi": [
+          "In fattura imponibile e imposta si indicano arrotondati al centesimo di euro, come prevede l'articolo 21 del DPR 633/1972. Lo strumento arrotonda allo stesso modo, con il mezzo centesimo per eccesso. Nello scorporo calcola prima l'imponibile, lo arrotonda, e ottiene l'IVA per differenza: così imponibile e imposta sommano sempre esattamente al prezzo di partenza.",
+          "Per questo un prezzo come 100 € al 22% si divide in 81,97 € di imponibile e 18,03 € di IVA. Se riapplichi il 22% a 81,97 € ottieni 18,0334 €, che arrotondato fa di nuovo 18,03 €: i conti tornano. Se invece calcoli l'IVA riga per riga e poi sommi, il risultato può differire di qualche centesimo da quello calcolato sul totale: è un effetto degli arrotondamenti, non un errore."
+        ]
+      },
+      {
+        "titolo": "Quando serve l'aliquota personalizzata",
+        "paragrafi": [
+          "L'opzione «altra aliquota» serve per i conti con aliquote di altri Paesi o per verificare importi particolari. Il metodo resta lo stesso: per scorporare si divide per 1 più l'aliquota espressa in decimali, per aggiungere si moltiplica l'imponibile per l'aliquota. Con il 5,5% il divisore è 1,055."
+        ]
+      }
+    ]
+  },
+  "esempi": [
+    {
+      "titolo": "Scontrino da 122 € con IVA al 22%: quanto è l'imponibile?",
+      "risultatoAtteso": "122,00 € ÷ 1,22 = 100,00 € · IVA 22,00 €",
+      "verifica": {
+        "input": {
+          "modalita": "scorpora",
+          "importo": 122,
+          "aliquota": "22"
+        },
+        "campo": "conto",
+        "testo": "122,00 € ÷ 1,22 = 100,00 € · IVA 22,00 €"
+      }
+    },
+    {
+      "titolo": "Fattura con imponibile di 1.500 € al 22%",
+      "risultatoAtteso": "1.500,00 € × 22% = 330,00 € · totale 1.830,00 €",
+      "verifica": {
+        "input": {
+          "modalita": "aggiungi",
+          "importo": 1500,
+          "aliquota": "22"
+        },
+        "campo": "conto",
+        "testo": "1.500,00 € × 22% = 330,00 € · totale 1.830,00 €"
+      }
+    },
+    {
+      "titolo": "Cena al ristorante da 55 € con IVA al 10%",
+      "risultatoAtteso": "55,00 € ÷ 1,10 = 50,00 € · IVA 5,00 €",
+      "verifica": {
+        "input": {
+          "modalita": "scorpora",
+          "importo": 55,
+          "aliquota": "10"
+        },
+        "campo": "conto",
+        "testo": "55,00 € ÷ 1,10 = 50,00 € · IVA 5,00 €"
+      }
+    },
+    {
+      "titolo": "100 € con IVA al 22%: l'arrotondamento al centesimo",
+      "risultatoAtteso": "100,00 € ÷ 1,22 = 81,97 € · IVA 18,03 €",
+      "verifica": {
+        "input": {
+          "modalita": "scorpora",
+          "importo": 100,
+          "aliquota": "22"
+        },
+        "campo": "conto",
+        "testo": "100,00 € ÷ 1,22 = 81,97 € · IVA 18,03 €"
+      }
+    }
+  ],
+  "faq": [
+    {
+      "domanda": "Come si scorpora l'IVA al 22% da un prezzo?",
+      "risposta": "Si divide il prezzo per 1,22: il risultato è l'imponibile, e la differenza fra prezzo e imponibile è l'IVA. Su 244 € l'imponibile è 200 € e l'IVA 44 €. Per le aliquote ridotte si divide per 1,10, 1,05 o 1,04."
+    },
+    {
+      "domanda": "Perché non basta togliere il 22% dal prezzo con IVA?",
+      "risposta": "Perché il 22% è calcolato sull'imponibile, non sul prezzo finale. Togliere il 22% del totale significa togliere troppo: su 122 € toglieresti 26,84 € invece di 22 €, e l'imponibile risulterebbe 95,16 € invece di 100 €."
+    },
+    {
+      "domanda": "Quali sono le aliquote IVA in vigore in Italia?",
+      "risposta": "L'aliquota ordinaria è il 22%; quelle ridotte sono il 10%, il 5% e il 4%, per i beni e i servizi elencati nella tabella A allegata al DPR 633/1972. Dal 2027 le stesse aliquote sono riprese dall'articolo 34 del Testo unico IVA."
+    },
+    {
+      "domanda": "Come si arrotonda l'IVA in fattura?",
+      "risposta": "Al centesimo di euro: l'articolo 21 del DPR 633/1972 chiede di indicare in fattura aliquota, imposta e imponibile con arrotondamento al centesimo. Lo strumento arrotonda il mezzo centesimo per eccesso."
+    },
+    {
+      "domanda": "Cosa cambia per l'IVA dal 2027?",
+      "risposta": "Dal 1° gennaio 2027 si applica il Testo unico IVA (D.Lgs. 10/2026), che riordina in un solo testo le norme sull'imposta e abroga il vecchio articolo 16. Le aliquote restano 22%, 10%, 5% e 4%; cambia la numerazione degli articoli e delle parti della tabella A."
+    }
+  ],
+  "relatedTools": [
+    "calcolatore-partita-iva-forfettario",
+    "validatore-partita-iva",
+    "calcolatore-irpef"
+  ],
+  "disclaimer": "<strong>Calcolo aritmetico.</strong> Lo strumento separa imponibile e IVA con l'aliquota che scegli; non stabilisce quale aliquota si applica a un bene o a un servizio, che dipende dalla tabella A del DPR 633/1972 e da eventuali esenzioni. Per fatture e registri fa fede il conto del tuo gestionale o del commercialista.",
+  "fonti": [
+    {
+      "titolo": "DPR 26 ottobre 1972, n. 633, art. 16 — Aliquote dell'imposta",
+      "dettaglio": "Aliquota ordinaria 22%; ridotte 4%, 5% e 10% per i beni e servizi della tabella A, parti II, II-bis e III (testo vigente al 30/01/2026)",
+      "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:presidente.repubblica:decreto:1972-10-26;633~art16!vig=2026-01-30"
+    },
+    {
+      "titolo": "DPR 26 ottobre 1972, n. 633, art. 21 — Fatturazione",
+      "dettaglio": "Comma 2, lettera l: aliquota, imposta e imponibile con arrotondamento al centesimo di euro",
+      "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:presidente.repubblica:decreto:1972-10-26;633~art21!vig=2026-01-30"
+    },
+    {
+      "titolo": "D.Lgs. 19 gennaio 2026, n. 10 — Testo unico IVA",
+      "dettaglio": "Art. 34: stesse aliquote, tabella A parti II, III e IV; art. 171: si applica dal 1° gennaio 2027",
+      "url": "https://www.normattiva.it/eli/id/2026/01/30/26G00022/ORIGINAL"
+    },
+    {
+      "titolo": "Legge 23 dicembre 2014, n. 190, art. 1, comma 58",
+      "dettaglio": "I contribuenti in regime forfettario non esercitano la rivalsa dell'IVA per le operazioni nazionali (testo vigente nel 2026)",
+      "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:2014-12-23;190!vig=2026-01-30"
+    }
+  ],
+  "jsonLd": {
+    "type": "SoftwareApplication",
+    "applicationCategory": "FinanceApplication"
+  }
+}
