@@ -129,6 +129,19 @@ Letti su Normattiva il 26/10/2026, testo vigente al 30/01/2026.
 | R08 | Riferimento indipendente: 4.000 redditi × 4 tipi; coerenza con lo stipendio netto | `tests/fiscale.test.mjs` | V |
 | R09 | Anno intero, nessun onere, niente familiari, addizionali, trattamento integrativo | — | I · perimetro dichiarato in pagina |
 
+## Rata del mutuo (`mutuo.js`)
+
+| # | Valore / affermazione | Fonte primaria | Stato |
+|---|---|---|---|
+| M01 | Ammortamento alla francese il più diffuso in Italia: rata fissa, quota capitale crescente, interessi decrescenti; interessi sul capitale residuo | Banca d'Italia, guida «Il mutuo ipotecario in parole semplici» (PDF letto il 26/10/2026), p. 9–10 | V |
+| M02 | Esempio: 150.000 € al 2,1% fisso, 20 anni, mensile → rata 766 €; prima rata 503 € capitale + 263 € interessi; ultima 765 € + 1 € | guida Banca d'Italia, p. 10 | V · riprodotto dal calcolatore (765,95 €) e nei test |
+| M03 | Tasso fisso costante; variabile legato a un parametro, rialzo più pesante sui mutui lunghi | guida Banca d'Italia, p. 6 | V |
+| M04 | TAEG: interessi + istruttoria, incasso rata, imposte, servizi accessori obbligatori, perizia; esclude spese notarili | guida Banca d'Italia, glossario | V |
+| M05 | Portabilità senza spese né penali, anche senza consenso della banca originaria | guida Banca d'Italia, glossario e diritti | V |
+| M06 | Nullità delle penali per estinzione anticipata, totale o parziale, dei mutui per acquisto/ristrutturazione di abitazione o attività delle persone fisiche | D.Lgs. 385/1993 art. 120-ter (Normattiva) | V |
+| M07 | Tasso del periodo = TAN / numero di rate annue | coerente con l'esempio M02 | I · convenzione dichiarata |
+| M08 | Riferimento indipendente: piano simulato rata per rata su 270 combinazioni (debito finale zero, interessi, debito a metà) | `tests/fiscale.test.mjs` | V |
+
 **Nota per il 2027.** Su Normattiva la vista «vigente» mostra già come abrogati
 l'art. 16 DPR 633/1972 (D.Lgs. 10/2026) e i commi 54–89 della L. 190/2014
 (D.Lgs. 117/2026, Testo unico delle imposte sui redditi, che si applica dal

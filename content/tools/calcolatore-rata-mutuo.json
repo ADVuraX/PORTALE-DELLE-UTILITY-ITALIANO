@@ -1,0 +1,262 @@
+{
+  "slug": "calcolatore-rata-mutuo",
+  "cluster": "calcolatori",
+  "tema": "casa",
+  "updated": "2026-10",
+  "seo": {
+    "title": "Calcolo Rata Mutuo – Ammortamento alla Francese, Interessi e Debito Residuo",
+    "metaDescription": "Calcola la rata del mutuo da importo, TAN e durata con l'ammortamento alla francese: interessi totali, quota capitale e interessi della prima rata, debito residuo a metà.",
+    "primaryKeyword": "calcolo rata mutuo",
+    "canonical": "/calcolatore-rata-mutuo/"
+  },
+  "h1": "Calcolo della Rata del Mutuo",
+  "intro": "Inserisci l'importo del mutuo, il tasso annuo nominale (TAN), la durata e la frequenza delle rate. Il calcolatore applica l'ammortamento alla francese, quello a rata costante più diffuso in Italia, e ti mostra la rata, quanto restituisci in tutto, quanta parte sono interessi, come si divide la prima rata fra capitale e interessi e quanto debito resta a metà del percorso. La formula riproduce l'esempio della guida al mutuo della Banca d'Italia, citata in fondo alla pagina. Il conto riguarda solo capitale e interessi: spese, assicurazioni e imposte, che pesano sul TAEG, non sono incluse.",
+  "tool": {
+    "logicId": "mutuo-v1",
+    "script": "mutuo.js",
+    "cardNote": "Rata alla francese",
+    "inputs": [
+      {
+        "id": "importo",
+        "label": "Importo del mutuo",
+        "type": "number",
+        "min": 0,
+        "step": 1000,
+        "suffix": "€",
+        "default": 150000
+      },
+      {
+        "id": "tan",
+        "label": "Tasso annuo nominale (TAN)",
+        "type": "number",
+        "min": 0,
+        "max": 20,
+        "step": 0.01,
+        "suffix": "%",
+        "default": 3,
+        "hint": "il tasso del contratto, non il TAEG"
+      },
+      {
+        "id": "durata",
+        "label": "Durata",
+        "type": "number",
+        "min": 1,
+        "max": 40,
+        "step": 1,
+        "suffix": "anni",
+        "default": 25
+      },
+      {
+        "id": "periodicita",
+        "label": "Frequenza delle rate",
+        "type": "select",
+        "options": [
+          "mensile",
+          "trimestrale",
+          "semestrale"
+        ],
+        "optionLabels": {
+          "mensile": "Mensile",
+          "trimestrale": "Trimestrale",
+          "semestrale": "Semestrale"
+        },
+        "default": "mensile"
+      }
+    ],
+    "outputPrimary": {
+      "id": "rata",
+      "label": "Rata mensile",
+      "format": "currency2"
+    },
+    "outputSecondary": [
+      {
+        "id": "totaleInteressi",
+        "label": "Interessi totali",
+        "format": "currency"
+      },
+      {
+        "id": "totaleRimborsato",
+        "label": "Totale restituito",
+        "format": "currency"
+      },
+      {
+        "id": "primaCapitale",
+        "label": "Prima rata: quota capitale",
+        "format": "currency2"
+      },
+      {
+        "id": "primaInteressi",
+        "label": "Prima rata: quota interessi",
+        "format": "currency2"
+      },
+      {
+        "id": "residuoMeta",
+        "label": "Debito residuo a metà durata",
+        "format": "currency"
+      },
+      {
+        "id": "numeroRate",
+        "label": "Numero di rate",
+        "format": "number"
+      }
+    ],
+    "extras": [
+      {
+        "id": "interessiSuCapitale",
+        "label": "Interessi in rapporto al capitale",
+        "format": "percent"
+      }
+    ]
+  },
+  "spiegazione": {
+    "titolo": "Come si forma la rata di un mutuo a rata costante",
+    "corpo": [
+      "Ogni rata di un mutuo contiene due cose: una parte del capitale che ti è stato prestato, la quota capitale, e gli interessi maturati sul debito che resta, la quota interessi. Il modo in cui queste due parti si combinano nel tempo è il piano di ammortamento. Secondo la guida della Banca d'Italia, in Italia il più diffuso è quello «alla francese», con una rata di importo fisso. È quello che calcola questo strumento."
+    ],
+    "sezioni": [
+      {
+        "titolo": "La formula della rata",
+        "paragrafi": [
+          "Il tasso indicato nel contratto è annuo; per le rate mensili si usa il tasso del mese, cioè il TAN diviso per 12 (per 4 se le rate sono trimestrali, per 2 se semestrali). Con il tasso del periodo i, il capitale C e il numero di rate n, la rata costante è C × i / (1 − (1 + i)^−n). È l'unico importo che, pagato sempre uguale per n volte, copre gli interessi di ogni periodo e azzera il debito con l'ultima rata. Se il tasso è zero, la rata è semplicemente il capitale diviso per il numero di rate.",
+          "La guida della Banca d'Italia porta un esempio: 150.000 euro al tasso fisso del 2,1% per 20 anni, con rate mensili. Il tasso del mese è 0,175%, le rate sono 240 e la formula dà 765,95 euro, che la guida arrotonda a 766. Lo strumento riproduce anche la composizione della prima rata indicata dalla guida: 262,50 euro di interessi e 503,45 euro di capitale."
+        ]
+      },
+      {
+        "titolo": "Perché all'inizio si pagano soprattutto interessi",
+        "paragrafi": [
+          "Gli interessi di ogni periodo si calcolano sul debito che resta. Nella prima rata il debito è l'intero capitale, quindi la quota interessi è la più alta: 150.000 × 0,175% = 262,50 euro nell'esempio. Ogni mese una parte del capitale viene restituita, il debito scende, gli interessi del mese successivo calano e, visto che la rata non cambia, la quota capitale cresce. Nell'ultima rata dell'esempio gli interessi sono circa un euro.",
+          "Per questo a metà della durata il debito residuo è ancora più della metà del capitale: con 150.000 euro al 3% per 25 anni, dopo 150 rate restano da restituire circa 88.900 euro. Il calcolatore lo mostra nella riga del debito residuo; è un dato utile se pensi di estinguere il mutuo in anticipo o di trasferirlo."
+        ]
+      },
+      {
+        "titolo": "Durata e tasso: cosa cambia",
+        "paragrafi": [
+          "Allungare la durata abbassa la rata ma aumenta gli interessi pagati in tutto. Con 150.000 euro al 3%: in 20 anni la rata mensile è 831,90 euro e gli interessi totali circa 49.655 euro; in 25 anni la rata scende a 711,32 euro e gli interessi salgono a circa 63.395; in 30 anni la rata è 632,41 euro e gli interessi superano i 77.600 euro. Anche il tasso pesa molto: a parità di durata, ogni punto in più si traduce in decine di euro al mese.",
+          "Con un mutuo a tasso fisso la rata calcolata vale per tutta la durata. Con un tasso variabile il tasso segue un parametro di mercato e la rata può cambiare: il risultato vale solo finché il tasso resta quello inserito, e la guida della Banca d'Italia ricorda che un rialzo dei tassi pesa di più sui mutui lunghi."
+        ]
+      },
+      {
+        "titolo": "TAN e TAEG",
+        "paragrafi": [
+          "Il TAN è il tasso con cui si calcolano gli interessi, ed è quello da inserire qui. Il TAEG, il tasso annuo effettivo globale, è l'indicatore del costo complessivo: secondo la Banca d'Italia comprende, oltre agli interessi, le spese di istruttoria e di incasso della rata, le imposte, i servizi accessori richiesti per ottenere il mutuo come certe polizze, e i costi di valutazione dell'immobile; non comprende le spese notarili. Per confrontare offerte diverse conta il TAEG; per sapere quanto pagherai di rata conta il TAN, più le spese per ogni rata se previste."
+        ]
+      },
+      {
+        "titolo": "Estinzione anticipata e portabilità",
+        "paragrafi": [
+          "Se il mutuo serve a comprare o ristrutturare un immobile adibito ad abitazione, o all'attività economica o professionale di una persona fisica, la banca non può chiedere penali per l'estinzione anticipata, totale o parziale: l'articolo 120-ter del Testo unico bancario rende nulla qualunque clausola in questo senso. Puoi anche trasferire il mutuo a un'altra banca, senza spese né penali per la chiusura del vecchio contratto e l'apertura del nuovo: è la portabilità descritta nella guida della Banca d'Italia."
+        ]
+      }
+    ]
+  },
+  "esempi": [
+    {
+      "titolo": "150.000 € al 2,1% per 20 anni, rate mensili (esempio della Banca d'Italia)",
+      "risultatoAtteso": "Rata 766 € · prima rata 503 € di capitale e 263 € di interessi",
+      "verifica": {
+        "input": {
+          "importo": 150000,
+          "tan": 2.1,
+          "durata": 20,
+          "periodicita": "mensile"
+        },
+        "campo": "rata",
+        "atteso": 765.95,
+        "tolleranza": 0.01
+      }
+    },
+    {
+      "titolo": "150.000 € al 3% per 25 anni",
+      "risultatoAtteso": "Rata 711 € · interessi totali 63.395 € · debito a metà 88.883 €",
+      "verifica": {
+        "input": {
+          "importo": 150000,
+          "tan": 3,
+          "durata": 25,
+          "periodicita": "mensile"
+        },
+        "campo": "rata",
+        "atteso": 711.32,
+        "tolleranza": 0.01
+      }
+    },
+    {
+      "titolo": "Lo stesso mutuo in 30 anni: rata più bassa, interessi più alti",
+      "risultatoAtteso": "Rata 632 € · interessi totali 77.666 €",
+      "verifica": {
+        "input": {
+          "importo": 150000,
+          "tan": 3,
+          "durata": 30,
+          "periodicita": "mensile"
+        },
+        "campo": "totaleInteressi",
+        "atteso": 77666.18,
+        "tolleranza": 0.01
+      }
+    },
+    {
+      "titolo": "100.000 € a tasso zero per 10 anni",
+      "risultatoAtteso": "Rata 833 € · nessun interesse",
+      "verifica": {
+        "input": {
+          "importo": 100000,
+          "tan": 0,
+          "durata": 10,
+          "periodicita": "mensile"
+        },
+        "campo": "rata",
+        "atteso": 833.33,
+        "tolleranza": 0.01
+      }
+    }
+  ],
+  "faq": [
+    {
+      "domanda": "Come si calcola la rata di un mutuo?",
+      "risposta": "Con l'ammortamento alla francese la rata è C × i / (1 − (1 + i)^−n), dove C è il capitale, i il tasso del periodo (il TAN diviso 12 per le rate mensili) e n il numero di rate. Con 150.000 euro al 3% per 25 anni la rata mensile è 711,32 euro."
+    },
+    {
+      "domanda": "Che differenza c'è fra TAN e TAEG?",
+      "risposta": "Il TAN è il tasso con cui si calcolano gli interessi. Il TAEG indica il costo totale annuo del mutuo: aggiunge agli interessi spese di istruttoria e di incasso, imposte, servizi accessori obbligatori e costi di perizia, ma non le spese notarili. La rata si calcola con il TAN; le offerte si confrontano con il TAEG."
+    },
+    {
+      "domanda": "Conviene allungare la durata del mutuo?",
+      "risposta": "Abbassa la rata ma aumenta gli interessi complessivi. Con 150.000 euro al 3%, passare da 25 a 30 anni porta la rata da 711 a 632 euro al mese, ma gli interessi totali salgono da circa 63.400 a circa 77.700 euro."
+    },
+    {
+      "domanda": "Si può estinguere il mutuo prima della scadenza senza penali?",
+      "risposta": "Sì, se il mutuo è stato preso da una persona fisica per comprare o ristrutturare un immobile adibito ad abitazione o alla propria attività economica o professionale: l'articolo 120-ter del Testo unico bancario rende nulle le penali per l'estinzione anticipata, totale o parziale."
+    },
+    {
+      "domanda": "Cos'è la portabilità del mutuo?",
+      "risposta": "È il trasferimento del mutuo a un'altra banca, che concede un nuovo finanziamento pari al debito residuo con cui si chiude il vecchio. Secondo la guida della Banca d'Italia la legge la rende gratuita, sia per la chiusura del vecchio contratto sia per il nuovo, e non serve il consenso della banca originaria."
+    },
+    {
+      "domanda": "Perché la rata della banca è diversa da quella calcolata?",
+      "risposta": "Le cause più comuni sono le spese aggiunte a ogni rata, come quelle di incasso, un tasso variabile che nel frattempo è cambiato, un primo periodo in cui si pagano solo interessi o convenzioni di calcolo diverse previste dal contratto. Il piano di ammortamento del contratto fa fede."
+    }
+  ],
+  "relatedTools": [
+    "calcolatore-stipendio-netto",
+    "calcolatore-irpef",
+    "calcolatore-tfr"
+  ],
+  "disclaimer": "<strong>Simulazione di capitale e interessi.</strong> Ammortamento alla francese con il TAN costante per tutta la durata e il tasso del periodo pari al TAN diviso per il numero di rate annue. <strong>Non</strong> include spese, polizze, imposte, preammortamento né variazioni del tasso. Non è un'offerta: le condizioni vere sono nel PIES e nel piano di ammortamento della banca.",
+  "fonti": [
+    {
+      "titolo": "Banca d'Italia, Comprare una casa: il mutuo ipotecario in parole semplici",
+      "dettaglio": "Ammortamento alla francese, esempio con 150.000 € al 2,1% per 20 anni (rata 766 €), tasso fisso e variabile, TAEG, portabilità",
+      "url": "https://www.bancaditalia.it/pubblicazioni/guide-bi/guida-mutuo/index.html"
+    },
+    {
+      "titolo": "D.Lgs. 1° settembre 1993, n. 385 (Testo unico bancario), art. 120-ter",
+      "dettaglio": "Nullità delle penali per l'estinzione anticipata dei mutui immobiliari delle persone fisiche",
+      "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:1993-09-01;385~art120ter"
+    }
+  ],
+  "jsonLd": {
+    "type": "SoftwareApplication",
+    "applicationCategory": "FinanceApplication"
+  }
+}

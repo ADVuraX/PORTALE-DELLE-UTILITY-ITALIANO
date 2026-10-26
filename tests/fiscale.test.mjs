@@ -389,3 +389,53 @@ test("IRPEF dipendente coerente con lo stipendio netto (stessa imposta sullo ste
     vicino(i.irpefNetta, s.irpefTotale - cuneoDetr, 0.01, `RAL ${ral}`);
   }
 });
+
+/* ================================= MUTUO ================================= */
+// Riferimento indipendente: il piano di ammortamento simulato rata per rata.
+
+const mutuo = calcolatore("mutuo-v1", "mutuo.js");
+
+function piano(C, tanPerc, anni, m) {
+  const i = tanPerc / 100 / m, n = Math.round(anni * m);
+  const r = mutuo({ importo: C, tan: tanPerc, durata: anni, periodicita: { 12: "mensile", 4: "trimestrale", 2: "semestrale" }[m] });
+  let debito = C, interessi = 0, residuoMeta = null;
+  const righe = [];
+  for (let k = 1; k <= n; k++) {
+    const int = debito * i;
+    const cap = r.rata - int;
+    debito -= cap; interessi += int;
+    righe.push({ int, cap });
+    if (k === Math.floor(n / 2)) residuoMeta = debito;
+  }
+  return { r, debito, interessi, residuoMeta, righe };
+}
+
+test("mutuo: esempio della guida Banca d'Italia (150.000 €, 2,1%, 20 anni) → 766 €, 503 + 263, ultima 765 + 1", () => {
+  const p = piano(150000, 2.1, 20, 12);
+  assert.equal(Math.round(p.r.rata), 766);
+  assert.equal(Math.round(p.righe[0].cap), 503);
+  assert.equal(Math.round(p.righe[0].int), 263);   // 262,50 → 263
+  assert.equal(Math.round(p.righe.at(-1).cap), 765);
+  assert.equal(Math.round(p.righe.at(-1).int), 1);
+});
+
+test("mutuo: il piano simulato si chiude a zero e torna con interessi e debito a metà", () => {
+  for (const C of [50000, 150000, 400000]) {
+    for (const tan of [0.5, 2.1, 3, 4.75, 8]) {
+      for (const anni of [5, 10, 20, 25, 30, 40]) {
+        for (const m of [12, 4, 2]) {
+          const p = piano(C, tan, anni, m);
+          assert.ok(Math.abs(p.debito) < 1e-6 * C, `debito finale ${p.debito} (${C}, ${tan}%, ${anni} anni, ${m}/anno)`);
+          vicino(p.r.totaleInteressi, p.interessi, 1e-6 * C, `interessi ${C}/${tan}/${anni}/${m}`);
+          vicino(p.r.residuoMeta, p.residuoMeta, 1e-6 * C, `residuo ${C}/${tan}/${anni}/${m}`);
+        }
+      }
+    }
+  }
+});
+
+test("mutuo: tasso zero → rata = capitale / numero di rate, nessun interesse", () => {
+  const o = mutuo({ importo: 100000, tan: 0, durata: 10, periodicita: "mensile" });
+  vicino(o.rata, 100000 / 120, 1e-9, "rata");
+  assert.equal(o.totaleInteressi, 0);
+});
