@@ -255,6 +255,49 @@ test("IBAN: lunghezza errata per il paese", () => {
   assert.equal(iban({ iban: "IT60X054281110100000012345" }).valido, false);
 });
 
+/* ============================ PARTITA IVA ============================ */
+// Riferimento indipendente: algoritmo di Luhn standard sulle 11 cifre (da destra, raddoppio
+// delle cifre in posizione pari a partire dalla penultima), equivalente all'art. 9 del D.M. 1976.
+
+const piva = calcolatore("partita-iva-v1", "validatore-partita-iva.js");
+function luhn(n) {
+  let s = 0;
+  [...n].reverse().forEach((c, i) => { let d = Number(c); if (i % 2 === 1) { d *= 2; if (d > 9) d -= 9; } s += d; });
+  return s % 10 === 0;
+}
+
+test("partita IVA: numeri pubblicati da Agenzia delle Entrate e INPS sono validi", () => {
+  for (const n of ["06363391001", "02121151001", "IT 06363391001", "it02121151001"]) {
+    assert.equal(piva({ partitaIva: n }).valido, true, n);
+  }
+  const o = piva({ partitaIva: "06363391001" });
+  assert.equal(o.matricola, "0636339");
+  assert.equal(o.ufficio, "100");
+  assert.equal(o.formatoUe, "IT06363391001");
+});
+
+test("partita IVA: coincide con Luhn su 20.000 numeri e intercetta ogni singola cifra sbagliata", () => {
+  let seme = 11;
+  const caso = () => { seme = (seme * 1103515245 + 12345) % 2147483648; return seme; };
+  for (let k = 0; k < 20000; k++) {
+    const n = String(caso() % 1e6).padStart(6, "0") + String(caso() % 1e5).padStart(5, "0");
+    assert.equal(piva({ partitaIva: n }).valido, luhn(n), n);
+  }
+  const giusto = "06363391001";
+  for (let pos = 0; pos < 11; pos++) {
+    for (let d = 0; d <= 9; d++) {
+      if (String(d) === giusto[pos]) continue;
+      const errato = giusto.slice(0, pos) + d + giusto.slice(pos + 1);
+      assert.equal(piva({ partitaIva: errato }).valido, false, errato);
+    }
+  }
+});
+
+test("partita IVA: lunghezza e caratteri non ammessi", () => {
+  assert.match(piva({ partitaIva: "0636339100" }).esito, /Lunghezza errata/);
+  assert.match(piva({ partitaIva: "0636339100A" }).esito, /caratteri non ammessi/);
+});
+
 /* ============================= GENERATORI ============================= */
 
 test("password: lunghezza, una lettera per ogni classe richiesta, entropia dichiarata", () => {

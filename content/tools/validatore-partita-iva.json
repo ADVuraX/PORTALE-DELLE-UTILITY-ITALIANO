@@ -1,0 +1,152 @@
+{
+  "slug": "validatore-partita-iva",
+  "cluster": "validatori",
+  "tema": "imprese",
+  "updated": "2026-10",
+  "seo": {
+    "title": "Validatore Partita IVA – Controllo della Cifra di Controllo e Formato UE",
+    "metaDescription": "Verifica se una partita IVA italiana è formalmente corretta: 11 cifre e cifra di controllo secondo il D.M. 23/12/1976, con matricola, codice dell'ufficio e formato per VIES.",
+    "primaryKeyword": "validatore partita iva",
+    "canonical": "/validatore-partita-iva/"
+  },
+  "h1": "Validatore di Partita IVA",
+  "intro": "Incolla una partita IVA italiana, anche con il prefisso IT o con gli spazi. Lo strumento controlla che le cifre siano undici e ricalcola la cifra di controllo con il procedimento del decreto ministeriale del 23 dicembre 1976; se il numero è coerente lo scompone in matricola e codice dell'ufficio e lo riscrive nel formato usato per le verifiche europee. Il controllo avviene nel browser e il numero non viene inviato. Un esito positivo dice che il numero è ben costruito, non che la partita IVA sia attiva: per quello servono il servizio dell'Agenzia delle Entrate o VIES.",
+  "tool": {
+    "logicId": "partita-iva-v1",
+    "script": "validatore-partita-iva.js",
+    "cardNote": "Cifra di controllo",
+    "inputs": [
+      {
+        "id": "partitaIva",
+        "label": "Partita IVA",
+        "type": "text",
+        "placeholder": "es. 06363391001 oppure IT06363391001"
+      }
+    ],
+    "outputPrimary": {
+      "id": "esito",
+      "label": "Esito verifica",
+      "format": "text"
+    },
+    "outputSecondary": [
+      {
+        "id": "matricola",
+        "label": "Matricola (cifre 1–7)",
+        "format": "text"
+      },
+      {
+        "id": "ufficio",
+        "label": "Codice dell'ufficio (cifre 8–10)",
+        "format": "text"
+      },
+      {
+        "id": "controllo",
+        "label": "Cifra di controllo (11ª)",
+        "format": "text"
+      },
+      {
+        "id": "formatoUe",
+        "label": "Formato per VIES",
+        "format": "text"
+      }
+    ]
+  },
+  "spiegazione": {
+    "titolo": "Le undici cifre della partita IVA e la cifra di controllo",
+    "corpo": [
+      "Il numero di partita IVA viene attribuito dall'ufficio quando inizia un'attività e resta lo stesso fino alla cessazione, anche se cambia il domicilio fiscale; va indicato nelle dichiarazioni, nella pagina iniziale dell'eventuale sito web e negli altri documenti in cui è richiesto (art. 35 del DPR 633/1972). Ha undici cifre, con la stessa struttura del codice fiscale numerico che il decreto del 23 dicembre 1976 prevede per i soggetti diversi dalle persone fisiche: per esempio l'Agenzia delle Entrate indica sul proprio sito lo stesso numero, 06363391001, come codice fiscale e come partita IVA.",
+      "Le prime sette cifre sono il numero di matricola, assegnato in ordine progressivo dall'ufficio; le tre successive, dall'ottava alla decima, il codice che identifica l'ufficio che ha attribuito il numero; l'undicesima è la cifra di controllo, che serve a intercettare gli errori di trascrizione (art. 8).",
+      "La cifra di controllo si calcola dalle prime dieci (art. 9). Si sommano le cinque cifre in posizione dispari, partendo da sinistra. Si raddoppiano le cinque cifre in posizione pari e, se il doppio ha due cifre, si sommano fra loro: un 7 raddoppiato dà 14, che diventa 1 + 4 = 5. Si sommano i due totali, si toglie da dieci la cifra delle unità del risultato e si tiene la cifra delle unità di quello che resta. Per 06363391001: le cifre dispari danno 0 + 3 + 3 + 9 + 0 = 15, quelle pari raddoppiate 3 + 3 + 6 + 2 + 0 = 14; il totale è 29, e 10 − 9 = 1, l'ultima cifra del numero.",
+      "Il metodo intercetta sempre una singola cifra sbagliata. Non dice però se il numero è stato davvero attribuito, a chi, né se è ancora attivo. L'Agenzia delle Entrate offre un servizio di verifica che, per un numero registrato in Anagrafe tributaria, mostra lo stato (attiva, sospesa o cessata), il nome del titolare e le date di inizio e di cessazione. Per gli scambi con altri Paesi dell'Unione si usa VIES, il motore di ricerca della Commissione europea che interroga le banche dati nazionali: lì la partita IVA va scritta con il prefisso del Paese, IT seguito dalle undici cifre."
+    ]
+  },
+  "esempi": [
+    {
+      "titolo": "06363391001 — codice fiscale e partita IVA dell'Agenzia delle Entrate",
+      "risultatoAtteso": "✓ Partita IVA formalmente valida · matricola 0636339 · ufficio 100 · controllo 1",
+      "verifica": {
+        "input": {
+          "partitaIva": "06363391001"
+        },
+        "campo": "esito",
+        "testo": "✓ Partita IVA formalmente valida"
+      }
+    },
+    {
+      "titolo": "IT02121151001 — partita IVA dell'INPS, con il prefisso UE",
+      "risultatoAtteso": "✓ Partita IVA formalmente valida · formato per VIES IT02121151001",
+      "verifica": {
+        "input": {
+          "partitaIva": "IT02121151001"
+        },
+        "campo": "formatoUe",
+        "testo": "IT02121151001"
+      }
+    },
+    {
+      "titolo": "06363391002 — ultima cifra sbagliata",
+      "risultatoAtteso": "✗ Cifra di controllo errata: attesa «1», trovata «2»",
+      "verifica": {
+        "input": {
+          "partitaIva": "06363391002"
+        },
+        "campo": "esito",
+        "testo": "✗ Cifra di controllo errata: attesa «1», trovata «2»"
+      }
+    }
+  ],
+  "faq": [
+    {
+      "domanda": "Come si calcola la cifra di controllo della partita IVA?",
+      "risposta": "Si sommano le cifre in posizione dispari, si raddoppiano quelle in posizione pari riducendo a una cifra i doppi maggiori di 9, si sommano i due totali e si toglie da 10 la cifra delle unità: la cifra delle unità del risultato è l'undicesima cifra. È il procedimento dell'articolo 9 del decreto del 23 dicembre 1976."
+    },
+    {
+      "domanda": "Partita IVA e codice fiscale di un'impresa sono lo stesso numero?",
+      "risposta": "Possono coincidere: l'Agenzia delle Entrate, per esempio, indica sul proprio sito lo stesso numero come codice fiscale e partita IVA. Per una persona fisica con partita IVA, invece, sono due codici diversi: il codice fiscale è quello alfanumerico di 16 caratteri, la partita IVA un numero di 11 cifre."
+    },
+    {
+      "domanda": "Una partita IVA che supera il controllo è attiva?",
+      "risposta": "Non necessariamente. Il controllo dice solo che il numero è ben costruito. Per sapere se è registrata e in quale stato si trova (attiva, sospesa o cessata) c'è il [servizio dell'Agenzia delle Entrate](https://telematici.agenziaentrate.gov.it/VerificaPIVA/IVerificaPiva.jsp); per le operazioni con l'estero, VIES."
+    },
+    {
+      "domanda": "Cosa vuol dire la risposta «non valido» di VIES?",
+      "risposta": "Che la partita IVA non risulta nella banca dati nazionale consultata da VIES. Secondo la Commissione europea i motivi possono essere tre: il numero non esiste, non è stato abilitato alle operazioni all'interno dell'Unione, oppure la registrazione non è ancora conclusa."
+    },
+    {
+      "domanda": "Cosa indicano le cifre dall'ottava alla decima?",
+      "risposta": "Il codice dell'ufficio che ha attribuito il numero, legato alla provincia in cui ha sede (art. 8 del decreto del 1976). Le prime sette cifre sono invece la matricola, un numero progressivo all'interno di quell'ufficio."
+    }
+  ],
+  "relatedTools": [
+    "validatore-codice-fiscale",
+    "scorporo-iva",
+    "calcolatore-partita-iva-forfettario"
+  ],
+  "disclaimer": "<strong>Verifica formale.</strong> Controlla lunghezza e cifra di controllo e mostra le parti del numero. <strong>Non</strong> dice se la partita IVA è stata attribuita, a chi, né se è attiva: per questo ci sono il servizio di verifica dell'Agenzia delle Entrate e, per gli scambi nell'UE, VIES. Il numero resta nel tuo browser.",
+  "fonti": [
+    {
+      "titolo": "D.M. 23 dicembre 1976 — Sistemi di codificazione dei soggetti da iscrivere all'anagrafe tributaria",
+      "dettaglio": "Art. 8: undici cifre (matricola, codice dell'ufficio, controllo); art. 9: calcolo della cifra di controllo",
+      "url": "https://www.gazzettaufficiale.it/eli/id/1977/01/20/077U0006/sg"
+    },
+    {
+      "titolo": "DPR 26 ottobre 1972, n. 633, art. 35",
+      "dettaglio": "Il numero di partita IVA resta invariato fino alla cessazione; va indicato in dichiarazioni, sito web e documenti (testo vigente nel 2026)",
+      "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:presidente.repubblica:decreto:1972-10-26;633~art35!vig=2026-01-30"
+    },
+    {
+      "titolo": "Agenzia delle Entrate, verifica della partita IVA",
+      "dettaglio": "Stato della partita IVA in Anagrafe tributaria; nella pagina, codice fiscale e partita IVA dell'Agenzia: 06363391001",
+      "url": "https://telematici.agenziaentrate.gov.it/VerificaPIVA/IVerificaPiva.jsp"
+    },
+    {
+      "titolo": "Your Europe (Commissione europea), controllo delle partite IVA — VIES",
+      "dettaglio": "VIES è un motore di ricerca sulle banche dati nazionali; motivi della risposta «non valido»",
+      "url": "https://europa.eu/youreurope/business/finance-and-tax/vat/check-vat-number-vies/index_it.htm"
+    }
+  ],
+  "jsonLd": {
+    "type": "SoftwareApplication",
+    "applicationCategory": "BusinessApplication"
+  }
+}

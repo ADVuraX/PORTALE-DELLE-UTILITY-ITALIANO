@@ -34,14 +34,14 @@
   "clusters": {
     "calcolatori": {
       "label": "Calcolatori",
-      "hint": "Stipendio netto, TFR, regime forfettario",
+      "hint": "Stipendio netto, IRPEF, IVA, TFR, forfettario, mutuo",
       "seo": {
         "title": "Calcolatori Fiscali e del Lavoro Online Gratuiti — 2026",
-        "metaDescription": "Calcolatori gratuiti per stipendio netto, TFR e partita IVA forfettaria. Aliquote 2026, bilancio completo dal lordo al netto, fonti ufficiali citate. Nessuna registrazione.",
+        "metaDescription": "Calcolatori gratuiti per stipendio netto, IRPEF, scorporo IVA, TFR, partita IVA forfettaria e rata del mutuo. Regole 2026, conti mostrati passo per passo, fonti ufficiali citate.",
         "primaryKeyword": "calcolatori fiscali online"
       },
-      "h1": "Calcolatori fiscali e del lavoro",
-      "intro": "I calcolatori di quest'area traducono regole fiscali e contrattuali italiane in un numero leggibile in pochi secondi. Ogni strumento parte dai parametri ufficiali dell'anno in corso — scaglioni IRPEF, aliquote INPS, detrazioni da lavoro dipendente, coefficienti di rivalutazione — e li applica passo per passo, mostrando il percorso completo dal lordo al netto invece del solo risultato finale. Vedere le singole trattenute serve a capire dove finiscono i soldi, non soltanto quanti ne restano in tasca. Le costanti normative sono raccolte in file versionati per anno e richiamate in fondo a ogni pagina con il riferimento alla fonte: Agenzia delle Entrate, INPS, Gazzetta Ufficiale. Quando una legge cambia si aggiorna quel file e tutte le pagine collegate si allineano insieme, senza valori nascosti nel codice. Nessuno di questi calcolatori richiede registrazione e nessun dato inserito lascia il browser: il calcolo avviene interamente sul tuo dispositivo. I risultati restano comunque una stima orientativa e non sostituiscono il conteggio di un commercialista o di un consulente del lavoro, soprattutto nei casi con contratti atipici, redditi multipli o agevolazioni territoriali.",
+      "h1": "Calcolatori fiscali, del lavoro e del mutuo",
+      "intro": "I calcolatori di quest'area traducono regole fiscali e contrattuali italiane in un numero leggibile in pochi secondi. Ogni strumento parte dai parametri ufficiali dell'anno in corso — scaglioni IRPEF, aliquote INPS, detrazioni da lavoro dipendente, coefficienti di rivalutazione — e li applica passo per passo, mostrando il percorso completo dal lordo al netto invece del solo risultato finale. Vedere le singole trattenute serve a capire dove finiscono i soldi, non soltanto quanti ne restano in tasca. Le costanti normative sono raccolte in file versionati per anno e richiamate in fondo a ogni pagina con il riferimento alla fonte: Agenzia delle Entrate, INPS, Gazzetta Ufficiale. Quando una legge cambia si aggiorna quel file e tutte le pagine collegate si allineano insieme, senza valori nascosti nel codice. Accanto ai calcoli fiscali c'è quello della rata del mutuo, con l'ammortamento alla francese descritto nella guida della Banca d'Italia: rata, interessi totali e debito residuo. Nessuno di questi calcolatori richiede registrazione e nessun dato inserito lascia il browser: il calcolo avviene interamente sul tuo dispositivo. I risultati restano comunque una stima orientativa e non sostituiscono il conteggio di un commercialista o di un consulente del lavoro, soprattutto nei casi con contratti atipici, redditi multipli o agevolazioni territoriali.",
       "faq": [
         {
           "domanda": "I calcolatori sono aggiornati alla normativa 2026?",
@@ -121,14 +121,14 @@
     },
     "validatori": {
       "label": "Validatori",
-      "hint": "Codice fiscale e IBAN, con decodifica dei dati",
+      "hint": "Codice fiscale, partita IVA e IBAN, con decodifica dei dati",
       "seo": {
-        "title": "Validatori Online — Codice Fiscale e IBAN Gratis",
-        "metaDescription": "Verifica codice fiscale e IBAN con il controllo ufficiale del carattere di controllo. Decodifica data di nascita, sesso, codice Belfiore, ABI, CAB e numero di conto.",
+        "title": "Validatori Online — Codice Fiscale, Partita IVA e IBAN Gratis",
+        "metaDescription": "Verifica codice fiscale, partita IVA e IBAN con gli algoritmi di controllo ufficiali. Decodifica data e luogo di nascita, matricola e ufficio, ABI, CAB e numero di conto.",
         "primaryKeyword": "validatori online"
       },
-      "h1": "Validatori di codice fiscale e IBAN",
-      "intro": "Un errore di battitura in un IBAN o in un codice fiscale si scopre di solito troppo tardi, quando un bonifico torna indietro o una pratica viene respinta. I validatori di quest'area applicano gli stessi algoritmi di controllo usati dagli enti che quei codici li emettono, così l'errore emerge subito. Il validatore di codice fiscale ricalcola il carattere di controllo secondo il metodo del Ministero dell'Economia e delle Finanze e gestisce correttamente l'omocodia, cioè la sostituzione di cifre con lettere applicata quando due persone otterrebbero lo stesso codice; oltre all'esito mostra i dati leggibili dal codice — data di nascita, sesso e codice Belfiore del comune. Il validatore di IBAN esegue la verifica mod-97 prevista dallo standard ISO 13616 e scompone il codice nelle sue parti: CIN, ABI, CAB e numero di conto. Attenzione a una distinzione importante: questi strumenti confermano che un codice sia formalmente corretto, non che sia realmente assegnato a una persona o a un conto esistente.",
+      "h1": "Validatori di codice fiscale, partita IVA e IBAN",
+      "intro": "Un errore di battitura in un IBAN o in un codice fiscale si scopre di solito troppo tardi, quando un bonifico torna indietro o una pratica viene respinta. I validatori di quest'area applicano gli stessi algoritmi di controllo usati dagli enti che quei codici li emettono, così l'errore emerge subito. Il validatore di codice fiscale ricalcola il carattere di controllo secondo il metodo del Ministero dell'Economia e delle Finanze e gestisce correttamente l'omocodia, cioè la sostituzione di cifre con lettere applicata quando due persone otterrebbero lo stesso codice; oltre all'esito mostra i dati leggibili dal codice — data di nascita, sesso e codice Belfiore del comune. Il validatore di IBAN esegue la verifica mod-97 prevista dallo standard ISO 13616 e scompone il codice nelle sue parti: CIN, ABI, CAB e numero di conto. Il validatore di partita IVA controlla le undici cifre e la cifra di controllo con il procedimento del decreto ministeriale del 1976, mostra matricola e codice dell'ufficio e riscrive il numero nel formato per le verifiche europee VIES. Attenzione a una distinzione importante: questi strumenti confermano che un codice sia formalmente corretto, non che sia realmente assegnato a una persona o a un conto esistente.",
       "faq": [
         {
           "domanda": "Il validatore conferma che il codice esista davvero?",

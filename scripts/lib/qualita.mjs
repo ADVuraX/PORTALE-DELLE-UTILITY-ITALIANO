@@ -42,7 +42,7 @@ const PRIMARIE = [
   "eur-lex.europa.eu", "ietf.org", "rfc-editor.org", "iso.org", "nist.gov",
   "bipm.org", "w3.org", "ecb.europa.eu", "bancaditalia.it", "swift.com",
   "iec.ch", "lavoro.gov.it", "edpb.europa.eu", "support.google.com", "policies.google.com",
-  "qrcode.com", "denso-wave.com", "nasa.gov", "iau.org", "ec.europa.eu",
+  "qrcode.com", "denso-wave.com", "nasa.gov", "iau.org", "europa.eu",
 ];
 
 const SOGLIA_SOMIGLIANZA = 0.15;
