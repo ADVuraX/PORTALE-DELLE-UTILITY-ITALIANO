@@ -47,6 +47,9 @@ istituzionali, con le fonti. Stato: **V** verificato · **C** corretto · **I** 
 | Mod-97 intercetta sempre una singola cifra sbagliata | dimostrazione: 97 primo, d·10ᵏ non divisibile per 97 | V · **C** ("qualsiasi carattere" era troppo forte) |
 | Verifica del beneficiario gratuita e obbligatoria dal 9/10/2025 nei paesi euro | [Reg. UE 2024/886](https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=OJ:L_202400886) | V |
 | Esito "IBAN valido" | — | **C** · ora "formalmente valido" |
+| BIC: ISO 9362, SWIFT autorità di registrazione; 8 caratteri (4 istituto, 2 paese ISO 3166-1, 2 località) + 3 facoltativi di filiale; directory SWIFT | [SWIFT, BIC](https://www.swift.com/standards/data-standards/bic-business-identifier-code) (letto il 26/10/2026), [ISO 9362:2022](https://www.iso.org/standard/84108.html) | V |
+| BIC senza cifre di controllo, non ricavabile dall'IBAN con un calcolo | struttura ISO 9362 (nessun elemento di controllo); Reg. UE 260/2012, considerando 8 (le banche usano elenchi per associare BIC e IBAN) | V |
+| BIC non più richiesto per bonifici e addebiti in euro nell'UE dal 1/2/2016 | [Reg. UE 260/2012](https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=CELEX:32012R0260), art. 5 par. 4, 5, 7 e art. 16 par. 6 | V |
 
 ## Privacy, cookie, annunci
 

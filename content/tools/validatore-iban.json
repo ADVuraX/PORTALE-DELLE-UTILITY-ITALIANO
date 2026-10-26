@@ -5,7 +5,7 @@
   "updated": "2026-10",
   "seo": {
     "title": "Validatore IBAN – Verifica Codice e Coordinate Bancarie",
-    "metaDescription": "Verifica se un IBAN è corretto: controlla la lunghezza per paese e il checksum mod-97 (ISO 7064) e decodifica CIN, ABI, CAB e numero di conto per gli IBAN italiani. Tutto nel browser.",
+    "metaDescription": "Verifica se un IBAN è corretto: lunghezza per paese e checksum mod-97 (ISO 7064), con decodifica di CIN, ABI, CAB e conto. Più la guida al codice BIC/SWIFT.",
     "primaryKeyword": "validatore iban",
     "canonical": "/validatore-iban/"
   },
@@ -63,6 +63,16 @@
       "Il BBAN italiano è formato da una lettera di CIN, un carattere di controllo nazionale; cinque cifre di ABI, che identificano la banca; cinque cifre di CAB, che identificano lo sportello; dodici caratteri per il numero di conto. Lo strumento mostra questi pezzi ma non traduce l'ABI nel nome della banca.",
       "Il controllo delle due cifre segue l'algoritmo MOD 97-10 dello standard ISO/IEC 7064. Si spostano i primi quattro caratteri in fondo, si trasformano le lettere in numeri (A = 10, B = 11, fino a Z = 35) e si calcola il resto della divisione per 97 del numero che ne risulta: deve essere 1. Poiché 97 è un numero primo, sbagliare una sola cifra cambia sempre il resto: un errore di questo tipo viene sempre intercettato.",
       "Superare il controllo vuol dire che il codice è ben costruito, non che il conto esista, sia attivo o appartenga alla persona a cui stai per fare un bonifico. Per quello c'è la verifica del beneficiario: dal 9 ottobre 2025, nei paesi dell'euro, banche e Poste devono controllare gratuitamente che nome e IBAN corrispondano prima che tu autorizzi un bonifico, tradizionale o istantaneo (Reg. UE 2024/886)."
+    ],
+    "sezioni": [
+      {
+        "titolo": "Il codice BIC (o SWIFT): com'è fatto e quando serve",
+        "paragrafi": [
+          "Il BIC, chiamato spesso codice SWIFT, identifica la banca, non il conto. Lo definisce lo standard ISO 9362 e lo assegna SWIFT, che ne è l'autorità di registrazione. La parte base ha 8 caratteri: 4 per l'istituto, 2 lettere per il paese secondo la ISO 3166-1 (IT per l'Italia), 2 per la località. Possono seguire altri 3 caratteri facoltativi che indicano una filiale o un ufficio: per questo un BIC può avere 8 o 11 caratteri.",
+          "Il BIC non si ricava dall'IBAN con un calcolo. L'IBAN contiene il codice ABI della banca, ma non il suo BIC, e il BIC non ha cifre di controllo: un programma può verificarne solo la forma, non dire se corrisponde davvero a una banca. Per trovarlo si consulta un elenco, come la directory pubblicata da SWIFT, oppure lo si legge nell'estratto conto o nell'app della banca.",
+          "Per i bonifici e gli addebiti diretti in euro all'interno dell'Unione europea il BIC non serve più: dal 1° febbraio 2016 basta l'IBAN, anche fra paesi diversi (Reg. UE 260/2012, artt. 5 e 16). Resta necessario per i pagamenti verso paesi fuori dall'area SEPA o in valute diverse dall'euro, dove la banca può chiedertelo insieme alle coordinate del conto."
+        ]
+      }
     ]
   },
   "esempi": [
@@ -120,6 +130,14 @@
     {
       "domanda": "Quanti caratteri ha un IBAN italiano?",
       "risposta": "Sempre 27: IT, due cifre di controllo, una lettera di CIN, cinque cifre di ABI, cinque di CAB e dodici caratteri di conto. Anche San Marino usa 27 caratteri con la stessa struttura. Se ne conti di più o di meno, c'è un errore di trascrizione."
+    },
+    {
+      "domanda": "Come si trova il codice BIC di un IBAN?",
+      "risposta": "Non si calcola: l'IBAN contiene il codice ABI della banca ma non il BIC. Lo trovi nell'estratto conto, nell'app della banca o nella directory dei BIC pubblicata da SWIFT. Per i bonifici in euro nell'Unione europea, dal 2016 basta l'IBAN."
+    },
+    {
+      "domanda": "Quanti caratteri ha un codice BIC?",
+      "risposta": "8 oppure 11. I primi 8 identificano la banca: 4 caratteri per l'istituto, 2 lettere per il paese e 2 per la località. Gli ultimi 3, facoltativi, indicano una filiale o un ufficio specifico (standard ISO 9362)."
     }
   ],
   "relatedTools": [
@@ -148,6 +166,21 @@
       "titolo": "Regolamento (UE) 2024/886 — bonifici istantanei e verifica del beneficiario",
       "dettaglio": "Verifica gratuita della corrispondenza fra nome e IBAN, obbligatoria dal 9 ottobre 2025 nei paesi dell'euro",
       "url": "https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=OJ:L_202400886"
+    },
+    {
+      "titolo": "SWIFT, Business Identifier Code (BIC)",
+      "dettaglio": "Struttura del BIC a 8 caratteri più 3 facoltativi; SWIFT autorità di registrazione ISO 9362",
+      "url": "https://www.swift.com/standards/data-standards/bic-business-identifier-code"
+    },
+    {
+      "titolo": "ISO 9362:2022 — Business identifier code (BIC)",
+      "dettaglio": "Standard internazionale che definisce elementi e struttura del BIC",
+      "url": "https://www.iso.org/standard/84108.html"
+    },
+    {
+      "titolo": "Regolamento (UE) 260/2012 — SEPA",
+      "dettaglio": "Artt. 5 e 16: il BIC non è più richiesto per i bonifici e addebiti in euro nell'UE dal 1° febbraio 2016",
+      "url": "https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=CELEX:32012R0260"
     }
   ],
   "jsonLd": {
