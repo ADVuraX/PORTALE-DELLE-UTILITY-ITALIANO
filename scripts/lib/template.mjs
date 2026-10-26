@@ -491,8 +491,8 @@ export function renderToolPage(cfg, site, toolsBySlug, ver) {
         </div>`;
   } else {
     resultBody = `<div class="result" aria-live="polite">
-          <div class="rlabel">${esc(tool.outputPrimary.label)}</div>
-          <div class="value" data-out-primary>—</div>
+          <div class="rlabel" data-out-label>${esc(tool.outputPrimary.label)}</div>
+          <div class="value${tool.outputPrimary.format === "text" ? " value-text" : ""}" data-out-primary>—</div>
           <div class="value-underline"></div>
           ${resultDetail}
           ${extrasHtml}

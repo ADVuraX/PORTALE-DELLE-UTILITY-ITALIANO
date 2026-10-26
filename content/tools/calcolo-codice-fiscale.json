@@ -1,0 +1,296 @@
+{
+  "slug": "calcolo-codice-fiscale",
+  "cluster": "generatori",
+  "tema": "documenti",
+  "updated": "2026-10",
+  "seo": {
+    "title": "Calcolo Codice Fiscale Online – Da Nome, Data e Comune di Nascita",
+    "metaDescription": "Calcola il codice fiscale da cognome, nome, sesso, data e luogo di nascita con le regole del D.M. 23/12/1976 e i codici catastali ISTAT di comuni e Stati esteri.",
+    "primaryKeyword": "calcolo codice fiscale",
+    "canonical": "/calcolo-codice-fiscale/"
+  },
+  "h1": "Calcolo del Codice Fiscale",
+  "intro": "Inserisci cognome, nome, sesso, data e luogo di nascita: lo strumento compone i 16 caratteri del codice fiscale con le regole del decreto ministeriale del 23 dicembre 1976 e mostra da dove viene ogni pezzo. Per il luogo usa l'elenco ISTAT dei comuni italiani e degli Stati esteri con il relativo codice catastale; se il comune ha un omonimo, ti chiede la provincia. Il calcolo avviene nel browser e i dati non vengono inviati. Il risultato serve a controllare o ricostruire un codice: l'unico codice valido resta quello rilasciato dall'Agenzia delle Entrate.",
+  "tool": {
+    "logicId": "calcolo-cf-v1",
+    "script": "calcolo-codice-fiscale.js",
+    "data": [
+      "luoghi-catastali.js"
+    ],
+    "cardNote": "D.M. 23/12/1976",
+    "inputs": [
+      {
+        "type": "group",
+        "legend": "Persona",
+        "inputs": [
+          {
+            "id": "cognome",
+            "label": "Cognome",
+            "type": "text",
+            "placeholder": "es. Rossi",
+            "default": "Rossi",
+            "hint": "per le donne sposate, quello da nubile"
+          },
+          {
+            "id": "nome",
+            "label": "Nome",
+            "type": "text",
+            "placeholder": "es. Mario",
+            "default": "Mario",
+            "hint": "tutti i nomi, come all'anagrafe"
+          },
+          {
+            "id": "sesso",
+            "label": "Sesso",
+            "type": "radio",
+            "options": [
+              "M",
+              "F"
+            ],
+            "optionLabels": {
+              "M": "Maschio",
+              "F": "Femmina"
+            },
+            "default": "M"
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "legend": "Nascita",
+        "inputs": [
+          {
+            "id": "giorno",
+            "label": "Giorno",
+            "type": "number",
+            "min": 1,
+            "max": 31,
+            "step": 1,
+            "default": 1
+          },
+          {
+            "id": "mese",
+            "label": "Mese",
+            "type": "select",
+            "options": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6",
+              "7",
+              "8",
+              "9",
+              "10",
+              "11",
+              "12"
+            ],
+            "optionLabels": {
+              "1": "Gennaio",
+              "2": "Febbraio",
+              "3": "Marzo",
+              "4": "Aprile",
+              "5": "Maggio",
+              "6": "Giugno",
+              "7": "Luglio",
+              "8": "Agosto",
+              "9": "Settembre",
+              "10": "Ottobre",
+              "11": "Novembre",
+              "12": "Dicembre"
+            },
+            "default": "8"
+          },
+          {
+            "id": "anno",
+            "label": "Anno",
+            "type": "number",
+            "min": 1800,
+            "max": 2100,
+            "step": 1,
+            "default": 1985
+          },
+          {
+            "id": "luogo",
+            "label": "Comune o Stato estero",
+            "type": "text",
+            "placeholder": "es. Roma, Castro (LE), Germania",
+            "default": "Roma",
+            "hint": "oppure il codice catastale, es. H501"
+          },
+          {
+            "id": "provincia",
+            "label": "Provincia (sigla)",
+            "type": "text",
+            "placeholder": "es. RM",
+            "hint": "serve solo se il nome ha un omonimo"
+          }
+        ]
+      }
+    ],
+    "outputPrimary": {
+      "id": "codice",
+      "label": "Codice fiscale calcolato",
+      "format": "text"
+    },
+    "outputSecondary": [
+      {
+        "id": "luogo",
+        "label": "Luogo di nascita riconosciuto",
+        "format": "text"
+      },
+      {
+        "id": "composizione",
+        "label": "Cognome · nome · anno · mese · giorno · luogo · controllo",
+        "format": "text"
+      }
+    ]
+  },
+  "spiegazione": {
+    "titolo": "Le regole per comporre il codice, passo per passo",
+    "corpo": [
+      "Il codice fiscale non è un numero assegnato a caso: i primi quindici caratteri si ricavano dai dati anagrafici con le regole degli articoli da 3 a 7 del decreto del 23 dicembre 1976, e il sedicesimo si calcola dai precedenti. Ecco come lavora lo strumento, nello stesso ordine del decreto."
+    ],
+    "sezioni": [
+      {
+        "titolo": "Cognome e nome: consonanti prima, vocali poi",
+        "paragrafi": [
+          "Del cognome si prendono le prime tre consonanti. Se le consonanti sono meno di tre si completano con le vocali, nell'ordine in cui compaiono; se anche così le lettere non bastano, l'ultimo posto va alla lettera X. Così Rossi dà RSS, Fo dà FOX. I cognomi in più parti si leggono come una parola sola: De Luca diventa DELUCA, quindi DLC. Accenti e apostrofi non contano. Per le donne sposate vale il cognome da nubile.",
+          "Il nome segue le stesse regole con un'eccezione: se ha quattro o più consonanti si prendono la prima, la terza e la quarta. Gianfranco ha le consonanti G, N, F, R, N, C e dà GFR, non GNF. Anche i nomi doppi si leggono per intero, come un'unica parola: Maria Luisa ha le consonanti M, R, L, S e dà MLS."
+        ]
+      },
+      {
+        "titolo": "Data e sesso in cinque caratteri",
+        "paragrafi": [
+          "L'anno di nascita entra con le ultime due cifre. Il mese diventa una lettera fissa, scelta in modo da evitare quelle facili da confondere: A gennaio, B febbraio, C marzo, D aprile, E maggio, H giugno, L luglio, M agosto, P settembre, R ottobre, S novembre, T dicembre. Il giorno si scrive con due cifre; per le donne si aggiunge 40, quindi una donna nata il 21 ha 61."
+        ]
+      },
+      {
+        "titolo": "Il luogo: codice catastale del comune o dello Stato",
+        "paragrafi": [
+          "Seguono quattro caratteri, una lettera e tre cifre, che identificano il comune italiano di nascita o, per chi è nato all'estero, lo Stato: questi ultimi iniziano tutti con Z. Lo strumento li legge dall'elenco ISTAT dei comuni attivi e dall'elenco ISTAT delle unità territoriali estere, che riporta il codice dell'Agenzia delle Entrate. Roma è H501, la Germania Z112.",
+          "Alcuni comuni hanno lo stesso nome, per esempio Castro, in provincia di Bergamo e in provincia di Lecce: in quei casi lo strumento ti chiede la sigla della provincia. Chi è nato in un comune poi soppresso o fuso con un altro non lo trova fra quelli attivi, ma può scrivere direttamente il codice di quattro caratteri."
+        ]
+      },
+      {
+        "titolo": "Il carattere di controllo",
+        "paragrafi": [
+          "Il sedicesimo carattere nasce da una somma: ogni carattere in posizione dispari vale un numero preso da una tabella, ogni carattere in posizione pari un numero preso da un'altra; il resto della divisione del totale per 26 indica la lettera finale. Per Mario Rossi nato a Roma il primo agosto 1985 il conto porta a Q.",
+          "Il codice calcolato può non coincidere con quello vero. Quando due persone avrebbero gli stessi quindici caratteri, l'Agenzia delle Entrate sostituisce una o più cifre con lettere (omocodia), e lo strumento non può sapere se è successo; anche un dato anagrafico registrato in modo diverso cambia il risultato."
+        ]
+      }
+    ]
+  },
+  "esempi": [
+    {
+      "titolo": "Mario Rossi, maschio, nato a Roma il 1° agosto 1985",
+      "risultatoAtteso": "RSSMRA85M01H501Q · RSS · MRA · 85 · M · 01 · H501 · Q",
+      "verifica": {
+        "input": {
+          "cognome": "Rossi",
+          "nome": "Mario",
+          "sesso": "M",
+          "giorno": 1,
+          "mese": "8",
+          "anno": 1985,
+          "luogo": "Roma"
+        },
+        "campo": "codice",
+        "testo": "RSSMRA85M01H501Q"
+      }
+    },
+    {
+      "titolo": "Gianfranco Bianchi, maschio, Milano, 10 dicembre 1970 — nome con sei consonanti",
+      "risultatoAtteso": "BNCGFR70T10F205G · dal nome la prima, la terza e la quarta consonante: GFR",
+      "verifica": {
+        "input": {
+          "cognome": "Bianchi",
+          "nome": "Gianfranco",
+          "sesso": "M",
+          "giorno": 10,
+          "mese": "12",
+          "anno": 1970,
+          "luogo": "Milano"
+        },
+        "campo": "codice",
+        "testo": "BNCGFR70T10F205G"
+      }
+    },
+    {
+      "titolo": "Maria Luisa De Luca, femmina, nata in Germania il 21 maggio 1992",
+      "risultatoAtteso": "DLCMLS92E61Z112W · giorno 21 + 40 = 61, Germania Z112",
+      "verifica": {
+        "input": {
+          "cognome": "De Luca",
+          "nome": "Maria Luisa",
+          "sesso": "F",
+          "giorno": 21,
+          "mese": "5",
+          "anno": 1992,
+          "luogo": "Germania"
+        },
+        "campo": "codice",
+        "testo": "DLCMLS92E61Z112W"
+      }
+    }
+  ],
+  "faq": [
+    {
+      "domanda": "Il codice fiscale calcolato online vale come codice fiscale?",
+      "risposta": "No. Per l'Agenzia delle Entrate l'unico codice valido è quello che rilascia lei, e il tuo è scritto sulla tessera sanitaria o sul tesserino del codice fiscale. Il calcolo serve a ricostruire o controllare un codice; per sapere se corrisponde ai dati anagrafici di una persona c'è il [servizio gratuito dell'Agenzia](https://www.agenziaentrate.gov.it/portale/verifica-codice-fiscale)."
+    },
+    {
+      "domanda": "Come si scelgono le tre lettere del cognome e del nome?",
+      "risposta": "Si prendono le consonanti nell'ordine in cui compaiono, poi le vocali se le consonanti sono meno di tre, poi la X se le lettere non bastano. Per il nome c'è un'eccezione: con quattro o più consonanti si prendono la prima, la terza e la quarta. Cognomi e nomi in più parti si leggono come una parola sola."
+    },
+    {
+      "domanda": "Per una donna sposata si usa il cognome del marito?",
+      "risposta": "No. L'articolo 3 del decreto del 1976 stabilisce che per le donne coniugate si considera soltanto il cognome da nubile, quindi il codice non cambia con il matrimonio."
+    },
+    {
+      "domanda": "Che codice del luogo ha chi è nato all'estero?",
+      "risposta": "Quello dello Stato di nascita: una Z seguita da tre cifre, per esempio Z112 per la Germania, Z110 per la Francia, Z404 per gli Stati Uniti. Lo strumento li legge dall'elenco ISTAT delle unità territoriali estere, che riporta il codice dell'Agenzia delle Entrate."
+    },
+    {
+      "domanda": "Il mio comune di nascita non esiste più: come lo inserisco?",
+      "risposta": "Nel campo del luogo scrivi direttamente il codice catastale di quattro caratteri, una lettera e tre cifre. Se hai già un codice fiscale lo trovi nei caratteri dal dodicesimo al quindicesimo. L'elenco usato dallo strumento contiene solo i comuni attivi, quindi chi è nato in un comune poi soppresso o fuso non lo trova per nome."
+    },
+    {
+      "domanda": "Perché il codice calcolato è diverso da quello sulla mia tessera sanitaria?",
+      "risposta": "Le cause più comuni sono tre: l'omocodia, cioè lettere al posto di alcune cifre quando due persone avrebbero lo stesso codice; un nome registrato all'anagrafe in modo diverso da come lo scrivi, per esempio con un secondo nome; un luogo o una data diversi da quelli registrati. In tutti i casi vale il codice della tessera."
+    }
+  ],
+  "relatedTools": [
+    "validatore-codice-fiscale",
+    "validatore-partita-iva",
+    "validatore-iban"
+  ],
+  "disclaimer": "<strong>Codice ricostruito, non rilasciato.</strong> Lo strumento applica le regole di composizione del D.M. 23/12/1976 ma non l'omocodia, che solo l'Agenzia delle Entrate può assegnare: l'unico codice valido è quello rilasciato dall'Agenzia. I comuni sono quelli attivi nell'elenco ISTAT; per un comune soppresso inserisci il codice catastale. I dati restano nel tuo browser.",
+  "fonti": [
+    {
+      "titolo": "D.M. 23 dicembre 1976 — Sistemi di codificazione dei soggetti da iscrivere all'anagrafe tributaria",
+      "dettaglio": "Artt. 3–7: lettere del cognome e del nome, data e sesso, codice del luogo, carattere di controllo",
+      "url": "https://www.gazzettaufficiale.it/eli/id/1977/01/20/077U0006/sg"
+    },
+    {
+      "titolo": "ISTAT, codici dei comuni, delle province e delle regioni",
+      "dettaglio": "Elenco dei comuni italiani attivi con il codice catastale di ciascuno",
+      "url": "https://www.istat.it/classificazione/codici-dei-comuni-delle-province-e-delle-regioni/"
+    },
+    {
+      "titolo": "ISTAT, codici delle unità territoriali estere",
+      "dettaglio": "Stati esteri con il codice dell'Agenzia delle Entrate (portale SITUAS)",
+      "url": "https://www.istat.it/classificazione/classificazione-degli-stati-esteri/"
+    },
+    {
+      "titolo": "Agenzia delle Entrate, il codice fiscale",
+      "dettaglio": "L'unico codice fiscale valido è quello rilasciato dall'Agenzia",
+      "url": "https://www.agenziaentrate.gov.it/portale/codice-fiscale-e-tessera-sanitaria/che-cos-"
+    }
+  ],
+  "jsonLd": {
+    "type": "SoftwareApplication",
+    "applicationCategory": "UtilitiesApplication"
+  }
+}

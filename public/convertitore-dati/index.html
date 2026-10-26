@@ -22,7 +22,7 @@ window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribut
 window.__cookiePrefs=function(){var g=window.googlefc;if(g&&typeof g.showRevocationMessage==="function"){g.showRevocationMessage();return;}location.href="/cookie/";};</script>
 <link rel="icon" href="/favicon.svg?v=9ec594db" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/css/fonts.css?v=abc23a4b">
-<link rel="stylesheet" href="/assets/css/tokens.css?v=daaa78f6">
+<link rel="stylesheet" href="/assets/css/tokens.css?v=645b8b23">
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{&quot;token&quot;:&quot;c6ec4052551d427f9912b010547e4aed&quot;}'></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Convertitore Dati – Byte, MB, GB e Gibibyte","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","url":"https://utilityitalia.it/convertitore-dati/","description":"Converti unità di dati digitali: bit, byte, KB, MB, GB, TB decimali e KiB, MiB, GiB, TiB binari. Capisci la differenza tra 1000 e 1024. Calcolo immediato e gratuito.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"dateModified":"2026-10-01"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Che differenza c'è fra GB e GiB?","acceptedAnswer":{"@type":"Answer","text":"Un GB (gigabyte) è un miliardo di byte, potenza di 10. Un GiB (gibibyte) è 2³⁰ byte, cioè 1.073.741.824: circa il 7,4% in più. La IEC ha introdotto i simboli binari proprio per distinguere le due misure, che in passato si scrivevano entrambe «GB»."}},{"@type":"Question","name":"Perché un disco da 1 TB mostra circa 931 GB?","acceptedAnswer":{"@type":"Answer","text":"Perché il produttore conta in potenze di 10 (1 TB = 10¹² byte), mentre il sistema operativo conta in potenze di 2 e usa comunque il simbolo GB. 10¹² byte divisi per 1.073.741.824 danno 931,32: sono «GiB», anche se scritti GB. Lo spazio non manca, è misurato con un'altra unità."}},{"@type":"Question","name":"Quanti byte ci sono in un megabit?","acceptedAnswer":{"@type":"Answer","text":"125.000 byte. Un megabit è un milione di bit e un byte ne contiene 8: 1.000.000 / 8 = 125.000. È il conto che serve per passare dalla velocità di una connessione, in megabit al secondo, alla velocità di download in megabyte al secondo."}},{"@type":"Question","name":"Quando si usano i multipli binari?","acceptedAnswer":{"@type":"Answer","text":"Quando la quantità nasce come potenza di 2, come la capacità di un modulo di memoria RAM. Per la capienza di dischi, chiavette e reti si usano normalmente i multipli decimali. Indicare il simbolo giusto evita lo scarto fra quanto acquistato e quanto mostrato."}}]}</script>
@@ -88,8 +88,8 @@ window.__cookiePrefs=function(){var g=window.googlefc;if(g&&typeof g.showRevocat
         <div class="card card-out notch" data-result-card>
           <div class="card-top"><span>Risultato</span></div>
           <div class="result" aria-live="polite">
-          <div class="rlabel">Risultato</div>
-          <div class="value" data-out-primary>—</div>
+          <div class="rlabel" data-out-label>Risultato</div>
+          <div class="value value-text" data-out-primary>—</div>
           <div class="value-underline"></div>
           <div class="secondary" data-out-secondary><div class="cell"><span class="k">Fattore di conversione</span><span class="v" data-out="formula">—</span></div></div>
           
@@ -170,7 +170,7 @@ window.__cookiePrefs=function(){var g=window.googlefc;if(g&&typeof g.showRevocat
     <p class="foot-base">Utility Italia — strumenti gratuiti, aggiornati, senza registrazione.</p>
   </div></footer>
 
-<script src="/assets/js/runtime.js?v=814e70d4"></script>
+<script src="/assets/js/runtime.js?v=7d888fd8"></script>
 
 <script src="/assets/js/calculators/convertitore-unita.js?v=3bddd0fc"></script>
 </body>

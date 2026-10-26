@@ -46,6 +46,22 @@
     return arr.join("");
   }
 
+  // Nome del luogo dal codice catastale, se in pagina c'è la tabella ISTAT
+  // (/assets/js/data/luoghi-catastali.js); senza tabella si mostra solo il codice.
+  var perCodice = null, caricati = -1;
+  function nomeLuogo(codice) {
+    var dati = (typeof window !== "undefined" ? window : globalThis).LUOGHI_CATASTALI || "";
+    if (caricati !== dati.length) { // indicizza alla prima chiamata (o se la tabella arriva dopo)
+      perCodice = {};
+      caricati = dati.length;
+      dati.split("\n").forEach(function (riga) {
+        var p = riga.split("|");
+        if (p[2] && !perCodice[p[2]]) perCodice[p[2]] = p[0] + (p[1] === "EE" ? ", Stato estero" : " (" + p[1] + ")");
+      });
+    }
+    return perCodice[codice] || "";
+  }
+
   function invalido(msg) {
     return { esito: "✗ " + msg, valido: false, sesso: "—", dataNascita: "—", codiceCatastale: "—" };
   }
@@ -112,7 +128,9 @@
       valido: true,
       sesso: sesso,
       dataNascita: dataNascita,
-      codiceCatastale: belfiore + " (codice Belfiore del luogo di nascita)",
+      codiceCatastale: nomeLuogo(belfiore)
+        ? belfiore + " · " + nomeLuogo(belfiore)
+        : belfiore + " (codice non presente fra i comuni attivi e gli Stati esteri: può essere un comune soppresso)",
     };
   }
 

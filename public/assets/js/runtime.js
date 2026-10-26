@@ -29,6 +29,8 @@
     // useGrouping:"always" — in it-IT il default non separa le migliaia sotto i
     // 10.000 (1819 → "1819"); per un tool finanziario vogliamo sempre "1.819".
     if (fmt === "currency") return new Intl.NumberFormat("it-IT", { style: "currency", currency: "EUR", maximumFractionDigits: 0, useGrouping: "always" }).format(value);
+    // Con i centesimi: IVA, rate di mutuo, dove l'euro intero non basta.
+    if (fmt === "currency2") return new Intl.NumberFormat("it-IT", { style: "currency", currency: "EUR", minimumFractionDigits: 2, maximumFractionDigits: 2, useGrouping: "always" }).format(value);
     if (fmt === "percent") return new Intl.NumberFormat("it-IT", { style: "percent", maximumFractionDigits: 1 }).format(value);
     if (fmt === "number") return new Intl.NumberFormat("it-IT", { useGrouping: "always" }).format(value);
     return String(value);
@@ -121,8 +123,10 @@
     // --- Animazioni (chicche). Tutto degrada a "istantaneo" con reduced-motion. ---
     var resultCard = root.querySelector("[data-result-card]") || root.querySelector(".result");
     var primaryEl = root.querySelector("[data-out-primary]");
+    var labelEl = root.querySelector("[data-out-label]");
+    var labelDefault = labelEl ? labelEl.textContent : "";
     var REDUCE = typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var NUMERIC = { currency: 1, percent: 1, number: 1 };
+    var NUMERIC = { currency: 1, currency2: 1, percent: 1, number: 1 };
     var prevPrimary = null;   // ultimo valore numerico mostrato (per il count-up)
     var firstRun = true;
     var rafId = 0, flashTimer = 0;
@@ -162,6 +166,9 @@
       var out = fn(readValues());
 
       if (primaryEl && cfg.outputPrimary) {
+        // Etichetta che cambia con la modalità (es. «Imponibile» o «Totale con IVA»):
+        // la funzione di calcolo restituisce out["<id>Label"]; se assente resta quella del config.
+        if (labelEl) labelEl.textContent = out[cfg.outputPrimary.id + "Label"] || labelDefault;
         var pv = out[cfg.outputPrimary.id];
         var fmt = cfg.outputPrimary.format;
         if (NUMERIC[fmt] && typeof pv === "number" && isFinite(pv)) {

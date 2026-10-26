@@ -22,7 +22,7 @@ window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribut
 window.__cookiePrefs=function(){var g=window.googlefc;if(g&&typeof g.showRevocationMessage==="function"){g.showRevocationMessage();return;}location.href="/cookie/";};</script>
 <link rel="icon" href="/favicon.svg?v=9ec594db" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/css/fonts.css?v=abc23a4b">
-<link rel="stylesheet" href="/assets/css/tokens.css?v=daaa78f6">
+<link rel="stylesheet" href="/assets/css/tokens.css?v=645b8b23">
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{&quot;token&quot;:&quot;c6ec4052551d427f9912b010547e4aed&quot;}'></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Validatore IBAN – Verifica Codice e Coordinate Bancarie","applicationCategory":"FinanceApplication","operatingSystem":"Web","url":"https://utilityitalia.it/validatore-iban/","description":"Verifica se un IBAN è corretto: lunghezza per paese e checksum mod-97 (ISO 7064), con decodifica di CIN, ABI, CAB e conto. Più la guida al codice BIC/SWIFT.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"dateModified":"2026-10-01"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Come funziona il controllo mod-97 dell'IBAN?","acceptedAnswer":{"@type":"Answer","text":"Si spostano in fondo i primi quattro caratteri (paese e cifre di controllo), si trasformano le lettere in numeri da 10 (A) a 35 (Z) e si divide il numero ottenuto per 97. Se il resto è 1 l'IBAN supera il controllo; con qualsiasi altro resto c'è un errore. Una singola cifra sbagliata viene sempre intercettata."}},{"@type":"Question","name":"Cosa indicano ABI e CAB in un IBAN italiano?","acceptedAnswer":{"@type":"Answer","text":"L'ABI è il codice di cinque cifre che identifica la banca, il CAB quello di cinque cifre che identifica lo sportello. Nell'IBAN italiano stanno subito dopo la lettera di CIN, e prima dei dodici caratteri del numero di conto."}},{"@type":"Question","name":"Che differenza c'è fra CIN e cifre di controllo?","acceptedAnswer":{"@type":"Answer","text":"Le due cifre dopo IT sono il controllo internazionale dell'IBAN, verificato con il mod-97. Il CIN è la lettera che apre la parte nazionale ed è un controllo interno sulle coordinate bancarie italiane. Questo strumento verifica le cifre internazionali e mostra il CIN, senza ricalcolarlo."}},{"@type":"Question","name":"Un IBAN che supera il controllo è sicuro per un bonifico?","acceptedAnswer":{"@type":"Answer","text":"Dice solo che il codice è scritto correttamente. Non conferma che il conto esista né a chi appartenga: un IBAN corretto può appartenere a qualcun altro. Per sapere se nome e IBAN corrispondono c'è la verifica del beneficiario, che dal 9 ottobre 2025 la tua banca deve fare gratuitamente prima di ogni bonifico in euro."}},{"@type":"Question","name":"Quanti caratteri ha un IBAN italiano?","acceptedAnswer":{"@type":"Answer","text":"Sempre 27: IT, due cifre di controllo, una lettera di CIN, cinque cifre di ABI, cinque di CAB e dodici caratteri di conto. Anche San Marino usa 27 caratteri con la stessa struttura. Se ne conti di più o di meno, c'è un errore di trascrizione."}},{"@type":"Question","name":"Come si trova il codice BIC di un IBAN?","acceptedAnswer":{"@type":"Answer","text":"Non si calcola: l'IBAN contiene il codice ABI della banca ma non il BIC. Lo trovi nell'estratto conto, nell'app della banca o nella directory dei BIC pubblicata da SWIFT. Per i bonifici in euro nell'Unione europea, dal 2016 basta l'IBAN."}},{"@type":"Question","name":"Quanti caratteri ha un codice BIC?","acceptedAnswer":{"@type":"Answer","text":"8 oppure 11. I primi 8 identificano la banca: 4 caratteri per l'istituto, 2 lettere per il paese e 2 per la località. Gli ultimi 3, facoltativi, indicano una filiale o un ufficio specifico (standard ISO 9362)."}}]}</script>
@@ -80,8 +80,8 @@ window.__cookiePrefs=function(){var g=window.googlefc;if(g&&typeof g.showRevocat
         <div class="card card-out notch" data-result-card>
           <div class="card-top"><span>Risultato</span></div>
           <div class="result" aria-live="polite">
-          <div class="rlabel">Esito verifica</div>
-          <div class="value" data-out-primary>—</div>
+          <div class="rlabel" data-out-label>Esito verifica</div>
+          <div class="value value-text" data-out-primary>—</div>
           <div class="value-underline"></div>
           <div class="secondary" data-out-secondary><div class="cell"><span class="k">Paese</span><span class="v" data-out="paese">—</span></div><div class="cell"><span class="k">CIN</span><span class="v" data-out="cin">—</span></div><div class="cell"><span class="k">ABI (banca)</span><span class="v" data-out="abi">—</span></div><div class="cell"><span class="k">CAB (sportello)</span><span class="v" data-out="cab">—</span></div><div class="cell"><span class="k">Numero di conto</span><span class="v" data-out="conto">—</span></div></div>
           
@@ -173,7 +173,7 @@ window.__cookiePrefs=function(){var g=window.googlefc;if(g&&typeof g.showRevocat
     <p class="foot-base">Utility Italia — strumenti gratuiti, aggiornati, senza registrazione.</p>
   </div></footer>
 
-<script src="/assets/js/runtime.js?v=814e70d4"></script>
+<script src="/assets/js/runtime.js?v=7d888fd8"></script>
 
 <script src="/assets/js/calculators/validatore-iban.js?v=5a20ac3c"></script>
 </body>

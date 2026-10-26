@@ -22,7 +22,7 @@ window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribut
 window.__cookiePrefs=function(){var g=window.googlefc;if(g&&typeof g.showRevocationMessage==="function"){g.showRevocationMessage();return;}location.href="/cookie/";};</script>
 <link rel="icon" href="/favicon.svg?v=9ec594db" type="image/svg+xml">
 <link rel="stylesheet" href="/assets/css/fonts.css?v=abc23a4b">
-<link rel="stylesheet" href="/assets/css/tokens.css?v=daaa78f6">
+<link rel="stylesheet" href="/assets/css/tokens.css?v=645b8b23">
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{&quot;token&quot;:&quot;c6ec4052551d427f9912b010547e4aed&quot;}'></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Convertitore Valuta – Cambio Aggiornato BCE","applicationCategory":"FinanceApplication","operatingSystem":"Web","url":"https://utilityitalia.it/convertitore-valuta/","description":"Converti oltre 30 valute con i tassi di riferimento BCE aggiornati ogni giorno: euro, dollaro, sterlina, franco svizzero, yen e molte altre. Gratis, immediato, con fallback offline.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"dateModified":"2026-10-01"}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Da dove arrivano i tassi di cambio?","acceptedAnswer":{"@type":"Answer","text":"Dai tassi di riferimento della Banca Centrale Europea, letti tramite Frankfurter, un servizio open source che li ripubblica. Se non è raggiungibile, lo strumento usa un servizio di riserva o una tabella salvata nella pagina; la data e la provenienza del tasso compaiono sempre accanto al risultato."}},{"@type":"Question","name":"Ogni quanto cambiano i tassi di riferimento?","acceptedAnswer":{"@type":"Answer","text":"Una volta per ogni giorno lavorativo: la BCE li stabilisce verso le 14:10 e li pubblica verso le 16:00, ora dell'Europa centrale. Nei fine settimana e nei giorni di chiusura del sistema di pagamento TARGET non viene pubblicato un nuovo tasso: resta l'ultimo disponibile."}},{"@type":"Question","name":"Perché la mia banca applica un cambio diverso?","acceptedAnswer":{"@type":"Answer","text":"Perché il tasso BCE è una media a scopo informativo, mentre banche e circuiti di pagamento applicano un proprio cambio con un margine, a volte con commissioni in più. La differenza fra il cambio che ti propongono e il tasso BCE è il costo reale dell'operazione."}},{"@type":"Question","name":"Perché il rublo ha un tasso indicativo?","acceptedAnswer":{"@type":"Answer","text":"Perché dal 2 marzo 2022 la BCE non pubblica più il riferimento per il rublo russo. Lo stesso vale per dirham degli Emirati e riyal saudita, che non rientrano nel suo elenco: per queste valute lo strumento usa un valore salvato, da prendere come indicazione."}}]}</script>
@@ -88,8 +88,8 @@ window.__cookiePrefs=function(){var g=window.googlefc;if(g&&typeof g.showRevocat
         <div class="card card-out notch" data-result-card>
           <div class="card-top"><span>Risultato</span></div>
           <div class="result" aria-live="polite">
-          <div class="rlabel">Importo convertito</div>
-          <div class="value" data-out-primary>—</div>
+          <div class="rlabel" data-out-label>Importo convertito</div>
+          <div class="value value-text" data-out-primary>—</div>
           <div class="value-underline"></div>
           <div class="secondary" data-out-secondary><div class="cell"><span class="k">Tasso applicato</span><span class="v" data-out="tasso">—</span></div><div class="cell"><span class="k">Cambio inverso</span><span class="v" data-out="inverso">—</span></div><div class="cell"><span class="k">Aggiornamento tassi</span><span class="v" data-out="dataTasso">—</span></div></div>
           
@@ -173,7 +173,7 @@ window.__cookiePrefs=function(){var g=window.googlefc;if(g&&typeof g.showRevocat
     <p class="foot-base">Utility Italia — strumenti gratuiti, aggiornati, senza registrazione.</p>
   </div></footer>
 
-<script src="/assets/js/runtime.js?v=814e70d4"></script>
+<script src="/assets/js/runtime.js?v=7d888fd8"></script>
 <script src="/assets/js/data/valute-2026-07.js?v=8c63f785"></script>
 <script src="/assets/js/data/valute-live.js?v=bd835e9c"></script>
 <script src="/assets/js/calculators/convertitore-valuta.js?v=e66d9672"></script>

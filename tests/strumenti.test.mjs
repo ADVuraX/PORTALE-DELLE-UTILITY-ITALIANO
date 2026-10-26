@@ -133,6 +133,102 @@ test("codice fiscale: il 29 febbraio solo negli anni bisestili", () => {
   assert.equal(cf({ codice: conControllo("RSSMRA85B29A562") }).valido, false, "1985 no");
 });
 
+/* ======================= CALCOLO DEL CODICE FISCALE ======================= */
+// Regole riscritte da zero dal testo del D.M. 23/12/1976 (artt. 3–5), non dal calcolatore.
+
+const calcoloCf = calcolatore("calcolo-cf-v1", "calcolo-codice-fiscale.js", ["luoghi-catastali.js"]);
+
+/** Art. 3 (cognome) e art. 4 (nome), caso per caso come nel decreto. */
+function treLettere(testo, nome) {
+  const l = testo.normalize("NFD").replace(/[̀-ͯ]/g, "").toUpperCase().replace(/[^A-Z]/g, "");
+  const c = [...l].filter((x) => !"AEIOU".includes(x));
+  const v = [...l].filter((x) => "AEIOU".includes(x));
+  if (nome && c.length >= 4) return c[0] + c[2] + c[3];          // art. 4: prima, terza, quarta
+  if (c.length >= 3) return c[0] + c[1] + c[2];
+  if (c.length === 2) return c[0] + c[1] + v[0];                  // due consonanti + prima vocale
+  if (c.length === 1 && v.length >= 2) return c[0] + v[0] + v[1];
+  if (c.length === 1 && v.length === 1) return c[0] + v[0] + "X";
+  if (c.length === 0 && v.length === 2) return v[0] + v[1] + "X";
+  throw new Error(`caso non previsto dal decreto: ${testo}`);
+}
+const MESE = "ABCDEHLMPRST";
+function cfRiferimento({ cognome, nome, sesso, giorno, mese, anno }, codiceLuogo) {
+  const g = String(giorno + (sesso === "F" ? 40 : 0)).padStart(2, "0");
+  return conControllo(treLettere(cognome, false) + treLettere(nome, true) + String(anno % 100).padStart(2, "0") + MESE[mese - 1] + g + codiceLuogo);
+}
+
+test("calcolo CF: casi degli artt. 3 e 4 del decreto", () => {
+  const casi = [
+    ["Rossi", false, "RSS"], ["Bianchi", false, "BNC"],   // tre o più consonanti
+    ["Neri", false, "NRE"],                                // due consonanti + prima vocale
+    ["Rea", false, "REA"],                                 // una consonante + due vocali
+    ["Fo", false, "FOX"],                                  // una consonante + una vocale + X
+    ["Ai", false, "AIX"],                                  // due vocali + X
+    ["De Luca", false, "DLC"], ["D'Angelo", false, "DNG"], // parti e apostrofi: un'unica successione
+    ["Gianfranco", true, "GFR"], ["Maria Luisa", true, "MLS"], // nome: prima, terza, quarta consonante
+    ["Mario", true, "MRA"], ["Ugo", true, "GUO"], ["Nicolò", true, "NCL"],
+  ];
+  for (const [testo, nome, atteso] of casi) {
+    assert.equal(treLettere(testo, nome), atteso, `riferimento: ${testo}`);
+    const o = calcoloCf({ cognome: nome ? "Rossi" : testo, nome: nome ? testo : "Mario", sesso: "M", giorno: 1, mese: "8", anno: 1985, luogo: "Roma" });
+    assert.equal(o.codice.slice(nome ? 3 : 0, nome ? 6 : 3), atteso, `calcolatore: ${testo}`);
+  }
+});
+
+test("calcolo CF: Mario Rossi, Roma, 1/8/1985 → RSSMRA85M01H501Q (esempio del validatore)", () => {
+  const o = calcoloCf({ cognome: "Rossi", nome: "Mario", sesso: "M", giorno: 1, mese: "8", anno: 1985, luogo: "Roma" });
+  assert.equal(o.codice, "RSSMRA85M01H501Q");
+  assert.equal(cf({ codice: o.codice }).valido, true);
+});
+
+test("calcolo CF: 300 persone a caso coincidono col riferimento e passano il validatore", () => {
+  const nomi = ["Rossi", "Fo", "De Luca", "Ai", "Esposito", "Bò", "Russo", "Iuorio", "Maria Luisa", "Gianfranco", "Ugo", "Ea", "Luca", "Chiara"];
+  const luoghi = [["Roma", "H501"], ["Milano", "F205"], ["Castro (LE)", "M261"], ["Germania", "Z112"], ["Francia", "Z110"], ["H223", "H223"]];
+  let seme = 7;
+  const caso = (n) => { seme = (seme * 1103515245 + 12345) % 2147483648; return seme % n; };
+  for (let i = 0; i < 300; i++) {
+    const anno = 1900 + caso(126), mese = 1 + caso(12);
+    const giorno = 1 + caso(new Date(Date.UTC(anno, mese, 0)).getUTCDate());
+    const sesso = caso(2) ? "F" : "M";
+    const [luogo, codice] = luoghi[caso(luoghi.length)];
+    const p = { cognome: nomi[caso(nomi.length)], nome: nomi[caso(nomi.length)], sesso, giorno, mese, anno };
+    const o = calcoloCf({ ...p, mese: String(mese), luogo });
+    assert.equal(o.codice, cfRiferimento(p, codice), JSON.stringify(p));
+    const v = cf({ codice: o.codice });
+    assert.equal(v.valido, true, `${o.codice}: ${v.esito}`);
+    assert.equal(v.sesso, sesso === "F" ? "Femmina" : "Maschio");
+  }
+});
+
+test("calcolo CF: comune omonimo senza provincia → chiede la provincia", () => {
+  const o = calcoloCf({ cognome: "Rossi", nome: "Mario", sesso: "M", giorno: 1, mese: "1", anno: 1980, luogo: "Castro" });
+  assert.equal(o.valido, false);
+  assert.match(o.luogo, /Castro \(BG\).*Castro \(LE\)/);
+  const conPr = calcoloCf({ cognome: "Rossi", nome: "Mario", sesso: "M", giorno: 1, mese: "1", anno: 1980, luogo: "Castro", provincia: "bg" });
+  assert.match(conPr.codice, /C337.$/);
+});
+
+test("calcolo CF: date impossibili rifiutate (31 aprile, 29 febbraio non bisestile)", () => {
+  const base = { cognome: "Rossi", nome: "Mario", sesso: "M", luogo: "Roma" };
+  assert.equal(calcoloCf({ ...base, giorno: 31, mese: "4", anno: 1990 }).valido, false);
+  assert.equal(calcoloCf({ ...base, giorno: 29, mese: "2", anno: 1985 }).valido, false);
+  assert.equal(calcoloCf({ ...base, giorno: 29, mese: "2", anno: 1984 }).valido, true);
+});
+
+test("tabella dei luoghi: comuni ISTAT e Stati esteri con codici ben formati e unici per voce", () => {
+  const righe = globalThis.LUOGHI_CATASTALI.split("\n");
+  const comuni = righe.filter((r) => r.split("|")[1] !== "EE");
+  const esteri = righe.filter((r) => r.split("|")[1] === "EE");
+  assert.ok(comuni.length > 7800 && esteri.length > 200, `${comuni.length} comuni, ${esteri.length} Stati`);
+  for (const r of righe) assert.match(r.split("|")[2], /^[A-Z]\d{3}$/, r);
+  assert.ok(esteri.every((r) => r.split("|")[2].startsWith("Z")), "gli Stati esteri hanno codici Z");
+  assert.ok(righe.includes("Roma|RM|H501") && righe.includes("Milano|MI|F205"));
+});
+
+test("validatore CF con la tabella: traduce il codice del luogo nel nome", () => {
+  assert.match(cf({ codice: "RSSMRA85M01H501Q" }).codiceCatastale, /^H501 · Roma \(RM\)$/);
+});
+
 /* ================================ IBAN ================================ */
 // Esempi ufficiali del registro IBAN (SWIFT) per Italia, Germania, Regno Unito.
 

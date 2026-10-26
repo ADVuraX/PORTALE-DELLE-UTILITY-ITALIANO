@@ -18,6 +18,11 @@ istituzionali, con le fonti. Stato: **V** verificato · **C** corretto · **I** 
 | Standard in vigore ISO/IEC 18004:2024 (ed. 4) | [ISO](https://www.iso.org/standard/83389.html) | V |
 | "Libreria conforme a ISO/IEC 18004" | non verificata per la libreria | **C** · riformulata |
 | Libreria QR Code Generator di Kazuhiko Arase, MIT; "QR Code" marchio DENSO WAVE | intestazione di `qrcode.js` | V |
+| Calcolo CF: cognome (art. 3: tre consonanti; due + prima vocale; una + due vocali; una + una vocale + X; due vocali + X; parti come unica successione; donne coniugate: cognome da nubile); nome (art. 4: con 4+ consonanti la 1ª, 3ª e 4ª); anno, lettere dei mesi, giorno + 40 per le donne, codice del comune o dello Stato estero (art. 5); omocodia (art. 6); carattere di controllo (art. 7) | D.M. 23/12/1976 ([GU](https://www.gazzettaufficiale.it/eli/id/1977/01/20/077U0006/sg), pubblicato nella GU n. 345 del 29/12/1976, S.O.): letto il 26/10/2026 nella trascrizione integrale di [dossier.net](https://www.dossier.net/utilities/codice-fiscale/decreto1976_13813.html), perché la GU del 1976 è solo in scansione e il supplemento non è scaricabile; le tabelle dell'art. 7 coincidono con quelle già verificate nel validatore | V · trascrizione secondaria, da riconfrontare con la scansione GU se reperibile |
+| Codici catastali: 7.896 comuni attivi (colonna «Codice Catastale del comune»), 232 Stati esteri con codice dell'Agenzia delle Entrate | [ISTAT comuni](https://www.istat.it/classificazione/codici-dei-comuni-delle-province-e-delle-regioni/), [ISTAT SITUAS, report 466](https://www.istat.it/classificazione/classificazione-degli-stati-esteri/), scaricati il 26/10/2026 con `npm run luoghi` | V |
+| Omonimi fra comuni (es. Castro BG/LE, San Teodoro ME/SS, Samone TO/TN) | elenco ISTAT, controllo nei test | V |
+| L'unico codice fiscale valido è quello rilasciato dall'Agenzia delle Entrate | [AdE, il codice fiscale](https://www.agenziaentrate.gov.it/portale/codice-fiscale-e-tessera-sanitaria/che-cos-) | V |
+| Il codice del luogo occupa i caratteri dal 12° al 15° | D.M. art. 2 (3+3+2+1+2 caratteri prima del luogo) | V · **C** nel validatore (diceva «dall'undicesimo al quattordicesimo») |
 
 ## Convertitori
 

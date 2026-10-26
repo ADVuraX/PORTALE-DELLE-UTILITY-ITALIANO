@@ -8,7 +8,7 @@
 import { spiegazioneTesto } from "./qualita.mjs";
 
 const CLUSTERS = ["calcolatori", "generatori", "convertitori", "validatori"];
-const FORMATS = ["currency", "percent", "number", "text", "qr"];
+const FORMATS = ["currency", "currency2", "percent", "number", "text", "qr"];
 const ACTIONS = ["regenerate", "copy", "download"];
 
 function words(s) {
