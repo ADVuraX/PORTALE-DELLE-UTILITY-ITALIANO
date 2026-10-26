@@ -51,6 +51,10 @@ export function validateTool(cfg, allSlugs, scriptFiles) {
   else if (scriptFiles && !scriptFiles.has(tool.script)) {
     err(`\`tool.script\` = "${tool.script}" ma il file assets/js/calculators/${tool.script} non esiste`);
   }
+  // Nomi di file che finiscono in <script src>: solo minuscole, cifre, punto e trattino.
+  const NOME_JS = /^[a-z0-9][a-z0-9._-]*\.js$/;
+  if (tool.script && !NOME_JS.test(tool.script)) err(`\`tool.script\` = "${tool.script}": nome di file non ammesso`);
+  (tool.data || []).forEach((d, i) => { if (!NOME_JS.test(d)) err(`\`tool.data[${i}]\` = "${d}": nome di file non ammesso`); });
   if (!Array.isArray(tool.inputs) || tool.inputs.length < 1) err("`tool.inputs` deve avere almeno 1 elemento");
 
   const LEAF_TYPES = ["number", "select", "text", "checkbox", "radio"];

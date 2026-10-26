@@ -62,6 +62,14 @@
     return perCodice[codice] || "";
   }
 
+  // "Non trovato" si dice solo se la tabella c'è: senza tabella resta il codice nudo.
+  function descriviLuogo(codice) {
+    var nome = nomeLuogo(codice);
+    if (nome) return codice + " · " + nome;
+    if (!caricati) return codice + " (codice Belfiore del luogo di nascita)";
+    return codice + " (codice non presente fra i comuni attivi e gli Stati esteri: può essere un comune soppresso)";
+  }
+
   function invalido(msg) {
     return { esito: "✗ " + msg, valido: false, sesso: "—", dataNascita: "—", codiceCatastale: "—" };
   }
@@ -128,9 +136,7 @@
       valido: true,
       sesso: sesso,
       dataNascita: dataNascita,
-      codiceCatastale: nomeLuogo(belfiore)
-        ? belfiore + " · " + nomeLuogo(belfiore)
-        : belfiore + " (codice non presente fra i comuni attivi e gli Stati esteri: può essere un comune soppresso)",
+      codiceCatastale: descriviLuogo(belfiore),
     };
   }
 

@@ -637,8 +637,8 @@ ${adFondo(site)}
 ${footer(site)}
 
 <script src="${withV("/assets/js/runtime.js", ver)}"></script>
-${(tool.data || []).map((d) => `<script src="${withV("/assets/js/data/" + d, ver)}"></script>`).join("\n")}
-<script src="${withV("/assets/js/calculators/" + tool.script, ver)}"></script>
+${(tool.data || []).map((d) => `<script src="${esc(withV("/assets/js/data/" + d, ver))}"></script>`).join("\n")}
+<script src="${esc(withV("/assets/js/calculators/" + tool.script, ver))}"></script>
 </body>
 </html>
 `;
