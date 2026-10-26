@@ -14,6 +14,9 @@
  *    c. 2 (circ. AdE 4/E del 16/05/2025); tabella, minimi 690/1.380 €,
  *    maggiorazione 65 € per 25.001–35.000 €, rapporti alle prime 4 cifre
  *    decimali: istruzioni Mod. 730/2026, tabella 6.
+ *  - Detrazioni per pensione (art. 13 c. 3 e 3-bis TUIR) e per lavoro autonomo
+ *    e impresa minore (art. 13 c. 5 e 5-ter): testo vigente al 30/01/2026 su
+ *    Normattiva (letto il 26/10/2026); rapporti alle prime 4 cifre (c. 6).
  *  - Taglio del cuneo: L. 207/2024 c. 4 (somma esente) e c. 6 (ulteriore
  *    detrazione), senza termine finale — circ. AdE 4/E/2025.
  *  - Trattamento integrativo: art. 1 DL 3/2020; condizione "imposta lorda >
@@ -66,6 +69,29 @@
       // 28.001–50.000: 1910 * (50000 - R)/22000
       base3: 1910, sup3: 50000, ampiezza3: 22000,
       decimaliRapporto: 4,       // "si assume nelle prime 4 cifre decimali"
+    },
+
+    // Detrazione per redditi di pensione (art. 13 c. 3 e 3-bis TUIR).
+    detrazionePensione: {
+      fino: 8500, importoFino: 1955, minimo: 713,
+      // 8.500–28.000: 700 + 1.255 × (28.000 − R) / 19.500
+      base2: 700, quota2: 1255, sup2: 28000, ampiezza2: 19500,
+      // 28.000–50.000: 700 × (50.000 − R) / 22.000
+      base3: 700, sup3: 50000, ampiezza3: 22000,
+      maggiorazione: 50, maggiorazioneDa: 25000, maggiorazioneA: 29000,
+      decimaliRapporto: 4,
+    },
+
+    // Detrazione per lavoro autonomo (art. 53), imprese minori (art. 66) e altri
+    // redditi del c. 5 (art. 13 c. 5 e 5-ter TUIR).
+    detrazioneAutonomo: {
+      fino: 5500, importoFino: 1265,
+      // 5.500–28.000: 500 + 765 × (28.000 − R) / 22.500
+      base2: 500, quota2: 765, sup2: 28000, ampiezza2: 22500,
+      // 28.000–50.000: 500 × (50.000 − R) / 22.000
+      base3: 500, sup3: 50000, ampiezza3: 22000,
+      maggiorazione: 50, maggiorazioneDa: 11000, maggiorazioneA: 17000,
+      decimaliRapporto: 4,
     },
 
     // Taglio del cuneo fiscale (L. 207/2024, commi 4 e 6).

@@ -1,0 +1,268 @@
+{
+  "slug": "calcolatore-irpef",
+  "cluster": "calcolatori",
+  "tema": "fisco",
+  "updated": "2026-10",
+  "seo": {
+    "title": "Calcolatore IRPEF 2026 – Scaglioni 23%, 33%, 43% e Detrazioni",
+    "metaDescription": "Calcola l'IRPEF 2026 dal reddito: imposta lorda con gli scaglioni 23%, 33% e 43%, detrazioni per lavoro dipendente, pensione o lavoro autonomo, aliquota media e marginale.",
+    "primaryKeyword": "calcolatore irpef",
+    "canonical": "/calcolatore-irpef/"
+  },
+  "h1": "Calcolatore IRPEF",
+  "intro": "Inserisci il reddito complessivo dell'anno e scegli da dove viene: lavoro dipendente, pensione, lavoro autonomo o nessuna di queste fonti. Il calcolatore applica gli scaglioni IRPEF del 2026, sottrae la detrazione prevista dall'articolo 13 del TUIR per quel tipo di reddito e, per i dipendenti, l'ulteriore detrazione del taglio del cuneo fiscale. Mostra l'imposta scaglione per scaglione, l'aliquota marginale e quella media, e la parte di detrazione che va persa quando supera l'imposta. Le norme sono citate in fondo alla pagina; il risultato è una stima per un anno intero, senza addizionali e senza detrazioni per familiari o spese.",
+  "tool": {
+    "logicId": "irpef-v1",
+    "script": "irpef.js",
+    "data": [
+      "fisco-2026.js"
+    ],
+    "cardNote": "Scaglioni 2026",
+    "inputs": [
+      {
+        "id": "reddito",
+        "label": "Reddito complessivo annuo",
+        "type": "number",
+        "min": 0,
+        "step": 500,
+        "suffix": "€/anno",
+        "default": 30000,
+        "hint": "per un dipendente: RAL meno i contributi INPS"
+      },
+      {
+        "id": "tipo",
+        "label": "Da dove viene il reddito",
+        "type": "radio",
+        "options": [
+          "dipendente",
+          "pensione",
+          "autonomo",
+          "nessuna"
+        ],
+        "optionLabels": {
+          "dipendente": "Dipendente",
+          "pensione": "Pensione",
+          "autonomo": "Autonomo",
+          "nessuna": "Altro"
+        },
+        "default": "dipendente",
+        "hint": "autonomo: lavoro autonomo o impresa in contabilità semplificata; altro: nessuna detrazione da lavoro"
+      }
+    ],
+    "outputPrimary": {
+      "id": "irpefNetta",
+      "label": "IRPEF netta dovuta nell'anno",
+      "format": "currency"
+    },
+    "breakdownTitle": "Dall'imposta lorda alla netta",
+    "breakdown": [
+      {
+        "id": "irpefLorda",
+        "label": "IRPEF lorda (scaglioni)",
+        "kind": "gross",
+        "format": "currency"
+      },
+      {
+        "id": "detrazione",
+        "label": "Detrazione per lavoro o pensione (art. 13)",
+        "kind": "out",
+        "format": "currency"
+      },
+      {
+        "id": "ulteriore",
+        "label": "Ulteriore detrazione dipendenti (cuneo)",
+        "kind": "out",
+        "format": "currency"
+      },
+      {
+        "id": "irpefNetta",
+        "label": "IRPEF netta",
+        "kind": "total",
+        "format": "currency"
+      }
+    ],
+    "extras": [
+      {
+        "id": "scaglioni",
+        "label": "Imposta per scaglione",
+        "format": "text"
+      },
+      {
+        "id": "aliquotaMarginale",
+        "label": "Aliquota marginale",
+        "format": "percent"
+      },
+      {
+        "id": "aliquotaMedia",
+        "label": "Aliquota media",
+        "format": "percent"
+      },
+      {
+        "id": "incapienza",
+        "label": "Detrazione non utilizzata",
+        "format": "currency"
+      }
+    ]
+  },
+  "spiegazione": {
+    "titolo": "Come si calcola l'IRPEF, dagli scaglioni alle detrazioni",
+    "corpo": [
+      "L'imposta sul reddito delle persone fisiche si calcola in due tempi. Prima si applicano al reddito le aliquote per scaglioni e si ottiene l'imposta lorda; poi si sottraggono le detrazioni e resta l'imposta netta, quella dovuta. Questo calcolatore segue le due fasi con le regole del 2026 e ti mostra ogni passaggio."
+    ],
+    "sezioni": [
+      {
+        "titolo": "Gli scaglioni del 2026",
+        "paragrafi": [
+          "L'articolo 11 del TUIR divide il reddito in tre fasce: fino a 28.000 euro si paga il 23%, fra 28.000 e 50.000 euro il 33%, oltre 50.000 euro il 43%. Il secondo scaglione è sceso dal 35% al 33% dal 2026, con la legge di bilancio (L. 199/2025, art. 1, comma 3).",
+          "Ogni aliquota si applica solo alla parte di reddito che cade nella sua fascia, non a tutto il reddito. Con 60.000 euro i primi 28.000 pagano il 23% (6.440 €), i successivi 22.000 il 33% (7.260 €), gli ultimi 10.000 il 43% (4.300 €): l'imposta lorda è 18.000 €. L'aliquota marginale, quella che colpisce l'ultimo euro guadagnato, è il 43%; l'aliquota media, cioè l'imposta divisa per il reddito, è il 30%."
+        ]
+      },
+      {
+        "titolo": "Le detrazioni per lavoro e pensione",
+        "paragrafi": [
+          "Dall'imposta lorda si tolgono le detrazioni. Quella più diffusa dipende dal tipo di reddito ed è fissata dall'articolo 13 del TUIR. Per il lavoro dipendente vale 1.955 euro fino a 15.000 euro di reddito; fra 15.000 e 28.000 euro è 1.910 euro più una quota che scende man mano che il reddito cresce; fra 28.000 e 50.000 euro è una frazione di 1.910 euro che si azzera a 50.000. Fra 25.000 e 35.000 euro si aggiungono 65 euro.",
+          "Per le pensioni la detrazione è 1.955 euro fino a 8.500 euro, poi 700 euro più una quota decrescente fino a 28.000 euro, poi una frazione di 700 euro fino a 50.000; fra 25.000 e 29.000 euro si aggiungono 50 euro. Per il lavoro autonomo e le imprese in contabilità semplificata è 1.265 euro fino a 5.500 euro, poi 500 euro più una quota decrescente fino a 28.000 euro, poi una frazione di 500 euro fino a 50.000; fra 11.000 e 17.000 euro si aggiungono 50 euro. I rapporti che regolano le fasce decrescenti si arrotondano alle prime quattro cifre decimali, come prevede il comma 6.",
+          "Queste detrazioni spiegano la cosiddetta no tax area. Un dipendente o un pensionato con 8.500 euro ha un'imposta lorda di 1.955 euro, esattamente pari alla detrazione, e non paga nulla; per un lavoratore autonomo la soglia corrispondente è 5.500 euro. Le detrazioni non possono superare l'imposta (art. 11, comma 3): se sono più alte, la parte in eccesso va persa, e il calcolatore te la mostra come detrazione non utilizzata."
+        ]
+      },
+      {
+        "titolo": "L'ulteriore detrazione per i dipendenti",
+        "paragrafi": [
+          "Dal 2025 i lavoratori dipendenti con un reddito fra 20.000 e 40.000 euro hanno un'ulteriore detrazione, introdotta con il taglio del cuneo fiscale (L. 207/2024, comma 6): 1.000 euro fino a 32.000 euro, poi decrescente fino a zero a 40.000. Sotto i 20.000 euro il taglio del cuneo arriva invece come somma esente aggiunta in busta paga, che non riduce l'IRPEF e per questo qui non compare: la trovi nel [calcolatore dello stipendio netto](/calcolatore-stipendio-netto/)."
+        ]
+      },
+      {
+        "titolo": "Un esempio completo",
+        "paragrafi": [
+          "Un dipendente con 30.000 euro di reddito complessivo. Imposta lorda: 28.000 × 23% = 6.440 €, più 2.000 × 33% = 660 €, totale 7.100 €. Detrazione per lavoro dipendente: il rapporto (50.000 − 30.000) / 22.000 vale 0,9090, quindi 1.910 × 0,9090 = 1.736,19 €, più 65 € perché il reddito sta fra 25.000 e 35.000: 1.801,19 €. Ulteriore detrazione: 1.000 €. IRPEF netta: 7.100 − 1.801,19 − 1.000 = 4.298,81 €, un'aliquota media del 14,3% contro una marginale del 33%."
+        ]
+      },
+      {
+        "titolo": "Cosa resta fuori dal conto",
+        "paragrafi": [
+          "Il reddito complessivo è la somma dei redditi dell'anno al netto degli oneri deducibili; per un dipendente corrisponde in genere alla retribuzione lorda meno i contributi previdenziali trattenuti. Il calcolatore lo usa così come lo inserisci e considera un anno intero di lavoro o di pensione.",
+          "Non calcola le detrazioni per figli e familiari a carico (art. 12 del TUIR), quelle per le spese come mutuo, salute o ristrutturazioni, il trattamento integrativo, che è una somma aggiunta in busta paga e non una detrazione, e le addizionali regionale e comunale, che si pagano a parte. Per questo l'IRPEF reale può essere più bassa del risultato. Dal 1° gennaio 2027 le regole dell'IRPEF passano nel nuovo Testo unico delle imposte sui redditi (D.Lgs. 117/2026); per i redditi del 2026 valgono gli articoli del TUIR citati qui."
+        ]
+      }
+    ]
+  },
+  "esempi": [
+    {
+      "titolo": "Dipendente con 30.000 € di reddito complessivo",
+      "risultatoAtteso": "IRPEF netta 4.299 € · lorda 7.100 €, detrazione 1.801 €, ulteriore detrazione 1.000 €",
+      "verifica": {
+        "input": {
+          "reddito": 30000,
+          "tipo": "dipendente"
+        },
+        "campo": "irpefNetta",
+        "atteso": 4298.81
+      }
+    },
+    {
+      "titolo": "Pensionato con 20.000 € di reddito",
+      "risultatoAtteso": "IRPEF netta 3.385 € · lorda 4.600 €, detrazione per pensione 1.215 €",
+      "verifica": {
+        "input": {
+          "reddito": 20000,
+          "tipo": "pensione"
+        },
+        "campo": "irpefNetta",
+        "atteso": 3385.2
+      }
+    },
+    {
+      "titolo": "Lavoratore autonomo con 20.000 € di reddito",
+      "risultatoAtteso": "IRPEF netta 3.828 € · lorda 4.600 €, detrazione 772 €",
+      "verifica": {
+        "input": {
+          "reddito": 20000,
+          "tipo": "autonomo"
+        },
+        "campo": "irpefNetta",
+        "atteso": 3828.04
+      }
+    },
+    {
+      "titolo": "Reddito di 60.000 € senza detrazioni da lavoro",
+      "risultatoAtteso": "IRPEF 18.000 € · 6.440 € al 23% + 7.260 € al 33% + 4.300 € al 43%, aliquota media 30%",
+      "verifica": {
+        "input": {
+          "reddito": 60000,
+          "tipo": "nessuna"
+        },
+        "campo": "irpefNetta",
+        "atteso": 18000
+      }
+    }
+  ],
+  "faq": [
+    {
+      "domanda": "Come si calcola l'IRPEF a scaglioni?",
+      "risposta": "Si divide il reddito nelle fasce previste dalla legge e si applica a ciascuna parte la sua aliquota: nel 2026 il 23% fino a 28.000 euro, il 33% fino a 50.000 euro, il 43% oltre. La somma è l'imposta lorda; togliendo le detrazioni si ottiene l'imposta netta."
+    },
+    {
+      "domanda": "Che differenza c'è fra aliquota marginale e aliquota media?",
+      "risposta": "La marginale è l'aliquota dello scaglione più alto che raggiungi, quella che si applica all'ultimo euro guadagnato. La media è l'imposta netta divisa per il reddito. Con 30.000 euro da dipendente la marginale è il 33%, ma la media è circa il 14%."
+    },
+    {
+      "domanda": "Fino a quale reddito non si paga l'IRPEF?",
+      "risposta": "Dipende dal tipo di reddito, perché la soglia nasce dalle detrazioni: per un dipendente o un pensionato l'imposta si azzera fino a 8.500 euro, per un lavoratore autonomo fino a 5.500 euro. Sopra quelle soglie l'imposta lorda supera la detrazione."
+    },
+    {
+      "domanda": "Passare allo scaglione superiore fa guadagnare di meno?",
+      "risposta": "No: l'aliquota più alta colpisce solo la parte di reddito oltre la soglia, non tutto il reddito. Va però considerato che le detrazioni per lavoro calano quando il reddito cresce, quindi ogni euro in più può costare in imposta qualcosa più dell'aliquota dello scaglione."
+    },
+    {
+      "domanda": "L'IRPEF calcolata qui è quella che pagherò davvero?",
+      "risposta": "È una stima. Mancano le detrazioni per familiari a carico e per le spese, le addizionali regionale e comunale e i conguagli di fine anno; per un dipendente l'imposta viene trattenuta mese per mese in busta paga e ricalcolata a dicembre o con il 730."
+    },
+    {
+      "domanda": "Cosa cambia per l'IRPEF nel 2026?",
+      "risposta": "Il secondo scaglione, da 28.000 a 50.000 euro, passa dal 35% al 33% (legge di bilancio 2026, L. 199/2025). Il primo e il terzo scaglione restano al 23% e al 43%; detrazioni per lavoro e taglio del cuneo restano quelli in vigore dal 2025."
+    }
+  ],
+  "relatedTools": [
+    "calcolatore-stipendio-netto",
+    "calcolatore-partita-iva-forfettario",
+    "scorporo-iva",
+    "calcolatore-tfr"
+  ],
+  "disclaimer": "<strong>Stima per un anno intero.</strong> Calcola IRPEF lorda, detrazione dell'art. 13 del TUIR e, per i dipendenti, l'ulteriore detrazione della L. 207/2024. <strong>Non</strong> include detrazioni per familiari e per spese, trattamento integrativo, addizionali regionale e comunale, redditi con tassazione separata o sostitutiva. Non sostituisce il conteggio del sostituto d'imposta o di un professionista.",
+  "fonti": [
+    {
+      "titolo": "TUIR, DPR 22 dicembre 1986, n. 917, art. 11 — Determinazione dell'imposta",
+      "dettaglio": "Scaglioni 23% · 33% · 43%; detrazioni fino a concorrenza dell'imposta lorda (testo vigente al 30/01/2026)",
+      "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:presidente.repubblica:decreto:1986-12-22;917~art11!vig=2026-01-30"
+    },
+    {
+      "titolo": "TUIR, art. 13 — Altre detrazioni",
+      "dettaglio": "Detrazioni per lavoro dipendente (c. 1 e 1.1), pensione (c. 3 e 3-bis), lavoro autonomo e impresa minore (c. 5 e 5-ter); rapporti alle prime quattro cifre decimali (c. 6)",
+      "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:presidente.repubblica:decreto:1986-12-22;917~art13!vig=2026-01-30"
+    },
+    {
+      "titolo": "Legge 30 dicembre 2025, n. 199 (legge di bilancio 2026)",
+      "dettaglio": "Art. 1, comma 3: secondo scaglione IRPEF dal 35% al 33%",
+      "url": "https://www.normattiva.it/eli/id/2025/12/30/25G00212/ORIGINAL"
+    },
+    {
+      "titolo": "Agenzia delle Entrate, circolare n. 4/E del 16 maggio 2025",
+      "dettaglio": "Taglio del cuneo (L. 207/2024, commi 4 e 6): somma esente sotto 20.000 € e ulteriore detrazione fra 20.000 e 40.000 €",
+      "url": "https://www.agenziaentrate.gov.it/portale/documents/20143/8410823/Circolare+lavoro+dipendente+LB2025+DD+IRPEF+n.+4+del+16+maggio+2025.pdf/36979eaa-9fc5-a4ec-a7aa-136497c53f91"
+    },
+    {
+      "titolo": "Agenzia delle Entrate, aliquote e calcolo dell'IRPEF",
+      "dettaglio": "Scaglioni e aliquote in vigore",
+      "url": "https://www.agenziaentrate.gov.it/portale/imposta-sul-reddito-delle-persone-fisiche-irpef-/aliquote-e-calcolo-dell-irpef"
+    },
+    {
+      "titolo": "D.Lgs. 19 giugno 2026, n. 117 — Testo unico delle imposte sui redditi",
+      "dettaglio": "Art. 377: si applica dal 1° gennaio 2027; art. 376: abrogazioni dalla stessa data",
+      "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2026-06-19;117"
+    }
+  ],
+  "jsonLd": {
+    "type": "SoftwareApplication",
+    "applicationCategory": "FinanceApplication"
+  }
+}

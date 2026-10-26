@@ -115,6 +115,8 @@
     // ================= MODALITÀ CALCOLATORE =================
     function signed(value, kind, fmt, provisional) {
       if (provisional && !value) return "—";
+      // Una voce nulla non ha segno: «0 €», non «−0 €».
+      if ((kind === "out" || kind === "in") && typeof value === "number" && Math.abs(value) < 0.005) return format(0, fmt);
       if (kind === "out") return "−" + format(Math.abs(value), fmt);
       if (kind === "in") return "+" + format(Math.abs(value), fmt);
       return format(value, fmt); // gross / total: senza segno

@@ -314,3 +314,78 @@ test("IVA: aliquota personalizzata e fuori intervallo", () => {
   assert.equal(o.imponibile, 94.79);                      // 100 / 1,055 = 94,786…
   assert.ok(Number.isNaN(iva({ modalita: "scorpora", importo: 100, aliquota: "altra", aliquotaAltra: 150 }).imponibile));
 });
+
+/* ================================= IRPEF ================================= */
+// Riferimento scritto dal testo dell'art. 13 TUIR (vigente al 30/01/2026), non dai dati del calcolatore.
+
+const irpef = calcolatore("irpef-v1", "irpef.js", ["fisco-2026.js"]);
+
+function irpefRiferimento(R, tipo) {
+  const lorda = progressiva(R, [[28000, 0.23], [50000, 0.33], [INF, 0.43]]);
+  let det = 0;
+  if (tipo === "dipendente") {                                   // c. 1 e 1.1
+    if (R <= 15000) det = 1955;
+    else if (R <= 28000) det = 1910 + 1190 * tronca4((28000 - R) / 13000);
+    else if (R <= 50000) det = 1910 * tronca4((50000 - R) / 22000);
+    if (R > 25000 && R <= 35000) det += 65;
+  } else if (tipo === "pensione") {                              // c. 3 e 3-bis
+    if (R <= 8500) det = 1955;
+    else if (R <= 28000) det = 700 + 1255 * tronca4((28000 - R) / 19500);
+    else if (R <= 50000) det = 700 * tronca4((50000 - R) / 22000);
+    if (R > 25000 && R <= 29000) det += 50;
+  } else if (tipo === "autonomo") {                              // c. 5 e 5-ter
+    if (R <= 5500) det = 1265;
+    else if (R <= 28000) det = 500 + 765 * tronca4((28000 - R) / 22500);
+    else if (R <= 50000) det = 500 * tronca4((50000 - R) / 22000);
+    if (R > 11000 && R <= 17000) det += 50;
+  }
+  let netta = Math.max(0, lorda - det);                          // art. 11 c. 3: fino a capienza
+  if (tipo === "dipendente") {                                   // L. 207/2024 c. 6
+    let u = 0;
+    if (R > 20000 && R <= 32000) u = 1000;
+    else if (R > 32000 && R < 40000) u = 1000 * (40000 - R) / 8000;
+    netta -= Math.min(u, netta);
+  }
+  return netta;
+}
+
+test("IRPEF: casi ancorati calcolati a mano", () => {
+  // 30.000 dipendente: lorda 7.100 · detrazione 1.910 × 0,9090 + 65 = 1.801,19 · ulteriore 1.000 → 4.298,81
+  vicino(irpef({ reddito: 30000, tipo: "dipendente" }).irpefNetta, 4298.81, 0.005, "dipendente 30.000");
+  // 20.000 pensione: lorda 4.600 · 700 + 1.255 × 0,4102 = 1.214,801 → 3.385,199
+  vicino(irpef({ reddito: 20000, tipo: "pensione" }).irpefNetta, 3385.199, 0.005, "pensione 20.000");
+  // 20.000 autonomo: 500 + 765 × 0,3555 = 771,9575 → 3.828,0425
+  vicino(irpef({ reddito: 20000, tipo: "autonomo" }).irpefNetta, 3828.0425, 0.005, "autonomo 20.000");
+  // 60.000 senza detrazioni: 6.440 + 7.260 + 4.300 = 18.000, media 30%
+  const o = irpef({ reddito: 60000, tipo: "nessuna" });
+  assert.equal(o.irpefNetta, 18000);
+  vicino(o.aliquotaMedia, 0.3, 1e-12, "media 60.000");
+  assert.equal(o.aliquotaMarginale, 0.43);
+});
+
+test("IRPEF: soglie di esenzione 8.500 (dipendenti, pensionati) e 5.500 (autonomi)", () => {
+  assert.equal(irpef({ reddito: 8500, tipo: "dipendente" }).irpefNetta, 0);
+  assert.equal(irpef({ reddito: 8500, tipo: "pensione" }).irpefNetta, 0);
+  assert.equal(irpef({ reddito: 5500, tipo: "autonomo" }).irpefNetta, 0);
+  assert.ok(irpef({ reddito: 5600, tipo: "autonomo" }).irpefNetta > 0);
+});
+
+test("IRPEF: griglia di 4.000 redditi × 4 tipi contro il riferimento", () => {
+  for (const tipo of ["dipendente", "pensione", "autonomo", "nessuna"]) {
+    for (let R = 0; R <= 200000; R += 50) {
+      const o = irpef({ reddito: R, tipo });
+      const atteso = irpefRiferimento(R, tipo);
+      assert.ok(Math.abs(o.irpefNetta - atteso) <= 0.01, `${tipo} ${R}: ${o.irpefNetta} vs ${atteso}`);
+      assert.ok(o.irpefNetta >= 0 && o.incapienza >= 0, `${tipo} ${R}: valori negativi`);
+    }
+  }
+});
+
+test("IRPEF dipendente coerente con lo stipendio netto (stessa imposta sullo stesso imponibile)", () => {
+  for (const ral of [12000, 22000, 30000, 38000, 45000, 70000]) {
+    const s = stipendio({ ral, mensilita: 13, tipoLavoratore: "privato", tipoContratto: "indeterminato", regione: "veneto" });
+    const i = irpef({ reddito: s.imponibile, tipo: "dipendente" });
+    const cuneoDetr = s.cuneoSub === "Ulteriore detrazione IRPEF" ? s.cuneo : 0;
+    vicino(i.irpefNetta, s.irpefTotale - cuneoDetr, 0.01, `RAL ${ral}`);
+  }
+});

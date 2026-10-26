@@ -113,6 +113,22 @@ Letti su Normattiva il 26/10/2026, testo vigente al 30/01/2026 (`!vig=2026-01-30
 | I06 | Mezzo centesimo per eccesso; nello scorporo IVA = prezzo − imponibile arrotondato | — | I · convenzione dello strumento, dichiarata |
 | I07 | Riferimento indipendente in centesimi interi: 4 aliquote × 2.000 importi, scorporo e aggiunta | `tests/fiscale.test.mjs` | V |
 
+## Calcolatore IRPEF (`irpef.js`, dati in `fisco-2026.js`)
+
+Letti su Normattiva il 26/10/2026, testo vigente al 30/01/2026.
+
+| # | Valore / affermazione | Fonte primaria | Stato |
+|---|---|---|---|
+| R01 | Scaglioni 23% fino a 28.000, 33% fino a 50.000, 43% oltre; detrazioni fino a concorrenza dell'imposta lorda (c. 3) | TUIR art. 11 | V |
+| R02 | Dipendenti: 1.955 (≤ 15.000; minimi 690/1.380), 1.910 + 1.190 × (28.000 − R)/13.000, 1.910 × (50.000 − R)/22.000; +65 € per 25.001–35.000 | TUIR art. 13 c. 1 e 1.1 | V (già F02) |
+| R03 | Pensioni: 1.955 (≤ 8.500; minimo 713), 700 + 1.255 × (28.000 − R)/19.500, 700 × (50.000 − R)/22.000; +50 € per 25.001–29.000 | TUIR art. 13 c. 3 e 3-bis | V |
+| R04 | Autonomi e impresa minore (artt. 53, 66 e altri del c. 5): 1.265 (≤ 5.500), 500 + 765 × (28.000 − R)/22.500, 500 × (50.000 − R)/22.000; +50 € per 11.001–17.000 | TUIR art. 13 c. 5 e 5-ter | V |
+| R05 | Rapporti alle prime quattro cifre decimali; reddito complessivo al netto dell'abitazione principale | TUIR art. 13 c. 6 e 6-bis | V |
+| R06 | Ulteriore detrazione dipendenti 1.000 € fra 20.000 e 32.000, decrescente a zero a 40.000 | L. 207/2024 c. 6, circ. AdE 4/E/2025 | V (già F04) |
+| R07 | Soglie di imposta zero: 8.500 € dipendenti e pensionati, 5.500 € autonomi (1.955/0,23 e 1.265/0,23) | calcolo da R01–R04 | V |
+| R08 | Riferimento indipendente: 4.000 redditi × 4 tipi; coerenza con lo stipendio netto | `tests/fiscale.test.mjs` | V |
+| R09 | Anno intero, nessun onere, niente familiari, addizionali, trattamento integrativo | — | I · perimetro dichiarato in pagina |
+
 **Nota per il 2027.** Su Normattiva la vista «vigente» mostra già come abrogati
 l'art. 16 DPR 633/1972 (D.Lgs. 10/2026) e i commi 54–89 della L. 190/2014
 (D.Lgs. 117/2026, Testo unico delle imposte sui redditi, che si applica dal
