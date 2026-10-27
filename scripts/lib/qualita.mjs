@@ -47,6 +47,9 @@ const PRIMARIE = [
 
 const SOGLIA_SOMIGLIANZA = 0.15;
 
+/** URN Normattiva di TUIR, DPR 633/1972 e L. 190/2014 (vedi controllo dei link datati). */
+const ABROGATI_2027 = ["1986-12-22;917", "1972-10-26;633", "legge:2014-12-23;190"];
+
 const testo = (s) => String(s || "").replace(/<[^>]+>/g, " ");
 const parole = (s) => testo(s).trim().split(/\s+/).filter(Boolean);
 
@@ -136,6 +139,15 @@ export function controllaQualita(configs, site, pages = []) {
     else if (!primarie.length) errors.push(`[${id}] nessuna fonte primaria (domini ammessi in qualita.mjs)`);
     else if (fiscale && primarie.length < 2) errors.push(`[${id}] calcolatore fiscale con ${primarie.length} fonte primaria (minimo 2)`);
     if (fiscale && !cfg.disclaimer) errors.push(`[${id}] calcolatore fiscale senza disclaimer`);
+
+    // Atti abrogati dai testi unici dal 1° gennaio 2027 (D.Lgs. 10/2026 e 117/2026): su
+    // Normattiva la vista «vigente» li mostra già abrogati, quindi il link va datato.
+    for (const m of JSON.stringify(cfg).matchAll(/https:\/\/www\.normattiva\.it\/uri-res\/N2Ls\?urn:nir:[^"\s)]+/g)) {
+      const u = m[0];
+      if (ABROGATI_2027.some((a) => u.includes(a)) && !u.includes("!vig=")) {
+        errors.push(`[${id}] link Normattiva senza data (!vig=) a un atto abrogato dal 2027: ${u}`);
+      }
+    }
   }
 
   // --- Somiglianza fra spiegazioni (pagine fatte con lo stampo) ---
