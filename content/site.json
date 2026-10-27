@@ -34,10 +34,10 @@
   "clusters": {
     "calcolatori": {
       "label": "Calcolatori",
-      "hint": "Stipendio netto, IRPEF, IVA, TFR, forfettario, mutuo",
+      "hint": "Stipendio netto, tredicesima, IRPEF, IVA, TFR, forfettario, mutuo",
       "seo": {
         "title": "Calcolatori Fiscali e del Lavoro Online Gratuiti — 2026",
-        "metaDescription": "Calcolatori gratuiti per stipendio netto, IRPEF, scorporo IVA, TFR, partita IVA forfettaria e rata del mutuo. Regole 2026, conti mostrati passo per passo, fonti ufficiali citate.",
+        "metaDescription": "Calcolatori gratuiti per stipendio netto, tredicesima, IRPEF, scorporo IVA, TFR, partita IVA forfettaria e rata del mutuo. Regole 2026, conti passo per passo, fonti ufficiali.",
         "primaryKeyword": "calcolatori fiscali online"
       },
       "h1": "Calcolatori fiscali, del lavoro e del mutuo",

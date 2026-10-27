@@ -439,3 +439,41 @@ test("mutuo: tasso zero → rata = capitale / numero di rate, nessun interesse",
   vicino(o.rata, 100000 / 120, 1e-9, "rata");
   assert.equal(o.totaleInteressi, 0);
 });
+
+/* ============================== TREDICESIMA ============================== */
+// DPR 600/1973 art. 23 c. 2 lett. b: scaglioni annui ragguagliati a mese, senza detrazioni.
+
+const tredicesima = calcolatore("tredicesima-v1", "tredicesima.js", ["fisco-2026.js"]);
+
+test("tredicesima: casi a mano (2.000 € privato; 3.500 € pubblico; sei mesi)", () => {
+  // 2.000 × 9,19% = 183,80 · imponibile 1.816,20 × 23% = 417,726 → 1.398,474
+  vicino(tredicesima({ lordoMensile: 2000, mesi: 12, tipoLavoratore: "privato" }).netto, 1398.474, 0.005, "2.000 privato");
+  // 3.500 × 8,80% = 308 · 3.192: 2.333,33 × 23% + 858,67 × 33% = 820,0267 → 2.371,9733
+  vicino(tredicesima({ lordoMensile: 3500, mesi: 12, tipoLavoratore: "pubblico" }).netto, 2371.9733, 0.005, "3.500 pubblico");
+  // sei dodicesimi: lordo 1.000
+  const o = tredicesima({ lordoMensile: 2000, mesi: 6, tipoLavoratore: "privato" });
+  vicino(o.lordo, 1000, 1e-9, "ratei");
+  vicino(o.netto, 699.237, 0.005, "sei mesi");
+});
+
+test("tredicesima: griglia contro il riferimento con scaglioni mensili", () => {
+  for (const [tipo, al] of Object.entries(INPS)) {
+    for (let m = 500; m <= 12000; m += 125) {
+      for (const mesi of [1, 4, 7, 12]) {
+        const lordo = m * mesi / 12;
+        const imp = lordo * (1 - al);
+        const irpef = progressiva(imp, [[28000 / 12, 0.23], [50000 / 12, 0.33], [INF, 0.43]]);
+        const o = tredicesima({ lordoMensile: m, mesi, tipoLavoratore: tipo });
+        vicino(o.netto, imp - irpef, 0.005, `${tipo} ${m} × ${mesi}/12`);
+      }
+    }
+  }
+});
+
+test("tredicesima: senza detrazioni la ritenuta è più alta di quella del mese con le detrazioni", () => {
+  // Con 2.000 € al mese l'IRPEF sulla tredicesima (23% pieno) supera quella media mensile
+  // dello stipendio netto, dove le detrazioni dell'art. 13 riducono l'imposta.
+  const s = stipendio({ ral: 26000, mensilita: 13, tipoLavoratore: "privato", tipoContratto: "indeterminato", regione: "veneto" });
+  const t = tredicesima({ lordoMensile: 2000, mesi: 12, tipoLavoratore: "privato" });
+  assert.ok(t.irpef > s.irpefTotale / 13, `${t.irpef} vs ${s.irpefTotale / 13}`);
+});

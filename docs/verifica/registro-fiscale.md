@@ -142,6 +142,20 @@ Letti su Normattiva il 26/10/2026, testo vigente al 30/01/2026.
 | M07 | Tasso del periodo = TAN / numero di rate annue | coerente con l'esempio M02 | I · convenzione dichiarata |
 | M08 | Riferimento indipendente: piano simulato rata per rata su 270 combinazioni (debito finale zero, interessi, debito a metà) | `tests/fiscale.test.mjs` | V |
 
+## Tredicesima (`tredicesima.js`, dati in `fisco-2026.js`)
+
+Letti su Normattiva il 27/10/2026.
+
+| # | Valore / affermazione | Fonte primaria | Stato |
+|---|---|---|---|
+| T01 | Industria: gratifica natalizia 200 ore (operai), tredicesima sulla retribuzione globale mensile di fatto (impiegati); dodicesimi per i mesi di servizio in caso di inizio o fine nell'anno | DPR 1070/1960, concordato 27/10/1946 art. 17 | V |
+| T02 | Mensilità aggiuntive: ritenuta con aliquote IRPEF e scaglioni annui ragguagliati a mese, senza detrazioni (che valgono solo per la lett. a) | DPR 600/1973 art. 23 c. 2 lett. a–b (vigente 30/01/2026) | V |
+| T03 | Conguaglio entro il 28 febbraio successivo (o alla cessazione) con le detrazioni artt. 12–13 TUIR | DPR 600/1973 art. 23 c. 3 | V |
+| T04 | Reddito di lavoro dipendente ai fini contributivi = quello del TUIR (tredicesima compresa) | L. 153/1969 art. 12 (vigente 30/01/2026) | V |
+| T05 | Aliquote INPS 9,19 / 8,80 / 5,84% | come F13 | V |
+| T06 | Mesi interi; frazioni e voci escluse secondo il CCNL; niente 1% oltre 56.224 €, addizionali, cuneo, trattamento integrativo | — | I · perimetro dichiarato |
+| T07 | Riferimento: griglia 4 rapporti × 93 retribuzioni × 4 durate con scaglioni mensili | `tests/fiscale.test.mjs` | V |
+
 **Nota per il 2027.** Su Normattiva la vista «vigente» mostra già come abrogati
 l'art. 16 DPR 633/1972 (D.Lgs. 10/2026) e i commi 54–89 della L. 190/2014
 (D.Lgs. 117/2026, Testo unico delle imposte sui redditi, che si applica dal
