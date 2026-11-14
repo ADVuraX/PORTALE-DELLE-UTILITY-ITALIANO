@@ -22,6 +22,9 @@ istituzionali, con le fonti. Stato: **V** verificato · **C** corretto · **I** 
 | Codici catastali: 7.896 comuni attivi (colonna «Codice Catastale del comune»), 232 Stati esteri con codice dell'Agenzia delle Entrate | [ISTAT comuni](https://www.istat.it/classificazione/codici-dei-comuni-delle-province-e-delle-regioni/), [ISTAT SITUAS, report 466](https://www.istat.it/classificazione/classificazione-degli-stati-esteri/), scaricati il 26/10/2026 con `npm run luoghi` | V |
 | Omonimi fra comuni (es. Castro BG/LE, San Teodoro ME/SS, Samone TO/TN) | elenco ISTAT, controllo nei test | V |
 | L'unico codice fiscale valido è quello rilasciato dall'Agenzia delle Entrate | [AdE, il codice fiscale](https://www.agenziaentrate.gov.it/portale/codice-fiscale-e-tessera-sanitaria/che-cos-) | V |
+| Codice catastale: Roma H501 e codice ISTAT 058091; Milano F205 e 015146; Chivasso C665; Moncalieri F335; Castro C337 (BG) e M261 (LE) | [elenco ISTAT dei comuni](https://www.istat.it/classificazione/codici-dei-comuni-delle-province-e-delle-regioni/), colonne «Codice Comune formato alfanumerico» e «Codice Catastale», scaricato il 14/11/2026 | V |
+| Codici dei volumi «Codice dei comuni d'Italia» e «Codice degli Stati esteri» della Direzione generale del catasto | D.M. 23/12/1976 art. 5 (trascrizione dossier.net) | V · secondaria |
+| Lettere dei mesi A, B, C, D, E, H, L, M, P, R, S, T; saltate fra A e T: F, G, I, J, K, N, O, Q; nono carattere del codice | D.M. 23/12/1976 artt. 2 e 5; controllo con script | V |
 | Il codice del luogo occupa i caratteri dal 12° al 15° | D.M. art. 2 (3+3+2+1+2 caratteri prima del luogo) | V · **C** nel validatore (diceva «dall'undicesimo al quattordicesimo») |
 
 ## Convertitori

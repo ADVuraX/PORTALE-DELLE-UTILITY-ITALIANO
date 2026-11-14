@@ -2,7 +2,7 @@
   "slug": "calcolo-codice-fiscale",
   "cluster": "generatori",
   "tema": "documenti",
-  "updated": "2026-10",
+  "updated": "2026-11",
   "seo": {
     "title": "Calcolo Codice Fiscale Online – Da Nome, Data e Comune di Nascita",
     "metaDescription": "Calcola il codice fiscale da cognome, nome, sesso, data e luogo di nascita con le regole del D.M. 23/12/1976 e i codici catastali ISTAT di comuni e Stati esteri.",
@@ -163,8 +163,56 @@
       {
         "titolo": "Data e sesso in cinque caratteri",
         "paragrafi": [
-          "L'anno di nascita entra con le ultime due cifre. Il mese diventa una lettera fissa, scelta in modo da evitare quelle facili da confondere: A gennaio, B febbraio, C marzo, D aprile, E maggio, H giugno, L luglio, M agosto, P settembre, R ottobre, S novembre, T dicembre. Il giorno si scrive con due cifre; per le donne si aggiunge 40, quindi una donna nata il 21 ha 61."
-        ]
+          "L'anno di nascita entra con le ultime due cifre. Il mese diventa una lettera fissa, scelta in modo da evitare quelle facili da confondere: A gennaio, B febbraio, C marzo, D aprile, E maggio, H giugno, L luglio, M agosto, P settembre, R ottobre, S novembre, T dicembre. Il giorno si scrive con due cifre; per le donne si aggiunge 40, quindi una donna nata il 21 ha 61.",
+          "Il mese occupa il nono carattere del codice. Le lettere seguono l'ordine dei mesi ma saltano F, G, I, J, K, N, O e Q: dopo la E di maggio viene la H di giugno, e la tabella dell'articolo 5 del decreto è quella qui sotto."
+        ],
+        "tabella": {
+          "intestazioni": [
+            "Lettera",
+            "Mese",
+            "Lettera",
+            "Mese"
+          ],
+          "righe": [
+            [
+              "A",
+              "Gennaio",
+              "L",
+              "Luglio"
+            ],
+            [
+              "B",
+              "Febbraio",
+              "M",
+              "Agosto"
+            ],
+            [
+              "C",
+              "Marzo",
+              "P",
+              "Settembre"
+            ],
+            [
+              "D",
+              "Aprile",
+              "R",
+              "Ottobre"
+            ],
+            [
+              "E",
+              "Maggio",
+              "S",
+              "Novembre"
+            ],
+            [
+              "H",
+              "Giugno",
+              "T",
+              "Dicembre"
+            ]
+          ],
+          "stile": "coppie"
+        }
       },
       {
         "titolo": "Il luogo: codice catastale del comune o dello Stato",
@@ -249,6 +297,10 @@
       "risposta": "No. L'articolo 3 del decreto del 1976 stabilisce che per le donne coniugate si considera soltanto il cognome da nubile, quindi il codice non cambia con il matrimonio."
     },
     {
+      "domanda": "Cosa indica la lettera H nel codice fiscale?",
+      "risposta": "Al nono posto indica il mese di nascita giugno: le lettere dei mesi vanno da A (gennaio) a T (dicembre) saltando alcune lettere, e a giugno tocca la H. In altre posizioni la H può essere una lettera del cognome o del nome, la prima lettera del codice catastale del luogo (H501 è Roma) oppure il carattere di controllo."
+    },
+    {
       "domanda": "Che codice del luogo ha chi è nato all'estero?",
       "risposta": "Quello dello Stato di nascita: una Z seguita da tre cifre, per esempio Z112 per la Germania, Z110 per la Francia, Z404 per gli Stati Uniti. Lo strumento li legge dall'elenco ISTAT delle unità territoriali estere, che riporta il codice dell'Agenzia delle Entrate."
     },
@@ -262,9 +314,9 @@
     }
   ],
   "relatedTools": [
+    "codice-catastale",
     "validatore-codice-fiscale",
-    "validatore-partita-iva",
-    "validatore-iban"
+    "validatore-partita-iva"
   ],
   "disclaimer": "<strong>Codice ricostruito, non rilasciato.</strong> Lo strumento applica le regole di composizione del D.M. 23/12/1976 ma non l'omocodia, che solo l'Agenzia delle Entrate può assegnare: l'unico codice valido è quello rilasciato dall'Agenzia. I comuni sono quelli attivi nell'elenco ISTAT; per un comune soppresso inserisci il codice catastale. I dati restano nel tuo browser.",
   "fonti": [

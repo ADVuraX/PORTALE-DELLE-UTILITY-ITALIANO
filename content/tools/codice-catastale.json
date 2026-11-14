@@ -1,0 +1,160 @@
+{
+  "slug": "codice-catastale",
+  "cluster": "validatori",
+  "tema": "documenti",
+  "updated": "2026-11",
+  "seo": {
+    "title": "Codice Catastale dei Comuni – Trova il Comune dal Codice e Viceversa",
+    "metaDescription": "Cerca il codice catastale di un comune italiano o di uno Stato estero, oppure scopri a quale luogo corrisponde un codice come H501 o Z112. Elenchi ISTAT aggiornati.",
+    "primaryKeyword": "codice catastale comuni",
+    "canonical": "/codice-catastale/"
+  },
+  "h1": "Codice Catastale: Comune e Codice",
+  "intro": "Scrivi un codice catastale, una lettera seguita da tre cifre come H501, e scopri a quale comune o Stato estero corrisponde. Oppure scrivi il nome di un comune o di uno Stato, anche solo l'inizio, e ottieni il suo codice. È il codice che occupa i caratteri dal dodicesimo al quindicesimo del codice fiscale e indica il luogo di nascita. La ricerca usa gli elenchi pubblicati dall'ISTAT: 7.896 comuni attivi e 232 Stati esteri. Avviene nel browser, senza inviare dati.",
+  "tool": {
+    "logicId": "catastale-v1",
+    "script": "codice-catastale.js",
+    "data": [
+      "luoghi-catastali.js"
+    ],
+    "cardNote": "Ricerca nei due sensi",
+    "inputs": [
+      {
+        "id": "ricerca",
+        "label": "Codice o nome",
+        "type": "text",
+        "placeholder": "es. H501, Z112, Chivasso, Germania",
+        "default": "H501"
+      },
+      {
+        "id": "provincia",
+        "label": "Provincia (sigla)",
+        "type": "text",
+        "placeholder": "es. TO",
+        "hint": "facoltativa: restringe la ricerca per nome"
+      }
+    ],
+    "outputPrimary": {
+      "id": "risultato",
+      "label": "Risultato",
+      "format": "text"
+    },
+    "outputSecondary": [
+      {
+        "id": "tipo",
+        "label": "Tipo di luogo",
+        "format": "text"
+      },
+      {
+        "id": "altri",
+        "label": "Altri risultati",
+        "format": "text",
+        "larga": true
+      }
+    ]
+  },
+  "spiegazione": {
+    "titolo": "Cos'è il codice catastale e dove lo trovi",
+    "corpo": [
+      "Il codice catastale, chiamato anche codice Belfiore, identifica un comune italiano o uno Stato estero con quattro caratteri: una lettera e tre cifre. Roma è H501, Milano F205, Chivasso C665. Gli Stati esteri iniziano tutti con la Z: la Germania è Z112, la Francia Z110.",
+      "Lo incontri soprattutto nel codice fiscale delle persone fisiche, dove i caratteri dal dodicesimo al quindicesimo indicano il comune o lo Stato di nascita. Il decreto del 23 dicembre 1976 che regola il codice fiscale stabiliva di prendere questi quattro caratteri dai volumi «Codice dei comuni d'Italia» e «Codice degli Stati esteri» curati dalla Direzione generale del catasto, da cui il nome.",
+      "Non va confuso con il codice ISTAT del comune, che è numerico e ha sei cifre: Roma ha codice ISTAT 058091 e codice catastale H501, Milano 015146 e F205. Il primo serve alle statistiche, il secondo all'anagrafe tributaria. Entrambi compaiono nell'elenco dei comuni pubblicato dall'ISTAT, da cui questo strumento legge i codici catastali; per gli Stati esteri usa l'elenco ISTAT delle unità territoriali estere, che riporta il codice dell'Agenzia delle Entrate.",
+      "Gli elenchi comprendono solo i comuni attivi. Un comune soppresso, per esempio perché fuso con altri, esce dall'elenco: se un codice non si trova, può appartenere a un comune che non esiste più. Alcuni comuni hanno lo stesso nome, come Castro in provincia di Bergamo e in provincia di Lecce, con codici diversi: in quel caso indica la sigla della provincia."
+    ]
+  },
+  "esempi": [
+    {
+      "titolo": "H501 — il codice catastale di Roma",
+      "risultatoAtteso": "H501 · Roma (RM) · comune italiano, provincia RM",
+      "verifica": {
+        "input": {
+          "ricerca": "H501"
+        },
+        "campo": "risultato",
+        "testo": "H501 · Roma (RM)"
+      }
+    },
+    {
+      "titolo": "Z112 — un codice che inizia con Z",
+      "risultatoAtteso": "Z112 · Germania (Stato estero)",
+      "verifica": {
+        "input": {
+          "ricerca": "Z112"
+        },
+        "campo": "risultato",
+        "testo": "Z112 · Germania (Stato estero)"
+      }
+    },
+    {
+      "titolo": "Chivasso — dal nome al codice",
+      "risultatoAtteso": "C665 · Chivasso (TO)",
+      "verifica": {
+        "input": {
+          "ricerca": "Chivasso"
+        },
+        "campo": "risultato",
+        "testo": "C665 · Chivasso (TO)"
+      }
+    },
+    {
+      "titolo": "Castro — due comuni con lo stesso nome",
+      "risultatoAtteso": "2 luoghi con questo nome: indica la provincia · C337 Castro (BG) e M261 Castro (LE)",
+      "verifica": {
+        "input": {
+          "ricerca": "Castro"
+        },
+        "campo": "risultato",
+        "testo": "2 luoghi con questo nome: indica la provincia"
+      }
+    }
+  ],
+  "faq": [
+    {
+      "domanda": "Dove si trova il codice catastale nel codice fiscale?",
+      "risposta": "Nei caratteri dal dodicesimo al quindicesimo: in RSSMRA85M01H501Q è H501, cioè Roma. Indica il comune italiano di nascita oppure, per chi è nato all'estero, lo Stato di nascita."
+    },
+    {
+      "domanda": "Che differenza c'è fra codice catastale e codice ISTAT del comune?",
+      "risposta": "Il codice catastale ha una lettera e tre cifre ed è quello del codice fiscale; il codice ISTAT è numerico, di sei cifre, e serve alle statistiche. Per Roma sono H501 e 058091."
+    },
+    {
+      "domanda": "Cosa indica un codice catastale che inizia con Z?",
+      "risposta": "Uno Stato estero: tutti i codici dei Paesi stranieri iniziano con Z. Per esempio Z112 è la Germania, Z110 la Francia, Z404 gli Stati Uniti d'America."
+    },
+    {
+      "domanda": "Perché un codice catastale non viene trovato?",
+      "risposta": "Lo strumento usa l'elenco dei comuni attivi: i codici dei comuni soppressi o fusi con altri non ci sono. Se il codice viene da un codice fiscale, può essere quello di un comune che esisteva alla data di nascita e oggi non esiste più."
+    },
+    {
+      "domanda": "Come si trova il codice catastale di un comune omonimo?",
+      "risposta": "Scrivi il nome e aggiungi la sigla della provincia. Senza la sigla lo strumento elenca tutti i comuni con quel nome: Castro, per esempio, è C337 in provincia di Bergamo e M261 in provincia di Lecce."
+    }
+  ],
+  "relatedTools": [
+    "calcolo-codice-fiscale",
+    "validatore-codice-fiscale",
+    "validatore-partita-iva"
+  ],
+  "disclaimer": "<strong>Elenchi ISTAT dei luoghi attivi.</strong> Comprende i comuni attivi e gli Stati esteri con codice dell'Agenzia delle Entrate; non i comuni soppressi o fusi. La ricerca avviene nel tuo browser.",
+  "fonti": [
+    {
+      "titolo": "ISTAT, codici dei comuni, delle province e delle regioni",
+      "dettaglio": "Elenco dei comuni attivi con codice catastale e codice ISTAT",
+      "url": "https://www.istat.it/classificazione/codici-dei-comuni-delle-province-e-delle-regioni/"
+    },
+    {
+      "titolo": "ISTAT, codici delle unità territoriali estere",
+      "dettaglio": "Stati esteri con il codice dell'Agenzia delle Entrate (portale SITUAS)",
+      "url": "https://www.istat.it/classificazione/classificazione-degli-stati-esteri/"
+    },
+    {
+      "titolo": "D.M. 23 dicembre 1976 — Sistemi di codificazione dei soggetti da iscrivere all'anagrafe tributaria",
+      "dettaglio": "Art. 5: quattro caratteri per il comune o lo Stato estero di nascita, dai volumi della Direzione generale del catasto",
+      "url": "https://www.gazzettaufficiale.it/eli/id/1977/01/20/077U0006/sg"
+    }
+  ],
+  "jsonLd": {
+    "type": "SoftwareApplication",
+    "applicationCategory": "UtilitiesApplication"
+  }
+}

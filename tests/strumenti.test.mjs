@@ -325,3 +325,28 @@ test("UUID: formato RFC 9562 versione 4 (nibble di versione 4, variante 10xx)", 
   for (const u of righe) assert.match(u, /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/);
   assert.equal(new Set(righe).size, 100, "nessun duplicato");
 });
+
+/* =========================== CODICE CATASTALE =========================== */
+
+const catastale = calcolatore("catastale-v1", "codice-catastale.js", ["luoghi-catastali.js"]);
+
+test("codice catastale: dal codice al luogo e ritorno per ogni voce della tabella", () => {
+  const righe = globalThis.LUOGHI_CATASTALI.split("\n");
+  const visti = new Set();
+  for (const r of righe) {
+    const [nome, sigla, codice] = r.split("|");
+    if (visti.has(codice)) continue;                       // stesso codice per alias: basta il primo
+    visti.add(codice);
+    const o = catastale({ ricerca: codice });
+    assert.equal(o.risultato, `${codice} · ${nome} (${sigla === "EE" ? "Stato estero" : sigla})`, codice);
+    const n = catastale({ ricerca: nome, provincia: sigla === "EE" ? "" : sigla });
+    assert.ok(n.risultato.startsWith(codice) || n.altri.includes(codice), `${nome} (${sigla}) → ${n.risultato}`);
+  }
+});
+
+test("codice catastale: omonimi, provincia, codici inesistenti", () => {
+  assert.match(catastale({ ricerca: "Castro" }).risultato, /^2 luoghi/);
+  assert.equal(catastale({ ricerca: "castro", provincia: "le" }).risultato, "M261 · Castro (LE)");
+  assert.match(catastale({ ricerca: "X999" }).risultato, /non presente/);
+  assert.equal(catastale({ ricerca: "c665" }).risultato, "C665 · Chivasso (TO)");
+});

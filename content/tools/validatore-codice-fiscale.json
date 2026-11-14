@@ -2,7 +2,7 @@
   "slug": "validatore-codice-fiscale",
   "cluster": "validatori",
   "tema": "documenti",
-  "updated": "2026-10",
+  "updated": "2026-11",
   "seo": {
     "title": "Validatore Codice Fiscale – Verifica e Calcolo Carattere di Controllo",
     "metaDescription": "Verifica se un codice fiscale è formalmente corretto: controlla struttura e carattere di controllo, decodifica sesso, data e luogo di nascita. Tutto nel browser, nessun dato inviato.",
@@ -56,6 +56,61 @@
       "Il sedicesimo carattere serve a intercettare gli errori di battitura. A ognuno dei primi 15 caratteri si assegna un valore preso da due tabelle diverse, una per le posizioni dispari e una per le pari; i valori si sommano e il resto della divisione per 26 indica una lettera da A a Z. Se quella lettera coincide con l'ultima del codice, il codice è coerente; se no, almeno un carattere è sbagliato e lo strumento ti dice quale lettera si aspettava.",
       "Quando due persone otterrebbero lo stesso codice, una o più delle sette cifre vengono sostituite da lettere secondo una tabella fissa: 0 diventa L, 1 M, 2 N, 3 P, 4 Q, 5 R, 6 S, 7 T, 8 U, 9 V. È l'omocodia. Lo strumento riporta quelle lettere a cifre prima di leggere la data e il codice catastale, e ti segnala nell'esito che il codice è omocodico.",
       "Due limiti da conoscere. L'anno ha solo due cifre, quindi il secolo non è scritto nel codice: lo strumento sceglie l'anno più recente che non cada nel futuro, per cui un 30 diventa 1930 e un 15 diventa 2015. E la verifica è formale: conferma che il codice rispetta le regole di costruzione e controlla anche che la data esista davvero, ma non può dire se l'Agenzia delle Entrate lo abbia assegnato a una persona."
+    ],
+    "sezioni": [
+      {
+        "titolo": "Le lettere dei mesi",
+        "paragrafi": [
+          "Il nono carattere è la lettera del mese di nascita. Se il validatore segnala una lettera del mese non valida, il carattere in nona posizione non è fra le dodici della tabella: F, G, I, J, K, N, O, Q e le lettere dalla U in poi non indicano nessun mese."
+        ],
+        "tabella": {
+          "intestazioni": [
+            "Lettera",
+            "Mese",
+            "Lettera",
+            "Mese"
+          ],
+          "righe": [
+            [
+              "A",
+              "Gennaio",
+              "L",
+              "Luglio"
+            ],
+            [
+              "B",
+              "Febbraio",
+              "M",
+              "Agosto"
+            ],
+            [
+              "C",
+              "Marzo",
+              "P",
+              "Settembre"
+            ],
+            [
+              "D",
+              "Aprile",
+              "R",
+              "Ottobre"
+            ],
+            [
+              "E",
+              "Maggio",
+              "S",
+              "Novembre"
+            ],
+            [
+              "H",
+              "Giugno",
+              "T",
+              "Dicembre"
+            ]
+          ],
+          "stile": "coppie"
+        }
+      }
     ]
   },
   "esempi": [
@@ -103,6 +158,10 @@
       "risposta": "È un codice in cui una o più cifre sono state sostituite da lettere perché, con le regole normali, due persone avrebbero avuto lo stesso codice. La tabella è fissa: 0 diventa L, 1 M, 2 N, 3 P, 4 Q, 5 R, 6 S, 7 T, 8 U, 9 V. Un codice omocodico è valido a tutti gli effetti; lo strumento lo riconosce e lo segnala."
     },
     {
+      "domanda": "Quale lettera indica il mese nel codice fiscale?",
+      "risposta": "Il nono carattere: A gennaio, B febbraio, C marzo, D aprile, E maggio, H giugno, L luglio, M agosto, P settembre, R ottobre, S novembre, T dicembre. È la tabella dell'articolo 5 del decreto ministeriale del 1976."
+    },
+    {
       "domanda": "Perché nelle donne il giorno di nascita supera 40?",
       "risposta": "Perché il codice distingue il sesso sommando 40 al giorno di nascita delle donne, senza aggiungere caratteri. Un giorno fra 41 e 71 indica quindi una donna, e togliendo 40 si ottiene il giorno reale; fra 1 e 31 indica un uomo."
     },
@@ -117,8 +176,8 @@
   ],
   "relatedTools": [
     "calcolo-codice-fiscale",
-    "validatore-iban",
-    "calcolatore-stipendio-netto"
+    "codice-catastale",
+    "validatore-iban"
   ],
   "disclaimer": "<strong>Verifica formale.</strong> Controlla struttura, carattere di controllo ed esistenza della data, e ricava i dati scritti nel codice. <strong>Non</strong> attesta che il codice sia stato assegnato a una persona né a chi appartenga. Il secolo di nascita è dedotto. Il codice resta nel tuo browser: non viene inviato né salvato.",
   "fonti": [

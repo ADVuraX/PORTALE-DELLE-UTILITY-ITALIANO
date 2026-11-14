@@ -113,7 +113,12 @@ function sezioneHtml(s, site, livello = "h3") {
   const par = (s.paragrafi || []).map((p) => `<p>${inline(p, site)}</p>`).join("\n");
   const el = s.elenco && s.elenco.length
     ? `<ul>${s.elenco.map((x) => `<li>${inline(x, site)}</li>`).join("")}</ul>` : "";
-  return `${tit}${par}${el}`;
+  // Tabella di dati (es. lettere dei mesi): { intestazioni: [...], righe: [[...], ...] }.
+  const t = s.tabella;
+  const tab = t && t.righe && t.righe.length
+    ? `<div class="tabella${t.stile ? " tabella-" + t.stile : ""}"><table>${t.intestazioni ? `<thead><tr>${t.intestazioni.map((h) => `<th scope="col">${inline(h, site)}</th>`).join("")}</tr></thead>` : ""}<tbody>${t.righe.map((r) => `<tr>${r.map((c) => `<td>${inline(String(c), site)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`
+    : "";
+  return `${tit}${par}${el}${tab}`;
 }
 
 /** Prime `n` frasi di un testo (per il sommario) + il resto (per il corpo). */
@@ -437,7 +442,7 @@ export function renderToolPage(cfg, site, toolsBySlug, ver) {
   ].filter(Boolean).join("\n        ");
 
   const secondaryCells = (tool.outputSecondary || [])
-    .map((o) => `<div class="cell"><span class="k">${esc(o.label)}</span><span class="v" data-out="${esc(o.id)}">—</span></div>`)
+    .map((o) => `<div class="cell${o.larga ? " cell-wide" : ""}"><span class="k">${esc(o.label)}</span><span class="v" data-out="${esc(o.id)}">—</span></div>`)
     .join("");
 
   let resultDetail;
