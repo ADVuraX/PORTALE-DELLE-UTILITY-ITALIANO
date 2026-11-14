@@ -106,7 +106,7 @@
     },
     {
       "domanda": "Una partita IVA che supera il controllo è attiva?",
-      "risposta": "Non necessariamente. Il controllo dice solo che il numero è ben costruito. Per sapere se è registrata e in quale stato si trova (attiva, sospesa o cessata) c'è il [servizio dell'Agenzia delle Entrate](https://telematici.agenziaentrate.gov.it/VerificaPIVA/IVerificaPiva.jsp); per le operazioni con l'estero, VIES."
+      "risposta": "Non necessariamente. Il controllo dice solo che il numero è ben costruito. Per sapere se è registrata e in quale stato si trova (attiva, sospesa o cessata) c'è il [servizio dell'Agenzia delle Entrate](https://telemanagrafici.agenziaentrate.gov.it/VerificaPIVA/Scegli.do?parameter=verificaPiva); per le operazioni con l'estero, VIES."
     },
     {
       "domanda": "Cosa vuol dire la risposta «non valido» di VIES?",
@@ -137,7 +137,7 @@
     {
       "titolo": "Agenzia delle Entrate, verifica della partita IVA",
       "dettaglio": "Stato della partita IVA in Anagrafe tributaria; nella pagina, codice fiscale e partita IVA dell'Agenzia: 06363391001",
-      "url": "https://telematici.agenziaentrate.gov.it/VerificaPIVA/IVerificaPiva.jsp"
+      "url": "https://telemanagrafici.agenziaentrate.gov.it/VerificaPIVA/Scegli.do?parameter=verificaPiva"
     },
     {
       "titolo": "Your Europe (Commissione europea), controllo delle partite IVA — VIES",
