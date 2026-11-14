@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calcolo IBAN Italiano – Da CIN, ABI, CAB e Numero di Conto</title>
+<meta name="description" content="Componi l'IBAN italiano dalle coordinate bancarie: inserisci CIN, ABI, CAB e numero di conto e ottieni le due cifre di controllo calcolate con il metodo ISO 13616.">
+<link rel="canonical" href="https://utilityitalia.it/calcolo-iban/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Utility Italia">
+<meta property="og:title" content="Calcolo IBAN Italiano – Da CIN, ABI, CAB e Numero di Conto">
+<meta property="og:description" content="Componi l'IBAN italiano dalle coordinate bancarie: inserisci CIN, ABI, CAB e numero di conto e ottieni le due cifre di controllo calcolate con il metodo ISO 13616.">
+<meta property="og:url" content="https://utilityitalia.it/calcolo-iban/">
+<meta property="og:image" content="https://utilityitalia.it/assets/og/calcolo-iban.png?v=3e53563b">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Calcolo IBAN Italiano – Da CIN, ABI, CAB e Numero di Conto">
+<meta name="twitter:card" content="summary_large_image">
+<script>(function(){try{var t=localStorage.getItem("theme");if(t)document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
+window.__toggleTheme=function(){var d=document.documentElement,cur=d.getAttribute("data-theme"),sysDark=matchMedia("(prefers-color-scheme:dark)").matches,next=cur?(cur==="dark"?"light":"dark"):(sysDark?"light":"dark");d.setAttribute("data-theme",next);try{localStorage.setItem("theme",next);}catch(e){}var b=document.querySelector(".theme-toggle");if(b)b.setAttribute("aria-pressed",String(next==="dark"));};
+window.__cookiePrefs=function(){var g=window.googlefc;if(g&&typeof g.showRevocationMessage==="function"){g.showRevocationMessage();return;}location.href="/cookie/";};</script>
+<link rel="icon" href="/favicon.svg?v=9ec594db" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/css/fonts.css?v=abc23a4b">
+<link rel="stylesheet" href="/assets/css/tokens.css?v=f771955f">
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{&quot;token&quot;:&quot;c6ec4052551d427f9912b010547e4aed&quot;}'></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Calcolo IBAN Italiano – Da CIN, ABI, CAB e Numero di Conto","applicationCategory":"FinanceApplication","operatingSystem":"Web","url":"https://utilityitalia.it/calcolo-iban/","description":"Componi l'IBAN italiano dalle coordinate bancarie: inserisci CIN, ABI, CAB e numero di conto e ottieni le due cifre di controllo calcolate con il metodo ISO 13616.","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"dateModified":"2026-11-01"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Come si calcola l'IBAN da ABI, CAB e numero di conto?","acceptedAnswer":{"@type":"Answer","text":"Si mettono in fila CIN, ABI, CAB e conto (23 caratteri), si aggiunge IT00, si convertono le lettere in numeri e si calcola il resto della divisione per 97: le due cifre di controllo sono 98 meno quel resto. L'IBAN è IT, le due cifre e le coordinate."}},{"@type":"Question","name":"Perché lo strumento non calcola il CIN?","acceptedAnswer":{"@type":"Answer","text":"Perché il metodo di calcolo del CIN non è pubblicato in una fonte ufficiale che abbiamo potuto consultare, e il sito usa solo regole verificate. Il CIN va chiesto alla banca o letto nei documenti del conto in cui compaiono le coordinate."}},{"@type":"Question","name":"Da quali parti è composto l'IBAN italiano?","acceptedAnswer":{"@type":"Answer","text":"Ventisette: IT, due cifre di controllo, una lettera di CIN, cinque cifre di ABI, cinque di CAB e dodici caratteri per il numero di conto. Lo stesso numero è indicato nel registro IBAN di SWIFT."}},{"@type":"Question","name":"Un IBAN calcolato qui è sicuro per fare un bonifico?","acceptedAnswer":{"@type":"Answer","text":"Dice solo che il codice è costruito correttamente. Non conferma che il conto esista né a chi appartenga: usa l'IBAN che ti comunica il beneficiario e affidati alla verifica del nome che la banca fa prima di un bonifico in euro."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://utilityitalia.it/"},{"@type":"ListItem","position":2,"name":"Generatori","item":"https://utilityitalia.it/generatori/"},{"@type":"ListItem","position":3,"name":"Calcolo dell'IBAN dalle Coordinate Bancarie","item":"https://utilityitalia.it/calcolo-iban/"}]}</script>
+</head>
+<body>
+
+<a class="skip" href="#tool">Salta allo strumento</a>
+
+<header class="head">
+  <div class="wrap">
+    <a class="logo" href="/">Utility <b>Italia</b></a>
+    <div class="head-right">
+      <div class="crumbs"><a href="/">Home</a> / <a href="/generatori/">Generatori</a> / <span>Calcolo dell'IBAN dalle Coordinate Bancarie</span></div>
+      <button class="theme-toggle" type="button" onclick="__toggleTheme()" aria-label="Cambia tema chiaro o scuro" aria-pressed="false" title="Tema chiaro / scuro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg></button>
+    </div>
+  </div>
+</header>
+
+
+
+<main>
+  <section class="lead">
+    <div class="wrap">
+      <p class="kicker"><b>Generatori</b> · banca</p>
+      <div class="lead-grid">
+        <div class="lead-main">
+          <h1>Calcolo dell'IBAN dalle Coordinate Bancarie</h1>
+        </div>
+        <div class="lead-side">
+          <p class="lede">Inserisci le coordinate bancarie italiane, cioè CIN, ABI, CAB e numero di conto, e lo strumento compone l'IBAN: aggiunge il prefisso IT e calcola le due cifre di controllo con il metodo dello standard ISO 13616. Ti mostra il codice anche diviso in gruppi di quattro, come si scrive di solito. Il CIN non viene calcolato: va preso dai documenti della banca. Il calcolo avviene nel browser e i dati non vengono inviati. Prima di usare un IBAN per un pagamento controllalo con la banca o con la verifica del beneficiario.</p>
+          <ul class="meta">
+        <li><span class="mk">Area</span><span class="mv"><a href="/generatori/">Generatori</a></span></li>
+        <li><span class="mk">Aggiornato</span><span class="mv">novembre 2026</span></li>
+        <li><span class="mk">Fonti</span><span class="mv mv-ok">4 ufficiali</span></li>
+        <li><span class="mk">Accesso</span><span class="mv">Libero</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tool" id="tool" data-tool>
+    <div class="wrap">
+      <div class="tool-grid">
+        <div class="card card-in">
+          <div class="card-top"><span>I tuoi dati</span></div>
+          <form data-tool-form aria-describedby="disc">
+          <fieldset class="group"><legend>Coordinate bancarie</legend>
+            <div class="field field-text">
+            <label for="in-cin">CIN <span class="hint">una lettera</span></label>
+            <div class="control"><input type="text" id="in-cin" value="X" placeholder="es. X"></div>
+          </div>
+            <div class="field field-text">
+            <label for="in-abi">ABI <span class="hint">5 cifre: la banca</span></label>
+            <div class="control"><input type="text" id="in-abi" value="05428" placeholder="es. 05428"></div>
+          </div>
+            <div class="field field-text">
+            <label for="in-cab">CAB <span class="hint">5 cifre: lo sportello</span></label>
+            <div class="control"><input type="text" id="in-cab" value="11101" placeholder="es. 11101"></div>
+          </div>
+            <div class="field field-text">
+            <label for="in-conto">Numero di conto <span class="hint">fino a 12 caratteri</span></label>
+            <div class="control"><input type="text" id="in-conto" value="000000123456" placeholder="es. 000000123456"></div>
+          </div>
+          </fieldset>
+          </form>
+        </div>
+        <div class="card card-out notch" data-result-card>
+          <div class="card-top"><span>Risultato</span></div>
+          <div class="result" aria-live="polite">
+          <div class="rlabel" data-out-label>IBAN</div>
+          <div class="value value-text" data-out-primary>—</div>
+          <div class="value-underline"></div>
+          <div class="secondary" data-out-secondary><div class="cell"><span class="k">IBAN a gruppi di quattro</span><span class="v" data-out="ibanStampa">—</span></div><div class="cell"><span class="k">Cifre di controllo</span><span class="v" data-out="controllo">—</span></div><div class="cell cell-wide"><span class="k">Parte nazionale (BBAN): CIN + ABI + CAB + conto</span><span class="v" data-out="bban">—</span></div></div>
+          
+        </div>
+          <div class="note" id="disc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg><p><strong>Composizione formale.</strong> Calcola le cifre di controllo dalle coordinate che inserisci; non calcola il CIN e non verifica che il conto esista. Per un pagamento usa l'IBAN comunicato dal beneficiario. I dati restano nel tuo browser.</p></div>
+        </div>
+        <script type="application/json" data-tool-config>{"logicId":"calcolo-iban-v1","inputs":[{"id":"cin","type":"text"},{"id":"abi","type":"text"},{"id":"cab","type":"text"},{"id":"conto","type":"text"}],"outputPrimary":{"id":"iban","format":"text"},"outputSecondary":[{"id":"ibanStampa","label":"IBAN a gruppi di quattro","format":"text"},{"id":"controllo","label":"Cifre di controllo","format":"text"},{"id":"bban","label":"Parte nazionale (BBAN): CIN + ABI + CAB + conto","format":"text"}],"breakdown":[],"extras":[]}</script>
+      </div>
+    </div>
+  </section>
+
+<section class="section">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">01</span><h2>Esempi pratici</h2><span class="sec-rule" aria-hidden="true"></span></div>
+      <ol class="ex-list">
+        <li><span class="ex-i">01</span><span class="ex-q">L'esempio italiano del registro IBAN di SWIFT</span><span class="ex-r">IT60X0542811101000000123456 · cifre di controllo 60</span></li>
+        <li><span class="ex-i">02</span><span class="ex-q">Stesso conto scritto senza gli zeri iniziali</span><span class="ex-r">IT60 X054 2811 1010 0000 0123 456 · il conto 123456 diventa 000000123456</span></li>
+        <li><span class="ex-i">03</span><span class="ex-q">ABI scritto con quattro cifre</span><span class="ex-r">✗ L'ABI ha 5 cifre</span></li>
+      </ol>
+    </div>
+  </section>
+<section class="section">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">02</span><h2>Dalle coordinate bancarie all'IBAN</h2><span class="sec-rule" aria-hidden="true"></span></div>
+      <div class="prose"><p>Un conto italiano si identifica anche con le coordinate bancarie nazionali: il CIN, una lettera di controllo; l'ABI, cinque cifre che identificano la banca; il CAB, cinque cifre per lo sportello; il numero di conto, dodici caratteri. Messe in fila formano la parte nazionale dell'IBAN, il BBAN, lunga 23 caratteri. L'IBAN italiano aggiunge davanti due lettere per il paese, IT, e due cifre di controllo, per un totale di 27 caratteri.</p>
+<p>Le due cifre di controllo si ottengono con l'algoritmo MOD 97-10 previsto dallo standard ISO 13616. Si scrive il BBAN seguito da IT00, si sostituisce ogni lettera con un numero (la A vale 10, la B 11 e così via fino alla Z, che vale 35) e si calcola il resto della divisione per 97 del numero lunghissimo che ne risulta. Le cifre di controllo sono 98 meno quel resto, scritte sempre con due cifre. Applicando lo stesso calcolo all'IBAN completo il resto è 1: è il controllo che fanno banche e validatori.</p>
+<p>Il risultato si può provare con l'esempio italiano pubblicato nel registro IBAN di SWIFT: CIN X, ABI 05428, CAB 11101 e conto 000000123456 danno IT60X0542811101000000123456. Se il numero di conto che inserisci è più corto di dodici caratteri, lo strumento lo completa con zeri a sinistra come nell'esempio: controlla che corrisponda a come lo scrive la tua banca.</p>
+<p>Il CIN invece non viene calcolato: è un carattere di controllo delle coordinate nazionali e il suo metodo di calcolo non è pubblicato in una fonte ufficiale che abbiamo potuto consultare. Chiedilo alla tua banca o leggilo nei documenti del conto in cui compaiono le coordinate bancarie. Un IBAN ben costruito non dice se il conto esiste o a chi appartiene: prima di un bonifico in euro la banca deve verificare che nome e IBAN corrispondano.</p></div>
+    </div>
+  </section>
+<section class="section">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Domande frequenti</h2><span class="sec-rule" aria-hidden="true"></span></div>
+      <div class="faq">
+      <details open><summary>Come si calcola l'IBAN da ABI, CAB e numero di conto?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>Si mettono in fila CIN, ABI, CAB e conto (23 caratteri), si aggiunge IT00, si convertono le lettere in numeri e si calcola il resto della divisione per 97: le due cifre di controllo sono 98 meno quel resto. L'IBAN è IT, le due cifre e le coordinate.</p></div></details>
+      <details><summary>Perché lo strumento non calcola il CIN?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>Perché il metodo di calcolo del CIN non è pubblicato in una fonte ufficiale che abbiamo potuto consultare, e il sito usa solo regole verificate. Il CIN va chiesto alla banca o letto nei documenti del conto in cui compaiono le coordinate.</p></div></details>
+      <details><summary>Da quali parti è composto l'IBAN italiano?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>Ventisette: IT, due cifre di controllo, una lettera di CIN, cinque cifre di ABI, cinque di CAB e dodici caratteri per il numero di conto. Lo stesso numero è indicato nel registro IBAN di SWIFT.</p></div></details>
+      <details><summary>Un IBAN calcolato qui è sicuro per fare un bonifico?<span class="plus" aria-hidden="true"></span></summary><div class="ans"><p>Dice solo che il codice è costruito correttamente. Non conferma che il conto esista né a chi appartenga: usa l'IBAN che ti comunica il beneficiario e affidati alla verifica del nome che la banca fa prima di un bonifico in euro.</p></div></details>
+      </div>
+    </div>
+  </section>
+<section class="section">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">04</span><h2>Strumenti collegati</h2><span class="sec-rule" aria-hidden="true"></span></div>
+      <ul class="rel-list">
+        <li><a class="rel" href="/validatore-iban/"><span class="re">Validatori</span><span class="rn">IBAN</span></a></li>
+        <li><a class="rel" href="/calcolo-codice-fiscale/"><span class="re">Generatori</span><span class="rn">Calcolo del Codice Fiscale</span></a></li>
+        <li><a class="rel" href="/validatore-partita-iva/"><span class="re">Validatori</span><span class="rn">Partita IVA</span></a></li>
+      </ul>
+    </div>
+  </section>
+<section class="section">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-num">05</span><h2>Fonti e metodo</h2><span class="sec-rule" aria-hidden="true"></span></div>
+      <div class="fonti">
+        <div class="fonti-head">
+          <h3>Riferimenti usati nel calcolo</h3>
+          <span class="upd">Ultimo aggiornamento: novembre 2026</span>
+        </div>
+        <div class="src"><span class="n">01</span><div class="b"><div class="t"><a class="t" href="https://www.swift.com/standards/data-standards/iban-international-bank-account-number" target="_blank" rel="noopener">SWIFT, IBAN Registry</a></div><div class="d">Struttura dell'IBAN italiano (27 caratteri) ed esempio IT60X0542811101000000123456</div></div></div>
+        <div class="src"><span class="n">02</span><div class="b"><div class="t"><a class="t" href="https://www.iso.org/standard/81090.html" target="_blank" rel="noopener">ISO 13616-1:2020 — IBAN</a></div><div class="d">Struttura dell'IBAN e cifre di controllo con ISO/IEC 7064 MOD 97-10</div></div></div>
+        <div class="src"><span class="n">03</span><div class="b"><div class="t"><a class="t" href="https://economiapertutti.bancaditalia.it/aree-tematiche/pagamenti/iban/index.html" target="_blank" rel="noopener">Banca d'Italia, Economia per tutti — IBAN</a></div><div class="d">IBAN italiano: 27 caratteri, CIN, ABI, CAB, numero di conto</div></div></div>
+        <div class="src"><span class="n">04</span><div class="b"><div class="t"><a class="t" href="https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=OJ:L_202400886" target="_blank" rel="noopener">Regolamento (UE) 2024/886 — bonifici istantanei e verifica del beneficiario</a></div><div class="d">Verifica della corrispondenza fra nome e IBAN prima dei bonifici in euro</div></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+<footer class="foot"><div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a class="foot-brand" href="/">Utility <b>Italia</b></a>
+        <p class="foot-note">Calcolatori fiscali, convertitori, generatori e validatori.</p>
+      </div>
+      <div class="foot-cols">
+        <div><p class="foot-h">Aree</p><ul class="foot-links"><li><a href="/calcolatori/">Calcolatori</a></li><li><a href="/convertitori/">Convertitori</a></li><li><a href="/generatori/">Generatori</a></li><li><a href="/validatori/">Validatori</a></li></ul></div>
+        <div><p class="foot-h">Il sito</p><ul class="foot-links"><li><a href="/chi-siamo/">Chi siamo</a></li><li><a href="/metodologia/">Metodologia</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/cookie/">Cookie</a></li><li><a href="/note-legali/">Note legali</a></li><li><a href="/contatti/">Contatti</a></li><li><button type="button" class="foot-cookie" onclick="__cookiePrefs()">Preferenze cookie</button></li></ul></div>
+      </div>
+    </div>
+    <p class="foot-base">Utility Italia — strumenti gratuiti, aggiornati, senza registrazione.</p>
+  </div></footer>
+
+<script src="/assets/js/runtime.js?v=25ca2aed"></script>
+
+<script src="/assets/js/calculators/calcolo-iban.js?v=1a1955c2"></script>
+</body>
+</html>

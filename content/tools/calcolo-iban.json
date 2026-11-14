@@ -1,0 +1,185 @@
+{
+  "slug": "calcolo-iban",
+  "cluster": "generatori",
+  "tema": "banca",
+  "updated": "2026-11",
+  "seo": {
+    "title": "Calcolo IBAN Italiano – Da CIN, ABI, CAB e Numero di Conto",
+    "metaDescription": "Componi l'IBAN italiano dalle coordinate bancarie: inserisci CIN, ABI, CAB e numero di conto e ottieni le due cifre di controllo calcolate con il metodo ISO 13616.",
+    "primaryKeyword": "calcolo iban",
+    "canonical": "/calcolo-iban/"
+  },
+  "h1": "Calcolo dell'IBAN dalle Coordinate Bancarie",
+  "intro": "Inserisci le coordinate bancarie italiane, cioè CIN, ABI, CAB e numero di conto, e lo strumento compone l'IBAN: aggiunge il prefisso IT e calcola le due cifre di controllo con il metodo dello standard ISO 13616. Ti mostra il codice anche diviso in gruppi di quattro, come si scrive di solito. Il CIN non viene calcolato: va preso dai documenti della banca. Il calcolo avviene nel browser e i dati non vengono inviati. Prima di usare un IBAN per un pagamento controllalo con la banca o con la verifica del beneficiario.",
+  "tool": {
+    "logicId": "calcolo-iban-v1",
+    "script": "calcolo-iban.js",
+    "cardNote": "Cifre di controllo",
+    "inputs": [
+      {
+        "type": "group",
+        "legend": "Coordinate bancarie",
+        "inputs": [
+          {
+            "id": "cin",
+            "label": "CIN",
+            "type": "text",
+            "placeholder": "es. X",
+            "default": "X",
+            "hint": "una lettera"
+          },
+          {
+            "id": "abi",
+            "label": "ABI",
+            "type": "text",
+            "placeholder": "es. 05428",
+            "default": "05428",
+            "hint": "5 cifre: la banca"
+          },
+          {
+            "id": "cab",
+            "label": "CAB",
+            "type": "text",
+            "placeholder": "es. 11101",
+            "default": "11101",
+            "hint": "5 cifre: lo sportello"
+          },
+          {
+            "id": "conto",
+            "label": "Numero di conto",
+            "type": "text",
+            "placeholder": "es. 000000123456",
+            "default": "000000123456",
+            "hint": "fino a 12 caratteri"
+          }
+        ]
+      }
+    ],
+    "outputPrimary": {
+      "id": "iban",
+      "label": "IBAN",
+      "format": "text"
+    },
+    "outputSecondary": [
+      {
+        "id": "ibanStampa",
+        "label": "IBAN a gruppi di quattro",
+        "format": "text"
+      },
+      {
+        "id": "controllo",
+        "label": "Cifre di controllo",
+        "format": "text"
+      },
+      {
+        "id": "bban",
+        "label": "Parte nazionale (BBAN): CIN + ABI + CAB + conto",
+        "format": "text",
+        "larga": true
+      }
+    ]
+  },
+  "spiegazione": {
+    "titolo": "Dalle coordinate bancarie all'IBAN",
+    "corpo": [
+      "Un conto italiano si identifica anche con le coordinate bancarie nazionali: il CIN, una lettera di controllo; l'ABI, cinque cifre che identificano la banca; il CAB, cinque cifre per lo sportello; il numero di conto, dodici caratteri. Messe in fila formano la parte nazionale dell'IBAN, il BBAN, lunga 23 caratteri. L'IBAN italiano aggiunge davanti due lettere per il paese, IT, e due cifre di controllo, per un totale di 27 caratteri.",
+      "Le due cifre di controllo si ottengono con l'algoritmo MOD 97-10 previsto dallo standard ISO 13616. Si scrive il BBAN seguito da IT00, si sostituisce ogni lettera con un numero (la A vale 10, la B 11 e così via fino alla Z, che vale 35) e si calcola il resto della divisione per 97 del numero lunghissimo che ne risulta. Le cifre di controllo sono 98 meno quel resto, scritte sempre con due cifre. Applicando lo stesso calcolo all'IBAN completo il resto è 1: è il controllo che fanno banche e validatori.",
+      "Il risultato si può provare con l'esempio italiano pubblicato nel registro IBAN di SWIFT: CIN X, ABI 05428, CAB 11101 e conto 000000123456 danno IT60X0542811101000000123456. Se il numero di conto che inserisci è più corto di dodici caratteri, lo strumento lo completa con zeri a sinistra come nell'esempio: controlla che corrisponda a come lo scrive la tua banca.",
+      "Il CIN invece non viene calcolato: è un carattere di controllo delle coordinate nazionali e il suo metodo di calcolo non è pubblicato in una fonte ufficiale che abbiamo potuto consultare. Chiedilo alla tua banca o leggilo nei documenti del conto in cui compaiono le coordinate bancarie. Un IBAN ben costruito non dice se il conto esiste o a chi appartiene: prima di un bonifico in euro la banca deve verificare che nome e IBAN corrispondano."
+    ]
+  },
+  "esempi": [
+    {
+      "titolo": "L'esempio italiano del registro IBAN di SWIFT",
+      "risultatoAtteso": "IT60X0542811101000000123456 · cifre di controllo 60",
+      "verifica": {
+        "input": {
+          "cin": "X",
+          "abi": "05428",
+          "cab": "11101",
+          "conto": "000000123456"
+        },
+        "campo": "iban",
+        "testo": "IT60X0542811101000000123456"
+      }
+    },
+    {
+      "titolo": "Stesso conto scritto senza gli zeri iniziali",
+      "risultatoAtteso": "IT60 X054 2811 1010 0000 0123 456 · il conto 123456 diventa 000000123456",
+      "verifica": {
+        "input": {
+          "cin": "X",
+          "abi": "05428",
+          "cab": "11101",
+          "conto": "123456"
+        },
+        "campo": "ibanStampa",
+        "testo": "IT60 X054 2811 1010 0000 0123 456"
+      }
+    },
+    {
+      "titolo": "ABI scritto con quattro cifre",
+      "risultatoAtteso": "✗ L'ABI ha 5 cifre",
+      "verifica": {
+        "input": {
+          "cin": "X",
+          "abi": "5428",
+          "cab": "11101",
+          "conto": "123456"
+        },
+        "campo": "iban",
+        "testo": "✗ L'ABI ha 5 cifre"
+      }
+    }
+  ],
+  "faq": [
+    {
+      "domanda": "Come si calcola l'IBAN da ABI, CAB e numero di conto?",
+      "risposta": "Si mettono in fila CIN, ABI, CAB e conto (23 caratteri), si aggiunge IT00, si convertono le lettere in numeri e si calcola il resto della divisione per 97: le due cifre di controllo sono 98 meno quel resto. L'IBAN è IT, le due cifre e le coordinate."
+    },
+    {
+      "domanda": "Perché lo strumento non calcola il CIN?",
+      "risposta": "Perché il metodo di calcolo del CIN non è pubblicato in una fonte ufficiale che abbiamo potuto consultare, e il sito usa solo regole verificate. Il CIN va chiesto alla banca o letto nei documenti del conto in cui compaiono le coordinate."
+    },
+    {
+      "domanda": "Da quali parti è composto l'IBAN italiano?",
+      "risposta": "Ventisette: IT, due cifre di controllo, una lettera di CIN, cinque cifre di ABI, cinque di CAB e dodici caratteri per il numero di conto. Lo stesso numero è indicato nel registro IBAN di SWIFT."
+    },
+    {
+      "domanda": "Un IBAN calcolato qui è sicuro per fare un bonifico?",
+      "risposta": "Dice solo che il codice è costruito correttamente. Non conferma che il conto esista né a chi appartenga: usa l'IBAN che ti comunica il beneficiario e affidati alla verifica del nome che la banca fa prima di un bonifico in euro."
+    }
+  ],
+  "relatedTools": [
+    "validatore-iban",
+    "calcolo-codice-fiscale",
+    "validatore-partita-iva"
+  ],
+  "disclaimer": "<strong>Composizione formale.</strong> Calcola le cifre di controllo dalle coordinate che inserisci; non calcola il CIN e non verifica che il conto esista. Per un pagamento usa l'IBAN comunicato dal beneficiario. I dati restano nel tuo browser.",
+  "fonti": [
+    {
+      "titolo": "SWIFT, IBAN Registry",
+      "dettaglio": "Struttura dell'IBAN italiano (27 caratteri) ed esempio IT60X0542811101000000123456",
+      "url": "https://www.swift.com/standards/data-standards/iban-international-bank-account-number"
+    },
+    {
+      "titolo": "ISO 13616-1:2020 — IBAN",
+      "dettaglio": "Struttura dell'IBAN e cifre di controllo con ISO/IEC 7064 MOD 97-10",
+      "url": "https://www.iso.org/standard/81090.html"
+    },
+    {
+      "titolo": "Banca d'Italia, Economia per tutti — IBAN",
+      "dettaglio": "IBAN italiano: 27 caratteri, CIN, ABI, CAB, numero di conto",
+      "url": "https://economiapertutti.bancaditalia.it/aree-tematiche/pagamenti/iban/index.html"
+    },
+    {
+      "titolo": "Regolamento (UE) 2024/886 — bonifici istantanei e verifica del beneficiario",
+      "dettaglio": "Verifica della corrispondenza fra nome e IBAN prima dei bonifici in euro",
+      "url": "https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=OJ:L_202400886"
+    }
+  ],
+  "jsonLd": {
+    "type": "SoftwareApplication",
+    "applicationCategory": "FinanceApplication"
+  }
+}

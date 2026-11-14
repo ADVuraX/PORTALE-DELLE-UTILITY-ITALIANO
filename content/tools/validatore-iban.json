@@ -4,7 +4,7 @@
   "tema": "banca",
   "updated": "2026-10",
   "seo": {
-    "title": "Validatore IBAN – Verifica Codice e Coordinate Bancarie",
+    "title": "Validatore IBAN – Verifica e Scomposizione in ABI, CAB e Conto",
     "metaDescription": "Verifica se un IBAN è corretto: lunghezza per paese e checksum mod-97 (ISO 7064), con decodifica di CIN, ABI, CAB e conto. Più la guida al codice BIC/SWIFT.",
     "primaryKeyword": "validatore iban",
     "canonical": "/validatore-iban/"
@@ -141,6 +141,7 @@
     }
   ],
   "relatedTools": [
+    "calcolo-iban",
     "validatore-codice-fiscale",
     "convertitore-valuta",
     "calcolatore-tfr"

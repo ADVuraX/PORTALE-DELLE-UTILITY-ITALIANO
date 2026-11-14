@@ -350,3 +350,36 @@ test("codice catastale: omonimi, provincia, codici inesistenti", () => {
   assert.match(catastale({ ricerca: "X999" }).risultato, /non presente/);
   assert.equal(catastale({ ricerca: "c665" }).risultato, "C665 · Chivasso (TO)");
 });
+
+/* ============================== CALCOLO IBAN ============================== */
+
+const calcoloIban = calcolatore("calcolo-iban-v1", "calcolo-iban.js");
+
+test("calcolo IBAN: dalle coordinate dell'esempio SWIFT si ottiene IT60X0542811101000000123456", () => {
+  assert.equal(calcoloIban({ cin: "X", abi: "05428", cab: "11101", conto: "000000123456" }).iban, "IT60X0542811101000000123456");
+  assert.equal(calcoloIban({ cin: "x", abi: "05428", cab: "11101", conto: "123456" }).iban, "IT60X0542811101000000123456");
+});
+
+test("calcolo IBAN: 2.000 coordinate a caso producono IBAN accettati dal validatore", () => {
+  let seme = 3;
+  const caso = (n) => { seme = (seme * 1103515245 + 12345) % 2147483648; return seme % n; };
+  const ALF = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  for (let k = 0; k < 2000; k++) {
+    const c = {
+      cin: ALF[caso(26)],
+      abi: String(caso(100000)).padStart(5, "0"),
+      cab: String(caso(100000)).padStart(5, "0"),
+      conto: String(caso(1e6)).padStart(6, "0") + ALF[caso(26)] + String(caso(1e5)).padStart(5, "0"),
+    };
+    const o = calcoloIban(c);
+    assert.equal(o.valido, true, JSON.stringify(c));
+    assert.equal(iban({ iban: o.iban }).valido, true, o.iban);
+  }
+});
+
+test("calcolo IBAN: input non validi", () => {
+  assert.match(calcoloIban({ cin: "XX", abi: "05428", cab: "11101", conto: "1" }).iban, /CIN/);
+  assert.match(calcoloIban({ cin: "X", abi: "5428", cab: "11101", conto: "1" }).iban, /ABI/);
+  assert.match(calcoloIban({ cin: "X", abi: "05428", cab: "111", conto: "1" }).iban, /CAB/);
+  assert.match(calcoloIban({ cin: "X", abi: "05428", cab: "11101", conto: "1234567890123" }).iban, /conto/);
+});
