@@ -2,7 +2,7 @@
   "slug": "calcolatore-tredicesima",
   "cluster": "calcolatori",
   "tema": "lavoro",
-  "updated": "2026-10",
+  "updated": "2026-11",
   "seo": {
     "title": "Calcolo Tredicesima 2026 – Lordo, Netto e Ratei per Mesi Lavorati",
     "metaDescription": "Calcola la tredicesima lorda e netta 2026: ratei per i mesi di servizio, contributi INPS e IRPEF trattenuta con gli scaglioni mensili, senza detrazioni, come prevede la legge.",
@@ -134,6 +134,20 @@
         ]
       },
       {
+        "titolo": "Quando arriva",
+        "paragrafi": [
+          "Per i dipendenti privati la data la stabilisce il contratto collettivo. Per i dipendenti pubblici pagati tramite NoiPA, il sistema del Ministero dell'Economia, la tredicesima arriva insieme allo stipendio di dicembre a chi è in servizio al 1° dicembre e ha maturato almeno un dodicesimo; a chi ha lasciato il servizio durante l'anno NoiPA paga i ratei maturati con la rata di dicembre.",
+          "Lo stesso documento di NoiPA conferma la regola fiscale usata da questo calcolatore: sulla tredicesima il datore di lavoro non applica alcuna detrazione d'imposta. Nel calcolo NoiPA non entrano straordinari, indennità per ferie, rimborsi spese e indennità sostitutive."
+        ]
+      },
+      {
+        "titolo": "E la tredicesima dei pensionati?",
+        "paragrafi": [
+          "Anche le pensioni hanno la tredicesima, pagata dall'INPS: la circolare n. 153 del 2025 la include fra le mensilità del secondo semestre e fissa al 1° dicembre 2026 il pagamento della pensione di dicembre. Sulla rata di dicembre l'INPS non trattiene le addizionali regionale e comunale, che recupera in undici rate da gennaio a novembre, e versa l'importo aggiuntivo di 154,94 euro previsto dall'articolo 70 della legge 388/2000 a chi ne ha i requisiti, in via provvisoria.",
+          "Questo calcolatore riguarda i lavoratori dipendenti: sulle pensioni non si pagano i contributi previdenziali e l'INPS applica le proprie regole sulle detrazioni, quindi il netto della tredicesima di una pensione va letto sul cedolino dell'INPS."
+        ]
+      },
+      {
         "titolo": "Cosa resta fuori dal conto",
         "paragrafi": [
           "Il calcolatore stima la tredicesima che compare in busta paga, non l'imposta definitiva. Non calcola il contributo aggiuntivo dell'1%, le addizionali regionale e comunale, le quote del taglio del cuneo fiscale e il trattamento integrativo, né eventuali regole del contratto collettivo su voci variabili come straordinari e premi. La quattordicesima, se il tuo contratto la prevede, non è inclusa. Se ti servono il TFR maturato o la liquidazione, c'è il [calcolatore del TFR](/calcolatore-tfr/)."
@@ -202,6 +216,14 @@
     {
       "domanda": "Sulla tredicesima si pagano i contributi?",
       "risposta": "Sì. Ai fini contributivi la tredicesima è reddito di lavoro dipendente come lo stipendio (L. 153/1969, art. 12): si applica la stessa aliquota a carico del lavoratore, 9,19% per un dipendente privato."
+    },
+    {
+      "domanda": "Quando arriva la tredicesima?",
+      "risposta": "Per i dipendenti privati la data la fissa il contratto collettivo. I dipendenti pubblici pagati da NoiPA la ricevono con lo stipendio di dicembre. Per i pensionati la pensione di dicembre 2026 è in pagamento dal 1° dicembre, secondo la circolare INPS n. 153 del 2025."
+    },
+    {
+      "domanda": "Questo calcolatore vale anche per la tredicesima della pensione?",
+      "risposta": "No. Sulle pensioni non si trattengono contributi e l'INPS applica le proprie regole sulle detrazioni; a dicembre aggiunge, a chi ne ha diritto, l'importo aggiuntivo di 154,94 euro. Il netto esatto si legge sul cedolino della pensione nel sito dell'INPS."
     }
   ],
   "relatedTools": [
@@ -230,6 +252,21 @@
       "titolo": "Legge 30 aprile 1969, n. 153, art. 12",
       "dettaglio": "Il reddito di lavoro dipendente ai fini contributivi è quello definito dal TUIR",
       "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:1969-04-30;153~art12!vig=2026-01-30"
+    },
+    {
+      "titolo": "NoiPA (MEF), tredicesima mensilità: modalità di gestione e pagamento",
+      "dettaglio": "Nessuna detrazione d'imposta sulla tredicesima; pagamento con lo stipendio di dicembre per chi è in servizio al 1° dicembre con almeno 1/12; voci escluse dal calcolo",
+      "url": "https://noipa.mef.gov.it/documents/27938/29260326/Tredicesima+-+Modalit%C3%A0+di+gestione+e+pagamento+attraverso+NoiPA/ce20c875-96d8-4312-a027-cf0f08f56349"
+    },
+    {
+      "titolo": "INPS, circolare n. 153 del 19 dicembre 2025",
+      "dettaglio": "Calendario dei pagamenti delle pensioni 2026 (dicembre: 1° dicembre); tredicesima fra le mensilità del secondo semestre",
+      "url": "https://www.inps.it/content/dam/inps-site/it/scorporati/circolari-e-messaggi/2025/12/Circolare_15109/Allegati/16484_Circolare-numero-153-del-19-12-2025.pdf"
+    },
+    {
+      "titolo": "INPS, il cedolino di pensione di dicembre 2025",
+      "dettaglio": "Niente addizionali sulla rata di dicembre; importo aggiuntivo di 154,94 € (art. 70 L. 388/2000) pagato in via provvisoria",
+      "url": "https://www.inps.it/it/it/inps-comunica/notizie/dettaglio-news-page.news.2025.11.pensionati-il-cedolino-di-pensione-di-dicembre-2025.html"
     }
   ],
   "jsonLd": {

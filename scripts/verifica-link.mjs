@@ -12,6 +12,10 @@
  * ECCEZIONI con la data del controllo.
  */
 import { readFileSync, readdirSync } from "node:fs";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
+
+const execFileAsync = promisify(execFile);
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -62,7 +66,18 @@ async function controlla(url) {
     if (r.status >= 400) r = await fetch(url, opzioni("GET")); // alcuni server rifiutano HEAD
     return { stato: r.status };
   } catch (e) {
-    return { stato: "ERRORE", nota: e.cause ? e.cause.code || e.message : e.message };
+    const codice = e.cause ? e.cause.code || e.message : e.message;
+    // Server che non inviano il certificato intermedio (es. inps.it): i browser lo
+    // recuperano da soli, Node no. Si riprova con curl, che usa i certificati di sistema.
+    if (/ISSUER_CERT|LEAF_SIGNATURE/.test(codice)) {
+      try {
+        const { stdout } = await execFileAsync("curl", ["-sL", "-o", process.platform === "win32" ? "NUL" : "/dev/null", "-w", "%{http_code}",
+          "--max-time", "20", "-A", "Mozilla/5.0 (verifica link; utilityitalia.it)", url], { encoding: "utf8" });
+        const http = stdout.trim();
+        return { stato: Number(http) || "ERRORE", nota: `${codice}: verificato con curl` };
+      } catch (e2) { /* curl assente o fallito: resta l'errore originale */ }
+    }
+    return { stato: "ERRORE", nota: codice };
   }
 }
 

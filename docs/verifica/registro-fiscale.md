@@ -154,6 +154,10 @@ Letti su Normattiva il 27/10/2026.
 | T04 | Reddito di lavoro dipendente ai fini contributivi = quello del TUIR (tredicesima compresa) | L. 153/1969 art. 12 (vigente 30/01/2026) | V |
 | T05 | Aliquote INPS 9,19 / 8,80 / 5,84% | come F13 | V |
 | T06 | Mesi interi; frazioni e voci escluse secondo il CCNL; niente 1% oltre 56.224 €, addizionali, cuneo, trattamento integrativo | — | I · perimetro dichiarato |
+| T08 | NoiPA: nessuna detrazione d'imposta sulla tredicesima; pagata con lo stipendio di dicembre a chi è in servizio al 1° dicembre con almeno 1/12; cessati: ratei con la rata di dicembre; esclusi straordinari, indennità ferie, rimborsi spese, indennità sostitutive | NoiPA (MEF), «Tredicesima mensilità – Modalità di gestione e pagamento» (PDF letto il 14/11/2026) | V |
+| T09 | Pensioni: pagamento di dicembre 2026 il 1° dicembre; tredicesima fra le mensilità luglio–dicembre | INPS circ. 153 del 19/12/2025, par. 13 | V |
+| T10 | Rata di dicembre senza addizionali (recuperate in 11 rate gennaio–novembre); importo aggiuntivo 154,94 € (art. 70 L. 388/2000) in via provvisoria | INPS, «Il cedolino di pensione di dicembre 2025» | V |
+| T11 | Netto della tredicesima delle pensioni NON calcolato: regole INPS sulle detrazioni non verificate (circ. INPS 1982 descrive un conguaglio annuale sulla tredicesima) | — | I · escluso dichiaratamente |
 | T07 | Riferimento: griglia 4 rapporti × 93 retribuzioni × 4 durate con scaglioni mensili | `tests/fiscale.test.mjs` | V |
 
 **Nota per il 2027.** Su Normattiva la vista «vigente» mostra già come abrogati
