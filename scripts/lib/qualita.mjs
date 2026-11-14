@@ -47,8 +47,8 @@ const PRIMARIE = [
 
 const SOGLIA_SOMIGLIANZA = 0.15;
 
-/** URN Normattiva di TUIR, DPR 633/1972 e L. 190/2014 (vedi controllo dei link datati). */
-const ABROGATI_2027 = ["1986-12-22;917", "1972-10-26;633", "legge:2014-12-23;190"];
+/** URN Normattiva di TUIR, DPR 633/1972, L. 190/2014 e DPR 600/1973 (vedi controllo dei link datati). */
+const ABROGATI_2027 = ["1986-12-22;917", "1972-10-26;633", "legge:2014-12-23;190", "1973-09-29;600"];
 
 const testo = (s) => String(s || "").replace(/<[^>]+>/g, " ");
 const parole = (s) => testo(s).trim().split(/\s+/).filter(Boolean);
@@ -140,7 +140,7 @@ export function controllaQualita(configs, site, pages = []) {
     else if (fiscale && primarie.length < 2) errors.push(`[${id}] calcolatore fiscale con ${primarie.length} fonte primaria (minimo 2)`);
     if (fiscale && !cfg.disclaimer) errors.push(`[${id}] calcolatore fiscale senza disclaimer`);
 
-    // Atti abrogati dai testi unici dal 1° gennaio 2027 (D.Lgs. 10/2026 e 117/2026): su
+    // Atti abrogati dai testi unici dal 1° gennaio 2027 (D.Lgs. 10/2026, 117/2026 e 33/2025): su
     // Normattiva la vista «vigente» li mostra già abrogati, quindi il link va datato.
     for (const m of JSON.stringify(cfg).matchAll(/https:\/\/www\.normattiva\.it\/uri-res\/N2Ls\?urn:nir:[^"\s)]+/g)) {
       const u = m[0];

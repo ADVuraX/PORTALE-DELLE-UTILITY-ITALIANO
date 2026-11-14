@@ -166,7 +166,9 @@ l'art. 16 DPR 633/1972 (D.Lgs. 10/2026) e i commi 54–89 della L. 190/2014
 1° gennaio 2027 — art. 377 — e abroga da quella data anche le norme dell'IRPEF
 oggi nel TUIR, art. 376). Per l'anno d'imposta 2026 le norme citate restano
 quelle applicabili; i link a Normattiva vanno datati (`!vig=`). Da gennaio 2027
-tutte le citazioni normative del sito vanno riportate ai nuovi testi unici.
+tutte le citazioni normative del sito vanno riportate ai nuovi testi unici. Anche
+l'art. 23 DPR 600/1973 passa al D.Lgs. 33/2025 (art. 33, dal 1° gennaio 2027): tabella
+completa in `docs/research/aggiornamento-2027.md`.
 
 ## Fuori perimetro (citati come esclusioni in pagina)
 
