@@ -183,6 +183,27 @@ Letti il 16/11/2026: Normattiva (D.Lgs. 22/2015 artt. 3–6) e circolari INPS in
 | N15 | Riferimento indipendente: importo dall'art. 4 e totale giorno per giorno su oltre 3.000 casi | `tests/fiscale.test.mjs` | V |
 | N16 | Fuori perimetro: IRPEF, riduzioni per lavoro durante la NASpI, anticipazione, frontalieri, NASpI iniziate prima del 2026, DIS-COLL | — | I · perimetro dichiarato |
 
+## Rivalutazione ISTAT dell'affitto (`rivalutazione-istat.js`, dati in `istat-foi.js`)
+
+Letti il 16/11/2026. Serie scaricata da ISTAT Rivaluta (tavola «Indici nazionali generali e
+coefficienti di raccordo tra basi diverse», FOI senza tabacchi, Ecoicop v2) e aggiornata ogni mese con `npm run foi`.
+
+| # | Valore / affermazione | Fonte primaria | Stato |
+|---|---|---|---|
+| A01 | Indice per adeguare canoni e assegni: FOI senza tabacchi, pubblicato in GU | ISTAT, «Indice dei prezzi per le rivalutazioni monetarie»; L. 392/1978 art. 81 | V |
+| A02 | Produzione mensile dal febbraio 1992 (L. 81/1992) | nota ISTAT sulle variazioni e i coefficienti di raccordo (gennaio 2026) | V |
+| A03 | Base 2025 = 100 da gennaio 2026, Ecoicop v2; raccordi 1,214 (2015→2025), 1,071 (2010→2015), 1,373 (1995→2010) | stessa nota; pagina ISTAT; tavola Rivaluta | V |
+| A04 | Variazione = rapporto × raccordi × 100 − 100, arrotondata a un decimale; coefficiente arrotondato a tre decimali | stessa nota | V |
+| A05 | Esempio gennaio 2009 → gennaio 2026: +33,6%, coefficiente 1,336 | stessa nota (esempi 1 e 3) | V · test |
+| A06 | Settembre 2026: indice 104,3; +4,0% su 12 mesi; +5,5% su 24 mesi | pagina ISTAT (settembre 2026) | V · test |
+| A07 | Non abitativo: aggiornamento annuale se pattuito, su richiesta del locatore, max 75% della variazione FOI dell'anno precedente per i contratti entro la durata dell'art. 27 | L. 392/1978 art. 32 | V |
+| A08 | Art. 24 L. 392/1978 abrogato per le locazioni abitative | L. 431/1998 art. 14 c. 4 (nota Normattiva sull'art. 24) | V |
+| A09 | Canone concordato: accordi territoriali, aggiornamento non oltre il 75% della variazione ISTAT dell'anno precedente, se non c'è cedolare secca | D.M. 16/01/2017 art. 1 c. 9 (GU n. 62 del 15/03/2017) | V |
+| A10 | Cedolare secca: sospesa per la durata dell'opzione ogni richiesta di aggiornamento, ISTAT compreso; raccomandata preventiva | D.Lgs. 23/2011 art. 3 c. 11 (vigente 30/01/2026; abrogato dal D.Lgs. 117/2026 dal 2027) | V |
+| A11 | Canone libero: percentuale pattuita nel contratto | nessuna norma che fissi un limite dopo l'abrogazione A08 | I · formulato come rinvio al contratto |
+| A12 | Riferimento indipendente: indici riportati in base 1995, oltre 1.500 coppie di mesi | `tests/fiscale.test.mjs` | V |
+| A13 | Fuori perimetro: arretrati, interessi, decorrenza della richiesta, scelta del mese | — | I · rinvio al contratto |
+
 **Nota per il 2027.** Su Normattiva la vista «vigente» mostra già come abrogati
 l'art. 16 DPR 633/1972 (D.Lgs. 10/2026) e i commi 54–89 della L. 190/2014
 (D.Lgs. 117/2026, Testo unico delle imposte sui redditi, che si applica dal

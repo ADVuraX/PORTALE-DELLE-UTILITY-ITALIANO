@@ -37,6 +37,7 @@ i link sono datati (`!vig=2026-01-30`) e `qualita.mjs` blocca quelli senza data.
 | DPR 633/1972 art. 21 (fatturazione) | D.Lgs. 10/2026 art. 72 | scorporo IVA |
 | DPR 633/1972 art. 35 (partita IVA) | D.Lgs. 10/2026 art. 68 | validatore partita IVA |
 | DPR 600/1973 art. 23 (ritenute lavoro dipendente) | D.Lgs. 33/2025 art. 33 (stesso testo per le mensilità aggiuntive) | tredicesima |
+| D.Lgs. 23/2011 art. 3 c. 11 (cedolare secca, sospensione dell'aggiornamento ISTAT) | da trovare nel D.Lgs. 117/2026 (Normattiva indica l'abrogazione da parte del testo unico) | rivalutazione ISTAT affitto |
 
 Da verificare a gennaio: dove confluiscono L. 207/2024 c. 4 (somma esente del
 cuneo), il trattamento integrativo (D.L. 3/2020) e l'addizionale regionale

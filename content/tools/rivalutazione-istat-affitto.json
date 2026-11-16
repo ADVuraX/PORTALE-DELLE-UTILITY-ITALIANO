@@ -1,0 +1,345 @@
+{
+  "slug": "rivalutazione-istat-affitto",
+  "cluster": "calcolatori",
+  "tema": "casa",
+  "updated": "2026-11",
+  "seo": {
+    "title": "Rivalutazione ISTAT Affitto – Aggiornamento del Canone con l'Indice FOI",
+    "metaDescription": "Calcola l'aggiornamento ISTAT del canone d'affitto: variazione dell'indice FOI fra due mesi, al 75% o al 100%, con i coefficienti di raccordo fra le basi e l'ultimo indice pubblicato dall'ISTAT.",
+    "primaryKeyword": "rivalutazione istat affitto",
+    "canonical": "/rivalutazione-istat-affitto/"
+  },
+  "h1": "Rivalutazione ISTAT del Canone d'Affitto",
+  "intro": "Inserisci il canone mensile, i due mesi da confrontare e la percentuale prevista dal contratto. Il calcolatore prende gli indici ISTAT dei prezzi al consumo per le famiglie di operai e impiegati senza tabacchi, l'indice che si usa per aggiornare gli affitti, calcola la variazione con il metodo dell'ISTAT, compresi i coefficienti di raccordo quando fra i due mesi cambia la base, e ti dice di quanto sale il canone al mese e in un anno. Più sotto trovi quando l'aggiornamento si può chiedere, il limite del 75% e cosa succede con la cedolare secca.",
+  "tool": {
+    "logicId": "istat-affitto-v1",
+    "script": "rivalutazione-istat.js",
+    "data": [
+      "istat-foi.js"
+    ],
+    "cardNote": "Indice FOI mensile",
+    "inputs": [
+      {
+        "id": "canone",
+        "label": "Canone mensile attuale",
+        "type": "number",
+        "min": 0,
+        "step": 10,
+        "suffix": "€/mese",
+        "default": 800
+      },
+      {
+        "id": "quota",
+        "label": "Percentuale della variazione da applicare",
+        "type": "number",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "suffix": "%",
+        "default": 75,
+        "hint": "75% è il massimo per negozi, uffici e canone concordato"
+      },
+      {
+        "type": "group",
+        "legend": "Dal mese",
+        "inputs": [
+          {
+            "id": "meseDa",
+            "label": "Mese di partenza",
+            "type": "select",
+            "options": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "optionLabels": {
+              "1": "Gennaio",
+              "2": "Febbraio",
+              "3": "Marzo",
+              "4": "Aprile",
+              "5": "Maggio",
+              "6": "Giugno",
+              "7": "Luglio",
+              "8": "Agosto",
+              "9": "Settembre",
+              "10": "Ottobre",
+              "11": "Novembre",
+              "12": "Dicembre"
+            },
+            "default": 9
+          },
+          {
+            "id": "annoDa",
+            "label": "Anno di partenza",
+            "type": "number",
+            "min": 1996,
+            "max": 2026,
+            "step": 1,
+            "default": 2025
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "legend": "Al mese",
+        "inputs": [
+          {
+            "id": "meseA",
+            "label": "Mese di arrivo",
+            "type": "select",
+            "options": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "optionLabels": {
+              "1": "Gennaio",
+              "2": "Febbraio",
+              "3": "Marzo",
+              "4": "Aprile",
+              "5": "Maggio",
+              "6": "Giugno",
+              "7": "Luglio",
+              "8": "Agosto",
+              "9": "Settembre",
+              "10": "Ottobre",
+              "11": "Novembre",
+              "12": "Dicembre"
+            },
+            "default": 9
+          },
+          {
+            "id": "annoA",
+            "label": "Anno di arrivo",
+            "type": "number",
+            "min": 1996,
+            "max": 2026,
+            "step": 1,
+            "default": 2026
+          }
+        ]
+      }
+    ],
+    "outputPrimary": {
+      "id": "nuovo",
+      "label": "Canone aggiornato",
+      "format": "currency2"
+    },
+    "outputSecondary": [
+      {
+        "id": "aumento",
+        "label": "Differenza al mese",
+        "format": "currency2"
+      },
+      {
+        "id": "aumentoAnnuo",
+        "label": "Differenza in un anno",
+        "format": "currency2"
+      },
+      {
+        "id": "variazione",
+        "label": "Variazione dell'indice FOI",
+        "format": "text"
+      },
+      {
+        "id": "applicata",
+        "label": "Variazione applicata al canone",
+        "format": "text"
+      },
+      {
+        "id": "coefficiente",
+        "label": "Coefficiente di rivalutazione",
+        "format": "text"
+      },
+      {
+        "id": "indici",
+        "label": "Indici usati",
+        "format": "text",
+        "larga": true
+      }
+    ]
+  },
+  "spiegazione": {
+    "titolo": "Come funziona l'aggiornamento ISTAT del canone",
+    "corpo": [
+      "Aggiornare il canone all'ISTAT significa adeguarlo all'aumento dei prezzi. L'indice di riferimento è quello dei prezzi al consumo per le famiglie di operai e impiegati, chiamato FOI, nella versione senza tabacchi: l'ISTAT lo calcola ogni mese dal febbraio 1992, come chiede la legge 81 di quell'anno, e le sue variazioni vengono pubblicate in Gazzetta Ufficiale secondo l'articolo 81 della legge 392 del 1978. La stessa pagina dell'ISTAT lo indica per adeguare valori come il canone d'affitto o l'assegno al coniuge separato."
+    ],
+    "sezioni": [
+      {
+        "titolo": "Quando si può chiedere",
+        "paragrafi": [
+          "L'aggiornamento non è automatico: deve essere previsto dal contratto. Per gli immobili non abitativi, come negozi, uffici e laboratori, l'articolo 32 della legge 392 del 1978 dice che le parti possono concordare un aggiornamento annuale su richiesta del locatore; per i contratti che non superano la durata dell'articolo 27 l'aumento non può superare il 75% della variazione dell'indice FOI accertata dall'ISTAT nell'anno precedente.",
+          "Per le abitazioni la regola dell'equo canone, l'articolo 24 della stessa legge, è stata abrogata dalla legge 431 del 1998. Nei contratti a canone concordato decidono gli accordi territoriali: il decreto ministeriale del 16 gennaio 2017 (art. 1, comma 9) consente un aggiornamento contrattato e comunque non superiore al 75% della variazione ISTAT dell'anno precedente, se il locatore non ha scelto la cedolare secca. Nei contratti a canone libero vale la percentuale scritta nel contratto."
+        ]
+      },
+      {
+        "titolo": "Con la cedolare secca l'aggiornamento è sospeso",
+        "paragrafi": [
+          "Chi sceglie la cedolare secca rinuncia ad aumentare il canone per tutta la durata dell'opzione. L'articolo 3, comma 11, del decreto legislativo 23 del 2011 sospende la facoltà di chiedere l'aggiornamento a qualsiasi titolo, compresa la variazione ISTAT, anche se il contratto la prevede; l'opzione ha effetto solo se il locatore lo comunica prima all'inquilino con lettera raccomandata. In questo caso il calcolatore ti dice di quanto sarebbe cresciuto il canone, non quanto puoi chiedere."
+        ]
+      },
+      {
+        "titolo": "Come si calcola la variazione",
+        "paragrafi": [
+          "Il metodo è quello della nota dell'ISTAT sulle rivalutazioni monetarie. Si divide l'indice del mese di arrivo per quello del mese di partenza, si moltiplica per 100 e si toglie 100; il risultato si arrotonda a un decimale. Il canone nuovo è il canone attuale aumentato della percentuale di variazione prevista dal contratto.",
+          "Un esempio con i dati del 2026: l'indice FOI di settembre 2025 è 121,7 in base 2015, quello di settembre 2026 è 104,3 in base 2025. Il rapporto va moltiplicato per il coefficiente di raccordo 1,214: 104,3 / 121,7 × 1,214 = 1,040, cioè +4,0%. Al 75% la variazione applicata è il 3%, e un canone di 800 euro diventa 824 euro al mese, 288 euro in più in un anno."
+        ]
+      },
+      {
+        "titolo": "Il cambio di base del 2026",
+        "paragrafi": [
+          "Da gennaio 2026 l'ISTAT pubblica l'indice FOI con base 2025 = 100 e con la nuova classificazione europea delle voci di spesa, la ECOICOP versione 2. Gli indici fino a dicembre 2025 restano in base 2015 = 100, quindi fra due mesi a cavallo del cambio i numeri non sono confrontabili direttamente: per passare da una base all'altra l'ISTAT pubblica il coefficiente di raccordo, 1,214.",
+          "Il calcolatore applica da solo tutti i coefficienti che servono fra i due mesi scelti: 1,373 per il passaggio dalla base 1995 alla base 2010, 1,071 dalla 2010 alla 2015 e 1,214 dalla 2015 alla 2025. La serie parte da gennaio 1996 e arriva all'ultimo indice pubblicato dall'ISTAT; il file dei dati viene aggiornato ogni mese."
+        ]
+      },
+      {
+        "titolo": "Quale mese scegliere e cosa fare se l'indice scende",
+        "paragrafi": [
+          "Il mese da confrontare lo indica il contratto. Per un aggiornamento annuale si confronta un mese con lo stesso mese dell'anno prima. Puoi anche scegliere un intervallo di più anni, per esempio per vedere quanto è cresciuto l'indice dalla firma del contratto: se quella differenza si possa chiedere tutta insieme dipende dal contratto e dalla richiesta del locatore.",
+          "Quando i prezzi calano la variazione è negativa e il calcolatore mostra un canone più basso; se applicarla dipende da come è scritta la clausola. Il coefficiente di rivalutazione, il rapporto fra gli indici arrotondato a tre decimali, serve anche per rivalutare altre somme fra due mesi."
+        ]
+      }
+    ]
+  },
+  "esempi": [
+    {
+      "titolo": "800 € al mese, aggiornamento al 75% da settembre 2025 a settembre 2026",
+      "risultatoAtteso": "Variazione FOI +4,0% · applicata +3,0% · nuovo canone 824 € al mese",
+      "verifica": {
+        "input": {
+          "canone": 800,
+          "quota": 75,
+          "meseDa": 9,
+          "annoDa": 2025,
+          "meseA": 9,
+          "annoA": 2026
+        },
+        "campo": "nuovo",
+        "atteso": 824
+      }
+    },
+    {
+      "titolo": "L'anno dell'inflazione: 600 € al 75% da ottobre 2021 a ottobre 2022",
+      "risultatoAtteso": "Variazione FOI +11,5% · applicata +8,625% · nuovo canone 652 € al mese",
+      "verifica": {
+        "input": {
+          "canone": 600,
+          "quota": 75,
+          "meseDa": 10,
+          "annoDa": 2021,
+          "meseA": 10,
+          "annoA": 2022
+        },
+        "campo": "nuovo",
+        "atteso": 651.75
+      }
+    },
+    {
+      "titolo": "L'esempio della nota ISTAT: 1.000 € al 100% da gennaio 2009 a gennaio 2026",
+      "risultatoAtteso": "Tre cambi di base, variazione +33,6%, coefficiente 1,336 · 1.336 €",
+      "verifica": {
+        "input": {
+          "canone": 1000,
+          "quota": 100,
+          "meseDa": 1,
+          "annoDa": 2009,
+          "meseA": 1,
+          "annoA": 2026
+        },
+        "campo": "nuovo",
+        "atteso": 1336
+      }
+    }
+  ],
+  "faq": [
+    {
+      "domanda": "Come si calcola l'aggiornamento ISTAT dell'affitto?",
+      "risposta": "Si prende la variazione percentuale dell'indice FOI senza tabacchi fra i due mesi, arrotondata a un decimale, se ne applica la quota prevista dal contratto, per esempio il 75%, e si aumenta il canone di quella percentuale. Con +4,0% al 75% un canone di 800 euro sale del 3%, a 824 euro."
+    },
+    {
+      "domanda": "L'aggiornamento ISTAT del canone è al 75% o al 100%?",
+      "risposta": "Per gli immobili non abitativi la legge 392/1978 (art. 32) fissa il limite del 75% per i contratti che non superano la durata dell'articolo 27; per il canone concordato lo stesso limite viene dal decreto ministeriale del 16 gennaio 2017. Nei contratti abitativi a canone libero vale la percentuale pattuita."
+    },
+    {
+      "domanda": "Con la cedolare secca si può chiedere l'adeguamento ISTAT?",
+      "risposta": "No. Per tutta la durata dell'opzione è sospesa la facoltà di chiedere qualsiasi aggiornamento del canone, compresa la variazione ISTAT, anche se il contratto la prevede (D.Lgs. 23/2011, art. 3, comma 11)."
+    },
+    {
+      "domanda": "Quale indice ISTAT si usa per gli affitti?",
+      "risposta": "L'indice dei prezzi al consumo per le famiglie di operai e impiegati (FOI) senza tabacchi, indice generale nazionale. Non va confuso con gli altri due indici dei prezzi al consumo dell'ISTAT, il NIC e l'IPCA."
+    },
+    {
+      "domanda": "Cosa cambia con la nuova base 2025 dell'indice FOI?",
+      "risposta": "Da gennaio 2026 gli indici sono espressi in base 2025 = 100, quelli precedenti in base 2015 = 100. Per confrontare un mese del 2025 con uno del 2026 bisogna moltiplicare il rapporto per il coefficiente di raccordo 1,214: il calcolatore lo fa da solo."
+    },
+    {
+      "domanda": "L'aumento ISTAT del canone scatta in automatico?",
+      "risposta": "No. Deve essere previsto dal contratto e, per gli immobili non abitativi, l'articolo 32 della legge 392/1978 lo lega alla richiesta del locatore. Con la cedolare secca è sospeso."
+    }
+  ],
+  "relatedTools": [
+    "calcolo-interessi-legali",
+    "calcolatore-rata-mutuo",
+    "scorporo-iva"
+  ],
+  "disclaimer": "<strong>Calcolo della variazione dell'indice FOI con il metodo dell'ISTAT.</strong> Il risultato dipende dai mesi e dalla percentuale che indichi: se e quanto aggiornare il canone lo stabiliscono il contratto, gli accordi territoriali e le norme citate. <strong>Non</strong> considera arretrati, interessi, imposte né la decorrenza della richiesta del locatore.",
+  "fonti": [
+    {
+      "titolo": "Legge 27 luglio 1978, n. 392, art. 32 — Aggiornamento del canone",
+      "dettaglio": "Immobili non abitativi: aggiornamento annuale su richiesta del locatore, al massimo il 75% della variazione dell'indice FOI dell'anno precedente",
+      "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:1978-07-27;392~art32"
+    },
+    {
+      "titolo": "Legge 27 luglio 1978, n. 392, art. 81",
+      "dettaglio": "Le variazioni dell'indice FOI accertate dall'ISTAT sono pubblicate nella Gazzetta Ufficiale",
+      "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:1978-07-27;392~art81"
+    },
+    {
+      "titolo": "Legge 27 luglio 1978, n. 392, art. 24",
+      "dettaglio": "Aggiornamento del canone abitativo dell'equo canone: abrogato per le locazioni abitative dall'art. 14, comma 4, della L. 431/1998",
+      "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:1978-07-27;392~art24"
+    },
+    {
+      "titolo": "D.M. 16 gennaio 2017 (Gazzetta Ufficiale n. 62 del 15 marzo 2017), art. 1, comma 9",
+      "dettaglio": "Canone concordato: gli accordi territoriali possono prevedere un aggiornamento non superiore al 75% della variazione ISTAT, se il locatore non opta per la cedolare secca",
+      "url": "https://www.gazzettaufficiale.it/eli/gu/2017/03/15/62/sg/pdf"
+    },
+    {
+      "titolo": "D.Lgs. 14 marzo 2011, n. 23, art. 3, comma 11 — cedolare secca",
+      "dettaglio": "Per la durata dell'opzione è sospeso ogni aggiornamento del canone, compresa la variazione ISTAT; comunicazione preventiva con raccomandata (testo vigente al 30/01/2026)",
+      "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2011-03-14;23~art3!vig=2026-01-30"
+    },
+    {
+      "titolo": "ISTAT, Indice dei prezzi per le rivalutazioni monetarie",
+      "dettaglio": "Indice FOI senza tabacchi, base 2025 = 100 da gennaio 2026, coefficiente di raccordo con la base 2015 pari a 1,214; uso per canoni e assegni",
+      "url": "https://www.istat.it/notizia/indice-dei-prezzi-per-le-rivalutazioni-monetarie/"
+    },
+    {
+      "titolo": "ISTAT, calcolo e utilizzo delle variazioni e dei coefficienti di raccordo",
+      "dettaglio": "Variazione arrotondata a un decimale, raccordi fra basi contigue (1,373; 1,071; 1,214), esempio gennaio 2009 – gennaio 2026: +33,6%",
+      "url": "https://www.istat.it/wp-content/uploads/2026/01/NM_variazioni_coefficienti_2026.pdf"
+    }
+  ],
+  "jsonLd": {
+    "type": "SoftwareApplication",
+    "applicationCategory": "FinanceApplication"
+  }
+}

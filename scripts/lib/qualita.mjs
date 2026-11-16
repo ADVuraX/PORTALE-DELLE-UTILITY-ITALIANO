@@ -47,8 +47,8 @@ const PRIMARIE = [
 
 const SOGLIA_SOMIGLIANZA = 0.15;
 
-/** URN Normattiva di TUIR, DPR 633/1972, L. 190/2014 e DPR 600/1973 (vedi controllo dei link datati). */
-const ABROGATI_2027 = ["1986-12-22;917", "1972-10-26;633", "legge:2014-12-23;190", "1973-09-29;600"];
+/** URN Normattiva di TUIR, DPR 633/1972, L. 190/2014, DPR 600/1973 e D.Lgs. 23/2011 (vedi controllo dei link datati). */
+const ABROGATI_2027 = ["1986-12-22;917", "1972-10-26;633", "legge:2014-12-23;190", "1973-09-29;600", "decreto.legislativo:2011-03-14;23"];
 
 const testo = (s) => String(s || "").replace(/<[^>]+>/g, " ");
 const parole = (s) => testo(s).trim().split(/\s+/).filter(Boolean);

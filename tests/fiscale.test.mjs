@@ -552,3 +552,61 @@ test("NASpI: sotto le 13 settimane il requisito manca; settimane tutte già usat
   assert.equal(u.giorni, 0);
   assert.match(u.inizialeLabel, /già state usate/);
 });
+
+// --- Rivalutazione ISTAT (indice FOI) ----------------------------------------
+// Ancore: esempi della nota ISTAT sulle rivalutazioni monetarie (gennaio 2026) e
+// variazioni pubblicate sulla pagina ISTAT per settembre 2026. Riferimento
+// indipendente: ogni indice riportato in base 1995 moltiplicando per i raccordi.
+const istat = calcolatore("istat-affitto-v1", "rivalutazione-istat.js", ["istat-foi.js"]);
+const FOI = globalThis.FOI;
+
+test("ISTAT: esempi della nota (gen 2009 → gen 2026: +33,6%, coefficiente 1,336)", () => {
+  const o = istat({ canone: 100, quota: 100, meseDa: 1, annoDa: 2009, meseA: 1, annoA: 2026 });
+  assert.equal(o.variazioneNumero, 33.6);
+  assert.equal(o.coefficiente, "1,336");
+});
+
+test("ISTAT: variazioni di settembre 2026 come sulla pagina ISTAT (+4,0% su 12 mesi, +5,5% su 24)", () => {
+  assert.equal(istat({ canone: 800, quota: 75, meseDa: 9, annoDa: 2025, meseA: 9, annoA: 2026 }).variazioneNumero, 4.0);
+  assert.equal(istat({ canone: 800, quota: 75, meseDa: 9, annoDa: 2024, meseA: 9, annoA: 2026 }).variazioneNumero, 5.5);
+  assert.equal(istat({ canone: 800, quota: 75, meseDa: 9, annoDa: 2025, meseA: 9, annoA: 2026 }).nuovo, 824);
+});
+
+test("ISTAT: dati completi e coefficienti di raccordo della nota", () => {
+  assert.deepEqual(FOI.basi.map((b) => b.raccordo).filter(Boolean), [1.373, 1.071, 1.214]);
+  const [ua, um] = FOI.aggiornato.split("-").map(Number);
+  for (let y = 1996; y <= ua; y++) {
+    const atteso = y < ua ? 12 : um;
+    assert.equal(FOI.serie[y].length, atteso, `anno ${y}`);
+    FOI.serie[y].forEach((v) => assert.ok(v > 90 && v < 140 && Math.round(v * 10) === v * 10, `${y}: ${v}`));
+  }
+});
+
+test("ISTAT: griglia di coppie di mesi contro gli indici riportati in base 1995", () => {
+  const mesi = [];
+  for (const y of Object.keys(FOI.serie).map(Number)) FOI.serie[y].forEach((v, i) => mesi.push({ y, m: i + 1, v }));
+  const ym = (x) => `${x.y}-${String(x.m).padStart(2, "0")}`;
+  const in1995 = (x) => {
+    let k = 1;
+    for (const b of FOI.basi) if (b.raccordo && b.da <= ym(x)) k *= b.raccordo;
+    return x.v * k;
+  };
+  let casi = 0;
+  for (let i = 0; i < mesi.length; i += 7) {
+    for (let j = i + 1; j < mesi.length; j += 5) {
+      const a = mesi[i], b = mesi[j];
+      const o = istat({ canone: 1000, quota: 75, meseDa: a.m, annoDa: a.y, meseA: b.m, annoA: b.y });
+      const v = Math.round((in1995(b) / in1995(a) * 100 - 100) * 10 + 1e-9 * Math.sign(in1995(b) - in1995(a))) / 10;
+      assert.ok(Math.abs(o.variazioneNumero - v) < 1e-9, `${ym(a)} → ${ym(b)}: ${o.variazioneNumero} vs ${v}`);
+      assert.ok(Math.abs(o.nuovo - 1000 * (1 + v * 0.75 / 100)) < 1e-9);
+      casi++;
+    }
+  }
+  assert.ok(casi > 1500, `casi ${casi}`);
+});
+
+test("ISTAT: mesi fuori serie, invertiti o non ancora pubblicati", () => {
+  assert.match(istat({ canone: 800, quota: 75, meseDa: 12, annoDa: 1995, meseA: 9, annoA: 2026 }).nuovoLabel, /gennaio 1996/);
+  assert.match(istat({ canone: 800, quota: 75, meseDa: 9, annoDa: 2026, meseA: 9, annoA: 2025 }).nuovoLabel, /dopo/);
+  assert.match(istat({ canone: 800, quota: 75, meseDa: 1, annoDa: 2026, meseA: 12, annoA: 2099 }).nuovoLabel, /non ancora pubblicato/);
+});
