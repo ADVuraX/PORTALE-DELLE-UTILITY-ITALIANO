@@ -53,7 +53,9 @@ lo cita. Un link utile in una discussione vale più di dieci in un elenco.
 
 ## Senza link, ma utile
 
-- **Bing Webmaster Tools**: si importa la proprietà da Search Console; Bing alimenta anche
-  le ricerche di altri motori e assistenti.
+- **Bing Webmaster Tools**: fatto il 16/11/2026. Proprietà importata da Search Console,
+  sitemap inviata, 38 URL inviati con «URL Submission» (quota 100 al giorno). Ad ogni
+  nuovo strumento: inviare il suo URL anche lì. Bing alimenta anche le ricerche di altri
+  motori e assistenti.
 - **Nuove pagine utili**: ogni strumento che risponde a una ricerca frequente è un motivo
   in più per essere citati.
