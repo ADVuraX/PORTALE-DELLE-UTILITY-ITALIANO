@@ -1,0 +1,317 @@
+{
+  "slug": "calcolatore-naspi",
+  "cluster": "calcolatori",
+  "tema": "lavoro",
+  "updated": "2026-11",
+  "seo": {
+    "title": "Calcolo NASpI 2026 – Importo, Durata e Riduzione Mese per Mese",
+    "metaDescription": "Calcola la NASpI 2026: importo mensile lordo con la soglia di 1.456,72 € e il massimo di 1.584,70 €, durata in settimane e riduzione del 3% al mese dal sesto mese.",
+    "primaryKeyword": "calcolo naspi",
+    "canonical": "/calcolatore-naspi/"
+  },
+  "h1": "Calcolatore della NASpI",
+  "intro": "La NASpI è l'indennità mensile di disoccupazione che l'INPS paga a chi perde il lavoro dipendente senza averlo scelto. Inserisci la retribuzione degli ultimi quattro anni, le settimane di contributi e la tua età alla domanda: il calcolatore applica le regole del decreto legislativo 22 del 2015 con i valori 2026 pubblicati dall'INPS e ti mostra l'importo lordo dei primi mesi, quante settimane dura, da quale mese scatta la riduzione del 3% e quanto ricevi mese per mese fino all'ultimo. Le fonti sono in fondo alla pagina.",
+  "tool": {
+    "logicId": "naspi-v1",
+    "script": "naspi.js",
+    "data": [
+      "naspi-2026.js"
+    ],
+    "cardNote": "Massimale 2026",
+    "inputs": [
+      {
+        "id": "modo",
+        "label": "Come conosci la tua retribuzione",
+        "type": "radio",
+        "options": [
+          "annua",
+          "totale"
+        ],
+        "optionLabels": {
+          "annua": "Stipendio stabile (RAL)",
+          "totale": "Totale dei 4 anni"
+        },
+        "default": "annua"
+      },
+      {
+        "id": "ral",
+        "label": "Retribuzione lorda annua",
+        "type": "number",
+        "min": 0,
+        "step": 500,
+        "suffix": "€/anno",
+        "default": 24000,
+        "hint": "comprese tredicesima ed eventuale quattordicesima",
+        "showIf": {
+          "input": "modo",
+          "equals": "annua"
+        }
+      },
+      {
+        "id": "totale",
+        "label": "Retribuzione imponibile degli ultimi 4 anni",
+        "type": "number",
+        "min": 0,
+        "step": 1000,
+        "suffix": "€",
+        "default": 96000,
+        "hint": "somma degli imponibili previdenziali, dall'estratto conto INPS",
+        "showIf": {
+          "input": "modo",
+          "equals": "totale"
+        }
+      },
+      {
+        "id": "settimane",
+        "label": "Settimane di contributi negli ultimi 4 anni",
+        "type": "number",
+        "min": 0,
+        "max": 208,
+        "step": 1,
+        "suffix": "settimane",
+        "default": 208,
+        "hint": "quattro anni pieni sono 208 settimane"
+      },
+      {
+        "id": "settimaneUsate",
+        "label": "Di cui già usate per un'altra disoccupazione",
+        "type": "number",
+        "min": 0,
+        "max": 208,
+        "step": 1,
+        "suffix": "settimane",
+        "default": 0,
+        "hint": "contributi che hanno già dato diritto a una NASpI precedente"
+      },
+      {
+        "id": "over55",
+        "label": "Alla domanda avrò già compiuto 55 anni",
+        "type": "checkbox",
+        "default": false
+      }
+    ],
+    "outputPrimary": {
+      "id": "iniziale",
+      "label": "NASpI mensile lorda nei primi mesi",
+      "format": "currency2"
+    },
+    "outputSecondary": [
+      {
+        "id": "retribuzione",
+        "label": "Retribuzione mensile di riferimento",
+        "format": "currency2"
+      },
+      {
+        "id": "formula",
+        "label": "Come si arriva all'importo",
+        "format": "text"
+      },
+      {
+        "id": "durata",
+        "label": "Durata",
+        "format": "text"
+      },
+      {
+        "id": "riduzione",
+        "label": "Riduzione",
+        "format": "text"
+      },
+      {
+        "id": "ultimo",
+        "label": "Rata mensile nell'ultimo mese",
+        "format": "currency2"
+      },
+      {
+        "id": "totale",
+        "label": "Totale lordo sull'intera durata",
+        "format": "currency"
+      },
+      {
+        "id": "piano",
+        "label": "Importo mese per mese",
+        "format": "text",
+        "larga": true
+      }
+    ]
+  },
+  "spiegazione": {
+    "titolo": "Come l'INPS calcola importo e durata della NASpI",
+    "corpo": [
+      "La Nuova prestazione di Assicurazione Sociale per l'Impiego, NASpI, è regolata dal decreto legislativo 4 marzo 2015, n. 22. Sostituisce in parte lo stipendio perso e si calcola sui contributi degli ultimi quattro anni: pesano sia quanto guadagnavi sia per quanto tempo hai lavorato. Il calcolatore segue gli articoli 4 e 5 del decreto con i due valori che l'INPS aggiorna ogni gennaio; qui sotto trovi ogni passaggio, con i numeri dell'esempio di una retribuzione annua di 24.000 euro."
+    ],
+    "sezioni": [
+      {
+        "titolo": "Chi ne ha diritto",
+        "paragrafi": [
+          "Serve aver perso il lavoro in modo involontario: licenziamento, contratto a termine scaduto, dimissioni per giusta causa o risoluzione consensuale raggiunta nella procedura di conciliazione dell'articolo 7 della legge 604 del 1966. Bisogna poi essere in stato di disoccupazione e avere almeno 13 settimane di contributi nei quattro anni prima della perdita del lavoro (art. 3). Dal 2022 non si chiedono più le trenta giornate di lavoro effettivo nell'ultimo anno.",
+          "Dal 1° gennaio 2025 c'è un vincolo in più: se nei dodici mesi precedenti ti sei dimesso da un contratto a tempo indeterminato, o l'hai chiuso con una risoluzione consensuale, dopo quella cessazione devi aver accumulato almeno 13 nuove settimane di contributi. Il vincolo non vale per la giusta causa, per la conciliazione appena citata e per le dimissioni tutelate dall'articolo 55 del testo unico su maternità e paternità. Il calcolatore controlla solo le 13 settimane: gli altri requisiti li verifica l'INPS sulla domanda."
+        ]
+      },
+      {
+        "titolo": "La retribuzione di riferimento",
+        "paragrafi": [
+          "Il punto di partenza è la retribuzione imponibile ai fini previdenziali dei quattro anni, compresi gli elementi non continuativi e le mensilità aggiuntive. Si divide per il numero di settimane di contributi e si moltiplica per 4,33, cioè le settimane medie di un mese. L'INPS conta tutte le settimane, anche quelle retribuite solo in parte (circolare n. 94 del 2015).",
+          "Se lo stipendio è rimasto stabile non serve sommare quattro anni di buste paga: dividere la retribuzione annua per 52 e moltiplicarla per 4,33 dà lo stesso risultato, che tu abbia lavorato quattro anni o sei mesi. Con 24.000 euro l'anno la retribuzione di riferimento è 1.998,46 euro. Se invece hai avuto aumenti, part-time o periodi diversi, scegli il totale dei quattro anni: lo trovi nell'estratto conto contributivo dell'INPS."
+        ]
+      },
+      {
+        "titolo": "Dalla retribuzione all'importo",
+        "paragrafi": [
+          "Fino alla soglia di 1.456,72 euro, il valore 2026 indicato dall'INPS nella circolare n. 4 del 28 gennaio 2026, la NASpI è il 75% della retribuzione di riferimento. Sopra la soglia si somma il 25% della parte che eccede: con 1.998,46 euro diventa 1.092,54 + 135,44 = 1.227,98 euro al mese. In nessun caso l'importo supera il massimo di 1.584,70 euro, che si raggiunge con una retribuzione di riferimento di 3.425,36 euro al mese.",
+          "Sull'importo non si applica la trattenuta del 5,84% prevista dall'articolo 26 della legge 41 del 1986, che invece riduce la cassa integrazione: l'articolo 4 la esclude. I periodi di NASpI sono coperti da contributi figurativi, accreditati dall'INPS senza costi per te."
+        ]
+      },
+      {
+        "titolo": "Quanto dura",
+        "paragrafi": [
+          "La NASpI si paga per la metà delle settimane di contributi dei quattro anni (art. 5). Chi ha lavorato tutti i quattro anni, 208 settimane, la riceve per 104 settimane, cioè 728 giorni: è la durata massima. Con 100 settimane la durata è 50 settimane, 350 giorni.",
+          "Le settimane che hanno già dato diritto a una prestazione di disoccupazione non si contano una seconda volta, anche se quella prestazione l'hai incassata in anticipo in un'unica soluzione. Per questo il calcolatore chiede quante ne hai già usate: contano per l'importo, ma non per la durata. I giorni si ottengono moltiplicando le settimane per sette; il calcolatore tiene i giorni interi."
+        ]
+      },
+      {
+        "titolo": "La riduzione del 3% al mese",
+        "paragrafi": [
+          "Dal sesto mese di fruizione la NASpI cala del 3% ogni mese; se alla domanda hai già compiuto 55 anni la riduzione parte dall'ottavo mese. La regola vale per chi ha perso il lavoro dal 1° gennaio 2022, dopo la modifica della legge di bilancio per quell'anno. L'INPS conta mesi di 30 giorni: la circolare n. 2 del 2022 fissa l'inizio della riduzione al 151° giorno, o al 211° per chi ha 55 anni.",
+          "Ogni riduzione si applica all'importo già ridotto del mese prima, come mostra l'esempio della circolare INPS n. 122 del 2021. Partendo da 1.227,98 euro il sesto mese vale 1.191,14 euro, il settimo 1.155,40 euro e il ventiquattresimo 688,42 euro. Per una frazione di mese l'INPS divide l'importo mensile per 30 e lo moltiplica per i giorni."
+        ]
+      },
+      {
+        "titolo": "Tasse, domanda e decorrenza",
+        "paragrafi": [
+          "La NASpI sostituisce un reddito di lavoro dipendente e per l'articolo 6, comma 2, del TUIR è tassata nella stessa categoria: l'importo che vedi qui è lordo e su di esso si paga l'IRPEF. Quanto resta in tasca dipende dalle detrazioni e dagli altri redditi dell'anno; per stimare l'imposta annua puoi usare il [calcolatore IRPEF](/calcolatore-irpef/).",
+          "La domanda si presenta all'INPS solo online entro 68 giorni dalla fine del rapporto, a pena di decadenza. L'indennità spetta dall'ottavo giorno dopo la cessazione; se la domanda arriva più tardi, dal giorno successivo alla domanda (art. 6). Al momento dell'uscita dal lavoro può servirti anche il [calcolatore del TFR](/calcolatore-tfr/)."
+        ]
+      },
+      {
+        "titolo": "Cosa resta fuori dal conto",
+        "paragrafi": [
+          "Il calcolatore vale per una NASpI che inizia nel 2026. Non considera le riduzioni previste se durante la NASpI lavori come dipendente o in proprio, l'anticipazione in un'unica soluzione per avviare un'attività, le regole particolari per i frontalieri con la Svizzera e gli arrotondamenti dell'INPS. La DIS-COLL dei collaboratori ha lo stesso massimo ma regole diverse e qui non è calcolata."
+        ]
+      }
+    ]
+  },
+  "esempi": [
+    {
+      "titolo": "24.000 € lordi l'anno per quattro anni, 40 anni di età",
+      "risultatoAtteso": "NASpI iniziale 1.228 € al mese · 104 settimane · dal 6° mese −3% al mese",
+      "verifica": {
+        "input": {
+          "modo": "annua",
+          "ral": 24000,
+          "settimane": 208,
+          "settimaneUsate": 0,
+          "over55": false
+        },
+        "campo": "iniziale",
+        "atteso": 1227.98
+      }
+    },
+    {
+      "titolo": "40.000 € in 100 settimane di contributi, 56 anni alla domanda",
+      "risultatoAtteso": "NASpI iniziale 1.161 € al mese · 50 settimane · riduzione dall'8° mese",
+      "verifica": {
+        "input": {
+          "modo": "totale",
+          "totale": 40000,
+          "settimane": 100,
+          "settimaneUsate": 0,
+          "over55": true
+        },
+        "campo": "iniziale",
+        "atteso": 1161.36
+      }
+    },
+    {
+      "titolo": "45.000 € lordi l'anno: si arriva al massimo",
+      "risultatoAtteso": "NASpI iniziale 1.585 € al mese, il massimo 2026: il calcolo darebbe 1.665 €",
+      "verifica": {
+        "input": {
+          "modo": "annua",
+          "ral": 45000,
+          "settimane": 208,
+          "settimaneUsate": 0,
+          "over55": false
+        },
+        "campo": "iniziale",
+        "atteso": 1584.7
+      }
+    }
+  ],
+  "faq": [
+    {
+      "domanda": "Come si calcola la NASpI?",
+      "risposta": "Si divide la retribuzione imponibile degli ultimi quattro anni per le settimane di contributi e si moltiplica per 4,33. Su questa retribuzione mensile si prende il 75% fino a 1.456,72 euro e il 25% della parte oltre, con un massimo di 1.584,70 euro al mese nel 2026."
+    },
+    {
+      "domanda": "Quanto dura la NASpI?",
+      "risposta": "Metà delle settimane di contributi degli ultimi quattro anni, senza contare quelle che hanno già dato diritto a un'altra prestazione di disoccupazione. Il massimo è 104 settimane, circa due anni, per chi ha lavorato tutti i quattro anni."
+    },
+    {
+      "domanda": "Qual è l'importo massimo della NASpI nel 2026?",
+      "risposta": "1.584,70 euro lordi al mese, secondo la circolare INPS n. 4 del 28 gennaio 2026. Lo raggiunge chi ha una retribuzione di riferimento di almeno 3.425,36 euro al mese; da lì in su l'importo non cresce."
+    },
+    {
+      "domanda": "Da quando la NASpI inizia a diminuire?",
+      "risposta": "Dal primo giorno del sesto mese di fruizione, il 151° giorno, cala del 3% ogni mese rispetto all'importo del mese prima. Se alla domanda hai già compiuto 55 anni la riduzione parte dall'ottavo mese, il 211° giorno."
+    },
+    {
+      "domanda": "Se mi dimetto ho diritto alla NASpI?",
+      "risposta": "Di regola no: la NASpI spetta a chi perde il lavoro in modo involontario. Fanno eccezione le dimissioni per giusta causa e la risoluzione consensuale raggiunta nella procedura di conciliazione dell'articolo 7 della legge 604/1966."
+    },
+    {
+      "domanda": "Sulla NASpI si pagano le tasse?",
+      "risposta": "Sì. Sostituisce un reddito di lavoro dipendente e per l'articolo 6 del TUIR è tassata come tale: si paga l'IRPEF, al netto delle detrazioni spettanti. Non si applica invece la trattenuta dell'articolo 26 della legge 41/1986, e i periodi di NASpI sono coperti da contributi figurativi."
+    },
+    {
+      "domanda": "Entro quando va presentata la domanda di NASpI?",
+      "risposta": "Entro 68 giorni dalla cessazione del rapporto, solo in via telematica all'INPS. Se la presenti entro l'ottavo giorno la NASpI decorre dall'ottavo giorno dopo la cessazione; se la presenti dopo, dal giorno successivo alla domanda."
+    }
+  ],
+  "relatedTools": [
+    "calcolatore-stipendio-netto",
+    "calcolatore-tfr",
+    "calcolatore-irpef"
+  ],
+  "disclaimer": "<strong>Stima della NASpI lorda per un'indennità che inizia nel 2026.</strong> Base di calcolo, soglia, massimo, durata e riduzione del 3% secondo il D.Lgs. 22/2015 e le circolari INPS citate. <strong>Non</strong> verifica i requisiti diversi dalle 13 settimane, non calcola l'IRPEF né le riduzioni per redditi da lavoro durante la NASpI; l'importo spettante lo determina l'INPS sulla domanda.",
+  "fonti": [
+    {
+      "titolo": "D.Lgs. 4 marzo 2015, n. 22 — NASpI",
+      "dettaglio": "Art. 3 requisiti (13 settimane, dimissioni dal 2025); art. 4 base di calcolo × 4,33, 75% e 25%, riduzione del 3% dal 6° o dall'8° mese; art. 5 durata; art. 6 domanda entro 68 giorni e decorrenza",
+      "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2015-03-04;22~art4"
+    },
+    {
+      "titolo": "INPS, circolare n. 4 del 28 gennaio 2026, § 6",
+      "dettaglio": "Retribuzione di riferimento 1.456,72 € e importo massimo mensile 1.584,70 € per il 2026; nessuna riduzione per il prelievo dell'art. 26 L. 41/1986",
+      "url": "https://www.inps.it/content/dam/inps-site/it/scorporati/circolari-e-messaggi/2026/01/Circolare_15147/Allegati/16539_Circolare-numero-4-del-28-01-2026.pdf"
+    },
+    {
+      "titolo": "INPS, circolare n. 94 del 12 maggio 2015",
+      "dettaglio": "§ 2.3: retribuzione con mensilità aggiuntive, tutte le settimane anche parziali, valore giornaliero = importo mensile / 30; § 2.5: esclusione dei contributi già usati per la durata",
+      "url": "https://servizi2.inps.it/servizi/Bussola/VisualizzaDoc.aspx?sVirtualURL=%2FCircolari%2FCircolare+numero+94+del+12-05-2015.htm"
+    },
+    {
+      "titolo": "INPS, circolare n. 2 del 4 gennaio 2022, § 5",
+      "dettaglio": "Riduzione dal 151° giorno (sesto mese) o dal 211° (ottavo mese, 55 anni alla domanda) per le cessazioni dal 1° gennaio 2022; requisito delle trenta giornate abolito",
+      "url": "https://www.inps.it/content/dam/inps-site/it/scorporati/circolari-e-messaggi/2022/01/Circolare_13665/Allegati/13274_Circolare-numero-2-del-04-01-2022.pdf"
+    },
+    {
+      "titolo": "INPS, circolare n. 122 del 6 agosto 2021, § 2",
+      "dettaglio": "Esempio di applicazione: ogni riduzione del 3% si calcola sull'importo già ridotto",
+      "url": "https://servizi2.inps.it/servizi/Bussola/VisualizzaDoc.aspx?sVirtualURL=%2FCircolari%2FCircolare+numero+122+del+06-08-2021.htm"
+    },
+    {
+      "titolo": "TUIR, art. 6, comma 2",
+      "dettaglio": "I proventi che sostituiscono un reddito sono redditi della stessa categoria (testo vigente al 30/01/2026)",
+      "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:presidente.repubblica:decreto:1986-12-22;917~art6!vig=2026-01-30"
+    },
+    {
+      "titolo": "INPS, Cos'è e come funziona la NASpI",
+      "dettaglio": "Periodi di NASpI coperti da contribuzione figurativa",
+      "url": "https://www.inps.it/it/it/inps-comunica/dossier/la-naspi/cos---e-come-funziona-la-naspi.html"
+    }
+  ],
+  "jsonLd": {
+    "type": "SoftwareApplication",
+    "applicationCategory": "FinanceApplication"
+  }
+}

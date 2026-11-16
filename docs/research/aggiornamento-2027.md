@@ -49,6 +49,8 @@ cuneo), il trattamento integrativo (D.L. 3/2020) e l'addizionale regionale
 2. Creare `public/assets/js/data/fisco-2027.js` (e `forfettario-2027.js`, `tfr-2027.js`
    con il coefficiente ISTAT di dicembre 2026) e far leggere ai calcolatori l'anno 2027.
 3. Aliquote INPS 2027 (circolare INPS di inizio anno: prima fascia, massimali).
+   La stessa circolare di gennaio sugli ammortizzatori dà soglia e massimo NASpI 2027:
+   creare `naspi-2027.js` (i valori 2026 restano per le NASpI iniziate nel 2026).
 4. Addizionali regionali 2027: escono fra gennaio e giugno, controllo mensile sul portale MEF.
 5. Sostituire nelle pagine le citazioni con la tabella qui sopra e i link Normattiva ai
    nuovi testi unici; aggiornare `ABROGATI_2027` in `qualita.mjs` (a quel punto i link

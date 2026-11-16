@@ -477,3 +477,78 @@ test("tredicesima: senza detrazioni la ritenuta è più alta di quella del mese 
   const t = tredicesima({ lordoMensile: 2000, mesi: 12, tipoLavoratore: "privato" });
   assert.ok(t.irpef > s.irpefTotale / 13, `${t.irpef} vs ${s.irpefTotale / 13}`);
 });
+
+// --- NASpI ---------------------------------------------------------------
+// Riferimento indipendente: importo dall'art. 4 D.Lgs. 22/2015 scritto per
+// esteso, poi il totale ricostruito giorno per giorno (mesi di 30 giorni,
+// circ. INPS 2/2022; riduzione composta, circ. INPS 122/2021).
+const naspi = calcolatore("naspi-v1", "naspi.js", ["naspi-2026.js"]);
+
+function naspiRiferimento(rif, settimane, usate, over55) {
+  const SOGLIA = 1456.72, MAX = 1584.70;
+  const teorico = rif <= SOGLIA ? 0.75 * rif : 0.75 * SOGLIA + 0.25 * (rif - SOGLIA);
+  const iniziale = Math.min(teorico, MAX);
+  const giorni = Math.floor((settimane - usate) / 2 * 7);
+  const primoGiornoRidotto = over55 ? 211 : 151;
+  let totale = 0, rata = iniziale;
+  for (let d = 1; d <= giorni; d++) {
+    // Il primo giorno di ogni mese ridotto la rata scende del 3% su quella precedente.
+    if (d >= primoGiornoRidotto && (d - 1) % 30 === 0) rata *= 0.97;
+    totale += rata / 30;
+  }
+  return { iniziale, giorni, totale, ultimo: rata };
+}
+
+test("NASpI: casi a mano (RAL 24.000; 40.000 € in 100 settimane a 56 anni; massimo con RAL 45.000)", () => {
+  const a = naspi({ modo: "annua", ral: 24000, settimane: 208, settimaneUsate: 0, over55: false });
+  assert.ok(Math.abs(a.retribuzione - 1998.46) < 0.005);
+  assert.ok(Math.abs(a.iniziale - 1227.98) < 0.005);
+  assert.equal(a.giorni, 728);
+  assert.ok(Math.abs(a.mesi[5].rata - 1191.14) < 0.005, "6° mese");
+  assert.ok(Math.abs(a.mesi[23].rata - 688.42) < 0.005, "24° mese");
+  const b = naspi({ modo: "totale", totale: 40000, settimane: 100, settimaneUsate: 0, over55: true });
+  assert.ok(Math.abs(b.iniziale - 1161.36) < 0.005);
+  assert.equal(b.giorni, 350);
+  assert.equal(b.mesi[6].rata, b.iniziale, "7° mese ancora pieno con 55 anni");
+  assert.ok(b.mesi[7].rata < b.iniziale, "8° mese ridotto");
+  const c = naspi({ modo: "annua", ral: 45000, settimane: 208, settimaneUsate: 0, over55: false });
+  assert.equal(c.iniziale, 1584.70);
+});
+
+test("NASpI: il massimo scatta a 3.425,36 € di retribuzione di riferimento", () => {
+  const ral = (rif) => rif / 4.33 * 52;
+  assert.ok(naspi({ modo: "annua", ral: ral(3425.35), settimane: 208 }).iniziale < 1584.70);
+  assert.ok(Math.abs(naspi({ modo: "annua", ral: ral(3425.36), settimane: 208 }).iniziale - 1584.70) < 0.005);
+});
+
+test("NASpI: griglia di retribuzioni × settimane × età contro il riferimento giorno per giorno", () => {
+  let casi = 0;
+  for (let tot = 0; tot <= 200000; tot += 3700) {
+    for (const settimane of [13, 14, 27, 52, 99, 100, 150, 207, 208]) {
+      for (const usate of [0, 1, 13, settimane]) {
+        for (const over55 of [false, true]) {
+          const o = naspi({ modo: "totale", totale: tot, settimane, settimaneUsate: usate, over55 });
+          const r = naspiRiferimento(tot / settimane * 4.33, settimane, usate, over55);
+          assert.equal(o.giorni, r.giorni);
+          if (!r.giorni) assert.ok(Number.isNaN(o.iniziale), "senza durata nessun importo");
+          if (r.giorni) {
+            assert.ok(Math.abs(o.iniziale - r.iniziale) < 1e-9, `iniziale ${tot}/${settimane}`);
+            assert.ok(Math.abs(o.totale - r.totale) < 1e-6, `totale ${tot}/${settimane}/${usate}/${over55}: ${o.totale} vs ${r.totale}`);
+            assert.ok(Math.abs(o.ultimo - r.ultimo) < 1e-9);
+          }
+          casi++;
+        }
+      }
+    }
+  }
+  assert.ok(casi > 3000);
+});
+
+test("NASpI: sotto le 13 settimane il requisito manca; settimane tutte già usate → durata zero", () => {
+  const o = naspi({ modo: "annua", ral: 30000, settimane: 12 });
+  assert.ok(Number.isNaN(o.iniziale));
+  assert.match(o.inizialeLabel, /13 settimane/);
+  const u = naspi({ modo: "annua", ral: 30000, settimane: 100, settimaneUsate: 100 });
+  assert.equal(u.giorni, 0);
+  assert.match(u.inizialeLabel, /già state usate/);
+});

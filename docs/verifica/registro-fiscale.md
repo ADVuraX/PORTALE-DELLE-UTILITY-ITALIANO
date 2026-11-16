@@ -160,6 +160,29 @@ Letti su Normattiva il 27/10/2026.
 | T11 | Netto della tredicesima delle pensioni NON calcolato: regole INPS sulle detrazioni non verificate (circ. INPS 1982 descrive un conguaglio annuale sulla tredicesima) | — | I · escluso dichiaratamente |
 | T07 | Riferimento: griglia 4 rapporti × 93 retribuzioni × 4 durate con scaglioni mensili | `tests/fiscale.test.mjs` | V |
 
+## NASpI (`naspi.js`, dati in `naspi-2026.js`)
+
+Letti il 16/11/2026: Normattiva (D.Lgs. 22/2015 artt. 3–6) e circolari INPS in PDF o sulla Bussola.
+
+| # | Valore / affermazione | Fonte primaria | Stato |
+|---|---|---|---|
+| N01 | Requisiti: disoccupazione involontaria, stato di disoccupazione, 13 settimane di contributi nei 4 anni; eccezioni giusta causa e risoluzione consensuale ex art. 7 L. 604/1966; 30 giornate non più richieste dal 2022 | D.Lgs. 22/2015 art. 3 c. 1, 1-bis, 2; INPS circ. 2/2022 | V |
+| N02 | Dal 1/1/2025: dopo dimissioni o risoluzione consensuale da tempo indeterminato nei 12 mesi precedenti servono 13 settimane successive; esclusi i casi del c. 2 e le dimissioni ex art. 55 D.Lgs. 151/2001 | D.Lgs. 22/2015 art. 3 c. 1 lett. c-bis | V · non modellato (controlla l'INPS) |
+| N03 | Base: imponibile previdenziale dei 4 anni (con mensilità aggiuntive) / settimane × 4,33; tutte le settimane, anche parziali | art. 4 c. 1; INPS circ. 94/2015 § 2.3 | V |
+| N04 | 75% fino alla soglia; oltre, 75% della soglia + 25% dell'eccedenza; massimale | art. 4 c. 2 | V |
+| N05 | 2026: soglia 1.456,72 €, massimo 1.584,70 €; nessuna riduzione art. 26 L. 41/1986 (5,84%, che si applica alla CIG) | INPS circ. 4 del 28/01/2026 §§ 2 e 6 | V |
+| N06 | Riduzione 3% al mese dal 6° mese (151° giorno), dall'8° (211°) con 55 anni alla domanda, per cessazioni dal 1/1/2022 | art. 4 c. 3 (L. 234/2021 c. 221); INPS circ. 2/2022 § 5 | V |
+| N07 | Riduzione composta: ogni 3% sull'importo già ridotto | INPS circ. 122/2021 § 2 (esempio) | V |
+| N08 | Durata = metà delle settimane dei 4 anni, escluse quelle già usate (anche in forma anticipata); l'esclusione vale solo per la durata | art. 5; INPS circ. 94/2015 § 2.5 | V |
+| N09 | Frazione di mese: importo mensile / 30 al giorno | INPS circ. 94/2015 § 2.3 | V |
+| N10 | Giorni = settimane × 7 arrotondati per difetto; mesi di 30 giorni | coerente con N06 e N09 | I · arrotondamento dichiarato |
+| N11 | Domanda telematica entro 68 giorni (decadenza); decorrenza dall'8° giorno dopo la cessazione o dal giorno dopo la domanda | art. 6 | V |
+| N12 | Tassata come il reddito che sostituisce (lavoro dipendente) | TUIR art. 6 c. 2 (vigente 30/01/2026) | V |
+| N13 | Periodi coperti da contribuzione figurativa senza oneri per il lavoratore | INPS, «Cos'è e come funziona la NASpI» | V |
+| N14 | Modalità «RAL»: RAL / 52 × 4,33 coincide con N03 se la retribuzione è costante | algebra | V |
+| N15 | Riferimento indipendente: importo dall'art. 4 e totale giorno per giorno su oltre 3.000 casi | `tests/fiscale.test.mjs` | V |
+| N16 | Fuori perimetro: IRPEF, riduzioni per lavoro durante la NASpI, anticipazione, frontalieri, NASpI iniziate prima del 2026, DIS-COLL | — | I · perimetro dichiarato |
+
 **Nota per il 2027.** Su Normattiva la vista «vigente» mostra già come abrogati
 l'art. 16 DPR 633/1972 (D.Lgs. 10/2026) e i commi 54–89 della L. 190/2014
 (D.Lgs. 117/2026, Testo unico delle imposte sui redditi, che si applica dal
