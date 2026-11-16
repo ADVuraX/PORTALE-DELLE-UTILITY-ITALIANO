@@ -1,0 +1,298 @@
+{
+  "slug": "calcolo-interessi-legali",
+  "cluster": "calcolatori",
+  "tema": "denaro",
+  "updated": "2026-11",
+  "seo": {
+    "title": "Calcolo Interessi Legali 2026 – Tasso all'1,6% e Tabella dal 1990",
+    "metaDescription": "Calcola gli interessi legali fra due date: il tasso dell'art. 1284 c.c. anno per anno (1,6% nel 2026), la formula dell'Agenzia delle Entrate con 365 giorni e il dettaglio per periodo.",
+    "primaryKeyword": "calcolo interessi legali",
+    "canonical": "/calcolo-interessi-legali/"
+  },
+  "h1": "Calcolo degli Interessi Legali",
+  "intro": "Inserisci la somma e le due date: il calcolatore applica a ogni giorno il saggio degli interessi legali in vigore in quel momento, fissato dall'articolo 1284 del codice civile e cambiato ogni anno con decreto del Ministro dell'economia, e usa la formula dell'Agenzia delle Entrate. Ottieni gli interessi maturati, il totale da pagare e il dettaglio dei periodi con il loro tasso, dal 16 dicembre 1990 al 2026. Serve per restituire una somma in ritardo, per gli interessi del deposito cauzionale o per controllare un conteggio.",
+  "tool": {
+    "logicId": "interessi-legali-v1",
+    "script": "interessi-legali.js",
+    "data": [
+      "interessi-legali.js"
+    ],
+    "cardNote": "Tasso 2026: 1,6%",
+    "inputs": [
+      {
+        "id": "capitale",
+        "label": "Somma su cui calcolare gli interessi",
+        "type": "number",
+        "min": 0,
+        "step": 100,
+        "suffix": "€",
+        "default": 5000
+      },
+      {
+        "id": "dal",
+        "label": "Dal giorno",
+        "type": "date",
+        "min": "1990-12-15",
+        "max": "2026-12-30",
+        "default": "2023-06-30",
+        "hint": "la scadenza: gli interessi contano dal giorno dopo"
+      },
+      {
+        "id": "al",
+        "label": "Al giorno",
+        "type": "date",
+        "min": "1990-12-16",
+        "max": "2026-12-31",
+        "default": "2026-06-30",
+        "hint": "il giorno del pagamento, compreso"
+      }
+    ],
+    "outputPrimary": {
+      "id": "interessi",
+      "label": "Interessi legali maturati",
+      "format": "currency2"
+    },
+    "outputSecondary": [
+      {
+        "id": "totale",
+        "label": "Somma più interessi",
+        "format": "currency2"
+      },
+      {
+        "id": "giorni",
+        "label": "Giorni di interessi",
+        "format": "number"
+      },
+      {
+        "id": "tassoMedio",
+        "label": "Tasso medio annuo del periodo",
+        "format": "percent"
+      },
+      {
+        "id": "periodi",
+        "label": "Periodi e tassi applicati",
+        "format": "text",
+        "larga": true
+      }
+    ]
+  },
+  "spiegazione": {
+    "titolo": "Il saggio degli interessi legali e come si calcola",
+    "corpo": [
+      "Gli interessi legali sono quelli dovuti quando una legge o un contratto prevedono interessi senza fissarne la misura. L'articolo 1284 del codice civile stabilisce il saggio e precisa due regole pratiche: se le parti non hanno indicato un tasso, anche gli interessi convenzionali si calcolano al tasso legale; gli interessi più alti di quello legale devono essere pattuiti per iscritto, altrimenti sono dovuti nella misura legale."
+    ],
+    "sezioni": [
+      {
+        "titolo": "Un tasso che cambia ogni anno",
+        "paragrafi": [
+          "Dal 1° gennaio 1997 il codice fissa il saggio al 5% e consente al Ministro di modificarlo ogni anno con un decreto pubblicato in Gazzetta Ufficiale entro il 15 dicembre, tenendo conto del rendimento medio dei titoli di Stato fino a dodici mesi e dell'inflazione dell'anno. Se entro quella data non arriva un decreto, il tasso resta lo stesso anche per l'anno dopo: per questo una misura può durare più anni, come il 2,5% rimasto in vigore dal 2004 al 2007. Prima era stato del 10%, dal 16 dicembre 1990 alla fine del 1996.",
+          "Per il 2026 il decreto del 10 dicembre 2025 ha fissato il saggio all'1,6%, in calo dal 2% del 2025. Negli ultimi anni le misure sono state molto diverse fra loro: dallo 0,01% del 2021 al 5% del 2023, il valore più alto dal 1998."
+        ],
+        "tabella": {
+          "intestazioni": [
+            "Dal",
+            "Tasso",
+            "Decreto"
+          ],
+          "righe": [
+            [
+              "1° gennaio 2026",
+              "1,6%",
+              "D.M. 10/12/2025"
+            ],
+            [
+              "1° gennaio 2025",
+              "2%",
+              "D.M. 10/12/2024"
+            ],
+            [
+              "1° gennaio 2024",
+              "2,5%",
+              "D.M. 29/11/2023"
+            ],
+            [
+              "1° gennaio 2023",
+              "5%",
+              "D.M. 13/12/2022"
+            ],
+            [
+              "1° gennaio 2022",
+              "1,25%",
+              "D.M. 13/12/2021"
+            ],
+            [
+              "1° gennaio 2021",
+              "0,01%",
+              "D.M. 11/12/2020"
+            ],
+            [
+              "1° gennaio 2020",
+              "0,05%",
+              "D.M. 12/12/2019"
+            ],
+            [
+              "1° gennaio 2019",
+              "0,8%",
+              "D.M. 12/12/2018"
+            ],
+            [
+              "1° gennaio 2018",
+              "0,3%",
+              "D.M. 13/12/2017"
+            ],
+            [
+              "1° gennaio 2017",
+              "0,1%",
+              "D.M. 07/12/2016"
+            ],
+            [
+              "1° gennaio 2016",
+              "0,2%",
+              "D.M. 11/12/2015"
+            ]
+          ]
+        }
+      },
+      {
+        "titolo": "La formula",
+        "paragrafi": [
+          "Per i periodi con lo stesso tasso il calcolatore usa la formula indicata dall'Agenzia delle Entrate: somma × tasso × giorni / 36.500. Il 36.500 è 365 giorni moltiplicato per 100, perché il tasso è espresso in percentuale; nella sua guida sugli affitti l'Agenzia precisa che al denominatore va sempre 365, anche quando l'anno è bisestile. Diecimila euro per tutto il 2025, 365 giorni al 2%, producono 10.000 × 2 × 365 / 36.500 = 200 euro."
+        ]
+      },
+      {
+        "titolo": "Più anni, più tassi",
+        "paragrafi": [
+          "Quando il periodo attraversa uno o più cambi di tasso, ogni tratto si calcola con la propria misura e poi si sommano i risultati. Con 5.000 euro dal 30 giugno 2023 al 30 giugno 2026 i tratti sono quattro: 184 giorni al 5% nel 2023 (126,03 euro), 366 giorni al 2,5% nel 2024 (125,34 euro), 365 giorni al 2% nel 2025 (100 euro) e 181 giorni all'1,6% nel 2026 (39,67 euro), per un totale di 391,04 euro. Il dettaglio dei tratti compare sotto il risultato.",
+          "I giorni si contano dal giorno dopo la data iniziale fino alla data finale compresa, come per i giorni di ritardo del ravvedimento: con una scadenza al 16 marzo e un pagamento il 15 aprile i giorni sono 30. Su 1.000 euro nel 2026 fanno 1,32 euro."
+        ]
+      },
+      {
+        "titolo": "Interesse semplice: niente interessi sugli interessi",
+        "paragrafi": [
+          "Il calcolo è a interesse semplice: gli interessi di un anno non si sommano alla somma per produrre altri interessi. Lo prevede l'articolo 1283 del codice civile, sull'anatocismo: in mancanza di usi contrari, gli interessi scaduti producono interessi solo dal giorno della domanda giudiziale o per un accordo successivo alla loro scadenza, e solo se dovuti almeno per sei mesi."
+        ]
+      },
+      {
+        "titolo": "Dopo una causa il tasso è un altro",
+        "paragrafi": [
+          "Dal 2014 l'articolo 1284 ha un quarto comma: se le parti non hanno fissato il tasso, dal momento in cui si propone la domanda giudiziale gli interessi legali sono pari a quelli previsti per i ritardi di pagamento nelle transazioni commerciali. La regola vale per i procedimenti iniziati dal trentesimo giorno dopo l'entrata in vigore della legge 162 del 2014 e si applica anche all'arbitrato. Questo calcolatore usa sempre il saggio del primo comma: per il periodo successivo alla domanda giudiziale serve un conteggio diverso."
+        ]
+      },
+      {
+        "titolo": "Dove servono",
+        "paragrafi": [
+          "Gli interessi legali compaiono in molte situazioni quotidiane. Il deposito cauzionale di un affitto, per l'articolo 11 della legge 392 del 1978, produce interessi legali che il locatore deve corrispondere all'inquilino alla fine di ogni anno. Nel ravvedimento operoso per un'imposta pagata in ritardo l'Agenzia delle Entrate chiede gli interessi al tasso legale annuo, oltre alla sanzione ridotta. E li usa chi deve restituire una somma con ritardo senza un tasso pattuito. Per aggiornare un canone d'affitto all'inflazione serve invece la [rivalutazione ISTAT](/rivalutazione-istat-affitto/)."
+        ]
+      }
+    ]
+  },
+  "esempi": [
+    {
+      "titolo": "10.000 € per tutto il 2025 (dal 31/12/2024 al 31/12/2025)",
+      "risultatoAtteso": "365 giorni al 2% · interessi 200 €",
+      "verifica": {
+        "input": {
+          "capitale": 10000,
+          "dal": "2024-12-31",
+          "al": "2025-12-31"
+        },
+        "campo": "interessi",
+        "atteso": 200
+      }
+    },
+    {
+      "titolo": "5.000 € dal 30/06/2023 al 30/06/2026: quattro tassi diversi",
+      "risultatoAtteso": "1.096 giorni · interessi 391 € (391,04)",
+      "verifica": {
+        "input": {
+          "capitale": 5000,
+          "dal": "2023-06-30",
+          "al": "2026-06-30"
+        },
+        "campo": "interessi",
+        "atteso": 391.04
+      }
+    },
+    {
+      "titolo": "1.000 € pagati il 15/04/2026 invece del 16/03/2026",
+      "risultatoAtteso": "30 giorni all'1,6% · interessi 1,32 € (1 € arrotondato)",
+      "verifica": {
+        "input": {
+          "capitale": 1000,
+          "dal": "2026-03-16",
+          "al": "2026-04-15"
+        },
+        "campo": "interessi",
+        "atteso": 1.32
+      }
+    }
+  ],
+  "faq": [
+    {
+      "domanda": "Qual è il tasso di interesse legale nel 2026?",
+      "risposta": "L'1,6% annuo dal 1° gennaio 2026, fissato con il decreto del Ministro dell'economia del 10 dicembre 2025, pubblicato nella Gazzetta Ufficiale n. 289 del 13 dicembre 2025. Nel 2025 era il 2%."
+    },
+    {
+      "domanda": "Come si calcolano gli interessi legali?",
+      "risposta": "Somma × tasso × giorni / 36.500, separando i periodi con tassi diversi e sommando i risultati. Per esempio 10.000 euro per 365 giorni al 2% danno 200 euro di interessi."
+    },
+    {
+      "domanda": "Negli anni bisestili si divide per 366?",
+      "risposta": "No. L'Agenzia delle Entrate, nella guida sugli affitti, indica di usare sempre 365 al denominatore, anche quando l'anno è bisestile. Così un intero anno bisestile conta 366 giorni su 365."
+    },
+    {
+      "domanda": "Gli interessi legali si capitalizzano ogni anno?",
+      "risposta": "No: si calcolano a interesse semplice. Per l'articolo 1283 del codice civile gli interessi scaduti producono a loro volta interessi solo dalla domanda giudiziale o per un accordo successivo alla scadenza, e solo se dovuti da almeno sei mesi."
+    },
+    {
+      "domanda": "Quando cambia il tasso di interesse legale?",
+      "risposta": "Può cambiare ogni 1° gennaio, con un decreto del Ministro dell'economia pubblicato in Gazzetta Ufficiale entro il 15 dicembre dell'anno prima. Se il decreto non arriva, il tasso resta quello dell'anno precedente."
+    },
+    {
+      "domanda": "Il deposito cauzionale dell'affitto produce interessi?",
+      "risposta": "Sì. L'articolo 11 della legge 392 del 1978 prevede che il deposito cauzionale, al massimo tre mensilità, produca interessi legali da corrispondere all'inquilino alla fine di ogni anno."
+    }
+  ],
+  "relatedTools": [
+    "rivalutazione-istat-affitto",
+    "calcolatore-rata-mutuo",
+    "calcolatore-tfr"
+  ],
+  "disclaimer": "<strong>Interessi legali semplici al saggio dell'art. 1284, primo comma, c.c.</strong>, con la formula dell'Agenzia delle Entrate (365 giorni). <strong>Non</strong> calcola il tasso dopo la domanda giudiziale (comma 4), interessi convenzionali o di mora commerciali, rivalutazione monetaria, sanzioni del ravvedimento; per il periodo dopo il 31/12/2026 il tasso non è ancora fissato.",
+  "fonti": [
+    {
+      "titolo": "Codice civile, art. 1284 — Saggio degli interessi",
+      "dettaglio": "Saggio legale, decreto annuale entro il 15 dicembre, tasso invariato senza decreto; comma 4 dopo la domanda giudiziale. Versioni per data: 10% dal 16/12/1990, 5% dal 01/01/1997",
+      "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262:2~art1284"
+    },
+    {
+      "titolo": "Gazzetta Ufficiale, codice civile art. 1284 con le note di aggiornamento",
+      "dettaglio": "Data, Gazzetta e misura di ogni decreto dal D.M. 10/12/1998 (2,5% dal 1999) al D.M. 10/12/2025 (1,60% dal 2026)",
+      "url": "https://www.gazzettaufficiale.it/atto/serie_generale/caricaArticolo?art.versione=25&art.idGruppo=159&art.flagTipoArticolo=2&art.codiceRedazionale=042U0262&art.idArticolo=1284&art.idSottoArticolo=1&art.idSottoArticolo1=10&art.dataPubblicazioneGazzetta=1942-04-04&art.progressivo=0"
+    },
+    {
+      "titolo": "Codice civile, art. 1283 — Anatocismo",
+      "dettaglio": "Interessi sugli interessi solo dalla domanda giudiziale o per convenzione successiva, se dovuti da almeno sei mesi",
+      "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:regio.decreto:1942-03-16;262:2~art1283"
+    },
+    {
+      "titolo": "Agenzia delle Entrate, ravvedimento: come regolarizzare i versamenti",
+      "dettaglio": "Formula: imposta × tasso legale × giorni di ritardo / 36.500",
+      "url": "https://www.agenziaentrate.gov.it/portale/schede/accertamenti/ravvedimento-operoso/come-regolarizzare-versimpo"
+    },
+    {
+      "titolo": "Agenzia delle Entrate, guida agli affitti, § 5.3 «Il calcolo degli interessi»",
+      "dettaglio": "Al denominatore sempre 365, anche quando l'anno è bisestile",
+      "url": "https://www.agenziaentrate.gov.it/portale/documents/20143/3015794/GUIDA+AFFITTI+17+OTTOBRE+INTERNET+(1).pdf"
+    },
+    {
+      "titolo": "Legge 27 luglio 1978, n. 392, art. 11 — Deposito cauzionale",
+      "dettaglio": "Al massimo tre mensilità; interessi legali corrisposti al conduttore alla fine di ogni anno",
+      "url": "https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:1978-07-27;392~art11"
+    }
+  ],
+  "jsonLd": {
+    "type": "SoftwareApplication",
+    "applicationCategory": "FinanceApplication"
+  }
+}

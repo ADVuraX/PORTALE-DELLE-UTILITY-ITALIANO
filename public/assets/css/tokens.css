@@ -77,6 +77,8 @@
   --sheen:rgba(255,255,255,.17);
 }
 html{color-scheme:light dark;}
+:root[data-theme="light"]{color-scheme:light;}
+:root[data-theme="dark"]{color-scheme:dark;}
 
 *{box-sizing:border-box;}
 html{-webkit-text-size-adjust:100%;}

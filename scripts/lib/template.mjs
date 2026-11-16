@@ -328,6 +328,11 @@ function controlFor(inp) {
       .join("");
     return `<div class="radios">${opts}</div>`;
   }
+  if (inp.type === "date") {
+    // Valore ISO aaaa-mm-gg: il calcolatore lo riceve come stringa.
+    const lim = ["min", "max"].filter((k) => inp[k]).map((k) => ` ${k}="${esc(inp[k])}"`).join("");
+    return `<div class="control"><input type="date" id="in-${esc(inp.id)}" value="${esc(inp.default ?? "")}"${lim}></div>`;
+  }
   if (inp.type === "text") {
     return `<div class="control"><input type="text" id="in-${esc(inp.id)}" value="${esc(inp.default ?? "")}"${inp.placeholder ? ` placeholder="${esc(inp.placeholder)}"` : ""}></div>`;
   }

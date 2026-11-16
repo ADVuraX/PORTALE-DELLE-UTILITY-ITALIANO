@@ -57,7 +57,7 @@ export function validateTool(cfg, allSlugs, scriptFiles) {
   (tool.data || []).forEach((d, i) => { if (!NOME_JS.test(d)) err(`\`tool.data[${i}]\` = "${d}": nome di file non ammesso`); });
   if (!Array.isArray(tool.inputs) || tool.inputs.length < 1) err("`tool.inputs` deve avere almeno 1 elemento");
 
-  const LEAF_TYPES = ["number", "select", "text", "checkbox", "radio"];
+  const LEAF_TYPES = ["number", "select", "text", "checkbox", "radio", "date"];
   const leafIds = [];
   // Raccoglie gli id foglia (esclusi i gruppi) per validare i riferimenti showIf.
   const collect = (arr) => (arr || []).forEach((inp) => (inp.type === "group" ? collect(inp.inputs) : inp.id && leafIds.push(inp.id)));

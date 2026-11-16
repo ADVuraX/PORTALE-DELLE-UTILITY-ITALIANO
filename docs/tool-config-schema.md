@@ -37,7 +37,8 @@ SEO. La build **fallisce** se un blocco richiesto manca o è sotto-standard.
       { "type": "group", "legend": "Famiglia", "inputs": [
           { "id": "figli", "label": "Figli a carico", "type": "number", "min": 0, "default": 0 }
       ] }
-      // type: number | select | text | radio | checkbox | group
+      // type: number | select | text | radio | checkbox | date | group
+      // date: valore ISO "aaaa-mm-gg" (min/max opzionali), passato come stringa.
       // select/radio: opzioni STRINGA o numero; optionLabels mappa valore→etichetta.
       // showIf: { input, equals } → campo/gruppo visibile solo se quell'input vale `equals`.
       //   Un campo nascosto è ESCLUSO dal calcolo (non passato al calcolatore).

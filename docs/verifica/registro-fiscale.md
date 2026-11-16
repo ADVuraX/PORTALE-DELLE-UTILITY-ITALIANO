@@ -204,6 +204,24 @@ coefficienti di raccordo tra basi diverse», FOI senza tabacchi, Ecoicop v2) e a
 | A12 | Riferimento indipendente: indici riportati in base 1995, oltre 1.500 coppie di mesi | `tests/fiscale.test.mjs` | V |
 | A13 | Fuori perimetro: arretrati, interessi, decorrenza della richiesta, scelta del mese | — | I · rinvio al contratto |
 
+## Interessi legali (`interessi-legali.js`, dati in `interessi-legali.js`)
+
+Letti il 16/11/2026.
+
+| # | Valore / affermazione | Fonte primaria | Stato |
+|---|---|---|---|
+| L01 | 5% fino al 15/12/1990; 10% dal 16/12/1990; 5% dal 01/01/1997 con delega al Ministro (decreto entro il 15 dicembre, altrimenti invariato) | Normattiva, art. 1284 c.c. nelle versioni per data (`!vig=`); L. 353/1990 art. 1; L. 662/1996 art. 2 c. 185 | V |
+| L02 | Misure dal 1999 al 2026 con data del decreto e numero della GU (23 righe in `interessi-legali.js`) | Gazzetta Ufficiale, art. 1284 c.c., note di aggiornamento (129a … 348) | V · test |
+| L03 | Interessi convenzionali senza misura = tasso legale; interessi ultralegali solo per iscritto | art. 1284 c. 2–3 c.c. | V |
+| L04 | Comma 4: dopo la domanda giudiziale tasso delle transazioni commerciali; procedimenti dal 30° giorno dopo la L. 162/2014; anche arbitrato (c. 5) | art. 1284 c. 4–5; nota (242) | V · non calcolato |
+| L05 | Formula: importo × tasso × giorni / 36.500 | AdE, scheda ravvedimento «Come regolarizzare i versamenti» | V |
+| L06 | Denominatore 365 anche negli anni bisestili | AdE, guida agli affitti § 5.3 | V |
+| L07 | Giorni dal giorno dopo la data iniziale alla data finale compresa (giorni di ritardo) | coerente con L05 | I · convenzione dichiarata in pagina |
+| L08 | Anatocismo: solo dalla domanda giudiziale o per convenzione successiva, interessi dovuti da almeno sei mesi | art. 1283 c.c. | V |
+| L09 | Deposito cauzionale: massimo tre mensilità, interessi legali al conduttore alla fine di ogni anno | L. 392/1978 art. 11 | V |
+| L10 | Riferimento indipendente: somma giorno per giorno su 2.000 intervalli casuali 1990–2026 | `tests/fiscale.test.mjs` | V |
+| L11 | Tasso 2027 non ancora fissato: il calcolatore si ferma al 31/12/2026 | art. 1284 c.c. (decreto entro il 15/12) | V · aggiornare a dicembre |
+
 **Nota per il 2027.** Su Normattiva la vista «vigente» mostra già come abrogati
 l'art. 16 DPR 633/1972 (D.Lgs. 10/2026) e i commi 54–89 della L. 190/2014
 (D.Lgs. 117/2026, Testo unico delle imposte sui redditi, che si applica dal

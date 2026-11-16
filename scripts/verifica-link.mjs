@@ -69,10 +69,12 @@ async function controlla(url) {
     const codice = e.cause ? e.cause.code || e.message : e.message;
     // Server che non inviano il certificato intermedio (es. inps.it): i browser lo
     // recuperano da soli, Node no. Si riprova con curl, che usa i certificati di sistema.
-    if (/ISSUER_CERT|LEAF_SIGNATURE/.test(codice)) {
+    // Anche i timeout si riprovano con curl: alcuni server (es. nasa.gov) non rispondono
+    // al fetch di Node ma sì a curl.
+    if (/ISSUER_CERT|LEAF_SIGNATURE|ETIMEDOUT|TimeoutError|aborted/i.test(codice)) {
       try {
         const { stdout } = await execFileAsync("curl", ["-sL", "-o", process.platform === "win32" ? "NUL" : "/dev/null", "-w", "%{http_code}",
-          "--max-time", "20", "-A", "Mozilla/5.0 (verifica link; utilityitalia.it)", url], { encoding: "utf8" });
+          "--max-time", "40", "-A", "Mozilla/5.0 (verifica link; utilityitalia.it)", url], { encoding: "utf8" });
         const http = stdout.trim();
         return { stato: Number(http) || "ERRORE", nota: `${codice}: verificato con curl` };
       } catch (e2) { /* curl assente o fallito: resta l'errore originale */ }

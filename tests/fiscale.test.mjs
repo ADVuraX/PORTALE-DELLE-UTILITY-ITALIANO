@@ -610,3 +610,62 @@ test("ISTAT: mesi fuori serie, invertiti o non ancora pubblicati", () => {
   assert.match(istat({ canone: 800, quota: 75, meseDa: 9, annoDa: 2026, meseA: 9, annoA: 2025 }).nuovoLabel, /dopo/);
   assert.match(istat({ canone: 800, quota: 75, meseDa: 1, annoDa: 2026, meseA: 12, annoA: 2099 }).nuovoLabel, /non ancora pubblicato/);
 });
+
+// --- Interessi legali --------------------------------------------------------
+// Riferimento indipendente: somma giorno per giorno del tasso in vigore,
+// / 36.500 (formula dell'Agenzia delle Entrate, 365 anche nei bisestili).
+const interessi = calcolatore("interessi-legali-v1", "interessi-legali.js", ["interessi-legali.js"]);
+const IL = globalThis.INTERESSI_LEGALI;
+
+function interessiRiferimento(capitale, dal, al) {
+  const ms = (s) => Date.parse(s + "T00:00:00Z");
+  let tot = 0;
+  for (let t = ms(dal) + 86400000; t <= ms(al); t += 86400000) {
+    const iso = new Date(t).toISOString().slice(0, 10);
+    let tasso = null;
+    for (const m of IL.misure) if (m.dal <= iso) tasso = m.tasso;
+    tot += capitale * tasso / 36500;
+  }
+  return tot;
+}
+
+test("interessi legali: misure della Gazzetta Ufficiale (art. 1284 c.c.)", () => {
+  const per = Object.fromEntries(IL.misure.map((m) => [m.dal.slice(0, 4), m.tasso]));
+  assert.deepEqual(per, { 1990: 10, 1997: 5, 1999: 2.5, 2001: 3.5, 2002: 3, 2004: 2.5, 2008: 3, 2010: 1, 2011: 1.5,
+    2012: 2.5, 2014: 1, 2015: 0.5, 2016: 0.2, 2017: 0.1, 2018: 0.3, 2019: 0.8, 2020: 0.05, 2021: 0.01, 2022: 1.25,
+    2023: 5, 2024: 2.5, 2025: 2, 2026: 1.6 });
+  assert.equal(IL.misure[0].dal, "1990-12-16");
+});
+
+test("interessi legali: casi a mano (200 € sul 2025; 391,04 € su quattro tassi; 30 giorni nel 2026)", () => {
+  assert.ok(Math.abs(interessi({ capitale: 10000, dal: "2024-12-31", al: "2025-12-31" }).interessi - 200) < 1e-9);
+  const b = interessi({ capitale: 5000, dal: "2023-06-30", al: "2026-06-30" });
+  assert.ok(Math.abs(b.interessi - 391.04) < 0.005);
+  assert.equal(b.giorni, 1096);
+  assert.deepEqual(b.righe.map((r) => r.giorni), [184, 366, 365, 181]);
+  const c = interessi({ capitale: 1000, dal: "2026-03-16", al: "2026-04-15" });
+  assert.equal(c.giorni, 30);
+  assert.ok(Math.abs(c.interessi - 1.315) < 0.001);
+});
+
+test("interessi legali: 2.000 intervalli contro la somma giorno per giorno", () => {
+  let seme = 7;
+  const rnd = () => ((seme = (seme * 1103515245 + 12345) % 2147483648) / 2147483648);
+  const inizio = Date.parse("1990-12-15T00:00:00Z"), fine = Date.parse("2026-12-31T00:00:00Z");
+  for (let k = 0; k < 2000; k++) {
+    const a = inizio + Math.floor(rnd() * (fine - inizio) / 86400000) * 86400000;
+    const b = a + (1 + Math.floor(rnd() * Math.min(4000, (fine - a) / 86400000))) * 86400000;
+    if (b > fine) continue;
+    const dal = new Date(a).toISOString().slice(0, 10), al = new Date(b).toISOString().slice(0, 10);
+    const o = interessi({ capitale: 12345.67, dal, al });
+    const r = interessiRiferimento(12345.67, dal, al);
+    assert.ok(Math.abs(o.interessi - r) < 1e-6, `${dal} → ${al}: ${o.interessi} vs ${r}`);
+  }
+});
+
+test("interessi legali: date invertite, prima del 1990 o dopo l'ultimo tasso noto", () => {
+  assert.match(interessi({ capitale: 100, dal: "2026-05-01", al: "2026-04-01" }).interessiLabel, /dopo/);
+  assert.match(interessi({ capitale: 100, dal: "1985-01-01", al: "2000-01-01" }).interessiLabel, /16\/12\/1990/);
+  assert.match(interessi({ capitale: 100, dal: "2026-01-01", al: "2027-03-01" }).interessiLabel, /non è ancora stato fissato/);
+  assert.match(interessi({ capitale: 100, dal: "2026-02-30", al: "2026-03-01" }).interessiLabel, /date/);
+});
